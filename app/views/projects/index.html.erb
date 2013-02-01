@@ -1,10 +1,10 @@
-<h1>Listing projects</h1>
+<h1>Alle Projekte</h1>
 
 <table>
   <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Year</th>
+    <th>Titel</th>
+    <th>Beschreibung</th>
+    <th>Jahr</th>
     <th>Genre</th>
     <th></th>
     <th></th>
@@ -17,13 +17,13 @@
     <td><%= project.description %></td>
     <td><%= project.year %></td>
     <td><%= project.genre %></td>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Anzeigen', project %></td>
+    <td><%= link_to 'Bearbeiten', edit_project_path(project) %></td>
+    <td><%= link_to 'Löschen', project, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Project', new_project_path %>
+<%= link_to 'Neues Projekt', new_project_path %>
