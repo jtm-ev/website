@@ -1,0 +1,21 @@
+<h1>Listing links</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+  </tr>
+
+<% @links.each do |link| %>
+  <tr>
+    <td><%= link_to link.url, href= "http://"+link.url %></td>
+    <td><br><%= link.description %></td>
+    <td><%= link_to 'Anzeigen', link %></td>
+    <td><%= link_to 'Bearbeiten', edit_link_path(link) %></td>
+    <td><%= link_to 'Löschen', link, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Neuer Link', new_link_path %>
