@@ -36,3 +36,13 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+group :development do
+  gem 'guard-livereload'  # livereload your browser on asset-changes (views, css)
+  gem 'rack-livereload'
+  gem 'rb-fsevent'
+  
+  gem 'term-ansicolor'    # Pretty printed test output
+  gem 'quiet_assets'      # depress asset-pipeline-logs during development
+  gem 'letter_opener'     # show sent emails in browser
+end
