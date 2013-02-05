@@ -96,6 +96,14 @@ namespace :deploy do
   end
 end
 
+after 'deploy:create_symlink', 'shared:configure'
+namespace :shared do
+  task :configure, :roles => :app do
+    run "mkdir -p #{shared_path}/shared"
+    run "ln -s #{shared_path}/shared #{release_path}/shared"
+  end
+end
+
 ###################################################################################
 # UNICORN (App Server)
 ###################################################################################
