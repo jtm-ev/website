@@ -10,6 +10,15 @@
   <%= @project.description.try :html_safe %>
 </p>
 
+<p>
+  <b>Bilder:</b>
+  <div>
+  <% @project.project_files.each do |item| %>
+    <img src='<%= item.file.url(:thumb) %>' title='<%= item.description %>'>
+  <% end %>
+  </div>
+</p>
+
 
 
 <%= link_to 'Edit', edit_project_path(@project) %> |

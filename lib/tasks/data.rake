@@ -1,3 +1,4 @@
+require 'open-uri'
 
 def read_xml(table)
   data = Hash.from_xml File.read("data/#{table}.xml")
@@ -13,6 +14,25 @@ def create_model(data, klass, fields = {})
   m
 end
 
+def create_index(table, id_field = 'id')
+  data = read_xml(table)
+  index = {}
+  data.each do |item|
+    index[ item[id_field] ] = item
+  end
+  index
+end
+
+def create_map(table, id_field = 'id')
+  data = read_xml(table)
+  index = {}
+  data.each do |item|
+    index[ item[id_field] ] ||= []
+    index[ item[id_field] ] << item
+  end
+  index
+end
+
 namespace :seed do
   desc "Seed existing data"
   task :projects => :environment do
@@ -23,4 +43,49 @@ namespace :seed do
       puts m.inspect
     end
   end
+  
+  task :pictures => :environment do
+    # Probleme:
+    # 404 Forbidden: 115, 113, 112, 111, 109, 108
+    # Bad Url (4 Stück): Aladin, TH Live 2005
+    
+    ProjectFile.delete_all
+    # si = create_index('jtm_stuecke')
+    ppm = create_map('jtm_stueck_bilder', 'stueck_id')
+    di = create_index('jtm_dokumente')
+    puts ppm.length
+    ppm.each do |index, items|
+      p = Project.find(index.to_i)
+      puts p.title
+      items.each do |item|
+        dokument = di[item['file_id']]
+        # puts " - #{dokument['pfad']} : #{dokument['beschreibung']}"
+        
+        file = dokument['pfad']
+        url = "http://jtm.de/uploads/#{file}"
+        file_name = File.basename(file)
+        
+        begin
+          open url do |f|
+            pf = p.project_files.create file: f, kind: 'image', description: dokument['beschreibung'], file_file_name: file_name
+            # puts pf.inspect
+          end
+        rescue Exception => e
+          puts " - ERROR: #{url}  : #{e}"
+        end
+        
+      end
+    end
+  end
+  
+  task :test => :environment do
+    p = Project.last
+    file = 'projekte/94/oz1.jpg'
+    file_name = File.basename(file)
+    open "http://jtm.de/uploads/#{file}" do |f|
+      pf = p.project_files.create file: f, kind: 'image', description: 'test', file_file_name: file_name
+      puts pf.inspect
+    end
+  end
+  
 end

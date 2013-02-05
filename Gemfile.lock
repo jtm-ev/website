@@ -42,6 +42,7 @@ GEM
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
     chunky_png (1.2.5)
+    cocaine (0.4.2)
     coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -104,6 +105,14 @@ GEM
     net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    paperclip (3.3.1)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.4.0)
+      mime-types
+    paperclip-meta (0.4.3)
+      paperclip
     polyglot (0.3.3)
     pry (0.9.11.4)
       coderay (~> 1.0.5)
@@ -182,6 +191,8 @@ DEPENDENCIES
   guard-livereload
   jquery-rails
   letter_opener
+  paperclip (~> 3.0)
+  paperclip-meta
   quiet_assets
   rack-livereload
   rails (= 3.2.11)
