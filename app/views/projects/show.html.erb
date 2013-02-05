@@ -7,18 +7,9 @@
 
 <p>
   <b>Description:</b>
-  <%= @project.description %>
+  <%= @project.description.try :html_safe %>
 </p>
 
-<p>
-  <b>Year:</b>
-  <%= @project.year %>
-</p>
-
-<p>
-  <b>Genre:</b>
-  <%= @project.genre %>
-</p>
 
 
 <%= link_to 'Edit', edit_project_path(@project) %> |

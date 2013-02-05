@@ -1,0 +1,65 @@
+/*@import 'compass';*/
+/*@import 'bootstrap';*/
+
+@import 'bootstrap/variables';
+@import 'bootstrap/mixins';
+
+@import 'bootstrap/sprites';
+@import 'bootstrap/buttons';
+@import 'bootstrap/button-groups';
+
+
+@import 'fonts';
+
+
+/************************************* Text Inputs */
+
+%text-input {
+  border: 1px solid #aaa;
+  padding: 5px 10px;
+  @include border-radius(4px);
+/*  @include box-shadow;*/
+/*  width: 100%;*/
+  background: white;
+}
+
+input[type=text], input[type=email], input[type=password] {
+  @extend %text-input;
+  @extend %font-copy;
+}
+
+.wysihtml5-sandbox {
+  @extend %text-input;
+  height: 300px;
+  width: 100%;
+}
+
+.wysihtml5-toolbar {
+  @extend .btn-toolbar;
+  margin-bottom: 5px;
+}
+
+.wysihtml5-toolbar-group {
+  @extend .btn-group;
+}
+
+.wysihtml5-toolbar a {
+  @extend .btn;
+  @extend .btn-small;
+/*  @extend .btn-inverse;*/
+  text-decoration: none;
+}
+
+.wysihtml5-command-active {
+/*  font-weight: bold;*/
+  @extend .active;
+}
+
+/************************************* Buttons */
+
+input[type=submit] {
+  @extend .btn;
+  @extend .btn-success;
+}
+
+

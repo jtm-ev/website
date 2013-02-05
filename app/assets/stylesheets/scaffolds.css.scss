@@ -1,10 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,800,700,300);
-
-@mixin box-sizing($attr: border-box) {
-  -webkit-box-sizing: $attr;
-  -moz-box-sizing: $attr;
-  box-sizing: $attr;
-}
+@import "compass";
 
 @mixin debug-border($side) {
   border-#{$side}: 1px solid black;
@@ -26,16 +20,14 @@ $logo-width: 150px;
   margin: 0 auto;
   padding: 10px;
   position: relative;
+  
+  background: #efe;
 }
 
-%font-copy {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-}
+
 
 * {
-  @include box-sizing;
+  @include box-sizing(border-box);
 }
 
 header {
@@ -95,21 +87,15 @@ html, body {
 }
 
 body {
-  @extend %font-copy;
   background-color: #fff;
-  color: #333;
   
   margin: 0;
   padding: 0;
 }
 
-table, td, th {
-  @extend %font-copy;
-}
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Rokkitt', serif;
-}
+
+
 
 pre {
   background-color: #eee;

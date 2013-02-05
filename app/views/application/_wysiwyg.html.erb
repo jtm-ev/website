@@ -1,0 +1,35 @@
+<div id="wysihtml5-toolbar-<%= field %>" class='wysihtml5-toolbar' style="display: none;">
+  <div class='wysihtml5-toolbar-group'>
+    <a data-wysihtml5-command="bold">B</a>
+    <a data-wysihtml5-command="italic">I</a>
+    <a data-wysihtml5-command="underline">U</a>
+  </div>
+  <div class='wysihtml5-toolbar-group'>
+
+    <!--a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a>
+    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a>
+    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a>
+
+    <a data-wysihtml5-command="createLink">Link</a>
+    <div data-wysihtml5-dialog="createLink" style="display: none;">
+      <label>
+        Link: <input data-wysihtml5-dialog-field="href" value="http://" class="text">
+      </label>
+      <a data-wysihtml5-dialog-action="save">OK</a>
+      <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+    </div-->
+  
+    <a data-wysihtml5-command="insertOrderedList"><i class='icon-list'></i></a>
+    <a data-wysihtml5-command="insertUnorderedList">UL</a>
+  </div>
+  
+</div>
+<%= form.text_area field, id: "wysihtml5-#{field}" %>
+<script>
+  var editor = new wysihtml5.Editor("wysihtml5-<%= field %>", {
+    toolbar:      "wysihtml5-toolbar-<%= field %>",
+    style:        false,
+    stylesheets:  "<%= stylesheet_path('fonts') %>",
+    parserRules:  wysihtml5ParserRules
+  });
+</script>
