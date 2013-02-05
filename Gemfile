@@ -29,15 +29,16 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
+gem 'capistrano-ext'
 
 # To use debugger
 # gem 'debugger'
 
-group :development do
+group :development do  
   gem 'guard-livereload'  # livereload your browser on asset-changes (views, css)
   gem 'rack-livereload'
   gem 'rb-fsevent'
