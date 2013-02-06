@@ -1,0 +1,18 @@
+
+<h1><%= @page.title %></h1>
+
+
+  <ul>
+    <% @page.children.where(show_in_navigation: true).each do |subpage| %>
+      <li><%= link_to subpage.title, subpage %></li>
+    <% end %>
+  </ul>
+
+
+<%= @page.content.try :html_safe %>
+
+
+<div class='actions'>
+  <%= link_to 'Edit', edit_page_path(@page) %>
+  <%= link_to 'Back', pages_path %>
+</div>

@@ -37,7 +37,7 @@ end
 namespace :seed do
   desc "Seed existing data"
   task :projects => :environment do
-    Project.delete_all
+    Project.destroy_all
     projects = read_xml('jtm_stuecke')
     projects.each do |project|
       m = create_model project, Project, id: 'id', title: 'titel', subtitle: 'untertitel', description: 'inhalt'
@@ -114,15 +114,26 @@ namespace :seed do
       end
     end
   end
-  
-  task :test => :environment do
-    p = Project.last
-    file = 'projekte/94/oz1.jpg'
-    file_name = File.basename(file)
-    open "http://jtm.de/uploads/#{file}" do |f|
-      pf = p.project_files.create file: f, kind: 'image', description: 'test', file_file_name: file_name
-      puts pf.inspect
+
+  task :groups => :environment do
+    Group.destroy_all
+    groups = read_xml('jtm_gruppen')
+    groups.each do |group|
+      puts group.inspect
+      g = create_model group, Group, id: 'id', name: 'name', shortcut: 'kuerzel', public: 'extern_sichtbar'
+      g.page.update_attributes content: group['beschreibung'], title: group['name']
+      # g.page.save
     end
   end
+  
+  # task :test => :environment do
+  #   p = Project.last
+  #   file = 'projekte/94/oz1.jpg'
+  #   file_name = File.basename(file)
+  #   open "http://jtm.de/uploads/#{file}" do |f|
+  #     pf = p.project_files.create file: f, kind: 'image', description: 'test', file_file_name: file_name
+  #     puts pf.inspect
+  #   end
+  # end
   
 end

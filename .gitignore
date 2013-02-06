@@ -15,3 +15,9 @@
 /tmp
 /.rbenv-version
 /public/system
+
+# Keine sensiblen Mitglieder-Daten auf GibHub einchecken (öffentlich!)
+/data/jtm_mitglieder.xml
+
+# Wir ignorieren tests fürs erste
+/test

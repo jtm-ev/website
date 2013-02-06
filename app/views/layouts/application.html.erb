@@ -16,8 +16,16 @@
           <%= navigation_link_to 'Projekte', projects_path %>
         </li>
         <li>
-          <%= navigation_link_to 'Der Verein', '/' %>
+          <%= navigation_link_to 'Gruppen', groups_path %>
         </li>
+        <li>
+          <%= navigation_link_to 'Seiten', pages_path %>
+        </li>
+        
+        <% Page.roots.where(show_in_navigation: true).each do |page| %>
+          <li><%= navigation_link_to page.title, page_path(page) %></li>
+        <% end %>
+        
       </ul>
     </nav>
   </header>

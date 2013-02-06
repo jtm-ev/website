@@ -62,4 +62,8 @@ input[type=submit] {
   @extend .btn-success;
 }
 
+.actions > a {
+  @extend .btn;
+  margin-top: 20px;
+}
 

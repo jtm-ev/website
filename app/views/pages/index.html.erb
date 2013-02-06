@@ -1,0 +1,21 @@
+<h1>Seiten</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>In Navigation</th>
+    <th>Public</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pages.each do |page| %>
+  <%= render 'pages/entry', page: page %>
+<% end %>
+</table>
+
+
+<div class='actions'>
+  <%= link_to 'Seite anlegen', new_page_path %>
+</div>

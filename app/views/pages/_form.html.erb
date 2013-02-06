@@ -1,0 +1,43 @@
+<% page ||= @page %>
+
+<%= form_for(page) do |f| %>
+  <% if page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <label>Oberseite</label>
+    <%= f.collection_select :parent_id, Page.roots, :id, :title, :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= render 'wysiwyg', {form: f, field: :content} %>
+  </div>
+  <div class="field">
+    <%= f.label :show_in_navigation %><br />
+    <%= f.check_box :show_in_navigation %>
+  </div>
+  <div class="field">
+    <%= f.label :order %><br />
+    <%= f.number_field :order %>
+  </div>
+  <div class="field">
+    <%= f.label :public %><br />
+    <%= f.check_box :public %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+
+<h1><%= @group.name %>
+  <div class='subtitle'><%= @group.description %></div>
+</h1>
+
+
+
+<%= render 'pages/show', page: @group.page %>
+
+
+<div class='actions'>
+  <%= link_to 'Edit', edit_group_path(@group) %>
+</div>
