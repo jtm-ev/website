@@ -34,6 +34,52 @@ def create_map(table, id_field = 'id')
   index
 end
 
+def find_member(name, first_name)
+  full_name = [name, first_name].join ' '
+  
+  if name.blank? or first_name.blank?
+    puts "ERROR: NO PERSON: #{full_name}"
+    return nil
+  end
+
+  # mm = Member.where(name: name, first_name: first_name).or.where(birth_name: name, first_name: first_name)
+  mm = Member.where("first_name = ? AND (name = ? or birth_name = ? )", first_name, name, name)
+  
+  if mm.count > 1
+    puts "ERROR: More : #{full_name}"
+    raise "More People"
+  elsif mm.count == 0
+    return Member.create name: name, first_name: first_name, active: false
+
+    # alt = Member.where(first_name: first_name, gender: 'w')
+    # if alt.count > 0
+    #   puts "\nChoose Member for: #{full_name}"
+    #   # puts " - #{alt.count} '#{first_name}' found"
+    #   alts = alt.to_a
+    #   alts.each_with_index do |a, i|
+    #     puts " #{i + 1}) : #{a.name} #{a.first_name}"
+    #   end
+    #   
+    #   inp = STDIN.gets.chomp.to_i
+    #   if inp == 0
+    #     return Member.create name: name, first_name: first_name, active: false
+    #   else
+    #     # apply birth_name
+    #     m = alts[inp - 1]
+    #     m.update_attributes birth_name: name
+    #     return m
+    #   end
+    # else
+    #   # puts "ERROR: NOTHING FOUND"
+    #   return Member.create name: name, first_name: first_name, active: false
+    # end
+  else
+    return mm.first
+  end
+  
+  nil
+end
+
 namespace :seed do
   desc "Seed existing data"
   task :projects => :environment do
@@ -124,6 +170,37 @@ namespace :seed do
       g.page.update_attributes content: group['beschreibung'], title: group['name']
       # g.page.save
     end
+  end
+  
+  task :members => :environment do
+    Member.destroy_all
+    members = read_xml('jtm_mitglieder')
+    members.each do |member|
+      puts [member['nachname'], member['vorname']].join ' '
+      m = create_model member, Member, id: 'id', name: 'nachname', first_name: 'vorname', street: 'strasse', city: 'wohnort', phone: 'telefon', fax: 'fax', mobile: 'handy', email: 'email', email_extern: 'email_extern', school: 'klasse', gender: 'geschlecht'
+      birthday = Date.strptime(member['geburtsdatum'], "%Y-%m-%d")
+      member_since = Date.strptime(member['mitglied_seit'], "%Y-%m-%d")
+      m.update_attributes birthday: birthday, member_since: member_since
+    end
+  end
+  
+  task :teams => :environment do
+    akts = read_xml('jtm_stueck_akteure')
+    team_index = create_index('jtm_stueck_akteur_bereiche')
+    akts.each do |akt|
+      p = Project.find akt['stueck_id'].to_i
+      team_name = team_index[ akt['bereich_id'] ]['name']
+      team = p.teams.find_or_create_by_name(team_name)
+      
+      m = find_member akt['nachname'], akt['vorname']
+      if m
+        team.team_members.create member: m, role: akt['figur']
+      end
+      # puts [p.title, team_name, team.id, nachname, vorname].join ' : '
+      
+    end
+    
+    puts "\nTeams: #{Team.count} TeamMembers: #{TeamMember.count}"
   end
   
   # task :test => :environment do

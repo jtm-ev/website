@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206124812) do
+ActiveRecord::Schema.define(:version => 20130206151336) do
 
   create_table "appointments", :force => true do |t|
     t.string   "name"
@@ -32,6 +32,26 @@ ActiveRecord::Schema.define(:version => 20130206124812) do
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "members", :force => true do |t|
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "birth_name"
+    t.string   "street"
+    t.string   "city"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "mobile"
+    t.string   "email"
+    t.string   "email_extern"
+    t.date     "birthday"
+    t.date     "member_since"
+    t.integer  "school"
+    t.string   "gender"
+    t.boolean  "active",       :default => true
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "pages", :force => true do |t|
@@ -66,6 +86,25 @@ ActiveRecord::Schema.define(:version => 20130206124812) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "subtitle"
+  end
+
+  create_table "team_members", :force => true do |t|
+    t.integer  "team_id"
+    t.integer  "member_id"
+    t.integer  "order"
+    t.string   "role"
+    t.boolean  "public",     :default => true
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "teams", :force => true do |t|
+    t.string   "name"
+    t.boolean  "public"
+    t.integer  "order"
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

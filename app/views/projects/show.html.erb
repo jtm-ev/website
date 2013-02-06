@@ -32,6 +32,23 @@
   </div>
 </p>
 
+<p>
+  <b>Teams:</b>
+  <ul>
+  <% @project.teams.each do |team| %>
+    <li><%= team.name %>
+      <ul>
+      <% team.team_members.each do |team_member| %>
+        <li>
+          <%= link_to team_member.member.full_name, team_member.member %>
+          <%= team_member.role %>
+        </li>
+      <% end %>
+      </ul>
+    </li>
+  <% end %>
+</p>
+
 
 <div class='actions'>
   <%= link_to 'Edit', edit_project_path(@project) %>

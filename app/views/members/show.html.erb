@@ -1,0 +1,96 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @member.name %>
+</p>
+
+<p>
+  <b>First name:</b>
+  <%= @member.first_name %>
+</p>
+
+<p>
+  <b>Birth name:</b>
+  <%= @member.birth_name %>
+</p>
+
+<p>
+  <b>Street:</b>
+  <%= @member.street %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @member.city %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @member.phone %>
+</p>
+
+<p>
+  <b>Fax:</b>
+  <%= @member.fax %>
+</p>
+
+<p>
+  <b>Mobile:</b>
+  <%= @member.mobile %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @member.email %>
+</p>
+
+<p>
+  <b>Email extern:</b>
+  <%= @member.email_extern %>
+</p>
+
+<p>
+  <b>Birthday:</b>
+  <%= @member.birthday %>
+</p>
+
+<p>
+  <b>Member since:</b>
+  <%= @member.member_since %>
+</p>
+
+<p>
+  <b>School:</b>
+  <%= @member.school %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @member.gender %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @member.active %>
+</p>
+
+<p>
+  <b>Projekte:</b>
+  <ul>
+  <% @member.projects.each do |project| %>
+    <li>
+      <%= project.title %>
+      <ul>
+        <% project.team_members.where(member_id: @member.id).each do |team_member| %>
+          <li><%= team_member.team.name %> (<%= team_member.role %>)</li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  </ul>
+</p>
+
+
+<%= link_to 'Edit', edit_member_path(@member) %> |
+<%= link_to 'Back', members_path %>
