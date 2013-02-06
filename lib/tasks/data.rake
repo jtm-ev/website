@@ -27,8 +27,9 @@ def create_map(table, id_field = 'id')
   data = read_xml(table)
   index = {}
   data.each do |item|
-    index[ item[id_field] ] ||= []
-    index[ item[id_field] ] << item
+    id = item[id_field].to_i
+    index[ id ] ||= []
+    index[ id ] << item
   end
   index
 end
@@ -49,7 +50,7 @@ namespace :seed do
     # 404 Forbidden: 115, 113, 112, 111, 109, 108
     # Bad Url (4 Stück): Aladin, TH Live 2005
     
-    ProjectFile.delete_all
+    # ProjectFile.delete_all
     # si = create_index('jtm_stuecke')
     ppm = create_map('jtm_stueck_bilder', 'stueck_id')
     di = create_index('jtm_dokumente')
@@ -68,6 +69,42 @@ namespace :seed do
         begin
           open url do |f|
             pf = p.project_files.create file: f, kind: 'image', description: dokument['beschreibung'], file_file_name: file_name
+            # puts pf.inspect
+          end
+        rescue Exception => e
+          puts " - ERROR: #{url}  : #{e}"
+        end
+        
+      end
+    end
+  end
+  
+  task :press => :environment do
+    # ProjectFile.delete_all
+
+    ppm = create_map('jtm_presse', 'projekt_id')
+    di = create_index('jtm_dokumente')
+    # puts ppm.length
+    ppm.each do |index, items|
+      if index == 0
+        puts "\n---   NO Project: #{items.inspect}\n"
+        next
+      end
+      p = Project.find(index)
+      puts p.title
+      items.each do |item|
+        dokument = di[item['file_id']]
+        datum = DateTime.strptime("#{dokument['timestamp']}",'%s')
+        puts " - #{dokument['pfad']} : #{dokument['zeitung']}"
+        
+        file = dokument['pfad']
+        url = "http://jtm.de/uploads/#{file}"
+        file_name = File.basename(file)
+        
+        begin
+          
+          open url do |f|
+            pf = p.project_files.create! file: f, kind: 'press', description: dokument['zeitung'], file_file_name: file_name, meta: {published_at: datum}
             # puts pf.inspect
           end
         rescue Exception => e

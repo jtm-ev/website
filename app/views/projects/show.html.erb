@@ -13,8 +13,21 @@
 <p>
   <b>Bilder:</b>
   <div>
-  <% @project.project_files.each do |item| %>
-    <img src='<%= item.file.url(:thumb) %>' title='<%= item.description %>'>
+  <% @project.images.each do |item| %>
+    <a href='<%= item.file.url %>'>
+      <img src='<%= item.file.url(:square) %>' title='<%= item.description %>'>
+    </a>
+  <% end %>
+  </div>
+</p>
+
+<p>
+  <b>Presse:</b>
+  <div>
+  <% @project.press.each do |item| %>
+    <a href='<%= item.file.url %>'>
+      <img src='<%= item.file.url(:square) %>' title='<%= item.description %>'>
+    </a>
   <% end %>
   </div>
 </p>

@@ -3,4 +3,12 @@ class Project < ActiveRecord::Base
   
   has_many :project_files, dependent: :destroy
   
+  def images
+    self.project_files.where(kind: 'image')
+  end
+  
+  def press
+    self.project_files.where(kind: 'press')
+  end
+  
 end
