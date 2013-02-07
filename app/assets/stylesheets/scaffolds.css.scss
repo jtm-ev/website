@@ -14,14 +14,23 @@ $logo-width: 150px;
 %core-container {
   @include debug-border(left);
   @include debug-border(right);
+  @include debug-border(top);
+  @include debug-border(bottom);
   
   max-width: 960px;
   width: 80%;
-  margin: 0 auto;
-  padding: 10px;
+/*  margin: 0 auto;*/
+  
+  padding: 25px;
   position: relative;
   
-  background: #efe;
+  background: rgba(255, 255, 255, 0.9);
+  
+  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.55);
+  -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.55);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.55);
+  
+  @include border-radius(4px);
 }
 
 
@@ -34,28 +43,60 @@ header {
   @extend %core-block;
 }
 
-nav {
-  @extend %core-container;
-  @include debug-border(bottom);
-  background: #eee;
-  ul, li {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
+$sidebar_width: 250px;
+
+#sidebar {
+  position: fixed;
+  width: $sidebar_width;
+  left: 0; top: 0; bottom: 0;
+  background: white;
+  z-index: 1000;
+/*  border-right: 1px solid black;*/
+  text-align: center;
+  
+  #logo {
+    margin-top: 20px;
   }
-  li {
-    margin-right: 10px;
-  }
-  a {
-    text-decoration: underline;
-  }
-  a.active {
-    color: blue;
+  
+  nav {
+    display: block;
+
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    ul, li {
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      border-bottom: 1px solid #ccc;
+      
+      vertical-align: middle;
+    }
+    a {
+      font-weight: 700;
+      text-transform: uppercase;
+      color: black;
+      line-height: 45px;
+    }
+    a.active {
+      color: #B8004A;
+    }
   }
 }
 
+
+
 #content {
-  @extend %core-block;
+  margin-left: $sidebar_width - 10px;
+/*  background-image: url(/images/background.jpg);*/
+  background-image: url(/system/project_files/5819cbc0c40dadab876a83fd9a7197274d121f54.JPG?1360108989);
+  background-size: cover;
+  background-attachment: fixed;
+/*  border: 1px solid red;*/
+  padding: 80px;
+  min-height: 100%;
 }
 
 .container {
@@ -71,13 +112,7 @@ footer {
   }
 }
 
-#logo {
-  position: fixed;
-  top: 0px;
-  padding: 10px;
-  width: $logo-width;
-  max-width: 10%;
-}
+
 
 
 
