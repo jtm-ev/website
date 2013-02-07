@@ -60,7 +60,7 @@ namespace :seed do
       puts p.title
       items.each do |item|
         dokument = di[item['file_id']]
-        # puts " - #{dokument['pfad']} : #{dokument['beschreibung']}"
+        puts " - #{dokument['pfad']} : #{dokument['beschreibung']}"
         
         file = dokument['pfad']
         url = "http://jtm.de/uploads/#{file}"
@@ -69,7 +69,7 @@ namespace :seed do
         begin
           open url do |f|
             pf = p.project_files.create file: f, kind: 'image', description: dokument['beschreibung'], file_file_name: file_name
-            # puts pf.inspect
+            puts pf.inspect
           end
         rescue Exception => e
           puts " - ERROR: #{url}  : #{e}"

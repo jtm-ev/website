@@ -39,7 +39,7 @@ gem "acts_as_tree"
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-gem 'unicorn'
+gem 'thin'
 
 # Deploy with Capistrano
 gem 'capistrano'
