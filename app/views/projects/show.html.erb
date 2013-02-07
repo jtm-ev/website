@@ -38,10 +38,10 @@
   <% @project.teams.each do |team| %>
     <li><%= team.name %>
       <ul>
-      <% team.team_members.each do |team_member| %>
+      <% team.team_memberships.each do |team_membership| %>
         <li>
-          <%= link_to team_member.member.full_name, team_member.member %>
-          <%= team_member.role %>
+          <%= link_to team_membership.member.full_name, team_membership.member %>
+          <%= team_membership.role %>
         </li>
       <% end %>
       </ul>

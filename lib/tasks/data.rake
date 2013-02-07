@@ -194,13 +194,13 @@ namespace :seed do
       
       m = find_member akt['nachname'], akt['vorname']
       if m
-        team.team_members.create member: m, role: akt['figur']
+        team.team_memberships.create member: m, role: akt['figur']
       end
       # puts [p.title, team_name, team.id, nachname, vorname].join ' : '
       
     end
     
-    puts "\nTeams: #{Team.count} TeamMembers: #{TeamMember.count}"
+    puts "\nTeams: #{Team.count} TeamMembers: #{TeamMembership.count}"
   end
   
   # task :test => :environment do

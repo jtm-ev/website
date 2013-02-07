@@ -1,11 +1,13 @@
-class CreateTeamMembers < ActiveRecord::Migration
+class CreateTeamMemberships < ActiveRecord::Migration
   def change
-    create_table :team_members do |t|
+    create_table :team_memberships do |t|
       t.integer :team_id
       t.integer :member_id
       t.integer :order
       
       t.string :role
+      t.string :description
+      
       t.boolean :public, default: true
       
       t.timestamps

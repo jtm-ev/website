@@ -88,14 +88,15 @@ ActiveRecord::Schema.define(:version => 20130206151336) do
     t.string   "subtitle"
   end
 
-  create_table "team_members", :force => true do |t|
+  create_table "team_memberships", :force => true do |t|
     t.integer  "team_id"
     t.integer  "member_id"
     t.integer  "order"
     t.string   "role"
-    t.boolean  "public",     :default => true
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.string   "description"
+    t.boolean  "public",      :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "teams", :force => true do |t|

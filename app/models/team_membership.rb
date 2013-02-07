@@ -1,4 +1,4 @@
-class TeamMember < ActiveRecord::Base
+class TeamMembership < ActiveRecord::Base
   attr_accessible :role, :public, :order, :member
   
   belongs_to :team

@@ -80,10 +80,10 @@
   <ul>
   <% @member.projects.each do |project| %>
     <li>
-      <%= project.title %>
+      <%= link_to project.title, project %>
       <ul>
-        <% project.team_members.where(member_id: @member.id).each do |team_member| %>
-          <li><%= team_member.team.name %> (<%= team_member.role %>)</li>
+        <% project.team_memberships_for(@member).each do |team_membership| %>
+          <li><%= team_membership.team.name %> (<%= team_membership.role %>)</li>
         <% end %>
       </ul>
     </li>
