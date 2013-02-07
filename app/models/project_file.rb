@@ -6,7 +6,7 @@ class ProjectFile < ActiveRecord::Base
   
   belongs_to :project
   
-  validates_attachment_content_type :file, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
+  # validates_attachment_content_type :file, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
   
   # Auto-Rotate gibt bei manchen Bildern Probleme (EXIF autoorient?): http://pjkh.com/articles/rails-paperclip-auto-orient-and-resizing/
   has_attached_file :file, {
