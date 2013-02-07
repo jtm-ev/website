@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
+<h1>
+  
   <%= @project.title %>
-</p>
+</h1>
 
 <p>
-  <b>Description:</b>
+  
   <%= @project.description.try :html_safe %>
 </p>
 
