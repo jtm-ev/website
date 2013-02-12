@@ -1,8 +1,17 @@
 class ProjectsController < ApplicationController
+  
+  def filtered_collection
+    col = Project.scoped
+    col = col.tagged_with(params[:tags].split(':')) unless params[:tags].blank?
+    
+    col = col.order('id DESC')
+  end
+  
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all.reverse
+    @projects = filtered_collection
+    # @projects = @projects.order(id: :desc)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +23,10 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    
+    collection = filtered_collection
+    @previous = collection.previous(@project).last
+    @next     = collection.next(@project).first
 
     respond_to do |format|
       format.html # show.html.erb

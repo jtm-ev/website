@@ -16,6 +16,8 @@ group :assets do
   gem 'compass-rails'
   gem 'bootstrap-sass'
   gem 'wysihtml5-rails'
+  gem "jquery-fileupload-rails"
+  gem "select2-rails"
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -26,20 +28,21 @@ end
 gem 'jquery-rails'
 
 # Image Upload / Processing
-gem "paperclip", '~> 3.0'
+gem "paperclip", '3.4.0'
 gem "paperclip-meta"
 
 gem "acts_as_tree"
+gem "acts-as-taggable-on"
 
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder'
 
 # Use unicorn as the app server
-gem 'unicorn'
+gem 'thin'
 
 # Deploy with Capistrano
 gem 'capistrano'

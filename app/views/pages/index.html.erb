@@ -10,12 +10,20 @@
     <th></th>
   </tr>
 
-<% @pages.each do |page| %>
-  <%= render 'pages/entry', page: page %>
+<% Page.tree_array(@pages).each do |entry| %>
+  <% page = entry.instance %>
+  <tr>
+    <td><%= entry.label %></td>
+    <td><%= page.show_in_navigation %></td>
+    <td><%= page.public %></td>
+    <td><%= link_to 'Show', page %></td>
+    <td><%= link_to 'Edit', edit_page_path(page) %></td>
+    <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
 <% end %>
 </table>
 
 
-<div class='actions'>
+<% content_for :actions do %>
   <%= link_to 'Seite anlegen', new_page_path %>
-</div>
+<% end %>

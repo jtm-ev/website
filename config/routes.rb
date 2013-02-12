@@ -4,11 +4,23 @@ Website::Application.routes.draw do
 
   resources :groups
 
-
-  resources :pages
-
-
-  resources :projects
+  resources :pages do
+    resources :page_files
+  end
+  
+  
+  resources :projects do
+  # resources :projects do
+    resources :project_files do
+      collection do
+        post ':kind' => 'project_files#create', as: 'specific'
+      end
+    end
+  end
+  
+  get '/projects(/tagged/:tags)' => 'projects#index', as: :tagged_projects
+  get '/projects(/tagged/:tags)/:id' => 'projects#show', as: :show_tagged_projects
+  # get '/projects(/tagged/:tags)/:id/edit' => 'projects#edit' #, as: :edit_project
 
 
   # The priority is based upon order of creation:

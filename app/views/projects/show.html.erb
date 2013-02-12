@@ -1,12 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @project.title %>
-</p>
+<h1><%= @project.title %></h1>
+
+<% if @previous %>
+  <%= link_to '<<<', show_tagged_projects_path(params[:tags], @previous) %>
+<% else %>
+  <<<
+<% end %>
+<%= link_to (params[:tags].try(:humanize) or 'Alle'), tagged_projects_path(params[:tags]) %>
+<% if @next %>
+  <%= link_to '>>>', show_tagged_projects_path(params[:tags], @next) %>
+<% else %>
+  >>>
+<% end %>
+
+<div class="slider-wrapper">
+    <div id="slider" class="nivoSlider">
+        <% @project.images.each do |item| %>
+          <img src='<%= item.file.url(:large_cinema) %>' title='<%= item.description %>'>
+        <% end %>
+    </div>
+</div>
+<div id="htmlcaption" class="nivo-html-caption">
+    <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+</div>
 
 <p>
-  <b>Description:</b>
+  
   <%= @project.description.try :html_safe %>
 </p>
 
@@ -50,7 +70,6 @@
 </p>
 
 
-<div class='actions'>
-  <%= link_to 'Edit', edit_project_path(@project) %>
-  <%= link_to 'Back', projects_path %>
-</div>
+<% content_for :actions do %>
+  <%= navigation_link_to 'Projekt bearbeiten', edit_project_path(@project) %>
+<% end %>

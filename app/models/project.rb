@@ -1,9 +1,18 @@
 class Project < ActiveRecord::Base
-  attr_accessible :description, :title, :subtitle
+  scope :previous,  lambda { |i| {conditions: ["#{self.table_name}.id > ?", i.id]} }
+  scope :next,      lambda { |i| {conditions: ["#{self.table_name}.id < ?", i.id]} }
+  
+  # default_scope scoped
+  # scope :previous,  lambda { |i| where('id < ?', i.id).first }
+  # scope :next,      lambda { |i| where('id > ?', i.id).first }
+  
+  attr_accessible :description, :title, :subtitle, :tag_list
   
   has_many :project_files, dependent: :destroy
   has_many :teams, dependent: :destroy
   has_many :team_memberships, through: :teams
+  
+  acts_as_taggable_on :tags
   
   def images
     self.project_files.where(kind: 'image')
