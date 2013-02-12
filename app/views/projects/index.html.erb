@@ -2,7 +2,7 @@
 
 <ul class='nav-simple'>
   
-  <%= navigation_link_to 'Alle', projects_path %>
+  <%= navigation_link_to 'Alle', tagged_projects_path() %>
   <% Project.tag_counts.each do |tag| %>
     <%= navigation_link_to "#{tag.name.humanize} (#{tag.count})", tagged_projects_path(tag.name.downcase) %>
   <% end %>
@@ -25,9 +25,9 @@
     <td><%= project.title %></td>
     <td><%= project.subtitle %></td>
     <td><%= project.project_files.count %></td>
-    <td><%= link_to 'Show', project %></td>
+    <td><%= link_to 'Show', show_tagged_projects_path(params[:tags], project) %></td>
     <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

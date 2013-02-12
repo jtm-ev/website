@@ -6,8 +6,8 @@ Website::Application.routes.draw do
   end
   
   
-
   resources :projects do
+  # resources :projects do
     resources :project_files do
       collection do
         post ':kind' => 'project_files#create', as: 'specific'
@@ -15,7 +15,9 @@ Website::Application.routes.draw do
     end
   end
   
-  get '/projects/tagged/:tags' => 'projects#index', as: :tagged_projects
+  get '/projects(/tagged/:tags)' => 'projects#index', as: :tagged_projects
+  get '/projects(/tagged/:tags)/:id' => 'projects#show', as: :show_tagged_projects
+  # get '/projects(/tagged/:tags)/:id/edit' => 'projects#edit' #, as: :edit_project
 
 
   # The priority is based upon order of creation:

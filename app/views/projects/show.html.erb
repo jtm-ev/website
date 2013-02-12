@@ -1,9 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>
-  
-  <%= @project.title %>
-</h1>
+<h1><%= @project.title %></h1>
+
+<% if @previous %>
+  <%= link_to '<<<', show_tagged_projects_path(params[:tags], @previous) %>
+<% else %>
+  <<<
+<% end %>
+<%= link_to (params[:tags].try(:humanize) or 'Alle'), tagged_projects_path(params[:tags]) %>
+<% if @next %>
+  <%= link_to '>>>', show_tagged_projects_path(params[:tags], @next) %>
+<% else %>
+  >>>
+<% end %>
 
 <div class="slider-wrapper">
     <div id="slider" class="nivoSlider">
