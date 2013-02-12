@@ -16,7 +16,7 @@ jQuery ->
       # paramName: 'files[]'
       add: (e, data)->
         console.log "Add File", data
-        # data.submit()
+        data.submit()
       done: (e, data)->
         console.log "Done", data
       fail: (e, data)->

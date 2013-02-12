@@ -1,0 +1,13 @@
+<div>
+  <% collection.each do |attachment| %>
+    <a href='<%= attachment.file.url %>'>
+      <% if attachment.image? %>
+        <img src='<%= attachment.file.url(:square, {}) %>'>
+      <% else %>
+        <%= attachment.file_file_name %>
+      <% end %>
+    </a>
+  <% end %>
+</div>
+
+<input class='fileupload' type='file' name='files[]' data-url='<%= upload_url %>' multiple>

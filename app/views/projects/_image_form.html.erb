@@ -1,7 +1,0 @@
-<div>
-  <% collection.each do |image| %>
-    <img src='<%= image.file.url(:square) %>'>
-  <% end %>
-</div>
-
-<input class='fileupload' type='file' name='files[]' data-url='<%= specific_project_project_files_url(project, {kind: kind}) %>' multiple>

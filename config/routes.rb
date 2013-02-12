@@ -1,9 +1,9 @@
 Website::Application.routes.draw do
   resources :groups
 
-
-  resources :pages
-
+  resources :pages do
+    resources :page_files
+  end
 
   resources :projects do
     resources :project_files do
@@ -11,9 +11,6 @@ Website::Application.routes.draw do
         post ':kind' => 'project_files#create', as: 'specific'
       end
     end
-    # member do
-    #   post 'project_files/:kind' => 'project_files#create'
-    # end
   end
 
 
