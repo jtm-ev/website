@@ -50,7 +50,7 @@ $sidebar_width: 250px;
   width: $sidebar_width;
   left: 0; top: 0; bottom: 0;
   background: white;
-  z-index: 1000;
+/*  z-index: 1000;*/
 /*  border-right: 1px solid black;*/
   text-align: center;
   
@@ -80,9 +80,18 @@ $sidebar_width: 250px;
       color: black;
       line-height: 45px;
     }
-    a.active {
+    .active a {
       color: #B8004A;
     }
+  }
+}
+
+.internal { 
+  #sidebar {
+    top: 30px;
+  }
+  #content {
+    margin-top: 30px;
   }
 }
 

@@ -12,7 +12,6 @@
 <%= @page.content.try :html_safe %>
 
 
-<div class='actions'>
-  <%= link_to 'Edit', edit_page_path(@page) %>
-  <%= link_to 'Back', pages_path %>
-</div>
+<% content_for :actions do %>
+  <%= navigation_link_to 'Seite bearbeiten', edit_page_path(@page) %>
+<% end %>

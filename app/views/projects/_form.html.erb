@@ -30,10 +30,11 @@
   </div>
 <% end %>
 
-<h2>Bilder</h2>
-<%= render 'image_form', {collection: @project.images, upload_url: specific_project_project_files_url(@project, {kind: 'image'})} %>
+<% unless @project.new_record? %>
+  <h2>Bilder</h2>
+  <%= render 'image_form', {collection: @project.images, upload_url: specific_project_project_files_url(@project, {kind: 'image'})} %>
 
-<h2>Presse</h2>
-<%= render 'image_form', {collection: @project.press, upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
-
+  <h2>Presse</h2>
+  <%= render 'image_form', {collection: @project.press, upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
+<% end %>
 

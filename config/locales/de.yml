@@ -1,6 +1,12 @@
 
 de:
+  helpers:
+    submit:
+      create: '%{model} erstellen'
   activerecord:
+    models:
+      project: 'Projekt'
+      group: 'Gruppe'
     attributes:
       project:
         title: 'Titel'

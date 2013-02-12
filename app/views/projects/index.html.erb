@@ -26,4 +26,6 @@
 
 <br />
 
-<%= link_to 'New Project', new_project_path %>
+<% content_for :actions do %>
+  <%= navigation_link_to 'Projekt anlegen', new_project_path %>
+<% end %>

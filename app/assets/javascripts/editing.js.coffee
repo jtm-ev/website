@@ -1,6 +1,7 @@
 #= require wysihtml5
 #= require parser_rules/advanced
 #= require jquery-fileupload/basic
+#= require bootstrap-dropdown
 
 jQuery ->
   # Handle File Uploads
@@ -32,3 +33,6 @@ jQuery ->
   # Disable Browser Defaults for File Drop
   $(document).bind 'drop dragover', (e)->
     e.preventDefault()
+    
+  # Dropdowns
+  $('.dropdown-toggle').dropdown()
