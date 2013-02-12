@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     
     collection = filtered_collection
-    @previous = collection.previous(@project).first
+    @previous = collection.previous(@project).last
     @next     = collection.next(@project).first
 
     respond_to do |format|
