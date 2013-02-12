@@ -2,6 +2,7 @@
 #= require parser_rules/advanced
 #= require jquery-fileupload/basic
 #= require bootstrap-dropdown
+#= require select2
 
 jQuery ->
   # Handle File Uploads
@@ -36,3 +37,9 @@ jQuery ->
     
   # Dropdowns
   $('.dropdown-toggle').dropdown()
+  
+  # Tags
+  $('input.tags').select2 {
+    tags: []
+    tokenSeparators: [',']
+  }

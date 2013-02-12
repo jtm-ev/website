@@ -17,6 +17,7 @@ group :assets do
   gem 'bootstrap-sass'
   gem 'wysihtml5-rails'
   gem "jquery-fileupload-rails"
+  gem "select2-rails"
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -31,6 +32,7 @@ gem "paperclip", '3.4.0'
 gem "paperclip-meta"
 
 gem "acts_as_tree"
+gem "acts-as-taggable-on"
 
 
 # To use ActiveModel has_secure_password

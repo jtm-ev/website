@@ -161,4 +161,22 @@ a {
   }
 }
 
+.nav-simple {
+  margin: 5px 0; 
+  padding: 0;
+  
+  li {
+    list-style: none;
+    display: inline-block;
+  }
+  
+  li:not(:last-child):after {
+    content: ' | ';
+  }
+  
+  li.active a {
+    text-decoration: underline;
+  }
+}
+
 

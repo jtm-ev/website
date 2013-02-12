@@ -4,6 +4,8 @@ Website::Application.routes.draw do
   resources :pages do
     resources :page_files
   end
+  
+  
 
   resources :projects do
     resources :project_files do
@@ -12,6 +14,8 @@ Website::Application.routes.draw do
       end
     end
   end
+  
+  get '/projects/tagged/:tags' => 'projects#index', as: :tagged_projects
 
 
   # The priority is based upon order of creation:

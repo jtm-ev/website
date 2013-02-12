@@ -2,7 +2,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all.reverse
+    @projects = Project.scoped
+    @projects = @projects.tagged_with(params[:tags].split(':')) unless params[:tags].blank?
 
     respond_to do |format|
       format.html # index.html.erb
