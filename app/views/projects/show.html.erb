@@ -5,6 +5,17 @@
   <%= @project.title %>
 </h1>
 
+<div class="slider-wrapper">
+    <div id="slider" class="nivoSlider">
+        <% @project.images.each do |item| %>
+          <img src='<%= item.file.url(:large_cinema) %>' title='<%= item.description %>'>
+        <% end %>
+    </div>
+</div>
+<div id="htmlcaption" class="nivo-html-caption">
+    <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+</div>
+
 <p>
   
   <%= @project.description.try :html_safe %>

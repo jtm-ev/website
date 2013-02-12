@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212104818) do
+ActiveRecord::Schema.define(:version => 20130212145357) do
 
   create_table "appointments", :force => true do |t|
     t.string   "name"
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(:version => 20130212104818) do
     t.text     "file_meta"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "width"
+    t.integer  "height"
   end
 
   create_table "pages", :force => true do |t|
@@ -91,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20130212104818) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.text     "meta"
+    t.integer  "width"
+    t.integer  "height"
   end
 
   create_table "projects", :force => true do |t|

@@ -103,8 +103,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.1)
-    mime-types (1.19)
-    multi_json (1.5.0)
+    mime-types (1.21)
+    multi_json (1.5.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -112,7 +112,7 @@ GEM
     net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    paperclip (3.3.1)
+    paperclip (3.4.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -200,7 +200,7 @@ DEPENDENCIES
   jquery-fileupload-rails
   jquery-rails
   letter_opener
-  paperclip (~> 3.0)
+  paperclip (= 3.4.0)
   paperclip-meta
   quiet_assets
   rack-livereload

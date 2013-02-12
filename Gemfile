@@ -27,7 +27,7 @@ end
 gem 'jquery-rails'
 
 # Image Upload / Processing
-gem "paperclip", '~> 3.0'
+gem "paperclip", '3.4.0'
 gem "paperclip-meta"
 
 gem "acts_as_tree"
