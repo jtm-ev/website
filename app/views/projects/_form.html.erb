@@ -30,4 +30,10 @@
   </div>
 <% end %>
 
+<h2>Bilder</h2>
+<%= render 'image_form', {collection: @project.images, project: @project, kind: 'image'} %>
+
+<h2>Presse</h2>
+<%= render 'image_form', {collection: @project.press, project: @project, kind: 'press'} %>
+
 

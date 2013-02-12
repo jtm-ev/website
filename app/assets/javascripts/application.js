@@ -12,6 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require wysihtml5
-//= require parser_rules/advanced
+//= require editing
 //= require_tree .

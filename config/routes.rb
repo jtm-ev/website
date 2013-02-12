@@ -5,7 +5,16 @@ Website::Application.routes.draw do
   resources :pages
 
 
-  resources :projects
+  resources :projects do
+    resources :project_files do
+      collection do
+        post ':kind' => 'project_files#create', as: 'specific'
+      end
+    end
+    # member do
+    #   post 'project_files/:kind' => 'project_files#create'
+    # end
+  end
 
 
   # The priority is based upon order of creation:
