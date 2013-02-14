@@ -24,3 +24,6 @@
 # Wir ignorieren tests fürs erste
 /test
 JTM.komodoproject
+
+/Gemfile.lock
+/db/schema.rb
