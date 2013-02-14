@@ -6,7 +6,7 @@ class Project < ActiveRecord::Base
   # scope :previous,  lambda { |i| where('id < ?', i.id).first }
   # scope :next,      lambda { |i| where('id > ?', i.id).first }
   
-  attr_accessible :description, :title, :subtitle, :tag_list
+  attr_accessible :description, :title, :subtitle, :tag_list, :videos
   
   has_many :project_files, dependent: :destroy
   
