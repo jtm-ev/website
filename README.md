@@ -1,5 +1,8 @@
 # JTM Website
 
+## Hilfe Seiten
+- http://guides.rubyonrails.org/
+
 ## Fehlende Thumbnails der Bilder generieren
 	rake paperclip:refresh:missing_styles
 
@@ -25,7 +28,7 @@ Git Shell öffnen und dann:
 - Ghostscript: http://www.ghostscript.com/download/gsdnld.html
 - ImageMagick: http://www.imagemagick.org/script/binary-releases.php#windows
 
-
+rake paperclip:refresh:missing_styles CLASS=ProjectFile
 
 ## Programmierung
 

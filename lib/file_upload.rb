@@ -64,7 +64,7 @@ module FileUpload
   
   def image?
     # also handle PDFs like images
-    file_content_type =~ %r{^(image|(x-)?application)/(bmp|gif|jpeg|jpg|pjpeg|png|x-png|pdf|x-pdf)$}
+    true #file_content_type =~ %r{^(image|(x-)?application)/(bmp|gif|jpeg|jpg|pjpeg|png|x-png|pdf|x-pdf)$}
   end
   
   def landscape?
