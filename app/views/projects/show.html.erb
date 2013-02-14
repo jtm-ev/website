@@ -52,6 +52,15 @@
   </div>
 </p>
 
+<p>
+  <b>Videos:</b>
+    <div>
+      <% @project.videos.each_line do |video_url| %>
+        <%= youtube_embed(video_url).html_safe %>
+      <% end %>
+    </div> 
+</p>
+
 
 <% content_for :actions do %>
   <%= navigation_link_to 'Projekt bearbeiten', edit_project_path(@project) %>
