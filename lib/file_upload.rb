@@ -35,9 +35,9 @@ module FileUpload
       # },
       styles: lambda { |asset|
         lc_style = { geometry: '1024x576#', format: :png }
-        unless asset.instance.landscape?
-          lc_style = { geometry: '1024x', format: :png, convert_options: '+repage -crop 1024x576+0+100 -gravity North' }
-        end
+        # unless asset.instance.landscape?
+        #   lc_style = { geometry: '1024x', format: :png, convert_options: '+repage -crop 1024x576+0+100 -gravity North' }
+        # end
         {
           square: {geometry: '100x100#', format: :png},
           large_cinema: lc_style
@@ -68,6 +68,7 @@ module FileUpload
   end
   
   def landscape?
+    return false unless (self.width && self.height)
     self.width > self.height
   end
   
