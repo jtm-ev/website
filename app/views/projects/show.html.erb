@@ -55,8 +55,13 @@
 <p>
   <b>Videos:</b>
     <div>
-      <% @project.videos.each_line do |video_url| %>
-        <%= youtube_embed(video_url).html_safe %>
+      <% if @project.videos == nil %>
+        <p>Keine Videos verfügbar</p>
+      <% end %>
+      <% if @project.videos != nil %>
+        <% @project.videos.each_line do |video_url| %>
+          <%= youtube_embed(video_url).html_safe %>
+        <% end %>
       <% end %>
     </div> 
 </p>
