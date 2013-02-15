@@ -8,29 +8,16 @@
   <% end %>
 </ul>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Title</th>
-    <th>Untertitel</th>
-    <th>Images</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
 <% @projects.each do |project| %>
-  <tr>
-    <td><%= project.id %></td>
-    <td><%= project.title %></td>
-    <td><%= project.subtitle %></td>
-    <td><%= project.project_files.count %></td>
-    <td><%= link_to 'Show', show_tagged_projects_path(params[:tags], project) %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <div class='project-box'>
+    <h2><%= link_to (truncate(project.title, length: 34)), project %></h2>
+    <% if project.project_files.length > 0 %>
+      <img src='<%=project.project_files.first.file.url(:square)%>'align='left'>
+    <% end %>
+    <p><%= truncate(project.description, length: 120)%></p>
+  </div>
 <% end %>
-</table>
+
 
 <br />
 
