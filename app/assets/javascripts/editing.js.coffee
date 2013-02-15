@@ -3,6 +3,7 @@
 #= require jquery-fileupload/basic
 #= require bootstrap-dropdown
 #= require select2
+#= require jquery-ui
 
 jQuery ->
   # Handle File Uploads
@@ -43,3 +44,15 @@ jQuery ->
     tags: []
     tokenSeparators: [',']
   }
+  
+  # Image Sorting
+  $('.sortable-images').sortable {
+    update: (event, ui)->
+      parent = ui.item.parent()
+      input = parent.find('input')
+      ids = parent.find('li').map (index, item)->
+        $(item).data('id')
+      
+      input.val ids.toArray().join(',') 
+  }
+  
