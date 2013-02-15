@@ -47,10 +47,11 @@ jQuery ->
   
   # Image Sorting
   $('.sortable-images').sortable {
+    items: '> img'
     update: (event, ui)->
       parent = ui.item.parent()
       input = parent.find('input')
-      ids = parent.find('li').map (index, item)->
+      ids = parent.find('> img').map (index, item)->
         $(item).data('id')
       
       input.val ids.toArray().join(',') 

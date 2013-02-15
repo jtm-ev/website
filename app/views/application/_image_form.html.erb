@@ -1,10 +1,10 @@
-<ul class='sortable-images'>
+<div class='sortable-images'>
   <input type='hidden' name='sorting[]' />
   <% collection.each do |attachment| %>
     <% if attachment.image? %>
-      <li data-id='<%= attachment.id %>'><img src='<%= attachment.file.url(:square, {}) %>'></li>
+      <img data-id='<%= attachment.id %>' src='<%= attachment.file.url(:square, {}) %>'>
     <% end %>
   <% end %>
-</ul>
+</div>
 
 <input class='fileupload' type='file' name='files[]' data-url='<%= upload_url %>' multiple>

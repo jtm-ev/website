@@ -52,7 +52,7 @@
     </nav>
   </section>
   
-  <section id='content'>
+  <section id='content' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'>
     <div class='container'>
       <%= yield %>
     </div>
