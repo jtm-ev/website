@@ -1,5 +1,6 @@
 #= require wysihtml5
-#= require parser_rules/advanced
+#= require_tree ./wysihtml5
+# require parser_rules/advanced
 #= require jquery-fileupload/basic
 #= require bootstrap-dropdown
 #= require select2

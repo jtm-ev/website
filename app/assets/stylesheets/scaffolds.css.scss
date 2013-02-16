@@ -75,6 +75,7 @@ $sidebar_width: 250px;
       vertical-align: middle;
     }
     a {
+      text-decoration: none;
       font-weight: 700;
       text-transform: uppercase;
       color: black;
@@ -149,17 +150,7 @@ pre {
   font-size: 11px;
 }
 
-a {
-  color: #000;
-  text-decoration: none;
-  &:visited {
-    color: #666;
-  }
-  &:hover {
-    color: #fff;
-/*    background-color: #000;*/
-  }
-}
+
 
 .nav-simple {
   margin: 5px 0; 

@@ -26,5 +26,45 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
   font-size: 0.6em;
   line-height: 0.6em;
-} 
+}
+
+a {
+  color: #666;
+  text-decoration: underline;
+  &:visited {
+    color: #666;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+.wysiwyg-text-align-center {
+  text-align: center;
+}
+
+.wysiwyg-text-align-left {
+  text-align: left;
+}
+
+.wysiwyg-text-align-right {
+  text-align: right;
+}
+
+.wysiwyg-text-align-justify {
+  text-align: justify;
+}
+
+.wysiwyg-float-right {
+  float: right;
+  margin: 15px;
+  margin-right: 0px;
+}
+
+.wysiwyg-float-left {
+  float: left;
+  margin: 15px;
+  margin-left: 0px;
+}
 
