@@ -40,6 +40,7 @@ module FileUpload
         # end
         {
           square: {geometry: '100x100#', format: :png},
+          large:  {geometry: '1024x', format: :png},
           large_cinema: lc_style
         }
       },

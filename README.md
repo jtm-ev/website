@@ -3,6 +3,10 @@
 ## Hilfe Seiten
 - http://guides.rubyonrails.org/
 
+## Tutorials
+- http://www.codeschool.com/courses/try-git
+
+
 ## Fehlende Thumbnails der Bilder generieren
 	rake paperclip:refresh:missing_styles
 

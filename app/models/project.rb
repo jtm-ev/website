@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   
   attr_accessible :description, :title, :subtitle, :tag_list, :videos
   
-  has_many :project_files, dependent: :destroy
+  has_many :project_files, dependent: :destroy, order: 'position ASC'
   
   acts_as_taggable_on :tags
   

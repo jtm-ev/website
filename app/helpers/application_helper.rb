@@ -7,6 +7,7 @@ module ApplicationHelper
       end
     end
   end
+  
   def youtube_embed(youtube_url)
 	  if youtube_url[/youtu\.be\/([^\?]*)/]
 	    youtube_id = $1
@@ -17,5 +18,12 @@ module ApplicationHelper
 	  end
 
   	%Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ youtube_id }" frameborder="0" allowfullscreen></iframe>}
- end
+  end
+ 
+  def set_background(image)
+    return unless image
+    content_for :background do 
+     image.file.url(:large)
+    end
+  end
 end

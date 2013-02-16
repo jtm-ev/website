@@ -1,14 +1,9 @@
-<div>
+<div class='sortable-images'>
+  <input type='hidden' name='sorting[]' />
   <% collection.each do |attachment| %>
-  <% if attachment.file %>
-    <a href='<%= attachment.file.url %>'>
     <% if attachment.image? %>
-      <img src='<%= attachment.file.url(:square, {}) %>'>
-    <% else %>
-      <%= attachment.file_file_name %>
+      <img data-id='<%= attachment.id %>' src='<%= attachment.file.url(:square, {}) %>'>
     <% end %>
-    </a>
-  <% end %>
   <% end %>
 </div>
 
