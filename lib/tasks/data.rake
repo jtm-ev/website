@@ -57,6 +57,7 @@ namespace :seed do
     puts ppm.length
     ppm.each do |index, items|
       p = Project.find(index.to_i)
+      next unless p.id == 125
       puts p.title
       items.each do |item|
         dokument = di[item['file_id']]
@@ -91,6 +92,7 @@ namespace :seed do
         next
       end
       p = Project.find(index)
+      next unless p.id == 125
       puts p.title
       items.each do |item|
         dokument = di[item['file_id']]
