@@ -31,7 +31,9 @@ Git Shell öffnen und dann:
 ## ImageMagick für Bildgenerierung
 - Ghostscript: http://www.ghostscript.com/download/gsdnld.html
 - ImageMagick: http://www.imagemagick.org/script/binary-releases.php#windows
-
+	- Add application directory to your system path
+	- Install development headers ...
+	
 rake paperclip:refresh:missing_styles CLASS=ProjectFile
 
 ## Programmierung
