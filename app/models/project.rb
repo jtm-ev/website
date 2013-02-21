@@ -30,4 +30,12 @@ class Project < ActiveRecord::Base
   end
   alias :team_memberships_of :team_memberships_for 
   
+  def actor_team
+    self.teams.where(name: 'Darsteller').first
+  end
+  
+  def non_actor_teams
+    self.teams.where("name != 'Darsteller'")
+  end
+  
 end

@@ -13,6 +13,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.nivo.slider
+#= require bootstrap-tab
 #= require editing
 #= require_tree .
 
@@ -22,3 +23,9 @@ jQuery ->
   $('.nivoSlider').nivoSlider {
     pauseTime: 5000
   }
+  
+  $('.tabs a').click (e)->
+    e.preventDefault()
+    $(this).tab('show')
+    
+  $('.tabs a:first').tab('show')

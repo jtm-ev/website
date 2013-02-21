@@ -1,0 +1,24 @@
+@import 'bootstrap/variables';
+@import 'bootstrap/mixins';
+
+@import 'bootstrap/navs';
+
+.tabs {
+  @extend .nav;
+  @extend .nav-tabs;
+  margin-left: -25px;
+  margin-right: -25px;
+}
+
+.tab-content {
+  & > * {
+   @extend .tab-pane
+   
+
+  }
+  
+  & > *:not(.active) iframe {
+   display: none;
+  }
+  
+}

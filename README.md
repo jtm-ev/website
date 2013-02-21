@@ -9,6 +9,7 @@
 
 ## Fehlende Thumbnails der Bilder generieren
 	rake paperclip:refresh:missing_styles
+	rake paperclip:refresh:thumbnails CLASS=ProjectFile STYLES=square_300
 
 ## Daten aus alter DB importieren
 	rake seed:projects
@@ -17,6 +18,10 @@
 ### Bilder importieren, Achtung! ImageMagick muss installiert sein, dauert sehr lang
 	rake seed:pictures
 	rake seed:press
+	
+	rake seed:events
+	rake seed:members
+	rake seed:teams
 
 ## Rails Server Starten
 Git Shell öffnen und dann:

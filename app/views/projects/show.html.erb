@@ -28,65 +28,81 @@
     <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
 </div>
 
-<p>
-  <%= @project.description.try :html_safe %>
-</p>
+<ul class='tabs'>
+  <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
+  <li><a href='#actors' data-toggle='tab'>Darsteller</a></li>
+  <li><a href='#teams' data-toggle='tab'>Gruppen</a></li>
+  <li><a href='#videos' data-toggle='tab'>Videos</a></li>
+  <li><a href='#press' data-toggle='tab'>Presse (<%= @project.press.length %>)</a></li>
+  <li><a href='#events' data-toggle='tab'>Termine (<%= @project.events.length %>)</a></li>
+</ul>
 
-<p>
-  <b>Termine:</b>
-  <ul>
-    <% @project.events.each do |event| %>
-      <li>
-        <%= l event.start_time %>
-        <% unless event.title.blank? %>
-          (<%= event.title %>)
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-</p>
-
-<p>
-  <b>Presse:</b>
-  <div>
-  <% @project.press.each do |item| %>
-    <a href='<%= item.file.url %>'>
-      <img src='<%= item.file.url(:square) %>' title='<%= item.description %>'>
-    </a>
-  <% end %>
+<div class='tab-content'>
+  <div id='description'>
+    <%= @project.description.try :html_safe %>
   </div>
-</p>
 
-<p>
-  <b>Videos:</b>
-    <div>
-      <% if @project.videos.nil? %>
-        <p>Keine Videos verfügbar</p>
-      <% else %>
-        <% @project.videos.each_line do |video_url| %>
-          <%= youtube_embed(video_url).html_safe %>
-        <% end %>
-      <% end %>
-    </div> 
-</p>
-
-<p>
-  <b>Teams:</b>
-  <ul>
-  <% @project.teams.each do |team| %>
-    <li><%= team.name %>
-      <ul>
-      <% team.team_memberships.each do |team_membership| %>
+  <div id='events'>
+    <ul>
+      <% @project.events.each do |event| %>
         <li>
-          <%= link_to team_membership.member.full_name, team_membership.member %>
-          <%= team_membership.role %>
+          <%= l event.start_time %>
+          <% unless event.title.blank? %>
+            (<%= event.title %>)
+          <% end %>
         </li>
       <% end %>
-      </ul>
-    </li>
-  <% end %>
-</p>
+    </ul>
+  </div>
 
+  <div id='press'>
+    <% @project.press.each do |item| %>
+      <a href='<%= item.file.url %>'>
+        <img src='<%= item.file.url(:square) %>' title='<%= item.description %>'>
+      </a>
+    <% end %>
+  </div>
+
+  <div id='videos'>
+    <% if @project.videos.nil? %>
+      <p>Keine Videos verfügbar</p>
+    <% else %>
+      <% @project.videos.each_line do |video_url| %>
+        <%= youtube_embed(video_url).html_safe %>
+      <% end %>
+    <% end %>
+  </div> 
+
+  <div id='actors'>
+    <ul>
+    
+        <% @project.actor_team.team_memberships.each do |team_membership| %>
+          <li>
+            <%= link_to team_membership.member.full_name, team_membership.member %>
+            <%= team_membership.role %>
+          </li>
+        <% end %>
+
+    </ul>
+  </div>
+
+  <div id='teams'>
+    <ul>
+    <% @project.non_actor_teams.each do |team| %>
+      <li><%= team.name %>
+        <ul>
+        <% team.team_memberships.each do |team_membership| %>
+          <li>
+            <%= link_to team_membership.member.full_name, team_membership.member %>
+            <%= team_membership.role %>
+          </li>
+        <% end %>
+        </ul>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+</div>
 
 <% content_for :actions do %>
   <%= navigation_link_to 'Projekt bearbeiten', edit_project_path(@project) %>
