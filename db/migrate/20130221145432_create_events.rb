@@ -7,7 +7,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :end_time
       t.boolean :public, default: true
       t.integer :project_id
-      t.string :location
+      t.string :location_name
 
       t.timestamps
     end
