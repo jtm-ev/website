@@ -20,5 +20,5 @@ jQuery ->
   # Image-Slider
   # http://dev7studios.com/nivo-slider/#/documentation
   $('.nivoSlider').nivoSlider {
-    pauseTime: 5000
+    pauseTime: 20000
   }
