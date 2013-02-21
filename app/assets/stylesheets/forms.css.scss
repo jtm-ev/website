@@ -13,7 +13,7 @@
 @import 'bootstrap/button-groups';
 
 
-@import 'fonts';
+@import 'copy';
 
 
 /************************************* Text Inputs */
@@ -22,9 +22,14 @@
   border: 1px solid #aaa;
   padding: 5px 10px;
   @include border-radius(4px);
-/*  @include box-shadow;*/
-/*  width: 100%;*/
   background: white;
+}
+
+%small-text-input {
+  @extend %text-input;
+  padding: 3px 4px;
+  @include border-radius(3px);
+
 }
 
 input[type=text], input[type=email], input[type=password] {
@@ -32,26 +37,59 @@ input[type=text], input[type=email], input[type=password] {
   @extend %font-copy;
 }
 
+textarea {
+  @extend %text-input;
+  @extend %font-copy;
+  width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
+  height: 100px;
+  resize: vertical;
+}
+
 .wysihtml5-sandbox {
   @extend %text-input;
-  height: 300px;
+  height: 400px;
   width: 100%;
 }
 
 .wysihtml5-toolbar {
   @extend .btn-toolbar;
-  margin-bottom: 5px;
+  margin-bottom: 45px;
+  position: relative;
+  
+  a {
+    @extend .btn;
+    @extend .btn-small;
+    text-decoration: none;
+  }
+  
+  div[data-wysihtml5-dialog] {
+    @extend %text-input;
+    margin-top: 5px;
+    background-color: #FFE6D8;
+    height: 35px;
+    position: absolute;
+    width: 100%;
+    
+    input.text {
+      @extend %font-copy;
+      @extend %small-text-input;
+      font-size: 11px;
+      line-height: 1em;
+      vertical-align: top;
+    }
+    
+    a {
+      @extend .btn-inverse;
+      @extend .btn-mini;
+      vertical-align: top;
+    }
+  }
 }
 
 .wysihtml5-toolbar-group {
   @extend .btn-group;
-}
-
-.wysihtml5-toolbar a {
-  @extend .btn;
-  @extend .btn-small;
-/*  @extend .btn-inverse;*/
-  text-decoration: none;
 }
 
 .wysihtml5-command-active {

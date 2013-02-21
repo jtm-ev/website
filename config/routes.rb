@@ -1,6 +1,7 @@
 Website::Application.routes.draw do
   resources :members
 
+  resources :events
 
   resources :groups
 

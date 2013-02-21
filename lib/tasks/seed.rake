@@ -91,6 +91,20 @@ namespace :seed do
     end
   end
   
+  task :events => :environment do
+    Event.delete_all
+    em = create_map('jtm_stueck_termine', 'stueck_id')
+    em.each do |index, items|
+      p = Project.find(index.to_i)
+      puts "Project: #{p.title}"
+      items.each do |t|
+        ort, timestamp, zusatz = t['ort'], t['timestamp'], t['zusatz']
+        datum = DateTime.strptime("#{timestamp}",'%s')
+        p.events.create title: zusatz, location_name: ort, start_time: datum
+      end
+    end
+  end
+  
   task :pictures => :environment do
     # Probleme:
     # 404 Forbidden: 115, 113, 112, 111, 109, 108
@@ -103,6 +117,7 @@ namespace :seed do
     puts ppm.length
     ppm.each do |index, items|
       p = Project.find(index.to_i)
+      next unless p.id == 125
       puts p.title
       items.each do |item|
         dokument = di[item['file_id']]
@@ -137,6 +152,7 @@ namespace :seed do
         next
       end
       p = Project.find(index)
+      next unless p.id == 125
       puts p.title
       items.each do |item|
         dokument = di[item['file_id']]

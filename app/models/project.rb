@@ -1,16 +1,19 @@
 class Project < ActiveRecord::Base
   scope :previous,  lambda { |i| {conditions: ["#{self.table_name}.id > ?", i.id]} }
   scope :next,      lambda { |i| {conditions: ["#{self.table_name}.id < ?", i.id]} }
+  scope :latest_first,  lambda { order('id DESC') }
   
   # default_scope scoped
   # scope :previous,  lambda { |i| where('id < ?', i.id).first }
   # scope :next,      lambda { |i| where('id > ?', i.id).first }
   
-  attr_accessible :description, :title, :subtitle, :tag_list
-  
-  has_many :project_files, dependent: :destroy
+  attr_accessible :description, :title, :subtitle, :tag_list, :videos
+
   has_many :teams, dependent: :destroy
   has_many :team_memberships, through: :teams
+
+  has_many :project_files, dependent: :destroy, order: 'position ASC'
+  has_many :events, dependent: :destroy, order: 'start_time ASC'
   
   acts_as_taggable_on :tags
   

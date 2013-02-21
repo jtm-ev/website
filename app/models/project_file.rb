@@ -2,7 +2,7 @@
 class ProjectFile < ActiveRecord::Base
   include FileUpload
   
-  attr_accessible :kind
+  attr_accessible :kind, :position
   
   belongs_to :project
   

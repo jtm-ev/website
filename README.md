@@ -1,5 +1,40 @@
 # JTM Website
 
+## Hilfe Seiten
+- http://guides.rubyonrails.org/
+
+## Tutorials
+- http://www.codeschool.com/courses/try-git
+
+
+## Fehlende Thumbnails der Bilder generieren
+	rake paperclip:refresh:missing_styles
+
+## Daten aus alter DB importieren
+	rake seed:projects
+	rake seed:groups
+	
+### Bilder importieren, Achtung! ImageMagick muss installiert sein, dauert sehr lang
+	rake seed:pictures
+	rake seed:press
+
+## Rails Server Starten
+Git Shell öffnen und dann:
+
+	cd website
+	bundle
+	rake db:migrate
+	rails s
+
+
+
+## ImageMagick für Bildgenerierung
+- Ghostscript: http://www.ghostscript.com/download/gsdnld.html
+- ImageMagick: http://www.imagemagick.org/script/binary-releases.php#windows
+	- Add application directory to your system path
+	- Install development headers ...
+	
+rake paperclip:refresh:missing_styles CLASS=ProjectFile
 
 ## Programmierung
 

@@ -1,8 +1,10 @@
 #= require wysihtml5
-#= require parser_rules/advanced
+#= require_tree ./wysihtml5
+# require parser_rules/advanced
 #= require jquery-fileupload/basic
 #= require bootstrap-dropdown
 #= require select2
+#= require jquery-ui
 
 jQuery ->
   # Handle File Uploads
@@ -43,3 +45,16 @@ jQuery ->
     tags: []
     tokenSeparators: [',']
   }
+  
+  # Image Sorting
+  $('.sortable-images').sortable {
+    items: '> img'
+    update: (event, ui)->
+      parent = ui.item.parent()
+      input = parent.find('input')
+      ids = parent.find('> img').map (index, item)->
+        $(item).data('id')
+      
+      input.val ids.toArray().join(',') 
+  }
+  

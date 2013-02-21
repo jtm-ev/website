@@ -19,7 +19,10 @@
     <%= f.label :subtitle %><br />
     <%= f.text_field :subtitle %>
   </div>
-  
+   <div class="field">
+    <%= f.label :videos %><br />
+    <%= f.text_area :videos %>
+  </div>
   <div class='field'>
     <%= f.label 'Tags' %><br/>
     <%= f.text_field :tag_list, class: 'tags' %>
@@ -29,17 +32,19 @@
     <%= f.label :description %><br />
     <%= render 'wysiwyg', {form: f, field: :description} %>
   </div>
+  
+  <% unless @project.new_record? %>
+    <h2>Bilder</h2>
+    <%= render 'image_form', {collection: @project.images, upload_url: specific_project_project_files_url(@project, {kind: 'image'})} %>
+
+    <h2>Presse</h2>
+    <%= render 'image_form', {collection: @project.press, upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
 
-<% unless @project.new_record? %>
-  <h2>Bilder</h2>
-  <%= render 'image_form', {collection: @project.images, upload_url: specific_project_project_files_url(@project, {kind: 'image'})} %>
 
-  <h2>Presse</h2>
-  <%= render 'image_form', {collection: @project.press, upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
-<% end %>
 

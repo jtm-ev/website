@@ -1,3 +1,6 @@
+<% set_background @project.images.first %>
+
+
 <p id="notice"><%= notice %></p>
 
 <h1><%= @project.title %></h1>
@@ -26,19 +29,21 @@
 </div>
 
 <p>
-  
   <%= @project.description.try :html_safe %>
 </p>
 
 <p>
-  <b>Bilder:</b>
-  <div>
-  <% @project.images.each do |item| %>
-    <a href='<%= item.file.url %>'>
-      <img src='<%= item.file.url(:square) %>' title='<%= item.description %>'>
-    </a>
-  <% end %>
-  </div>
+  <b>Termine:</b>
+  <ul>
+    <% @project.events.each do |event| %>
+      <li>
+        <%= l event.start_time %>
+        <% unless event.title.blank? %>
+          (<%= event.title %>)
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </p>
 
 <p>
@@ -50,6 +55,19 @@
     </a>
   <% end %>
   </div>
+</p>
+
+<p>
+  <b>Videos:</b>
+    <div>
+      <% if @project.videos.nil? %>
+        <p>Keine Videos verfügbar</p>
+      <% else %>
+        <% @project.videos.each_line do |video_url| %>
+          <%= youtube_embed(video_url).html_safe %>
+        <% end %>
+      <% end %>
+    </div> 
 </p>
 
 <p>
@@ -73,3 +91,4 @@
 <% content_for :actions do %>
   <%= navigation_link_to 'Projekt bearbeiten', edit_project_path(@project) %>
 <% end %>
+
