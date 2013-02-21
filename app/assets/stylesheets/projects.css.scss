@@ -21,3 +21,37 @@
 /*    border: 1px solid #ccc;*/
   }
 }
+
+.project-link{
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  line-height: 1em;
+}
+
+.project-placeholder {
+  position: relative;
+  display: inline-table;
+  height: 280px;
+  width: 280px;
+  margin: 5px;
+
+  img{
+    width: 280px;
+  }
+  .empty{
+    width: 280px;
+    height: 280px;
+    background-color: #888;
+  }
+  .title{
+    font-size: 13;
+    padding: 5px;
+    width: 280px;
+    background-color: #1C1C1C;
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    color: #BDBDBD;
+  }
+}
