@@ -4,4 +4,7 @@ class Team < ActiveRecord::Base
   belongs_to :project
   has_many :team_memberships, dependent: :destroy
   has_many :members, through: :team_memberships
+  
+  # Könnte Team-Foto enthalten
+  
 end

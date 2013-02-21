@@ -4,4 +4,6 @@ class TeamMembership < ActiveRecord::Base
   belongs_to :team
   belongs_to :member
   
+  # Könnte Rollen-Foto Enthalten
+  
 end
