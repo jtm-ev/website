@@ -17,8 +17,9 @@ $logo-width: 150px;
   @include debug-border(top);
   @include debug-border(bottom);
   
-  max-width: 960px;
-  width: 80%;
+/*  max-width: 960px;*/
+  width: 935px;
+  
 /*  margin: 0 auto;*/
   
   padding: 25px;
