@@ -1,4 +1,6 @@
 Website::Application.routes.draw do
+  resources :events
+
   resources :groups
 
   resources :pages do

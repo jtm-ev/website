@@ -29,8 +29,21 @@
 </div>
 
 <p>
-  
   <%= @project.description.try :html_safe %>
+</p>
+
+<p>
+  <b>Termine:</b>
+  <ul>
+    <% @project.events.each do |event| %>
+      <li>
+        <%= l event.start_time %>
+        <% unless event.title.blank? %>
+          (<%= event.title %>)
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </p>
 
 <p>

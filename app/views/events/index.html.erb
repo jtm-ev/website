@@ -1,0 +1,35 @@
+<h1>Listing events</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>Public</th>
+    <th>Project</th>
+    <th>Location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @events.each do |event| %>
+  <tr>
+    <td><%= event.title %></td>
+    <td><%= event.description %></td>
+    <td><%= event.start_time %></td>
+    <td><%= event.end_time %></td>
+    <td><%= event.public %></td>
+    <td><%= event.project_id %></td>
+    <td><%= event.location %></td>
+    <td><%= link_to 'Show', event %></td>
+    <td><%= link_to 'Edit', edit_event_path(event) %></td>
+    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<% content_for :actions do %>
+  <%= navigation_link_to 'Termin erstellen', new_event_path %>
+<% end %>
