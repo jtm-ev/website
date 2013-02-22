@@ -29,11 +29,21 @@
 </div>
 
 <ul class='tabs'>
-  <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
-  <li><a href='#actors' data-toggle='tab'>Darsteller</a></li>
-  <li><a href='#teams' data-toggle='tab'>Gruppen</a></li>
-  <li><a href='#videos' data-toggle='tab'>Videos</a></li>
-  <li><a href='#press' data-toggle='tab'>Presse (<%= @project.press.length %>)</a></li>
+  <% unless @project.description.blank? %>
+    <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
+  <% end %>
+  <% unless @project.actor_team.nil? %>
+    <li><a href='#actors' data-toggle='tab'>Darsteller</a></li>
+  <% end %>
+  <% unless @project.non_actor_teams.empty? %>
+    <li><a href='#teams' data-toggle='tab'>Hinter den Kulissen</a></li>
+  <% end %>
+  <% unless @project.videos.blank? %>
+    <li><a href='#videos' data-toggle='tab'>Videos</a></li>
+  <% end %>
+  <% unless @project.press.empty? %>
+    <li><a href='#press' data-toggle='tab'>Presse (<%= @project.press.length %>)</a></li>
+  <% end %>
   <li><a href='#events' data-toggle='tab'>Termine (<%= @project.events.length %>)</a></li>
 </ul>
 
@@ -55,10 +65,11 @@
     </ul>
   </div>
 
-  <div id='press'>
+  <div id='press' class='large-square-layout'>
     <% @project.press.each do |item| %>
-      <a href='<%= item.file.url %>'>
-        <img src='<%= item.file.url(:square) %>' title='<%= item.description %>'>
+      <a href='<%= item.file.url %>' class='square' target='_blank'>
+        <img src='<%= item.file.url(:square_300) %>' title='<%= item.description %>'>
+        <div class='title'><%= item.description %></div>
       </a>
     <% end %>
   </div>
@@ -73,28 +84,29 @@
     <% end %>
   </div> 
 
-  <div id='actors'>
-    <ul>
+  <% unless @project.actor_team.nil? %>
+    <div id='actors'>
+      <ul>
     
-        <% @project.actor_team.team_memberships.each do |team_membership| %>
-          <li>
-            <%= link_to team_membership.member.full_name, team_membership.member %>
-            <%= team_membership.role %>
-          </li>
-        <% end %>
+          <% @project.actor_team.team_memberships.each do |team_membership| %>
+            <li>
+              <%= link_to team_membership.member.full_name, team_membership.member %>
+              <%= team_membership.role %>
+            </li>
+          <% end %>
 
-    </ul>
-  </div>
+      </ul>
+    </div>
+  <% end %>
 
   <div id='teams'>
     <ul>
     <% @project.non_actor_teams.each do |team| %>
       <li><%= team.name %>
         <ul>
-        <% team.team_memberships.each do |team_membership| %>
+        <% team.members.each do |member| %>
           <li>
-            <%= link_to team_membership.member.full_name, team_membership.member %>
-            <%= team_membership.role %>
+            <%= link_to member.full_name, member %>
           </li>
         <% end %>
         </ul>

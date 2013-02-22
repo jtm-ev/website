@@ -156,8 +156,9 @@ namespace :seed do
       puts p.title
       items.each do |item|
         dokument = di[item['file_id']]
-        datum = DateTime.strptime("#{dokument['timestamp']}",'%s')
-        puts " - #{dokument['pfad']} : #{dokument['zeitung']}"
+        datum = DateTime.strptime("#{item['timestamp']}",'%s')
+        zeitung = item['zeitung']
+        puts " - #{zeitung} : #{datum} : #{dokument['pfad']}"
         
         file = dokument['pfad']
         url = "http://jtm.de/uploads/#{file}"
@@ -166,7 +167,7 @@ namespace :seed do
         begin
           
           open url do |f|
-            pf = p.project_files.create! file: f, kind: 'press', description: dokument['zeitung'], file_file_name: file_name, meta: {published_at: datum}
+            pf = p.project_files.create! file: f, kind: 'press', description: zeitung, file_file_name: file_name, meta: {published_at: datum}
             # puts pf.inspect
           end
         rescue Exception => e

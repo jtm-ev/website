@@ -25,7 +25,10 @@ jQuery ->
   }
   
   $('.tabs a').click (e)->
-    e.preventDefault()
-    $(this).tab('show')
+    target = $(this).attr('href')
+    if target[0] is '#'
+      e.preventDefault()
+      window.location.hash = target
+      $(this).tab('show')
     
-  $('.tabs a:first').tab('show')
+  $(".tabs a[href='#{window.location.hash}'], .tabs a:first").tab('show')

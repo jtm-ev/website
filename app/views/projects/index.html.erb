@@ -1,31 +1,29 @@
 <h1>Projekte (<%= @projects.count %>)</h1>
 
-<ul class='nav-simple'>
-  
+<ul class='tabs'>
   <%= navigation_link_to 'Alle', tagged_projects_path() %>
-  <% Project.tag_counts.each do |tag| %>
+  <% Project.tag_counts.order('count DESC').limit(6).each do |tag| %>
     <%= navigation_link_to "#{tag.name.humanize} (#{tag.count})", tagged_projects_path(tag.name.downcase) %>
   <% end %>
 </ul>
 
-<% @projects.each do |project| %>
-  <a href='<%= project_path(project) %>' class='project-link'>
-      <div class='project-placeholder'>
-        <% if project.images.length > 0 %> 
-          <img src= '<%=project.images.first.file.url(:square_300)%>' >
-        <% else %>
-          <div class='empty'>
-          </div>
-        <% end %>
-        <div class ='title' >
-          <%= project.title %>
-        </div>
-      </div>
-  </a>
-<% end %>
-</table>
+<div class='large-square-layout'>
+  <% @projects.each do |project| %>
+    <a href='<%= project_path(project) %>' class='square'>
 
-<br />
+          <% if project.images.length > 0 %> 
+            <img src= '<%=project.images.first.file.url(:square_300)%>' >
+          <% else %>
+            <div class='empty'>
+            </div>
+          <% end %>
+          <div class ='title' >
+            <%= project.title %>
+          </div>
+
+    </a>
+  <% end %>
+</div>
 
 <% content_for :actions do %>
   <%= navigation_link_to 'Projekt anlegen', new_project_path %>

@@ -4,7 +4,8 @@
   border-#{$side}: 1px solid black;
 }
 
-$logo-width: 150px;
+$logo-width: 160px;
+$sidebar_width: 200px;
 
 %core-block {
 /*  padding: 5px;*/
@@ -44,7 +45,7 @@ header {
   @extend %core-block;
 }
 
-$sidebar_width: 250px;
+
 
 #sidebar {
   position: fixed;
@@ -57,6 +58,7 @@ $sidebar_width: 250px;
   
   #logo {
     margin-top: 20px;
+    width: $logo_width;
   }
   
   nav {

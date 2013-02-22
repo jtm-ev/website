@@ -17,7 +17,7 @@ module ApplicationHelper
 	    youtube_id = $5
 	  end
 
-  	%Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ youtube_id }" frameborder="0" allowfullscreen></iframe>}
+  	%Q{<iframe class='youtube' title="YouTube video player" width="428" height="320" src="http://www.youtube.com/embed/#{ youtube_id }" frameborder="0" allowfullscreen></iframe>}
   end
  
   def set_background(image)
