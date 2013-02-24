@@ -35,7 +35,9 @@ class Project < ActiveRecord::Base
   end
   
   def non_actor_teams
-    self.teams.where("name != 'Darsteller'")
+    self.teams.where("name != 'Darsteller'").sort_by do |a|
+      a.has_image? ? 0 : 1
+    end
   end
   
 end

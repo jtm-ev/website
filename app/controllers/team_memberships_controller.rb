@@ -1,0 +1,34 @@
+
+class TeamMembershipsController < ApplicationController
+  before_filter :find_team_membership, only: [:edit, :destroy, :update]
+  
+  def edit
+    @team = @team_membership.team
+    
+    render 'teams/edit'
+  end
+  
+  def destroy
+    @team_membership.destroy
+    
+    redirect_to :back
+  end
+  
+  def update
+    @team_membership.update_attributes params[:team_membership]
+    
+    redirect_to edit_team_path(@team_membership.team)
+  end
+  
+  def create
+    TeamMembership.create params[:team_membership]
+    redirect_to :back
+  end
+  
+  private
+  
+    def find_team_membership
+      @team_membership = TeamMembership.find(params[:id])
+    end
+  
+end

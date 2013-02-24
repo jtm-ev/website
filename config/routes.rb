@@ -1,4 +1,7 @@
 Website::Application.routes.draw do
+  resources :teams
+  resources :team_memberships
+  
   resources :members
 
   resources :events

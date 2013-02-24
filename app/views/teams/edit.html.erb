@@ -1,0 +1,49 @@
+
+<div class='team-image'>
+  <% if @team.has_image? %>
+    <img src='<%= @team.file.url(:large) %>'>
+  <% else %>
+    Drop Image here
+  <% end %>
+  
+  <form>
+    <input class='fileupload' type='file' name='files' data-reload=true data-dropzone='.team-image' data-method='PUT' data-url='<%= team_path(@team) %>'>
+  </form>
+  
+</div>
+
+<h1><%= @team.name %>
+  <div class='subtitle'><%= link_to @team.project.title, "#{project_path(@team.project)}#teams" %></div>
+</h1>
+
+
+
+<table>
+  <thead>
+    <th>Mitglied</th>
+    <th>Rolle</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    <%= form_for(@team_membership) do |f| %>
+      <input type='hidden' name='team_membership[team_id]' value='<%= @team.id %>'>
+      <tr>
+        <td><%= f.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
+        <td><%= f.text_field :role %></td>
+        <td><%= f.submit %></td>
+      </tr>
+    <% end %>
+    <% @team.team_memberships.each do |team_membership| %>
+      <tr>
+        <td><%= team_membership.member.try :full_name %></td>
+        <td><%= team_membership.role %></td>
+        <td>
+          <%= link_to 'Bearbeiten', edit_team_membership_path(team_membership) %>,
+          <%= link_to 'Löschen', team_membership, method: :delete, confirm: 'Sicher?' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Team löschen', @team, method: :delete, confirm: 'Team wirklich löschen?', class: 'btn btn-danger' %>

@@ -39,7 +39,7 @@
     <li><a href='#teams' data-toggle='tab'>Hinter den Kulissen</a></li>
   <% end %>
   <% unless @project.videos.blank? %>
-    <li><a href='#videos' data-toggle='tab'>Videos</a></li>
+    <li><a href='#videos' data-toggle='tab'>Videos (<%= @project.videos.lines.count %>)</a></li>
   <% end %>
   <% unless @project.press.empty? %>
     <li><a href='#press' data-toggle='tab'>Presse (<%= @project.press.length %>)</a></li>
@@ -100,19 +100,25 @@
   <% end %>
 
   <div id='teams'>
-    <ul>
     <% @project.non_actor_teams.each do |team| %>
-      <li><%= team.name %>
-        <ul>
-        <% team.members.each do |member| %>
-          <li>
-            <%= link_to member.full_name, member %>
-          </li>
+      <div class='team'>
+        <div class='team-name'><%= link_to team.name, edit_team_path(team) %></div>
+        
+        <% if team.has_image? %>
+          <div class='team-image'>
+            <img src='<%= team.file.url(:normal) %>'>
+          </div>
         <% end %>
-        </ul>
-      </li>
+        
+        <div class='team-members'>
+          <% team.members.each do |member| %>
+              <span><%= link_to member.full_name, member %></span>
+          <% end %>
+        </div>
+
+      </div>
     <% end %>
-    </ul>
+
   </div>
 </div>
 

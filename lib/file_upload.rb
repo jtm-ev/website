@@ -41,6 +41,7 @@ module FileUpload
         {
           square: {geometry: '100x100#', format: :png},
           square_300: {geometry: '300x300#', format: :png},
+          normal: {geometry: '350x', format: :png},
           large:  {geometry: '1024x', format: :png},
           large_cinema: lc_style
         }

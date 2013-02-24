@@ -1,6 +1,8 @@
 class Member < ActiveRecord::Base
   attr_accessible :active, :birth_name, :birthday, :city, :email, :email_extern, :fax, :first_name, :gender, :member_since, :mobile, :name, :phone, :school, :street
 
+  scope :active, lambda { where(active: true) }
+
   has_many :team_memberships
   has_many :teams, through: :team_memberships
   has_many :projects, through: :teams, uniq: true

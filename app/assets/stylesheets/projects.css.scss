@@ -72,3 +72,55 @@ iframe.youtube {
     }
   }
 }
+
+.team-image {
+  border: 1px solid #ccc;
+  width: 350px;
+  min-height: 200px;
+  float: right;
+  margin-bottom: 25px;
+  text-align: center;
+  vertical-align: middle;
+  
+/*  position: absolute;
+  top: 20px;
+  right: 20px;*/
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+
+.team {
+
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+  margin-bottom: 30px;
+  width: 425px;
+  text-align: center;
+  
+  
+  .team-name {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .team-image {
+    display: inline-block;
+    float: none;
+    margin-bottom: 5px;
+  }
+  
+  .team-members > * {
+    font-size: 0.8em;
+    white-space: nowrap;
+
+    &:not(:last-child):after {
+      content: ', '
+    }
+  }
+}
+
+
