@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>ID</th>
+    <th></th>
     <th>Name</th>
     <th>First name</th>
     <th>Birth name</th>
@@ -23,8 +23,14 @@
   </tr>
 
 <% @members.each do |member| %>
-  <tr>
-    <td><%= member.id %></td>
+  <input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#member-<%= member.id %>' data-method='PUT' data-url='<%= member_path(member) %>'>
+
+  <tr id='member-<%= member.id %>'>
+    <td>
+      <% if member.has_image? %>
+        <img src='<%= member.file.url(:square) %>'>
+      <% end %>
+    </td>
     <td><%= member.name %></td>
     <td><%= member.first_name %></td>
     <td><%= member.birth_name %></td>

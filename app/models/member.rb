@@ -1,4 +1,6 @@
 class Member < ActiveRecord::Base
+  include FileUpload
+  
   attr_accessible :active, :birth_name, :birthday, :city, :email, :email_extern, :fax, :first_name, :gender, :member_since, :mobile, :name, :phone, :school, :street
 
   scope :active, lambda { where(active: true) }

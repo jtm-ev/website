@@ -2,7 +2,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.all
+    @members = Member.scoped.active.order(:name, :first_name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -57,6 +57,11 @@ class MembersController < ApplicationController
   # PUT /members/1.json
   def update
     @member = Member.find(params[:id])
+
+    if params[:files]
+      @member.file = params[:files]
+      @member.save
+    end
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
