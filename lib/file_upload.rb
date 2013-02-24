@@ -39,7 +39,7 @@ module FileUpload
         #   lc_style = { geometry: '1024x', format: :png, convert_options: '+repage -crop 1024x576+0+100 -gravity North' }
         # end
         {
-          square: {geometry: '100x100#', format: :png},
+          square: {geometry: '150x150#', format: :png},
           square_300: {geometry: '300x300#', format: :png},
           normal: {geometry: '350x', format: :png},
           large:  {geometry: '1024x', format: :png},
@@ -64,6 +64,9 @@ module FileUpload
     scope :portrait, lambda { where("height >= width") }
   end
   
+  def has_image?
+    !self.file_file_name.nil?
+  end
   
   def image?
     # also handle PDFs like images

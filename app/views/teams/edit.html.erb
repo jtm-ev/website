@@ -20,6 +20,7 @@
 
 <table>
   <thead>
+    <th></th>
     <th>Mitglied</th>
     <th>Rolle</th>
     <th>Actions</th>
@@ -28,13 +29,21 @@
     <%= form_for(@team_membership) do |f| %>
       <input type='hidden' name='team_membership[team_id]' value='<%= @team.id %>'>
       <tr>
+        <td></td>
         <td><%= f.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
         <td><%= f.text_field :role %></td>
         <td><%= f.submit %></td>
       </tr>
     <% end %>
     <% @team.team_memberships.each do |team_membership| %>
-      <tr>
+      <input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#team-membership-<%= team_membership.id %>' data-method='PUT' data-url='<%= team_membership_path(team_membership) %>'>
+      
+      <tr id='team-membership-<%= team_membership.id %>'>
+        <td>
+          <% if team_membership.has_image? %>
+            <img src='<%= team_membership.file.url(:square) %>' >
+          <% end %>
+        </td>
         <td><%= team_membership.member.try :full_name %></td>
         <td><%= team_membership.role %></td>
         <td>

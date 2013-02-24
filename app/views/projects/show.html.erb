@@ -74,7 +74,7 @@
     <% end %>
   </div>
 
-  <div id='videos'>
+  <!--div id='videos'>
     <% if @project.videos.nil? %>
       <p>Keine Videos verfügbar</p>
     <% else %>
@@ -82,20 +82,25 @@
         <%= youtube_embed(video_url).html_safe %>
       <% end %>
     <% end %>
-  </div> 
+  </div--> 
 
   <% unless @project.actor_team.nil? %>
     <div id='actors'>
-      <ul>
     
           <% @project.actor_team.team_memberships.each do |team_membership| %>
-            <li>
-              <%= link_to team_membership.member.full_name, team_membership.member %>
-              <%= team_membership.role %>
-            </li>
+            <div class='actor'>
+
+                <% if team_membership.has_image? %>
+                  <img class='actor-image' src='<%= team_membership.file.url(:square) %>'>
+                <% end %>
+
+              <span class='member'><%= link_to team_membership.member.full_name, team_membership.member %></span>
+              <span class='role'><%= team_membership.role %></span>
+              
+              <span class='role-description'><%= team_membership.description %></span>
+            </div>
           <% end %>
 
-      </ul>
     </div>
   <% end %>
 

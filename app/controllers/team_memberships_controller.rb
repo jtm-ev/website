@@ -17,7 +17,15 @@ class TeamMembershipsController < ApplicationController
   def update
     @team_membership.update_attributes params[:team_membership]
     
-    redirect_to edit_team_path(@team_membership.team)
+    if params[:files]
+      @team_membership.file = params[:files]
+      @team_membership.save
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to edit_team_path(@team_membership.team) }
+      format.json
+    end
   end
   
   def create

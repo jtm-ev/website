@@ -39,6 +39,14 @@
 
     <h2>Presse</h2>
     <%= render 'image_form', {collection: @project.press, upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
+  
+    <h2>Teams</h2>
+    <ul>
+      <% @project.teams.each do |team| %>
+        <li><%= link_to team.name, edit_team_path(team) %></li>
+      <% end %>
+    </ul>
+  
   <% end %>
 
   <div class="actions">

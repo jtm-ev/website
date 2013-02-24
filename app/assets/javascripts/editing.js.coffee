@@ -31,6 +31,7 @@ jQuery ->
       done: (e, data)->
         console.log "Done", data
         if $item.data('reload')
+          
           window.location.reload()
       fail: (e, data)->
         console.log "Upload Fail", e, data

@@ -14,8 +14,4 @@ class AddUploadToTeams < ActiveRecord::Migration
       t.text        :file_meta
     end
   end
-  
-  # def down
-  #   
-  # end
 end
