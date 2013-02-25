@@ -41,9 +41,9 @@
     <a href='/'><img id='logo' src='/images/logo2.png'></a>
     <nav>
       <ul>
-        <%= navigation_link_to 'Projekte', projects_path %>
-        <%= navigation_link_to 'Termine', events_path %>
-        <%= navigation_link_to 'Gruppen', groups_path %>
+        <%= navigation_link_to 'Projekte', projects_path, true %>
+        <%= navigation_link_to 'Termine', events_path, true %>
+        <%= navigation_link_to 'Gruppen', groups_path, true %>
         
         <% Page.roots.where(show_in_navigation: true).each do |page| %>
           <%= navigation_link_to page.title, page_path(page) %>

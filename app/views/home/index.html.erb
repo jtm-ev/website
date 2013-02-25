@@ -1,4 +1,16 @@
 
+<section id='event-ticker'>
+  <div class='events-wrapper'>
+  <% Event.outstanding.each do |event| %>
+    <div class='event'>
+      <div class='event-title'><%= event.title %></div>
+      <div class='event-date'><%= l event.start_time %></div>
+      <div class='event-description'><%= event.description.truncate(50, separator: ' ', omission: ' ...') %></div>
+    </div>
+  <% end %>
+  </div>
+</section>
+
 <h1>
   Herzlich Willkommen
 </h1>

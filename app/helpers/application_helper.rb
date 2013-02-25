@@ -1,6 +1,11 @@
 module ApplicationHelper
-  def navigation_link_to(text, href)
-    tag_class = request.path.match(/^#{href}/) ? 'active' : ''
+  def navigation_link_to(text, href, start_match = false)
+    if start_match
+      tag_class = request.path.match(/^#{href}/) ? 'active' : ''
+    else
+      tag_class = request.path == href ? 'active' : ''
+    end
+    
     content_tag :li, class: tag_class do
       content_tag :a, href: href do
         text
