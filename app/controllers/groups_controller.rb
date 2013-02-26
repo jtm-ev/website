@@ -1,8 +1,11 @@
 class GroupsController < ApplicationController
+  add_breadcrumb 'Home', :root_path
+  add_breadcrumb 'Gruppen', :groups_path
+
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
+    @groups = Group.scoped.order('name')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +16,15 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    collection = Group.scoped.order('name')
+    
     @group = Group.find(params[:id])
+    @previous = @group.previous_in(collection)
+    @next = @group.next_in(collection)
+
+    add_breadcrumb @group.name
+    
+    
 
     respond_to do |format|
       format.html # show.html.erb

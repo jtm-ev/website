@@ -1,9 +1,16 @@
 class ProjectsController < ApplicationController
+  add_breadcrumb 'Home', :root_path
+  add_breadcrumb 'Projekte', :projects_path
   
   def filtered_collection
     col = Project.scoped
-    col = col.tagged_with(params[:tags].split(':')) unless params[:tags].blank?
-    
+    unless params[:tags].blank?
+      tags = params[:tags].split(':')
+      col = col.tagged_with(tags)
+      
+      first_tag = tags.first
+      add_breadcrumb first_tag.humanize, tagged_projects_path(first_tag)
+    end
     col = col.order('id DESC')
   end
   
@@ -25,8 +32,10 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     
     collection = filtered_collection
-    @previous = collection.previous(@project).last
-    @next     = collection.next(@project).first
+    @previous = @project.previous_in(collection)
+    @next     = @project.next_in(collection)
+
+    add_breadcrumb @project.title
 
     respond_to do |format|
       format.html # show.html.erb

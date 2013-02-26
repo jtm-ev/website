@@ -60,4 +60,15 @@ module ApplicationHelper
     # end
     
   end
+  
+  def render_breadcrumbs
+    content_tag :div, id: 'breadcrumbs' do
+      super
+    end
+  end
+  
+  def render_navigatable_nav(item, text, link, title_sym)
+    return text.html_safe if item.nil?
+    link_to text.html_safe, link.call(item), {title: item.try(title_sym)}
+  end
 end

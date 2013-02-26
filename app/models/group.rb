@@ -1,4 +1,6 @@
 class Group < ActiveRecord::Base
+  include Navigatable
+  
   belongs_to :page, dependent: :destroy, autosave: true
   
   

@@ -13,6 +13,16 @@ class Page < ActiveRecord::Base
     self.children.length > 0
   end
   
+  def parents
+    p = []
+    s = self.parent
+    while(s) do
+      p << s
+      s = s.parent
+    end
+    p
+  end
+  
   def self.tree_array(pages = nil, indent_str = '---', indent = 0)
     pages ||= roots
     result = []

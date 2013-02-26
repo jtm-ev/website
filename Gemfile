@@ -34,6 +34,8 @@ gem "paperclip-meta"
 gem "acts_as_tree"
 gem "acts-as-taggable-on"
 
+gem "breadcrumbs_on_rails"
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

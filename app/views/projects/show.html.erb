@@ -1,21 +1,15 @@
 <% set_background @project.images.first %>
+<%= render_breadcrumbs %>
 
 
-<p id="notice"><%= notice %></p>
+<div id='navigatable-nav'>
+  <%= render_navigatable_nav(@previous, '&laquo;', lambda {|i| show_tagged_project_path(params[:tags], i) }, :title) %>
+  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| show_tagged_project_path(params[:tags], i) }, :title) %>  
+</div>
 
 <h1><%= @project.title %></h1>
 
-<% if @previous %>
-  <%= link_to '<<<', show_tagged_projects_path(params[:tags], @previous) %>
-<% else %>
-  <<<
-<% end %>
-<%= link_to (params[:tags].try(:humanize) or 'Alle'), tagged_projects_path(params[:tags]) %>
-<% if @next %>
-  <%= link_to '>>>', show_tagged_projects_path(params[:tags], @next) %>
-<% else %>
-  >>>
-<% end %>
+
 
 <div class="slider-wrapper">
     <div id="slider" class="nivoSlider">

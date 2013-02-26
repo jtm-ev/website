@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
-  scope :previous,  lambda { |i| {conditions: ["#{self.table_name}.id > ?", i.id]} }
-  scope :next,      lambda { |i| {conditions: ["#{self.table_name}.id < ?", i.id]} }
+  include Navigatable
+  
   scope :latest_first,  lambda { order('id DESC') }
   
   # default_scope scoped

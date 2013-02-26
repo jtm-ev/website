@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  add_breadcrumb "Home", :root_path
+  
   # GET /pages
   # GET /pages.json
   def index
@@ -14,6 +16,10 @@ class PagesController < ApplicationController
   # GET /pages/1.json
   def show
     @page = Page.find(params[:id])
+    
+    @page.parents.push(@page).each do |page|
+      add_breadcrumb page.title, page_path(page)
+    end
 
     respond_to do |format|
       format.html # show.html.erb

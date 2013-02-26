@@ -23,8 +23,9 @@ Website::Application.routes.draw do
     end
   end
   
-  get '/projects(/tagged/:tags)' => 'projects#index', as: :tagged_projects
-  get '/projects(/tagged/:tags)/:id' => 'projects#show', as: :show_tagged_projects
+  get '/projects(::tags)' => 'projects#index', as: :tagged_projects
+  # get '/projects(/tagged/:tags)/:id' => 'projects#show', as: :show_tagged_project
+  get '/projects(::tags)/:id' => 'projects#show', as: :show_tagged_project
   # get '/projects(/tagged/:tags)/:id/edit' => 'projects#edit' #, as: :edit_project
 
 

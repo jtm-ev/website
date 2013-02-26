@@ -32,6 +32,7 @@ iframe.youtube {
 
 .large-square-layout {
   .square {
+    vertical-align: top;
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -187,6 +188,23 @@ iframe.youtube {
     font-style: italic;
   }
   
+}
+
+#navigatable-nav {
+  pointer-events: none;
+  position: absolute;
+  top: -6px;
+  right: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 24px;
+  a {
+    color: white;
+    pointer-events: auto;
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+    }
+  }
 }
 
 
