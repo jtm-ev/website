@@ -1,42 +1,61 @@
+<% if @group.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+    <ul>
+    <% @group.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for(@group) do |f| %>
-  <% if @group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+  <table class='form'>
 
-      <ul>
-      <% @group.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <tr>
+      <th><%= f.label :name %></th>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :shortcut %></th>
+      <td><%= f.text_field :shortcut %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :description %></th>
+      <td><%= f.text_field :description %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :public %></th>
+      <td><%= f.check_box :public %></td>
+    </tr>
+    
+    <tr>
+      <th>Seite</th>
+      <td><%= @group.page.try(:title)  %></td>
+    </tr>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :shortcut %><br />
-    <%= f.text_field :shortcut %>
-  </div>
-  <div class="field">
-    <%= f.label :public %><br />
-    <%= f.check_box :public %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
+  </table>
   
-  <%= f.fields_for :page do |builder| %>
-    <div class="field">
-      <%= builder.label :content %><br />
-      <%= render 'wysiwyg', {form: builder, field: :content} %>
-    </div>
-  <% end %>
+  <ul class='tabs'>
+    <li><a href='#inhalt'>Inhalt</a></li>
+    <li><a href='#dateien'>Dateien ()</a></li>
+  </ul>
+  <div class='tab-content'>
+
+    <%= f.fields_for :page do |builder| %>
+    
+      <div id="inhalt">
+        <%= render 'wysiwyg', {form: builder, field: :content} %>
+      </div>
+      
+    <% end %>
+  
+  </div>
   
   <div class="actions">
     <%= f.submit %>
   </div>
+  
 <% end %>
 

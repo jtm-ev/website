@@ -205,6 +205,17 @@ de:
     models:
       project: 'Projekt'
       group: 'Gruppe'
+      page: 'Seite'
     attributes:
       project:
         title: 'Titel'
+      page:
+        title: 'Überschrift'
+        parent: 'Oberseite'
+        show_in_navigation: 'In Navigation zeigen'
+        public: 'Öffentlich sichtbar'
+      group:
+        shortcut: 'Kurzname'
+        public: 'Öffentlich sichtbar'
+        description: 'Kurzbeschreibung'
+        

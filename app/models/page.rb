@@ -1,11 +1,16 @@
 class Page < ActiveRecord::Base
   include ActsAsTree
   
+  attr_accessor :color
   attr_accessible :content, :order, :parent_id, :public, :show_in_navigation, :title
   
-  acts_as_tree order: "created_at"
+  acts_as_tree order: "position"
   
-  has_many :page_files, dependent: :destroy
+  has_many :page_files, dependent: :destroy, order: 'created_at DESC'
+  
+  def has_children?
+    self.children.length > 0
+  end
   
   def self.tree_array(pages = nil, indent_str = '---', indent = 0)
     pages ||= roots

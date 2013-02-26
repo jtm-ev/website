@@ -1,9 +1,8 @@
 /**
  *= require select2
+ * require bootstrap-colorpicker
  */
- 
-/*@import 'compass';*/
-/*@import 'bootstrap';*/
+
 
 @import 'bootstrap/variables';
 @import 'bootstrap/mixins';
@@ -11,6 +10,7 @@
 @import 'bootstrap/sprites';
 @import 'bootstrap/buttons';
 @import 'bootstrap/button-groups';
+@import 'bootstrap/progress-bars';
 
 
 
@@ -109,10 +109,94 @@ input[type=submit] {
   @extend .btn-success;
 }
 
+.actions {
+  border-top: 1px solid #ccc;
+  margin-top: 50px;
+  margin-left: -25px;
+  margin-right: -25px;
+  padding: 10px 25px;
+  
+  text-align: left;
+}
+
 .actions > a {
   @extend .btn;
   margin-top: 20px;
+
 }
+
+/*************************************** File Upload */
+.multifile-upload {
+  .file {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+    margin-bottom: 25px;
+    padding: 10px;
+    width: 420px;
+    height: 200px;
+    line-height: 1em;
+    overflow: hidden;
+    background: white;
+    
+    img {
+      width: 150px;
+      display: inline-block;
+      line-height: 1em;
+      border: 1px solid #ccc;
+      background: white;
+    }
+    
+    .file-details {
+      line-height: 1.5;
+      vertical-align: top;
+      display: inline-block;
+      padding: 5px;
+      width: 240px;
+      
+      a {
+        font-size: 0.8em;
+        text-decoration: underline;
+        margin-right: 5px;
+      }
+    }
+    
+    .file-name {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    .file-actions {
+      margin-top: 25px;
+      &> a {
+        @extend .btn;
+        @extend .btn-mini;
+        text-decoration: none;
+        &.btn-danger {
+          @extend .btn-danger;
+        }
+      }
+    }
+  }
+  
+  .drop-target {
+    font-weight: bold;
+    line-height: 2;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+
+/*************************************** Progress Bar */
+.progress {
+  @extend .progress-striped;
+  @extend .active;
+  margin-top: 25px;
+}
+
 
 /*************************************** Tagging */
 .select2-container {
@@ -142,4 +226,5 @@ input[type=submit] {
     }
   }
 }
+
 

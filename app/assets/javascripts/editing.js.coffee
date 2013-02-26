@@ -5,6 +5,8 @@
 #= require bootstrap-dropdown
 #= require select2
 #= require jquery-ui
+# require jquery.mjs.nestedSortable
+# require bootstrap-colorpicker
 
 jQuery ->
   # Handle File Uploads
@@ -15,7 +17,9 @@ jQuery ->
     $dropZone = if dropZoneSelector then $(dropZoneSelector) else $item
     
     if $dropZone != $item
-      $item.css 'display', 'none'
+      $item.css 'display', 'none'  
+      $dropZone.click ->
+        $item.click()
       
     $item.fileupload {
       type: $item.data('method') or 'POST'
@@ -41,6 +45,8 @@ jQuery ->
       #   console.log "Drag Over", data
       progressall: (e, data)->
         console.log "Progress", data.loaded, data.total
+        percentage = 100.0 / data.total * data.loaded
+        $dropZone.find('.progress .bar').css 'width', "#{percentage}%"
         # $(document.body).toggleClass 'uploading', (data.loaded != data.total)  
     }
 
@@ -57,6 +63,7 @@ jQuery ->
     tokenSeparators: [',']
   }
   
+  # Selects
   $('select').select2 {
     
   }
@@ -75,4 +82,26 @@ jQuery ->
       
       input.val ids.toArray().join(',') 
   }
+  
+  $('.multifile-upload').sortable {
+    items: '> .file:not(.drop-target)'
+    update: (event, ui)->
+      console.log 'sort'
+  }
+  
+  # $('.sortable-tree').nestedSortable {
+  #   handle: 'div'
+  #   items: 'li'
+  #   toleranceElement: '> div'
+  #   update: (event, ui)->
+  #     console.log "STOP SORT: ", event, ui
+  # }
+  
+  # Color
+  # $('.color').colorpicker {
+  #   format: 'rgba'
+  # }
+  
+  
+  
   

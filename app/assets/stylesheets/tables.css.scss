@@ -5,6 +5,20 @@
 
 table {
   @extend .table;
-  @extend .table-striped;
   @extend .table-bordered;
+  background: white;
+}
+
+table:not(.form) {
+  @extend .table-striped;
+}
+
+table.form {
+  th {
+    vertical-align: middle;
+  }
+  
+  th:after {
+    content: ':';
+  }
 }

@@ -31,4 +31,33 @@ module ApplicationHelper
      image.file.url(:large)
     end
   end
+  
+  def tree_item(page)
+    html = "<li><div>#{page.position}: #{page.title}</div>"
+    if page.has_children?
+      html << "<ol>"
+        page.children.each do |child|
+          html << tree_item(child)
+        end
+      html << "</ol>"
+    end
+    html << "</li>"
+    return html.html_safe
+    
+    # content_tag :li do
+    #   result = []
+    #   result << content_tag(:div) do
+    #     page.title
+    #   end
+    #   if page.has_children?
+    #     result << content_tag(:ol) do
+    #       page.children.each do |child|
+    #         tree_item(child)
+    #       end
+    #     end
+    #   end
+    #   result.join.html_safe
+    # end
+    
+  end
 end
