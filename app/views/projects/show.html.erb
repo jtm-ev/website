@@ -14,7 +14,7 @@
 <div class="slider-wrapper">
     <div id="slider" class="nivoSlider">
         <% @project.images.each do |item| %>
-          <img src='<%= item.file.url(:large_cinema) %>' title='<%= item.description %>'>
+          <img src='<%= item.file.url(:large_cinema) %>' title='<%= item.description %>' data-thumb='<%= item.file.url(:square) %>'>
         <% end %>
     </div>
 </div>

@@ -1,16 +1,71 @@
-
 .slider-wrapper {
   margin-left: -25px;
   margin-right: -25px;
+
   
   .nivo-controlNav {
-    display: none;
+
   }
-  
-  .nivo-directionNav {
-    display: none;
+	.nivo-control img{
+	  width:50px;
+	  height:50px;
+	  margin:1px;
+	  transition: blur .5s;
+	  -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+	}
+
+	.nivo-control.active img {
+	  -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+	  
+	}
+
+  .nivo-nextNav{
+  	-webkit-transition: opacity .5s;
+  	-moz-transition: opacity .5s;
+  	-o-transition: opacity .5s;
+  	opacity: 0;
+    margin-right: 5px;
+  	margin-top: -15px;
+  	text-indent: -9999px;
+  	width: 50px;
+  	height: 49px;
+  	background-image: url(/images/right_arrow.png);
+  	background-size: 50px, 50px;
+  }  
+  .nivo-prevNav{
+  	transition: opacity .5s;
+  	-webkit-transition: opacity .5s;
+  	-moz-transition: opacity .5s;
+  	-o-transition: opacity .5s;
+  	opacity: 0;
+  	margin-left: 5px;
+  	margin-top: -15px;
+  	text-indent: -9999px;
+  	width: 50px;
+  	height: 50px;
+  	background-image: url(/images/left_arrow.png);
+  	background-size: 50px, 50px;
   }
 }
+.slider-wrapper:hover .nivo-prevNav{
+	opacity: 1;
+}
+.slider-wrapper:hover .nivo-nextNav{
+	opacity: 1;
+}
+.nivo-controlNav:hover .nivo-control img{
+  	-webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+}
+
 
 .sortable-images {
   font-size: 0;
