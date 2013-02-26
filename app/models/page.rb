@@ -2,11 +2,12 @@ class Page < ActiveRecord::Base
   include ActsAsTree
   
   attr_accessor :color
-  attr_accessible :content, :order, :parent_id, :public, :show_in_navigation, :title
+  attr_accessible :content, :order, :parent_id, :public, :show_in_navigation, :title, :background_id, :background
   
   acts_as_tree order: "position"
   
   has_many :page_files, dependent: :destroy, order: 'created_at DESC'
+  belongs_to :background, class_name: 'PageFile', foreign_key: 'background_id'
   
   def has_children?
     self.children.length > 0

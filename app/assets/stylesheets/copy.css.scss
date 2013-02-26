@@ -12,6 +12,10 @@ body {
   @extend %font-copy;
 }
 
+img {
+  max-width: 100%;
+}
+
 
 table, td, th {
   @extend %font-copy;

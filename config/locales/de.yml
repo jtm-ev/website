@@ -214,6 +214,7 @@ de:
         parent: 'Oberseite'
         show_in_navigation: 'In Navigation zeigen'
         public: 'Öffentlich sichtbar'
+        background: 'Hintergrund'
       group:
         shortcut: 'Kurzname'
         public: 'Öffentlich sichtbar'

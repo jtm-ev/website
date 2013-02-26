@@ -29,6 +29,11 @@
       <td><%= f.check_box :public %></td>
     </tr>
     
+    <tr>
+      <th><%= f.label :background %></th>
+      <td><%= f.text_field :background_id, class: 'number' %></td>
+    </tr>
+    
     <!--tr>
       <th><%= f.label :color %></th>
       <td>
@@ -83,7 +88,7 @@
         
         <% @page.page_files.each do |pf| %>
           <div class='file'>
-            <div class='file-name'><%= pf.file_file_name %></div>
+            <div class='file-name'>#<%= pf.id %> : <%= pf.file_file_name %></div>
             <img src='<%= pf.file.url(:square) %>'>
             <div class='file-details'>
               <%= pf.width %> x <%= pf.height %><br/>

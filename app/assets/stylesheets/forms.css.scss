@@ -38,7 +38,7 @@ input[type=text], input[type=email], input[type=password] {
   @extend %font-copy;
 }
 
-td input {
+td input:not(.number) {
   width: 100%;
 }
 
@@ -54,8 +54,11 @@ textarea {
 
 .wysihtml5-sandbox {
   @extend %text-input;
-  height: 400px;
+  height: 500px;
   width: 100%;
+  border-left: 0; border-right: 0;
+  padding-left: 0; padding-right: 0;
+  background: transparent;
 }
 
 .wysihtml5-toolbar {

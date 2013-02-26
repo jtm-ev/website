@@ -32,15 +32,15 @@
     
     <tr>
       <th>Seite</th>
-      <td><%= @group.page.try(:title)  %></td>
+      <td><%= @group.page.try(:title)  %> (<%= link_to 'bearbeiten', edit_page_path(@group.page) %>)</td>
     </tr>
 
   </table>
   
   <ul class='tabs'>
     <li><a href='#mitglieder'>Mitglieder</a></li>
-    <li><a href='#inhalt'>Inhalt</a></li>
-    <li><a href='#dateien'>Dateien ()</a></li>
+    <!--li><a href='#inhalt'>Inhalt</a></li>
+    <li><a href='#dateien'>Dateien ()</a></li-->
   </ul>
   <div class='tab-content'>
     <div id='mitglieder'>
@@ -85,13 +85,7 @@
       </table>
     </div>
     
-    <%= f.fields_for :page do |builder| %>
-    
-      <div id="inhalt">
-        <%= render 'wysiwyg', {form: builder, field: :content} %>
-      </div>
-      
-    <% end %>
+
   
   </div>
   
