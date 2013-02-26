@@ -1,0 +1,14 @@
+
+
+<tr>
+  <td><%= check_box_tag 'selection[]', gms.id %></td>
+  <td><%= gms.member.try :full_name %></td>
+  <td>
+    <%= fields_for "group_memberships[]", gms do |b| %>
+      <%= b.text_field :role %>
+    <% end %>
+  </td>
+  <td>
+    
+  </td>
+</tr>

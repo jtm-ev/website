@@ -36,6 +36,12 @@
     </tr>
 
   </table>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
   
   <ul class='tabs'>
     <li><a href='#mitglieder'>Mitglieder</a></li>
@@ -51,53 +57,38 @@
           <th>Rolle</th>
           <th></th>
         </thead>
-        <thead>
-          <td></td>
-          <%= fields_for :new_membership do |builder| %>
-            <td><%= builder.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
-            <td><%= builder.text_field :role %></td>
-          <% end %>
+        
+        <%= form_for GroupMembership.new(group_id: @group.id), remote: true do |f| %>
+          <%= f.hidden_field :group_id %>
+          <thead>
+            <td></td>
+
+              <td><%= f.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
+              <td><%= f.text_field :role %></td>
+
           
-          <td><%= f.submit 'Hinzufügen', name: 'add' %></td>
+            <td><%= f.submit 'Hinzufügen', remote: true %></td>
           
-        </thead>
-        <tbody>
+          </thead>
+        <% end %>
+        
+        <tbody id='group_memberships_container'>
           <% @group.group_memberships.each do |gms| %>
-            <tr>
-              <td><%= check_box_tag 'selection[]', gms.id %></td>
-              <td><%= gms.member.try :full_name %></td>
-              <td>
-                <%= fields_for "group_memberships[]", gms do |b| %>
-                  <%= b.text_field :role %>
-                <% end %>
-              </td>
-              <td>
-                
-              </td>
+            <%= render 'group_memberships/item', gms: gms %>
           <% end %>
         </tbody>
         <tfoot>
           <td></td>
-          <td><%= f.submit 'Auswahl löschen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %></td>
+          <td><%# f.submit 'Auswahl löschen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %></td>
           <td></td>
           <td></td>
         </tfoot>
       </table>
     </div>
     
-    <%= f.fields_for :page do |builder| %>
-    
-      <div id="inhalt">
-        <%= render 'wysiwyg', {form: builder, field: :content} %>
-      </div>
-      
-    <% end %>
+
   
   </div>
   
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-  
-<% end %>
+
 
