@@ -7,6 +7,7 @@
     <th>Public</th>
     <th>Page</th>
     <th>Description</th>
+    <th>Members</th>
     <th></th>
     <th></th>
     <th></th>
@@ -19,6 +20,7 @@
     <td><%= group.public %></td>
     <td><%= group.page_id %></td>
     <td><%= group.description %></td>
+    <td><%= group.group_memberships.count %></td>
     <td><%= link_to 'Show', group %></td>
     <td><%= link_to 'Edit', edit_group_path(group) %></td>
     <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>

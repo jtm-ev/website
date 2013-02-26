@@ -57,10 +57,23 @@ class GroupsController < ApplicationController
   # PUT /groups/1.json
   def update
     @group = Group.find(params[:id])
+    
+    if params[:add]
+      # Create New GroupMembership
+      @group.group_memberships.create(params[:new_membership])
+    elsif params[:delete]
+      # Delete Selection
+      selection_ids = params[:selection].map {|s| s.to_i}
+      GroupMembership.delete( selection_ids )
+    else
+      # Mass-Update GroupMemberships
+      @group.group_memberships.update params[:group_memberships].keys, params[:group_memberships].values
+    end
 
+    group_params = params[:group]
     respond_to do |format|
-      if @group.update_attributes(params[:group])
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+      if @group.update_attributes(group_params)
+        format.html { redirect_to :back }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

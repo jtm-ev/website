@@ -38,11 +38,53 @@
   </table>
   
   <ul class='tabs'>
+    <li><a href='#mitglieder'>Mitglieder</a></li>
     <li><a href='#inhalt'>Inhalt</a></li>
     <li><a href='#dateien'>Dateien ()</a></li>
   </ul>
   <div class='tab-content'>
-
+    <div id='mitglieder'>
+      <table>
+        <thead>
+          <th></th>
+          <th>Mitglied</th>
+          <th>Rolle</th>
+          <th></th>
+        </thead>
+        <thead>
+          <td></td>
+          <%= fields_for :new_membership do |builder| %>
+            <td><%= builder.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
+            <td><%= builder.text_field :role %></td>
+          <% end %>
+          
+          <td><%= f.submit 'Hinzufügen', name: 'add' %></td>
+          
+        </thead>
+        <tbody>
+          <% @group.group_memberships.each do |gms| %>
+            <tr>
+              <td><%= check_box_tag 'selection[]', gms.id %></td>
+              <td><%= gms.member.try :full_name %></td>
+              <td>
+                <%= fields_for "group_memberships[]", gms do |b| %>
+                  <%= b.text_field :role %>
+                <% end %>
+              </td>
+              <td>
+                
+              </td>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <td></td>
+          <td><%= f.submit 'Auswahl löschen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %></td>
+          <td></td>
+          <td></td>
+        </tfoot>
+      </table>
+    </div>
+    
     <%= f.fields_for :page do |builder| %>
     
       <div id="inhalt">

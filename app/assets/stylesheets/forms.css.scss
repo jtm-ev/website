@@ -107,6 +107,10 @@ textarea {
 input[type=submit] {
   @extend .btn;
   @extend .btn-success;
+  
+  &.btn-danger {
+    @extend .btn-danger;
+  }
 }
 
 .actions {

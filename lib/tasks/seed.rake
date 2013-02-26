@@ -181,11 +181,17 @@ namespace :seed do
   task :groups => :environment do
     Group.destroy_all
     groups = read_xml('jtm_gruppen')
+    gm = create_map('jtm_gruppen_mitglieder', 'gruppe_id')
     groups.each do |group|
       puts group.inspect
       g = create_model group, Group, id: 'id', name: 'name', shortcut: 'kuerzel', public: 'extern_sichtbar'
       g.page.update_attributes content: group['beschreibung'], title: group['name']
-      # g.page.save
+      if gm[g.id]
+        gm[g.id].each do |items|
+          mid = items['mitglied_id']
+          g.group_memberships.create member: Member.find(mid)
+        end
+      end
     end
   end
   

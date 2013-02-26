@@ -7,6 +7,7 @@ Website::Application.routes.draw do
   resources :events
 
   resources :groups
+  resources :group_memberships
 
   resources :pages do
     resources :page_files
