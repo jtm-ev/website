@@ -30,10 +30,10 @@ class PagesController < ApplicationController
   # GET /pages/new
   # GET /pages/new.json
   def new
-    @page = Page.new
+    @page = Page.create
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { redirect_to edit_page_path(@page) }
       format.json { render json: @page }
     end
   end

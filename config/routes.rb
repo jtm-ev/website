@@ -2,7 +2,7 @@ Website::Application.routes.draw do
   resources :teams
   resources :team_memberships
   
-  resources :members
+  resources :members, path: 'mitglieder'
 
   resources :events
 
@@ -14,8 +14,11 @@ Website::Application.routes.draw do
   end
   
   
-  resources :projects do
-  # resources :projects do
+  resources :projects, path: 'projekte' do
+    # collection do
+    #   get '(::tags)' => 'projects#index', as: :tagged_projects
+    #   get '(::tags)/:id' => 'projects#show', as: :show_tagged_project
+    # end
     resources :project_files do
       collection do
         post ':kind' => 'project_files#create', as: 'specific'
@@ -23,10 +26,8 @@ Website::Application.routes.draw do
     end
   end
   
-  get '/projects(::tags)' => 'projects#index', as: :tagged_projects
-  # get '/projects(/tagged/:tags)/:id' => 'projects#show', as: :show_tagged_project
-  get '/projects(::tags)/:id' => 'projects#show', as: :show_tagged_project
-  # get '/projects(/tagged/:tags)/:id/edit' => 'projects#edit' #, as: :edit_project
+  get '/projekte(::tags)' => 'projects#index', as: :tagged_projects
+  get '/projekte(::tags)/:id' => 'projects#show', as: :show_tagged_project
 
 
   # The priority is based upon order of creation:

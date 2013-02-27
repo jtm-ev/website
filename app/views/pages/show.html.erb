@@ -2,14 +2,7 @@
 
 <%= render_breadcrumbs %>
 
-<h1><%= @page.title %></h1>
-
-
-  <ul>
-    <% @page.children.where(show_in_navigation: true).each do |subpage| %>
-      <li><%= link_to subpage.title, subpage %></li>
-    <% end %>
-  </ul>
+<%= render 'navigation', page: (@page.navigation_style == 'parent' ? @page.parent : @page) %>
 
 
 <%= @page.content.try :html_safe %>

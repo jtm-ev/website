@@ -1,0 +1,26 @@
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.pages-subnav {
+  list-style-type: none;
+  margin: 0 -25px;
+  margin-bottom: 20px;
+  padding: 3px 25px;
+  font-size: 14px;
+  border-bottom: 1px solid #ccc;
+  
+  li {
+    display: inline-block;
+    
+    &:not(:last-child):after {
+      content: ' | '
+    }
+    
+    &.active a {
+      color: #B8004A;
+    }
+  }
+}

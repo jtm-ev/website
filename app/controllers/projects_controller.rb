@@ -9,7 +9,8 @@ class ProjectsController < ApplicationController
       col = col.tagged_with(tags)
       
       first_tag = tags.first
-      add_breadcrumb first_tag.humanize, tagged_projects_path(first_tag)
+      htags = tags.map {|t| t.humanize}
+      add_breadcrumb htags.join(', '), tagged_projects_path(params[:tags])
     end
     col = col.order('id DESC')
   end
