@@ -61,9 +61,10 @@
     <tr>
       <th>Unterseiten</th>
       <td>
-        <ul>
+        <ul class='sortable-pages'>
+          <%= hidden_field_tag 'sorting' %>
           <% @page.children.each do |child| %>
-            <li><%= link_to child.title, edit_page_path(child) %></li>
+            <li data-id='<%= child.id %>'><%= link_to child.title, edit_page_path(child) %></li>
           <% end %>
         </ul>
       </td>

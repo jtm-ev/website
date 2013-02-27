@@ -83,6 +83,17 @@ jQuery ->
       input.val ids.toArray().join(',') 
   }
   
+  $('.sortable-pages').sortable {
+    items: '> li'
+    update: (event, ui)->
+      parent = ui.item.parent()
+      input = parent.find('input')
+      ids = parent.find('> li').map (index, item)->
+        $(item).data('id')
+      
+      input.val ids.toArray().join(',')
+  }
+  
   $('.multifile-upload').sortable {
     items: '> .file:not(.drop-target)'
     update: (event, ui)->

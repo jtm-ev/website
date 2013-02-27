@@ -83,10 +83,8 @@ class ProjectsController < ApplicationController
     
     # Update Image Sorting
     if params[:sorting]
-      puts "Sorting: #{params[:sorting].inspect}"
       params[:sorting].each do |sort|
         sort.split(',').each_with_index do |id, index|
-          puts "SORT: #{index}: #{id}"
           project_file = @project.project_files.find(id.to_i)
           project_file.update_attributes position: index
         end

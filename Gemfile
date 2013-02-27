@@ -15,7 +15,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   gem 'bootstrap-sass'
-  gem 'wysihtml5-rails'
   gem "jquery-fileupload-rails"
   gem "select2-rails"
 

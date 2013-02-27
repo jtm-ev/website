@@ -63,6 +63,13 @@ class PagesController < ApplicationController
   # PUT /pages/1.json
   def update
     @page = Page.find(params[:id])
+    
+    if params[:sorting]
+      params[:sorting].split(',').each_with_index do |id, index|
+        p = Page.find(id.to_i)
+        p.update_attributes position: index
+      end
+    end
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
