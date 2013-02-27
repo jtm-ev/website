@@ -1,16 +1,77 @@
-
 .slider-wrapper {
   margin-left: -25px;
   margin-right: -25px;
+
   
   .nivo-controlNav {
-    display: none;
+
   }
-  
-  .nivo-directionNav {
-    display: none;
+	.nivo-control img{
+	  -webkit-transition: all .6s ;
+	  -webkit-backface-visibility: hidden;
+	  width:50px;
+	  height:50px;
+	  margin:1px;
+	  -webkit-filter: grayscale(100%);
+    -moz-filter:  grayscale(100%);
+    -o-filter:  grayscale(100%);
+    -ms-filter:  grayscale(100%);
+	}
+
+	.nivo-control.active img {	
+	  -webkit-transition: all .6s ;
+	  -webkit-backface-visibility: hidden;
+	  -webkit-transition: grayscale .5s;
+	  -webkit-filter:  grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -o-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+	  
+	}
+
+  .nivo-nextNav{
+  	-webkit-transition: opacity .5s;
+  	-moz-transition: opacity .5s;
+  	-o-transition: opacity .5s;
+  	opacity: 0;
+    margin-right: 5px;
+  	margin-top: -15px;
+  	text-indent: -9999px;
+  	width: 50px;
+  	height: 49px;
+  	background-image: url(/images/right_arrow.png);
+  	background-size: 50px, 50px;
+  }  
+  .nivo-prevNav{
+  	transition: opacity .5s;
+  	-webkit-transition: opacity .5s;
+  	-moz-transition: opacity .5s;
+  	-o-transition: opacity .5s;
+  	opacity: 0;
+  	margin-left: 5px;
+  	margin-top: -15px;
+  	text-indent: -9999px;
+  	width: 50px;
+  	height: 50px;
+  	background-image: url(/images/left_arrow.png);
+  	background-size: 50px, 50px;
   }
 }
+.nivoSlider:hover .nivo-prevNav{
+	opacity: 1;
+}
+.nivoSlider:hover .nivo-nextNav{
+	opacity: 1;
+}
+.nivo-controlNav:hover .nivo-control img{
+    -webkit-transition: all .6s;
+    -webkit-backface-visibility: hidden;
+    -webkit-filter:  grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -o-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+}
+
 
 .sortable-images {
   font-size: 0;
