@@ -1,0 +1,8 @@
+
+<h1><%= page.title %></h1>
+
+<ul class='pages-subnav'>
+  <% page.children.where(show_in_navigation: true).each do |subpage| %>
+    <%= navigation_link_to subpage.title, page_path(subpage) %>
+  <% end %>
+</ul>

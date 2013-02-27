@@ -2,7 +2,7 @@ class Page < ActiveRecord::Base
   include ActsAsTree
   
   attr_accessor :color
-  attr_accessible :content, :order, :parent_id, :public, :show_in_navigation, :title, :background_id, :background
+  attr_accessible :content, :order, :parent_id, :public, :show_in_navigation, :title, :background_id, :background, :navigation_style
   
   acts_as_tree order: "position"
   

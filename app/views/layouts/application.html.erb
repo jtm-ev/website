@@ -42,18 +42,20 @@
     <nav>
       <ul>
         <%= navigation_link_to 'Projekte', projects_path, true %>
-        <%= navigation_link_to 'Termine', events_path, true %>
-        <%= navigation_link_to 'Gruppen', groups_path, true %>
+        <%# navigation_link_to 'Termine', events_path, true %>
+        <%# navigation_link_to 'Gruppen', groups_path, true %>
         
         <% Page.roots.where(show_in_navigation: true).each do |page| %>
           <%= navigation_link_to page.title, page_path(page) %>
         <% end %>
         
+        <%= navigation_link_to 'Gästebuch', '#' %>
       </ul>
     </nav>
   </section>
   
-  <section id='content' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'>
+  <section id='content'>
+    <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
     <div class='container'>
       <%= yield %>
     </div>
