@@ -5,7 +5,8 @@
 <%= render 'navigation', page: (@page.navigation_style == 'parent' ? @page.parent : @page) %>
 
 
-<%= raw @page.content %>
+<%= liquidize @page.content, 'page' => @page %>
+<%# raw Liquid::Template.parse(@page.content).render({page: @page}) %>
 
 <div class='clearfix'></div>
 

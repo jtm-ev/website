@@ -35,6 +35,7 @@ gem "acts_as_tree"
 gem "acts-as-taggable-on"
 
 gem "breadcrumbs_on_rails"
+gem "liquid"
 
 
 # To use ActiveModel has_secure_password

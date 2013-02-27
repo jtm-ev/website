@@ -5,4 +5,6 @@ class GroupMembership < ActiveRecord::Base
   belongs_to :member
   belongs_to :group
   
+  liquid_methods :role, :member
+  
 end

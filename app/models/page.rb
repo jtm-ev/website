@@ -9,6 +9,8 @@ class Page < ActiveRecord::Base
   has_many :page_files, dependent: :destroy, order: 'created_at DESC'
   belongs_to :background, class_name: 'PageFile', foreign_key: 'background_id'
   
+  liquid_methods :title, :group
+  
   def has_children?
     self.children.length > 0
   end
@@ -21,6 +23,10 @@ class Page < ActiveRecord::Base
       s = s.parent
     end
     p
+  end
+  
+  def group
+    Group.where(page_id: self.id).first
   end
   
   def self.tree_array(pages = nil, indent_str = '---', indent = 0)
