@@ -28,7 +28,7 @@ module ApplicationHelper
   def set_background(image)
     return unless image
     content_for :background do 
-     image.file.url(:large)
+     image.file.url(:square_300)
     end
   end
   

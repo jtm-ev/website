@@ -5,7 +5,7 @@
 <%= render 'navigation', page: (@page.navigation_style == 'parent' ? @page.parent : @page) %>
 
 
-<%= @page.content.try :html_safe %>
+<%= raw @page.content %>
 
 <div class='clearfix'></div>
 

@@ -18,10 +18,8 @@ $sidebar_width: 200px;
   @include debug-border(top);
   @include debug-border(bottom);
   
-/*  max-width: 960px;*/
   width: 935px;
-  
-/*  margin: 0 auto;*/
+  margin-bottom: 300px;
   
   padding: 25px;
   position: relative;
