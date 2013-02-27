@@ -9,6 +9,8 @@ class Member < ActiveRecord::Base
   has_many :teams, through: :team_memberships
   has_many :projects, through: :teams, uniq: true
 
+  liquid_methods :name, :first_name, :full_name
+
   def full_name
     [self.name, self.first_name].join ' '
   end

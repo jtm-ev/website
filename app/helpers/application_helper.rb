@@ -71,4 +71,10 @@ module ApplicationHelper
     return text.html_safe if item.nil?
     link_to text.html_safe, link.call(item), {title: item.try(title_sym)}
   end
+  
+  def liquidize(content, arguments)
+    # RedCloth.new(Liquid::Template.parse(content).render(arguments, :filters => [LiquidFilters])).to_html
+    Liquid::Template.parse(content).render(arguments).html_safe
+  end
+  
 end

@@ -63,7 +63,7 @@
       <td>
         <ul>
           <% @page.children.each do |child| %>
-            <li><%= child.title %></li>
+            <li><%= link_to child.title, edit_page_path(child) %></li>
           <% end %>
         </ul>
       </td>
@@ -75,6 +75,7 @@
   <ul class='tabs'>
     <li><a href='#inhalt'>Inhalt</a></li>
     <li><a href='#dateien'>Dateien (<%= @page.page_files.count %>)</a></li>
+    <li><a href='#hilfe'>Hilfe</a></li>
   </ul>
   <div class='tab-content'>
   
@@ -82,6 +83,14 @@
       <div class="field">
         <%= render 'wysiwyg', {form: f, field: :content} %>
       </div>
+    </div>
+    
+    <div id='hilfe'>
+      Im Text Editor können Liquid-Templates verwendet werden:
+      
+      <ul>
+        <li><a target='_blank' href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid für Designer</a></li>
+      </ul>
     </div>
   
     <div id='dateien' class='multifile-upload'>
