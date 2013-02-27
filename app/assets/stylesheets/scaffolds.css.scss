@@ -52,7 +52,7 @@ header {
   width: $sidebar_width;
   left: 0; top: 0; bottom: 0;
   background: white;
-/*  z-index: 1000;*/
+  z-index: 2;
 /*  border-right: 1px solid black;*/
   text-align: center;
   
@@ -102,16 +102,36 @@ header {
 
 
 #content {
+  position: relative;
   margin-left: $sidebar_width - 10px;
-  background-image: url(/images/background.jpg);
-  background-size: cover;
+  
   background-attachment: fixed;
 /*  border: 1px solid red;*/
   padding: 80px;
   min-height: 100%;
   
-/*  -webkit-filter: blur(10px);
-  filter: blur(10px);*/
+
+}
+
+$background-blur: 5px;
+
+#background {
+  background-image: url(/images/background.jpg);
+  background-size: cover;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  -webkit-filter: blur($background-blur);
+  -moz-filter: blur($background-blur);
+  filter: blur($background-blur);
+  
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  
 }
 
 .container {
