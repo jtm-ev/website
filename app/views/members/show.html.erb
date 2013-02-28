@@ -1,92 +1,18 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <b>Name:</b>
-  <%= @member.name %>
+  <h1 class="profile-name"><%= @member.first_name %> <%= @member.name %> (<%= @member.age %>)</h1>
 </p>
 
-<p>
-  <b>First name:</b>
-  <%= @member.first_name %>
-</p>
+<img class="profile-image" src="<%= @member.file.url(:square_300) %>">
 
 <p>
-  <b>Birth name:</b>
-  <%= @member.birth_name %>
-</p>
-
-<p>
-  <b>Street:</b>
-  <%= @member.street %>
-</p>
-
-<p>
-  <b>City:</b>
-  <%= @member.city %>
-</p>
-
-<p>
-  <b>Phone:</b>
-  <%= @member.phone %>
-</p>
-
-<p>
-  <b>Fax:</b>
-  <%= @member.fax %>
-</p>
-
-<p>
-  <b>Mobile:</b>
-  <%= @member.mobile %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @member.email %>
-</p>
-
-<p>
-  <b>Email extern:</b>
-  <%= @member.email_extern %>
-</p>
-
-<p>
-  <b>Birthday:</b>
-  <%= @member.birthday %>
-</p>
-
-<p>
-  <b>Member since:</b>
-  <%= @member.member_since %>
-</p>
-
-<p>
-  <b>School:</b>
-  <%= @member.school %>
-</p>
-
-<p>
-  <b>Gender:</b>
-  <%= @member.gender %>
-</p>
-
-<p>
-  <b>Active:</b>
-  <%= @member.active %>
+  <h3 class="profile-info">Mitglied seit: <%= @member.member_since %> <% if @member.active %> (aktiv) <% end %></h3>
 </p>
 
 <p>
   <b>Projekte:</b>
   <ul>
-  <% @member.projects.each do |project| %>
-    <li>
-      <%= link_to project.title, project %>
-      <ul>
-        <% project.team_memberships_for(@member).each do |team_membership| %>
-          <li><%= team_membership.team.name %> (<%= team_membership.role %>)</li>
-        <% end %>
-      </ul>
-    </li>
+  <% @member.actor_team_memberships.each do |team_membership| %>
+    <%= team_membership.role %>
   <% end %>
   </ul>
 </p>
