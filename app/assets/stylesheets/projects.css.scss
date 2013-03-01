@@ -186,6 +186,12 @@ iframe.youtube {
       content: ', '
     }
   }
+  
+  .team-project {
+    font-size: 0.8em;
+    margin-bottom: 10px;
+    margin-top: -5px;
+  }
 }
 
 /*.actor {
@@ -234,6 +240,7 @@ iframe.youtube {
   margin: 5px;
   margin-bottom: 25px;
   text-align: center;
+  vertical-align: top;
   
   .actor-image {
     border: 1px solid #ccc;

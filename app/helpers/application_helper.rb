@@ -77,4 +77,8 @@ module ApplicationHelper
     Liquid::Template.parse(content).render(arguments).html_safe
   end
   
+  def with_clamps_unless_nil(text)
+    text.nil? ? '' : " (#{text})"
+  end
+  
 end

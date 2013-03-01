@@ -12,7 +12,7 @@ class Member < ActiveRecord::Base
   liquid_methods :name, :first_name, :full_name
 
   def full_name
-    [self.name, self.first_name].join ' '
+    [self.first_name, self.name].join ' '
   end
 
   def age
@@ -23,5 +23,11 @@ class Member < ActiveRecord::Base
   def actor_team_memberships
     team_memberships.joins(:team).where('teams.name = ?', 'Darsteller')
   end
+  
+  def non_actor_team_memberships
+    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller')
+  end
+  
+  
 end
 
