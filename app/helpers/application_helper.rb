@@ -72,10 +72,7 @@ module ApplicationHelper
     link_to text.html_safe, link.call(item), {title: item.try(title_sym)}
   end
   
-  def liquidize(content, arguments)
-    # RedCloth.new(Liquid::Template.parse(content).render(arguments, :filters => [LiquidFilters])).to_html
-    Liquid::Template.parse(content).render(arguments).html_safe
-  end
+
   
   def with_clamps_unless_nil(text)
     text.nil? ? '' : " (#{text})"

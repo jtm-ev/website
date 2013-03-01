@@ -1,11 +1,28 @@
-<img class="profile-image" src="<%= @member.file.url(:square_300) %>">
+<%= render_breadcrumbs %>
 
-<h1 class="profile-name"><%= @member.full_name %> (<%= @member.age %>)</h1>
-<h3 class="profile-info">Mitglied seit: <%= @member.member_since %> <% if @member.active %> (aktiv) <% end %></h3>
+<% if @previous or @next %>
+  <div id='navigatable-nav'>
+    <%= render_navigatable_nav(@previous, '&laquo;',  lambda {|i| project_member_path(@project, i) }, :full_name) %>
+    <%= render_navigatable_nav(@next, '&raquo;',      lambda {|i| project_member_path(@project, i) }, :full_name) %>  
+  </div>
+<% end %>
+
+<% if @member.has_image? %>
+  <img class="profile-image" src="<%= @member.file.url(:square_300) %>">
+<% end %>
+
+<h1 class="profile-name"><%= @member.full_name %><%= with_clamps_unless_nil @member.age %></h1>
+<% if @member.active %>
+  <h3 class="profile-info">Mitglied seit: <%= l @member.member_since %></h3>
+<% end %>
+
+<div class='clearfix'></div>
 
 <ul class='tabs'>
   <li><a href='#rollen' data-toggle='tab'>Rollen (<%= @member.actor_team_memberships.length %>)</a></li>
-  <li><a href='#hdk' data-toggle='tab'>Hinter den Kulissen (<%= @member.non_actor_team_memberships.length %>)</a></li>
+  <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
+    <li><a href='#hdk' data-toggle='tab'>Hinter den Kulissen</a></li>
+  <% end %>
 </ul>
 
 <div class='tab-content'>
@@ -17,6 +34,8 @@
 
           <% if team_membership.role_image %>
             <a href='<%= project_path(project) %>'><img class='actor-image' src='<%= team_membership.role_image.file.url(:square) %>'></a>
+          <% else %>
+            <div class='actor-image'></div>
           <% end %>
 
         <span class='member'><%= team_membership.role %></span>

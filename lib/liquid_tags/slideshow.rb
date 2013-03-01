@@ -4,7 +4,7 @@ module LiquidTags
   class Slideshow < OfflineTemplate
 
     def initialize(tag_name, args, tokens)
-      super
+      super()
     end
   
     def render(context)

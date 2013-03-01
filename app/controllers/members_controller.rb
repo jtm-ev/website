@@ -1,4 +1,6 @@
 class MembersController < ApplicationController
+  add_breadcrumb 'Home', :root_path
+  
   # GET /members
   # GET /members.json
   def index
@@ -14,6 +16,24 @@ class MembersController < ApplicationController
   # GET /members/1.json
   def show
     @member = Member.find(params[:id])
+    
+    if params[:project_id]  # Actors of Project
+      @project = Project.find(params[:project_id])
+      collection = @project.actor_team.members
+      
+      # @act = collection.find()
+      
+      
+      add_breadcrumb 'Projekte', :projects_path
+      add_breadcrumb @project.title, "#{project_path(@project)}#darsteller"
+      
+      
+      
+      @previous = @member.previous_in(collection)
+      @next = @member.next_in(collection)
+    end
+    
+    add_breadcrumb @member.full_name
 
     respond_to do |format|
       format.html # show.html.erb

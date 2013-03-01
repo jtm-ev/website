@@ -5,7 +5,7 @@ module LiquidTags
   class ProjectSlideshow < OfflineTemplate #Liquid::Tag
     
     def initialize(tag_name, markup, tokens)
-      super
+      super()
       # Rails.logger.info "Slideshow: #{markup}"
       # Rails.logger.info "Token: #{tokens}"
       

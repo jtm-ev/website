@@ -18,7 +18,7 @@
     <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
   <% end %>
   <% unless @project.actor_team.nil? %>
-    <li><a href='#actors' data-toggle='tab'>Darsteller</a></li>
+    <li><a href='#darsteller' data-toggle='tab'>Darsteller</a></li>
   <% end %>
   <% unless @project.non_actor_teams.empty? %>
     <li><a href='#teams' data-toggle='tab'>Hinter den Kulissen</a></li>
@@ -70,16 +70,16 @@
   </div--> 
 
   <% unless @project.actor_team.nil? %>
-    <div id='actors'>
+    <div id='darsteller'>
     
           <% @project.actor_team.team_memberships.each do |team_membership| %>
             <div class='actor'>
 
                 <% if team_membership.actor_image %>
-                  <a href='<%= member_path(team_membership.member) %>'><img class='actor-image' src='<%= team_membership.actor_image.file.url(:square) %>'></a>
+                  <a href='<%= project_member_path(@project, team_membership.member) %>'><img class='actor-image' src='<%= team_membership.actor_image.file.url(:square) %>'></a>
                 <% end %>
 
-              <span class='member'><%= link_to team_membership.member.full_name, team_membership.member %></span>
+              <span class='member'><%= link_to team_membership.member.full_name, project_member_path(@project, team_membership.member) %></span>
               <span class='role'><%= team_membership.role %></span>
               
             </div>
@@ -113,5 +113,6 @@
 
 <% content_for :actions do %>
   <%= navigation_link_to 'Projekt bearbeiten', edit_project_path(@project) %>
+  <li><%= link_to 'Projekt löschen', project_path(@project), method: :delete, confirm: 'Projekt wirklich löschen?' %></li>
 <% end %>
 

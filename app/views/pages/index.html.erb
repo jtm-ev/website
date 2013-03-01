@@ -1,13 +1,5 @@
 <h1>Seiten</h1>
 
-
-<!--ol class='sortable-tree'>
-  <% Page.all.each do |page| %>
-    <%= tree_item(page) %>
-    
-  <% end %>
-</ol-->
-
 <table>
   <thead>
     <th>Title</th>
@@ -19,7 +11,7 @@
   </thead>
 
   <tbody class='sortable-table'>
-<% Page.tree_array(@pages).each do |entry| %>
+<% Page.tree_array.each do |entry| %>
   <% page = entry.instance %>
   <tr>
     <td><%= entry.label %></td>

@@ -6,6 +6,10 @@ class TeamMembership < ActiveRecord::Base
   belongs_to :team
   belongs_to :member  
   
+  def <=>(o)
+    return o.team.project.year <=> self.team.project.year
+  end
+  
   def project
     self.team.project
   end
@@ -22,7 +26,7 @@ class TeamMembership < ActiveRecord::Base
     return @role_image if @role_image
     
     return (@role_image = self) if self.has_image?
-    return (@role_image = self.project.project_files.first)
+    return (@role_image = self.project.images.first)
   end
   
 end

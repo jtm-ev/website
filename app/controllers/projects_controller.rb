@@ -12,7 +12,8 @@ class ProjectsController < ApplicationController
       htags = tags.map {|t| t.humanize}
       add_breadcrumb htags.join(', '), tagged_projects_path(params[:tags])
     end
-    col = col.order('id DESC')
+    # col = col.order('id DESC')
+    col
   end
   
   # GET /projects

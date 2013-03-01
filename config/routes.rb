@@ -24,6 +24,8 @@ Website::Application.routes.draw do
         post ':kind' => 'project_files#create', as: 'specific'
       end
     end
+    
+    resources :members, path: 'darsteller', only: :show
   end
   
   get '/projekte(::tags)' => 'projects#index', as: :tagged_projects

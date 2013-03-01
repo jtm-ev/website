@@ -22,8 +22,8 @@ jQuery ->
   # http://dev7studios.com/nivo-slider/#/documentation
   $('.nivoSlider').nivoSlider {
     pauseTime: 5000
-	  controlNavThumbs: true
-    }
+    controlNavThumbs: true
+  }
   
   $('.tabs a').click (e)->
     target = $(this).attr('href')

@@ -4,7 +4,7 @@ module LiquidTags
   class Image < OfflineTemplate
 
     def initialize(tag_name, args, tokens)
-      super
+      super()
       # Rails.logger.info "Image Tokens: #{tokens.length} : #{tokens}"
     end
   

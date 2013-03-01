@@ -1,5 +1,5 @@
 
-<section id='event-ticker'>
+<!--section id='event-ticker'>
   <div class='events-wrapper'>
   <% Event.outstanding.each do |event| %>
     <div class='event'>
@@ -9,8 +9,16 @@
     </div>
   <% end %>
   </div>
+</section-->
+
+<%= render_breadcrumbs %>
+
+<section class='articles no-slideshow-thumbs'>
+  <% for page in @pages do %>
+    <article data-created-at='<%= l page.created_at, format: :no_time %>'>
+    
+      <%= render 'pages/show', page: page %>
+
+    </article>
+  <% end %>
 </section>
-
-
-
-<%= render 'pages/show', page: (Page.where(title: 'Home').first or Page.roots.public.first) %>

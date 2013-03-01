@@ -1,5 +1,6 @@
 class Member < ActiveRecord::Base
   include FileUpload
+  include Navigatable
   
   attr_accessible :active, :birth_name, :birthday, :city, :email, :email_extern, :fax, :first_name, :gender, :member_since, :mobile, :name, :phone, :school, :street
 
@@ -16,16 +17,20 @@ class Member < ActiveRecord::Base
   end
 
   def age
+    return nil if birthday.nil?
     now = Time.now.utc.to_date
     now.year - birthday.year - (birthday.to_date.change(:year => now.year) > now ? 1 : 0)
   end
 
   def actor_team_memberships
-    team_memberships.joins(:team).where('teams.name = ?', 'Darsteller')
+    team_memberships.joins(:team).where('teams.name = ?', 'Darsteller').sort
+     # do |t2, t1|
+     #      t1.team.project.year <=> t2.team.project.year
+     #    end
   end
   
   def non_actor_team_memberships
-    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller')
+    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller').sort
   end
   
   

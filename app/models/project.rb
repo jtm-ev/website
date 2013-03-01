@@ -1,11 +1,7 @@
 class Project < ActiveRecord::Base
   include Navigatable
   
-  scope :latest_first,  lambda { order('id DESC') }
-  
-  # default_scope scoped
-  # scope :previous,  lambda { |i| where('id < ?', i.id).first }
-  # scope :next,      lambda { |i| where('id > ?', i.id).first }
+  scope :latest_first, lambda { joins(:events).uniq.order('events.start_time DESC') }
   
   attr_accessible :description, :title, :subtitle, :tag_list, :videos
 
@@ -17,6 +13,11 @@ class Project < ActiveRecord::Base
   
   acts_as_taggable_on :tags
   
+  def year
+    return 0 unless events.first
+    events.first.start_time.year
+  end
+  
   def images
     self.project_files.where(kind: 'image')
   end
@@ -24,11 +25,6 @@ class Project < ActiveRecord::Base
   def press
     self.project_files.where(kind: 'press')
   end
-  
-  def team_memberships_for(member)
-    self.team_memberships.where(member_id: member.id)
-  end
-  alias :team_memberships_of :team_memberships_for 
   
   def actor_team
     self.teams.where(name: 'Darsteller').first
