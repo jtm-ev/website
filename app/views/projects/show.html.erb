@@ -10,17 +10,8 @@
 <h1><%= @project.title %></h1>
 
 
+<%= render 'slider', :'@images' => @project.images %>
 
-<div class="slider-wrapper">
-    <div id="slider" class="nivoSlider">
-        <% @project.images.each do |item| %>
-          <img src='<%= item.file.url(:large_cinema) %>' title='<%= item.description %>' data-thumb='<%= item.file.url(:square) %>'>
-        <% end %>
-    </div>
-</div>
-<div id="htmlcaption" class="nivo-html-caption">
-    <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
-</div>
 
 <ul class='tabs'>
   <% unless @project.description.blank? %>
@@ -110,8 +101,8 @@
         <% end %>
         
         <div class='team-members'>
-          <% team.members.each do |member| %>
-              <span><%= link_to member.full_name, member %></span>
+          <% team.team_memberships.each do |tmember| %>
+              <span><%= link_to tmember.member.full_name, tmember.member %><% unless tmember.role.blank? %> (<%= tmember.role %>)<% end %></span>
           <% end %>
         </div>
 

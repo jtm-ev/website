@@ -45,7 +45,7 @@
         <%# navigation_link_to 'Termine', events_path, true %>
         <%# navigation_link_to 'Gruppen', groups_path, true %>
         
-        <% Page.roots.where(show_in_navigation: true).each do |page| %>
+        <% Page.roots.in_navigation.each do |page| %>
           <%= navigation_link_to page.title, page_path(page) %>
         <% end %>
         

@@ -1,6 +1,11 @@
 class Page < ActiveRecord::Base
   include ActsAsTree
   
+  scope :public, lambda { where(public: true) }
+  scope :in_navigation, lambda { public.where(show_in_navigation: true) }
+  
+  default_scope order: 'position'
+  
   attr_accessor :color
   attr_accessible :content, :position, :parent_id, :public, :show_in_navigation, :title, :background_id, :background, :navigation_style
   
