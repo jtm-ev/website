@@ -2,6 +2,9 @@
   margin-left: -25px;
   margin-right: -25px;
 
+  -webkit-transform: translate3d(0, 0, 0);
+  -mox-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   
   .nivo-controlNav {
 

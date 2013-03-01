@@ -11,6 +11,6 @@
   </div>
 </section>
 
-<h1>
-  Herzlich Willkommen
-</h1>
+
+
+<%= render 'pages/show', page: (Page.where(title: 'Home').first or Page.roots.public.first) %>
