@@ -36,6 +36,8 @@ gem "acts-as-taggable-on"
 gem "breadcrumbs_on_rails"
 gem "liquid"
 
+gem "geocoder"
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

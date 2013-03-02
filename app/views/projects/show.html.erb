@@ -39,8 +39,15 @@
     </div>
 
     <div id='events'>
+      <div class='locations right-sidebar-layout'>
+        <div class='tab-section-h' style='margin-left: -10px;'>Spielort</div>
+        <% @project.locations.each do |location| %>
+          <%= render 'locations/item', location: location %>
+        <% end %>
+      </div>
+      
       <% @project.events.group_by(&:year).each do |year, yevents| %>
-        <div class='year'><%= year %></div>
+        <div class='tab-section-h'><%= year %></div>
         <% yevents.group_by(&:week).each do |week, events| %>
           <div class='week' data-week='<%= week %>'>
             <% events.each do |event| %>
@@ -53,6 +60,9 @@
           </div>
         <% end %>
       <% end %>
+      
+      <div class='clearfix'></div>
+      
     </div>
 
     <div id='press' class='large-square-layout'>

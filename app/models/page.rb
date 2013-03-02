@@ -16,18 +16,26 @@ class Page < ActiveRecord::Base
   
   liquid_methods :title, :group
   
+  def image
+    page_files.first
+  end
+  
   def has_children?
     self.children.length > 0
+  end
+  
+  def root?
+    self.parent.nil?
   end
   
   def parents
     p = []
     s = self.parent
     while(s) do
-      p << s
+      p << s unless s.root?
       s = s.parent
     end
-    p
+    p.reverse
   end
   
   def group
@@ -43,6 +51,10 @@ class Page < ActiveRecord::Base
       result += tree_array(page.children, indent_str, indent + 1)
     end
     result
+  end
+  
+  def self.category(title)
+    Page.roots.find_or_create_by_title(title)
   end
   
 end

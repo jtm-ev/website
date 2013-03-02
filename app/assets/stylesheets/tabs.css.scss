@@ -2,6 +2,7 @@
 @import 'bootstrap/mixins';
 
 @import 'bootstrap/navs';
+@import 'copy';
 
 .tabs {
   @extend .nav;
@@ -12,14 +13,21 @@
 }
 
 .tab-content {
+  overflow: visible;
+  
   & > * {
    @extend .tab-pane
-   
-
   }
   
   & > *:not(.active) iframe {
    display: none;
   }
   
+}
+
+.tab-section-h {
+  @extend %font-header;
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 5px; 
 }

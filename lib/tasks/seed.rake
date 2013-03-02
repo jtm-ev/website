@@ -105,6 +105,39 @@ namespace :seed do
     end
   end
   
+  task :event_locations => :environment do
+    pfarrheim = Location.find_or_create_by_name('Pfarrheim Martinszell')
+    mzh = Location.find_or_create_by_name('Mehrzweckhalle Oberdorf')
+    studio = Location.find_or_create_by_name('Studiotheater')
+    theatrium = Location.find_or_create_by_name('Theatrium')
+    
+    map = {
+      'Pfarrheim in Martinszell' => pfarrheim,
+      'Sporthalle Oberdorf' => mzh,
+      'Sporthalle Oberdorf, Studiotheater' => studio,
+      'Mehrzweckhalle Oberdorf' => mzh,
+      'Studiotheater Mehrzweckhalle Oberdorf' => studio,
+      'MZH Oberdorf' => mzh,
+      'Pausenhof an der neuen Schule' => theatrium,
+      'Studiotheater' => studio,
+      'Theatrium' => theatrium,
+      'Pausenhof Grundschule' => theatrium,
+      'Pausenhof Grundschule Oberdorf' => theatrium,
+      'Pausenhof - Grundschule' => theatrium,
+      'Studiotheater MZH Oberdorf' => studio
+    }
+    Event.all.group_by(&:location_name).each do |location_name, events|
+      puts "#{location_name} : #{events.count}"
+      location = map[location_name]
+      if location
+        events.each do |event|
+          event.location = location
+          event.save
+        end
+      end
+    end
+  end
+  
   task :pictures => :environment do
     # Probleme:
     # 404 Forbidden: 115, 113, 112, 111, 109, 108

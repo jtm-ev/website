@@ -1,4 +1,7 @@
 Website::Application.routes.draw do
+  resources :locations, path: 'spielorte'
+
+
   resources :teams
   resources :team_memberships
   

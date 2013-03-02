@@ -1,0 +1,16 @@
+<%= render_breadcrumbs %>
+
+<h1>Spielorte</h1>
+
+
+<div class='two-column-layout'>
+  <% @locations.each do |location| %>
+    <%= render 'item', location: location %>
+  <% end %>
+</div>
+
+
+
+<% content_for :actions do %>
+  <%= navigation_link_to 'New Location', new_location_path %>
+<% end %>

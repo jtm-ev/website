@@ -16,9 +16,9 @@
           <% if project.images.length > 0 %> 
             <img src= '<%=project.images.first.file.url(:square_300)%>' >
           <% else %>
-            <div class='empty'>
-            </div>
+            <div class='empty'></div>
           <% end %>
+          
           <div class ='title' >
             <%= project.title %>
           </div>

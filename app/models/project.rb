@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
 
   has_many :project_files, dependent: :destroy, order: 'position ASC'
   has_many :events, dependent: :destroy, order: 'start_time ASC'
+  has_many :locations, through: :events, uniq: true
   
   acts_as_taggable_on :tags
   
@@ -25,6 +26,10 @@ class Project < ActiveRecord::Base
   
   def images
     self.project_files.where(kind: 'image')
+  end
+  
+  def image
+    images.first
   end
   
   def press

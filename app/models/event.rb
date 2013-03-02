@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   delegate :year, to: :start_time
   
   belongs_to :project
+  belongs_to :location
   
   # def title
   #   if project.nil?

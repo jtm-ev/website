@@ -13,12 +13,18 @@ class Group < ActiveRecord::Base
   # alias :memberships :group_memberships
   liquid_methods :name, :group_memberships, :members
   
-  after_initialize :init
-  def init
-    self.page ||= Page.new
-  end
+  before_save :ensure_page
+  
+  # after_initialize :init
+  # def init
+  #   self.page ||= Page.new
+  # end
   
   # def memberships
   #   self.group_memberships
   # end
+  
+  def ensure_page
+    self.page = Page.category('Groups').children.create(title: name) if self.page.nil?
+  end
 end

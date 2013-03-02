@@ -94,49 +94,7 @@ iframe.youtube {
   margin: 5px;
 }
 
-.large-square-layout {
-  .square {
-    vertical-align: top;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    height: 280px;
-    width: 280px;
-    margin: 5px;
-    padding: 0;
-    line-height: 1em;
-    border: 1px solid #ccc;
 
-    img {
-      width: 280px;
-      background: white;
-    }
-    
-    .empty {
-      width: 280px;
-      height: 280px;
-      background-color: #888;
-    }
-    
-    .title {
-      font-size: 13;
-      line-height: 1.5em;
-      padding: 5px 10px;
-      width: 280px;
-/*      background-color: #1C1C1C;*/
-      background-color: rgba(0, 0, 0, 0.8);
-/*      background: black;*/
-/*      opacity: 0.8;*/
-      position: absolute;
-      bottom: 0px;
-      text-align: center;
-      color: #BDBDBD;
-      &:empty {
-        display: none;
-      }
-    }
-  }
-}
 
 .team-image {
   border: 1px solid #ccc;
@@ -264,13 +222,14 @@ iframe.youtube {
 #navigatable-nav {
   pointer-events: none;
   position: absolute;
-  top: -6px;
+  top: -12px;
   right: 10px;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 24px;
+  font-size: 30px;
   a {
     color: white;
     pointer-events: auto;
+    margin-left: 3px;
     &:hover {
       color: rgba(255, 255, 255, 0.8);
       text-decoration: none;

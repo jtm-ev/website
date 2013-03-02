@@ -14,7 +14,13 @@
 <% Page.tree_array.each do |entry| %>
   <% page = entry.instance %>
   <tr>
-    <td><%= entry.label %></td>
+    <td>
+      <% if entry.level == 0 %>
+        <strong><%= entry.label %></strong>
+      <% else %>
+        <%= entry.label %>
+      <% end %>
+    </td>
     <td><%= page.show_in_navigation %></td>
     <td><%= page.public %></td>
     <td><%= link_to 'Show', page %></td>
