@@ -10,6 +10,10 @@
   color: #333;
 }
 
+%font-header {
+  font-family: 'Rokkitt', serif;
+}
+
 body {
   @extend %font-copy;
 }
@@ -24,7 +28,7 @@ table, td, th {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Rokkitt', serif;
+  @extend %font-header;
 }
 
 .subtitle {

@@ -193,8 +193,11 @@ de:
     formats:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
+      long_without_time: ! '%A, %d. %B %Y'
+      project: ! '%A, %d. %B'
       short: ! '%d. %B, %H:%M Uhr'
       no_time: ! '%A, %d. %B %Y'
+      time_only: ! '%H:%M Uhr'
     pm: nachmittags
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:

@@ -2,15 +2,30 @@ class Event < ActiveRecord::Base
   scope :outstanding, lambda { where('start_time > ? OR end_time > ?', Time.now, Time.now)  }
 
   attr_accessible :description, :end_time, :location_name, :project_id, :public, :start_time, :title
-
+  delegate :year, to: :start_time
+  
   belongs_to :project
   
-  def title
-    if project.nil?
-      super
-    else
-      project.title
-    end
+  # def title
+  #   if project.nil?
+  #     super
+  #   else
+  #     project.title
+  #   end
+  # end
+  
+  def outstanding?
+    return end_tim > Time.now if end_time
+    return start_time > Time.now if start_time
+    false
   end
+
+  def week
+    self.start_time.strftime('%W')
+  end
+  
+  # def year
+  #   self.start_time.year
+  # end
 
 end

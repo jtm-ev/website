@@ -13,6 +13,11 @@ class Project < ActiveRecord::Base
   
   acts_as_taggable_on :tags
   
+  def ongoing?
+    return false unless events.last
+    events.last.outstanding?
+  end
+  
   def year
     return 0 unless events.first
     events.first.start_time.year

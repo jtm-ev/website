@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   add_breadcrumb 'Projekte', :projects_path
   
   def filtered_collection
-    col = Project.scoped
+    col = Project.latest_first
     unless params[:tags].blank?
       tags = params[:tags].split(':')
       col = col.tagged_with(tags)

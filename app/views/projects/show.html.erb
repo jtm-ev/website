@@ -7,108 +7,114 @@
   <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| show_tagged_project_path(params[:tags], i) }, :title) %>  
 </div>
 
-<h1><%= @project.title %></h1>
+<div data-ongoing='<%= @project.ongoing? %>'>
+  <h1><%= @project.title %></h1>
 
 
-<%= render 'slider', :'@images' => @project.images %>
+  <%= render 'slider', :'@images' => @project.images %>
 
 
-<ul class='tabs'>
-  <% unless @project.description.blank? %>
-    <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
-  <% end %>
-  <% unless @project.actor_team.nil? %>
-    <li><a href='#darsteller' data-toggle='tab'>Darsteller</a></li>
-  <% end %>
-  <% unless @project.non_actor_teams.empty? %>
-    <li><a href='#teams' data-toggle='tab'>Hinter den Kulissen</a></li>
-  <% end %>
-  <% unless @project.videos.blank? %>
-    <li><a href='#videos' data-toggle='tab'>Videos (<%= @project.videos.lines.count %>)</a></li>
-  <% end %>
-  <% unless @project.press.empty? %>
-    <li><a href='#press' data-toggle='tab'>Presse (<%= @project.press.length %>)</a></li>
-  <% end %>
-  <li><a href='#events' data-toggle='tab'>Termine (<%= @project.events.length %>)</a></li>
-</ul>
-
-<div class='tab-content'>
-  <div id='description'>
-    <%= @project.description.try :html_safe %>
-  </div>
-
-  <div id='events'>
-    <ul>
-      <% @project.events.each do |event| %>
-        <li>
-          <%= l event.start_time %>
-          <% unless event.title.blank? %>
-            (<%= event.title %>)
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  <div id='press' class='large-square-layout'>
-    <% @project.press.each do |item| %>
-      <a href='<%= item.file.url %>' class='square' target='_blank'>
-        <img src='<%= item.file.url(:square_300) %>' title='<%= item.description %>'>
-        <div class='title'><%= item.description %></div>
-      </a>
+  <ul class='tabs'>
+    <% unless @project.description.blank? %>
+      <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
     <% end %>
-  </div>
-
-  <div id='videos'>
-    <% if @project.videos.nil? %>
-      <p>Keine Videos verfügbar</p>
-    <% else %>
-      <% @project.videos.each_line do |video_url| %>
-        <%# youtube_embed(video_url).html_safe %>
-        <a rel='prettyPhoto' class='youtube-preview' href='<%= video_url %>&width=800&height=500' target='_blank'><img src='<%= youtube_image(video_url) %>'></a>
-      <% end %>
+    <% unless @project.actor_team.nil? %>
+      <li><a href='#darsteller' data-toggle='tab'>Darsteller</a></li>
     <% end %>
-  </div> 
+    <% unless @project.non_actor_teams.empty? %>
+      <li><a href='#teams' data-toggle='tab'>Hinter den Kulissen</a></li>
+    <% end %>
+    <% unless @project.videos.blank? %>
+      <li><a href='#videos' data-toggle='tab'>Videos (<%= @project.videos.lines.count %>)</a></li>
+    <% end %>
+    <% unless @project.press.empty? %>
+      <li><a href='#press' data-toggle='tab'>Presse (<%= @project.press.length %>)</a></li>
+    <% end %>
+    <li><a href='#events' data-toggle='tab'>Termine (<%= @project.events.length %>)</a></li>
+  </ul>
 
-  <% unless @project.actor_team.nil? %>
-    <div id='darsteller'>
-    
-          <% @project.actor_team.team_memberships.each do |team_membership| %>
-            <div class='actor'>
-
-                <% if team_membership.actor_image %>
-                  <a href='<%= project_member_path(@project, team_membership.member) %>'><img class='actor-image' src='<%= team_membership.actor_image.file.url(:square) %>'></a>
-                <% end %>
-
-              <span class='member'><%= link_to team_membership.member.full_name, project_member_path(@project, team_membership.member) %></span>
-              <span class='role'><%= team_membership.role %></span>
-              
-            </div>
-          <% end %>
-
+  <div class='tab-content'>
+    <div id='description'>
+      <%= @project.description.try :html_safe %>
     </div>
-  <% end %>
 
-  <div id='teams'>
-    <% @project.non_actor_teams.each do |team| %>
-      <div class='team'>
-        <div class='team-name'><%= link_to team.name, edit_team_path(team) %></div>
-        
-        <% if team.has_image? %>
-          <div class='team-image'>
-            <img src='<%= team.file.url(:normal) %>'>
+    <div id='events'>
+      <% @project.events.group_by(&:year).each do |year, yevents| %>
+        <div class='year'><%= year %></div>
+        <% yevents.group_by(&:week).each do |week, events| %>
+          <div class='week' data-week='<%= week %>'>
+            <% events.each do |event| %>
+              <div class='event'>
+                <%= l event.start_time, format: :project %>
+                <span class='time'><%= l event.start_time, format: :time_only %></span>
+                <span class='hint'><%= with_clamps_unless_nil(event.title) %></span>
+              </div>
+            <% end %>
           </div>
         <% end %>
-        
-        <div class='team-members'>
-          <% team.team_memberships.each do |tmember| %>
-              <span><%= link_to tmember.member.full_name, tmember.member %><%= with_clamps_unless_nil tmember.role %></span>
-          <% end %>
-        </div>
+      <% end %>
+    </div>
+
+    <div id='press' class='large-square-layout'>
+      <% @project.press.each do |item| %>
+        <a href='<%= item.file.url %>' class='square' target='_blank'>
+          <img src='<%= item.file.url(:square_300) %>' title='<%= item.description %>'>
+          <div class='title'><%= item.description %></div>
+        </a>
+      <% end %>
+    </div>
+
+    <div id='videos'>
+      <% if @project.videos.nil? %>
+        <p>Keine Videos verfügbar</p>
+      <% else %>
+        <% @project.videos.each_line do |video_url| %>
+          <%# youtube_embed(video_url).html_safe %>
+          <a rel='prettyPhoto' class='youtube-preview' href='<%= video_url %>&width=800&height=500' target='_blank'><img src='<%= youtube_image(video_url) %>'></a>
+        <% end %>
+      <% end %>
+    </div> 
+
+    <% unless @project.actor_team.nil? %>
+      <div id='darsteller'>
+    
+            <% @project.actor_team.team_memberships.each do |team_membership| %>
+              <div class='actor'>
+
+                  <% if team_membership.actor_image %>
+                    <a href='<%= project_member_path(@project, team_membership.member) %>'><img class='actor-image' src='<%= team_membership.actor_image.file.url(:square) %>'></a>
+                  <% end %>
+
+                <span class='member'><%= link_to team_membership.member.full_name, project_member_path(@project, team_membership.member) %></span>
+                <span class='role'><%= team_membership.role %></span>
+              
+              </div>
+            <% end %>
 
       </div>
     <% end %>
 
+    <div id='teams'>
+      <% @project.non_actor_teams.each do |team| %>
+        <div class='team'>
+          <div class='team-name'><%= link_to team.name, edit_team_path(team) %></div>
+        
+          <% if team.has_image? %>
+            <div class='team-image'>
+              <img src='<%= team.file.url(:normal) %>'>
+            </div>
+          <% end %>
+        
+          <div class='team-members'>
+            <% team.team_memberships.each do |tmember| %>
+                <span><%= link_to tmember.member.full_name, tmember.member %><%= with_clamps_unless_nil tmember.role %></span>
+            <% end %>
+          </div>
+
+        </div>
+      <% end %>
+
+    </div>
   </div>
 </div>
 
