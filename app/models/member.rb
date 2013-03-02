@@ -30,7 +30,9 @@ class Member < ActiveRecord::Base
   end
   
   def non_actor_team_memberships
-    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller').sort
+    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller').sort.sort_by do |t|
+      t.team.has_image? ? 0 : 1
+    end
   end
   
   

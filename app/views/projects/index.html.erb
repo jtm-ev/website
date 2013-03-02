@@ -1,6 +1,6 @@
 <%= render_breadcrumbs %>
 
-<h1>Projekte (<%= @projects.length %>)</h1>
+<h1>Projekte (<%= Project.count %>)</h1>
 
 <ul class='tabs'>
   <%= navigation_link_to 'Alle', tagged_projects_path() %>

@@ -8,7 +8,24 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require_tree .
  *= require nivo-slider
+ *= require prettyPhoto
+ *= require_self
  */
+
+div.pp_default .pp_social {
+  margin-top: 4px;
+/*  border: 1px solid green;*/
+  vertical-align: top;
+}
+
+.pp_social .facebook {
+  width: 600px;
+/*  overflow: visible;*/
+/*  border: 1px solid red;*/
+  iframe {
+/*    border: 1px solid red !important;*/
+    height: 30px !important; 
+  }
+}
