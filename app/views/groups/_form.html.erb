@@ -57,7 +57,7 @@
             <td><%= builder.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
             <td><%= builder.text_field :role %></td>
           <% end %>
-          
+          <td></td>
           <td><%= f.submit 'Hinzufügen', name: 'add' %></td>
           
         </thead>
@@ -66,11 +66,12 @@
             <tr>
               <td><%= check_box_tag 'selection[]', gms.id %></td>
               <td><%= gms.member.try :full_name %></td>
+              <%= fields_for "group_memberships[]", gms do |b| %>
               <td>
-                <%= fields_for "group_memberships[]", gms do |b| %>
                   <%= b.text_field :role %>
-                <% end %>
               </td>
+              <td><%= b.text_field :position %></td>
+              <% end %>
               <td>
                 
               </td>

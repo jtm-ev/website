@@ -49,7 +49,13 @@ class OfflineTemplate < ApplicationController #AbstractController::Base
 
   # and nil request to differentiate between live and offline
   def request
-    nil
+    # nil
+    # FakeRequest.new
+    OpenStruct.new(host: "")
+  end
+  
+  def default_url_options
+    {host: "/"}
   end
   
 end

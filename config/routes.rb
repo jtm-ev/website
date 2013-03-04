@@ -9,7 +9,7 @@ Website::Application.routes.draw do
 
   resources :events
 
-  resources :groups
+  resources :groups, path: 'gruppen'
   resources :group_memberships
 
   resources :pages do

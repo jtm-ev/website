@@ -1,0 +1,12 @@
+<% memberships.each do |membership| %>
+  <div class='actor'>
+
+      <% if membership.actor_image %>
+        <a href='<%= project_member_path(@project, membership.member) %>'><img class='actor-image' src='<%= membership.actor_image.file.url(:square) %>'></a>
+      <% end %>
+
+    <span class='member'><%= link_to membership.member.full_name, project_member_path(@project, membership.member) %></span>
+    <span class='role'><%= membership.role %></span>
+  
+  </div>
+<% end %>
