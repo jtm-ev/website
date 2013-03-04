@@ -1,10 +1,14 @@
 class GroupsController < ApplicationController
+  load_and_authorize_resource except: [:index]
+  
   add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Gruppen', :groups_path
 
   # GET /groups
   # GET /groups.json
   def index
+    authorize! :manage, Group
+    
     @groups = Group.scoped.order('name')
 
     respond_to do |format|
@@ -16,15 +20,12 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    collection = Group.scoped.order('name')
     
-    @group = Group.find(params[:id])
+    collection = Group.scoped.order('name')
     @previous = @group.previous_in(collection)
     @next = @group.next_in(collection)
 
     add_breadcrumb @group.name
-    
-    
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,7 +36,6 @@ class GroupsController < ApplicationController
   # GET /groups/new
   # GET /groups/new.json
   def new
-    @group = Group.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,13 +45,11 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    @group = Group.find(params[:id])
   end
 
   # POST /groups
   # POST /groups.json
   def create
-    @group = Group.new(params[:group])
 
     respond_to do |format|
       if @group.save
@@ -67,7 +65,6 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.json
   def update
-    @group = Group.find(params[:id])
     
     if params[:add]
       # Create New GroupMembership
@@ -96,7 +93,6 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
-    @group = Group.find(params[:id])
     @group.destroy
 
     respond_to do |format|
