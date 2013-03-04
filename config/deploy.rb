@@ -84,7 +84,8 @@ set(:bundle_path) {
 
 namespace :bundle do
   task :install do
-    run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --deployment --without development test --binstubs --shebang ruby-local-exec"
+    run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --without development test --binstubs --shebang ruby-local-exec"
+    # run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --deployment --without development test --binstubs --shebang ruby-local-exec"
   end
 end
 
@@ -96,7 +97,8 @@ namespace :deploy do
   end
 end
 
-after 'deploy:create_symlink', 'shared:configure'
+# after 'deploy:create_symlink', 'shared:configure'
+before 'deploy:assets:precompile', 'shared:configure'
 namespace :shared do
   task :configure, :roles => :app do
     run "mkdir -p #{shared_path}/shared"
@@ -327,6 +329,14 @@ namespace :bootstrap do
   task :install_redis do
     set :user, 'root'
     run "apt-get update; apt-get install redis-server"
+  end
+end
+
+namespace :db do
+  task :copy do
+    system "bundle exec rake db:dump"
+    upload 'db/data.yml', "#{current_path}/db/data.yml", :via => :scp
+    run("cd #{current_path}; bundle exec rake db:load RAILS_ENV=#{rails_env}")   
   end
 end
 

@@ -6,6 +6,7 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'yaml_db'
 # gem 'mysql'
 
 gem 'devise'
@@ -76,4 +77,6 @@ group :development do
   gem 'term-ansicolor'    # Pretty printed test output
   gem 'quiet_assets'      # depress asset-pipeline-logs during development
   gem 'letter_opener'     # show sent emails in browser
+  
+  
 end
