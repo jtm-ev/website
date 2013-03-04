@@ -1,9 +1,13 @@
 class MembersController < ApplicationController
+  load_and_authorize_resource except: [:index]
+  
   add_breadcrumb 'Home', :root_path
   
   # GET /members
   # GET /members.json
   def index
+    authorize! :manage, Member
+    
     @members = Member.scoped.active.order(:name, :first_name)
 
     respond_to do |format|
@@ -15,7 +19,7 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
-    @member = Member.find(params[:id])
+    # @member = Member.find(params[:id])
     
     if params[:project_id]  # Actors of Project
       @project = Project.find(params[:project_id])
@@ -44,7 +48,7 @@ class MembersController < ApplicationController
   # GET /members/new
   # GET /members/new.json
   def new
-    @member = Member.new
+    # @member = Member.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -54,13 +58,13 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
-    @member = Member.find(params[:id])
+    # @member = Member.find(params[:id])
   end
 
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(params[:member])
+    # @member = Member.new(params[:member])
 
     respond_to do |format|
       if @member.save
@@ -76,7 +80,7 @@ class MembersController < ApplicationController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @member = Member.find(params[:id])
+    # @member = Member.find(params[:id])
 
     if params[:files]
       @member.file = params[:files]
@@ -97,7 +101,7 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
-    @member = Member.find(params[:id])
+    # @member = Member.find(params[:id])
     @member.destroy
 
     respond_to do |format|

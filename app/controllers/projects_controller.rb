@@ -1,24 +1,14 @@
 class ProjectsController < ApplicationController
+  load_and_authorize_resource except: [:index]
+  
   add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Projekte', :projects_path
-  
-  def filtered_collection
-    col = Project.latest_first
-    unless params[:tags].blank?
-      tags = params[:tags].split(':')
-      col = col.tagged_with(tags)
-      
-      first_tag = tags.first
-      htags = tags.map {|t| t.humanize}
-      add_breadcrumb htags.join(', '), tagged_projects_path(params[:tags])
-    end
-    # col = col.order('id DESC')
-    col
-  end
   
   # GET /projects
   # GET /projects.json
   def index
+    authorize! :read, Project
+    
     @projects = filtered_collection
     # @projects = @projects.order(id: :desc)
 
@@ -31,7 +21,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
     
     collection = filtered_collection
     @previous = @project.previous_in(collection)
@@ -48,7 +37,6 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.json
   def new
-    @project = Project.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -58,13 +46,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
   end
 
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(params[:project])
 
     respond_to do |format|
       if @project.save
@@ -80,7 +66,6 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    @project = Project.find(params[:id])
     
     # Update Image Sorting
     if params[:sorting]
@@ -106,7 +91,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project = Project.find(params[:id])
     @project.destroy
 
     respond_to do |format|
@@ -114,4 +98,19 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def filtered_collection
+      col = Project.latest_first
+      unless params[:tags].blank?
+        tags = params[:tags].split(':')
+        col = col.tagged_with(tags)
+
+        first_tag = tags.first
+        htags = tags.map {|t| t.humanize}
+        add_breadcrumb htags.join(', '), tagged_projects_path(params[:tags])
+      end
+      # col = col.order('id DESC')
+      col
+    end
 end

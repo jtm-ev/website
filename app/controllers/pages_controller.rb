@@ -1,11 +1,14 @@
 class PagesController < ApplicationController
   add_breadcrumb "Home", :root_path
+  load_and_authorize_resource except: [:index]
   
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.scoped.order('show_in_navigation DESC, title').roots
+    authorize! :manage, Page
 
+    @pages = Page.scoped.order('show_in_navigation DESC, title').roots    
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @pages }
@@ -15,7 +18,6 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
-    @page = Page.find(params[:id])
     
     @page.parents.push(@page).each do |page|
       add_breadcrumb page.title, page_path(page)
@@ -30,7 +32,6 @@ class PagesController < ApplicationController
   # GET /pages/new
   # GET /pages/new.json
   def new
-    @page = Page.create
 
     respond_to do |format|
       format.html { redirect_to edit_page_path(@page) }
@@ -40,13 +41,11 @@ class PagesController < ApplicationController
 
   # GET /pages/1/edit
   def edit
-    @page = Page.find(params[:id])
   end
 
   # POST /pages
   # POST /pages.json
   def create
-    @page = Page.new(params[:page])
 
     respond_to do |format|
       if @page.save
@@ -62,7 +61,6 @@ class PagesController < ApplicationController
   # PUT /pages/1
   # PUT /pages/1.json
   def update
-    @page = Page.find(params[:id])
     
     if params[:sorting]
       params[:sorting].split(',').each_with_index do |id, index|
@@ -85,7 +83,6 @@ class PagesController < ApplicationController
   # DELETE /pages/1
   # DELETE /pages/1.json
   def destroy
-    @page = Page.find(params[:id])
     @page.destroy
 
     respond_to do |format|

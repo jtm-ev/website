@@ -3,6 +3,8 @@ class HomeController < ApplicationController
   
   def index
     @blog = Page.where(title: 'Blog').first
+    authorize! :read, @blog
+    
     if @blog
       # add_breadcrumb 'Blog'
       collection = @blog.children.order('created_at DESC')

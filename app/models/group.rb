@@ -1,6 +1,8 @@
 class Group < ActiveRecord::Base
   include Navigatable
   
+  # resourcify #https://github.com/EppO/rolify/wiki/Tutorial
+  
   belongs_to :page, dependent: :destroy, autosave: true
   
   

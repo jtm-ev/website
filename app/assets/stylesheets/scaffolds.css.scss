@@ -46,6 +46,10 @@ header {
 
 
 #sidebar {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  
   position: fixed;
   width: $sidebar_width;
   left: 0; top: 0; bottom: 0;
@@ -92,8 +96,9 @@ header {
   #sidebar {
     top: 30px;
   }
+  
   #content {
-    margin-top: 30px;
+    padding-top: 80px;
   }
 }
 
@@ -105,7 +110,8 @@ header {
   
   background-attachment: fixed;
 /*  border: 1px solid red;*/
-  padding: 80px;
+  padding: 70px;
+  padding-top: 35px;
   min-height: 100%;
   
 
@@ -181,6 +187,21 @@ body {
   li.active a {
     text-decoration: underline;
   }
+}
+
+#login-link {
+  position: fixed;
+  left: 0px;
+  bottom: 5px;
+  width: $sidebar_width;
+  text-align: center;
+/*  border: 1px solid red;*/
+  z-index: 3000;
+  font-size: 0.8em ;
+  color: #aaa;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 

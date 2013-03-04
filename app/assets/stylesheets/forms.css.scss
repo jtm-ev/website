@@ -36,9 +36,6 @@
 input[type=text], input[type=email], input[type=password] {
   @extend %text-input;
   @extend %font-copy;
-}
-
-td input:not(.number) {
   width: 100%;
 }
 
