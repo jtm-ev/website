@@ -6,6 +6,7 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+# gem 'mysql'
 
 gem 'devise'
 gem 'cancan'
@@ -52,7 +53,13 @@ gem "geocoder"
 gem 'jbuilder'
 
 # Use unicorn as the app server
-gem 'thin'
+platforms :ruby do
+  gem 'unicorn'
+end
+
+platforms :mswin, :mingw do
+  gem 'thin'
+end
 
 # Deploy with Capistrano
 gem 'capistrano'
@@ -61,7 +68,7 @@ gem 'capistrano-ext'
 # To use debugger
 # gem 'debugger'
 
-group :development do  
+group :development do
   gem 'guard-livereload'  # livereload your browser on asset-changes (views, css)
   gem 'rack-livereload'
   gem 'rb-fsevent'
