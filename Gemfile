@@ -56,6 +56,7 @@ gem 'jbuilder'
 # Use unicorn as the app server
 platforms :ruby do
   gem 'unicorn'
+  gem 'mysql2'
 end
 
 platforms :mswin, :mingw do
@@ -77,6 +78,5 @@ group :development do
   gem 'term-ansicolor'    # Pretty printed test output
   gem 'quiet_assets'      # depress asset-pipeline-logs during development
   gem 'letter_opener'     # show sent emails in browser
-  
-  
 end
+
