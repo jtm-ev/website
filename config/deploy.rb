@@ -340,3 +340,18 @@ namespace :db do
   end
 end
 
+namespace :files do
+  task :sync do
+    src = 'public/system/'
+    dest = "#{current_path}/public/system"
+    #  --progress --stats
+    cmd = "rsync --verbose --checksum --recursive #{src} #{user}@#{domain}:#{dest}"
+    
+    puts cmd
+    system(cmd)
+  end
+end
+
+
+
+

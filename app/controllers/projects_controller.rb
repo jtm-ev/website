@@ -102,6 +102,7 @@ class ProjectsController < ApplicationController
   private
     def filtered_collection
       col = Project.latest_first
+      
       unless params[:tags].blank?
         tags = params[:tags].split(':')
         col = col.tagged_with(tags)
@@ -110,7 +111,7 @@ class ProjectsController < ApplicationController
         htags = tags.map {|t| t.humanize}
         add_breadcrumb htags.join(', '), tagged_projects_path(params[:tags])
       end
-      # col = col.order('id DESC')
+
       col
     end
 end

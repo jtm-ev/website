@@ -54,7 +54,7 @@ module FileUpload
       #   # thumb:  "-quality 75 -strip",
       #   # large:  "-quality 100 -strip"  
       },
-      url: "/system/project_files/:hash.:extension",
+      # url: "/system/project_files/:hash.:extension",
       hash_secret: "207ff786710bf9b55b4481b393cff8be9a64a96088cface4b4ab7cf648cd01d8222030def29bbc52b284e4327c73b97d4e45468e676"
     }
     
