@@ -19,10 +19,14 @@ test:
   timeout: 5000
 
 staging:
-  adapter: sqlite3
-  database: shared/staging.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  database: jtm_staging
+  encoding: utf8
+  username: jtm
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  host: localhost
+  # pool: 5
+  # timeout: 5000
 
 production:
   adapter: sqlite3
