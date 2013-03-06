@@ -333,12 +333,27 @@ namespace :bootstrap do
 end
 
 namespace :db do
-  task :copy do
-    system "bundle exec rake db:dump"
-    upload 'db/data.yml', "#{current_path}/db/data.yml", :via => :scp
-    run("cd #{current_path}; bundle exec rake db:load RAILS_ENV=#{rails_env}")   
+  task :configure do
+    run "cp -f #{shared_path}/database.yml #{release_path}/config/database.yml"
+  end
+  
+  desc 'Seed remote DB with local Data'
+  task :seed do
+    local = 'tmp/dump.rb'
+    # system "bundle exec rake db:data:dump TABLES=members,pages,page_files"
+    models = ['Page', 'Member']
+    File.open(local, 'w') do |f|
+      f.write "# encoding: utf-8\n"
+      models.each do |m|
+        f.write "#{m}.destroy_all\n"
+      end
+    end
+    system "bundle exec rake db:seed:dump MODELS=#{models.join(',')} FILE=#{local} APPEND=true WITH_ID=1 TIMESTAMPS=1"
+    upload local, "#{current_path}/db/seeds.rb", :via => :scp
+    run("cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}")   
   end
 end
+after "deploy:finalize_update", "db:configure"
 
 namespace :files do
   task :sync do
