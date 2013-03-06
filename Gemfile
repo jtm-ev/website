@@ -53,10 +53,10 @@ gem "geocoder"
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
 
-# Use unicorn as the app server
 platforms :ruby do
-  gem 'unicorn'
-  gem 'mysql2'
+  gem 'unicorn' # Use unicorn as the app server
+  # gem 'mysql2'
+  gem 'activerecord-mysql-adapter'
 end
 
 platforms :mswin, :mingw do
