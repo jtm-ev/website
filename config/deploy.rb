@@ -341,7 +341,7 @@ namespace :db do
   task :seed do
     local = 'tmp/dump.rb'
     # system "bundle exec rake db:data:dump TABLES=members,pages,page_files"
-    models = ['Page', 'Member', 'Group', 'GroupMembership', 'Location']
+    models = ['Page', 'Member', 'Group', 'GroupMembership', 'Location', 'Team', 'TeamMembership']
     models.each do |m|
       File.open(local, 'w') do |f|
         f.write "# encoding: utf-8\n"

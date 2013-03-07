@@ -1,7 +1,7 @@
 class TeamMembership < ActiveRecord::Base
   include FileUpload
   
-  attr_accessible :role, :public, :position, :member_id, :team_id
+  attr_accessible :role, :public, :position, :member_id, :team_id, :member, :team
   
   belongs_to :team
   belongs_to :member  

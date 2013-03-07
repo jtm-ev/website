@@ -258,6 +258,9 @@ namespace :seed do
   end
   
   task :teams => :environment do
+    Team.destroy_all
+    TeamMembership.destroy_all
+    
     akts = read_xml('jtm_stueck_akteure')
     team_index = create_index('jtm_stueck_akteur_bereiche')
     akts.each do |akt|
