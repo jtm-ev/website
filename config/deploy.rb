@@ -355,12 +355,12 @@ namespace :db do
 end
 after "deploy:finalize_update", "db:configure"
 
-namespace :email do
-  task :configure do
-    run "cp -f #{deploy_to}/../email.yml #{release_path}/config/email.yml"
+task :configure do
+  ['email.yml', 'newrelic.yml'].each do |f|
+    run "cp -f #{deploy_to}/../#{f} #{release_path}/config/#{f}"
   end
 end
-after "deploy:finalize_update", "email:configure"
+after "deploy:finalize_update", "configure"
 
 namespace :files do
   task :sync do

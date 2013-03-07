@@ -1,12 +1,14 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
+gem 'newrelic_rpm'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'yaml_db'
+gem 'seed_dump'
+# gem 'yaml_db', git: 'git://github.com/eadz/yaml_db.git'
 # gem 'mysql'
 
 gem 'devise'
