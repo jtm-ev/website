@@ -27,6 +27,6 @@ class Group < ActiveRecord::Base
   # end
   
   def ensure_page
-    self.page = Page.category('Groups').children.create(title: name) if self.page.nil?
+    self.page = Page.category('Groups').children.find_or_create_by_title(name) if self.page.nil?
   end
 end

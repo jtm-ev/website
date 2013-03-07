@@ -341,19 +341,26 @@ namespace :db do
   task :seed do
     local = 'tmp/dump.rb'
     # system "bundle exec rake db:data:dump TABLES=members,pages,page_files"
-    models = ['Page', 'Member']
-    File.open(local, 'w') do |f|
-      f.write "# encoding: utf-8\n"
-      models.each do |m|
+    models = ['Page', 'Member', 'Group', 'GroupMembership', 'Location']
+    models.each do |m|
+      File.open(local, 'w') do |f|
+        f.write "# encoding: utf-8\n"
         f.write "#{m}.destroy_all\n"
       end
-    end
-    system "bundle exec rake db:seed:dump MODELS=#{models.join(',')} FILE=#{local} APPEND=true WITH_ID=1 TIMESTAMPS=1"
-    upload local, "#{current_path}/db/seeds.rb", :via => :scp
-    run("cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}")   
+      system "bundle exec rake db:seed:dump MODELS=#{m} FILE=#{local} APPEND=true WITH_ID=1 TIMESTAMPS=1"
+      upload local, "#{current_path}/db/seeds.rb", :via => :scp
+      run("cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}") 
+    end  
   end
 end
 after "deploy:finalize_update", "db:configure"
+
+namespace :email do
+  task :configure do
+    run "cp -f #{deploy_to}/../email.yml #{release_path}/config/email.yml"
+  end
+end
+after "deploy:finalize_update", "email:configure"
 
 namespace :files do
   task :sync do

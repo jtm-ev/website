@@ -34,15 +34,16 @@ module FileUpload
       #   # large_photo: {geometry: '1024x768#', format: :png}    #4:3
       # },
       styles: lambda { |asset|
-        lc_style = { geometry: '1024x576#', format: :png }
+        image_format = :jpg
+        lc_style = { geometry: '1024x576#', format: image_format }
         # unless asset.instance.landscape?
         #   lc_style = { geometry: '1024x', format: :png, convert_options: '+repage -crop 1024x576+0+100 -gravity North' }
         # end
         {
-          square: {geometry: '150x150#', format: :png},
-          square_300: {geometry: '300x300#', format: :png},
-          normal: {geometry: '350x', format: :png},
-          large:  {geometry: '1024x', format: :png},
+          square: {geometry: '150x150#', format: image_format},
+          square_300: {geometry: '300x300#', format: image_format},
+          normal: {geometry: '350x', format: image_format},
+          large:  {geometry: '1024x', format: image_format},
           large_cinema: lc_style
         }
       },
