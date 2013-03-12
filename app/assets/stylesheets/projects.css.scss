@@ -193,18 +193,33 @@ iframe.youtube {
 }*/
 
 .actor {
+  position: relative;
   display: inline-block;
   width: 205px;
   margin: 5px;
   margin-bottom: 25px;
   text-align: center;
-  vertical-align: bottom;
+  vertical-align: top;
   
   .actor-image {
     border: 1px solid #ccc;
     width: 150px;
     height: 150px;
     display: inline-block;
+    
+    img {
+      display: block;
+    }
+    
+    &.uploading:after {
+      content: 'uploading';
+      position: absolute;
+      top: 20px;
+      left: 28px;
+      right: 27px;
+      background: #ccc;
+    }
+    
   }
   
   .member {

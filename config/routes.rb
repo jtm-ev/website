@@ -6,6 +6,9 @@ Website::Application.routes.draw do
   end
   
   resources :users
+  match '/profile' => 'users#profile'
+  match '/profile/role/:id' => 'users#profile_role', as: :profile_role
+  match '/dashboard' => 'users#dashboard', as: :dashboard
 
   resources :locations, path: 'spielorte'
 

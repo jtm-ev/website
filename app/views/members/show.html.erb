@@ -28,22 +28,7 @@
 <div class='tab-content'>
 
   <div id='rollen'>
-    <% @member.actor_team_memberships.each do |team_membership| %>
-      <% project = team_membership.project %>
-      <div class='actor'>
-
-          <% if team_membership.role_image %>
-            <a href='<%= project_path(project) %>'><img class='actor-image' src='<%= team_membership.role_image.file.url(:square) %>'></a>
-          <% else %>
-            <div class='actor-image'></div>
-          <% end %>
-
-        <span class='member'><%= team_membership.role %></span>
-        <span class='role'><%= link_to project.title, project %></span>
-
-      </div>
-    
-    <% end %>
+    <%= render 'actor_team_memberships', member: @member %>
   </div>
   
   <div id='hdk'>

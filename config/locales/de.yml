@@ -203,6 +203,9 @@ de:
   activemodel:
     errors:
       <<: *errors
+  gender:
+    m: männlich
+    w: weiblich
   activerecord:
     errors:
       <<: *errors
@@ -223,4 +226,16 @@ de:
         shortcut: 'Kurzname'
         public: 'Öffentlich sichtbar'
         description: 'Kurzbeschreibung'
+      member:
+        gender: 'Geschlecht'
+        member_since: 'Mitglied seit'
+        birthday: 'Geburtstag'
+        street: 'Straße'
+        city: 'PLZ, Ort'
+        phone: 'Telefon'
+        mobile: 'Handy'
+        email_extern: 'E-Mail'
+        email: 'E-Mail (JTM)'
+        
+        
         

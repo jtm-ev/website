@@ -89,7 +89,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
-        format.html { redirect_to @member, notice: 'Member was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Mitgliedsdaten erfolgreich gespeichert.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

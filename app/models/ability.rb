@@ -14,6 +14,23 @@ class Ability
       can :read, Location
       can :read, Project
       can :read, Member
+      
+      
+      #############################################################
+      # Resources a default User can manage by his own
+      #############################################################
+      can :update, User do |u|
+        u === user
+      end
+      
+      can :update, Member do |member|
+        user.member === member
+      end
+      
+      can :update, TeamMembership do |tms|
+        user.member === tms.member
+      end
+      #############################################################
     end
     
     # The first argument to `can` is the action you are giving the user 

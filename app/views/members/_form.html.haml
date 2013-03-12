@@ -1,0 +1,30 @@
+
+%ul.tabs
+  %li
+    %a{href: '#adresse'} Person
+  %li
+    %a{href: '#kontakt'} Kontakt
+  %li
+    %a{href: '#gruppen'} Gruppen
+
+
+= form_for(@member) do |f|
+  .tab-content
+    #adresse
+      %table.form
+        %tr
+          %th Nachname
+          %td= @member.name
+        %tr
+          %th Vorname
+          %td= @member.first_name
+        %tr
+          %th= f.label :gender
+          %td= I18n.t "gender.#{@member.gender}" # f.collection_select :gender, [OpenStruct.new(key: 'm', value: 'männlich'), OpenStruct.new(key: 'w', value: 'weiblich')], :key, :value, include_blank: true
+        
+        %tr
+          %th= f.label :birthday
+          %td= @member.birthday #f.text_field :birthday, class: 'datepicker'
+        %tr
+          %th= f.label :member_since
+          %td= @member.member_since #f.text_field :member_since, class: 'datepicker'

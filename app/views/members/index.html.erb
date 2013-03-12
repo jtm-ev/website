@@ -4,26 +4,17 @@
   <tr>
     <th></th>
     <th>Name</th>
-    <th>First name</th>
-    <th>Birth name</th>
-    <th>Street</th>
     <th>
       Phone<br />
       Mobile<br />
       Fax
     </th>
     <th>Email<br/>Email extern</th>
-    <th>Birthday<br/>Member since</th>
-    <th>School</th>
-    <th>Gender</th>
-    <th>Active</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
 <% @members.each do |member| %>
-  <input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#member-<%= member.id %>' data-method='PUT' data-url='<%= member_path(member) %>'>
+  <!--input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#member-<%= member.id %>' data-method='PUT' data-url='<%= member_path(member) %>'-->
 
   <tr id='member-<%= member.id %>'>
     <td>
@@ -31,26 +22,18 @@
         <img src='<%= member.file.url(:square) %>'>
       <% end %>
     </td>
-    <td><%= member.name %></td>
-    <td><%= member.first_name %></td>
-    <td><%= member.birth_name %></td>
-    <td>
-      <%= member.street %><br />
-      <%= member.city %>
-    </td>
+    <td><%= link_to [member.name, member.first_name].join(' '), member_path(member) %></td>
     <td>
       <%= member.phone %>  <br/>
       <%= member.mobile %>  <br/>
       <%= member.fax %>
     </td>
     <td><%= member.email %><br/><%= member.email_extern %></td>
-    <td><%= member.birthday %><br/><%= member.member_since %></td>
-    <td><%= member.school %></td>
-    <td><%= member.gender %></td>
-    <td><%= member.active %></td>
-    <td><%= link_to 'Show', member %></td>
-    <td><%= link_to 'Edit', edit_member_path(member) %></td>
-    <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <%= link_to 'Show', member %>
+      <%= link_to 'Edit', edit_member_path(member) %>
+      <%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
   </tr>
 <% end %>
 </table>

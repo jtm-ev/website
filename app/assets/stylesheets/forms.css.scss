@@ -1,5 +1,6 @@
 /**
  *= require select2
+ *= require datepicker
  * require bootstrap-colorpicker
  */
 
@@ -11,8 +12,7 @@
 @import 'bootstrap/buttons';
 @import 'bootstrap/button-groups';
 @import 'bootstrap/progress-bars';
-
-
+@import 'bootstrap/alerts';
 
 @import 'copy';
 
@@ -229,6 +229,26 @@ input[type=submit] {
       }
     }
   }
+}
+
+
+/************************************** hint */
+.hint {
+  @extend .alert;
+  @extend .alert-info;
+  text-align: center;
+  font-weight: bold;
+}
+
+#flashes {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  top: -20px;
+}
+
+.alert-notice {
+  @extend .alert-success;
 }
 
 

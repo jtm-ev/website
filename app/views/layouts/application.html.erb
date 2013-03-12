@@ -49,8 +49,8 @@
           <%# end %>
         </ul>
         <ul class='nav pull-right'>
-          <li><a href='#dashboard'>Dashboard</a></li>
-          <li><a href='#profile'>Profil</a></li>
+          <li><a href='/dashboard'>Dashboard</a></li>
+          <li><a href='/profile'>Profil</a></li>
           <li><%= link_to 'Logout', '/logout' %></li>
         </ul>
       </div>
@@ -85,6 +85,15 @@
   <section id='content'>
     <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
     <div class='container'>
+      <div id='flashes'>
+      <%- flash.each do |key, value| %>
+        <div class='alert alert-<%= key %>'>
+          <!--button type="button" class="close" data-dismiss="alert">&times;</button-->
+          <%= value %>
+        </div>
+      <% end %>
+      </div>
+      
       <%= yield %>
     </div>
   </section>
