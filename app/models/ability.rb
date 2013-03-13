@@ -5,7 +5,7 @@ class Ability
     # Define abilities for the passed in user here. For example:
     
     user ||= User.new # guest user (not logged in)
-    if user.has_role?(:admin)
+    if user.is_admin?
       can :manage, :all
     else
       # can :read, :all
@@ -31,6 +31,13 @@ class Ability
         user.member === tms.member
       end
       #############################################################
+      
+      if user.is_member_manager?
+        can :manage, Member
+        can :manage, Group
+      end
+      
+      can :manage, Page if user.is_site_manager?
     end
     
     # The first argument to `can` is the action you are giving the user 

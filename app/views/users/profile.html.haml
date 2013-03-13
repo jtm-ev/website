@@ -14,6 +14,12 @@
 
 %h1 Mein Profil
 
+%ul
+  %li
+    = link_to 'Öffentliches Profil zeigen', member_path(@user.member) unless @user.member.nil?
+  %li
+    = link_to 'Passwort ändern', edit_user_registration_path
+
 .clearfix
 
 %ul.tabs
@@ -31,6 +37,29 @@
   - unless @user.member.nil?
     #daten
       = form_for(@user.member) do |f|
+        %table.form
+          %tr
+            %th Name
+            %td
+              = @user.member.full_name
+              - unless @user.member.birth_name.blank?
+                = " (geb. #{@user.member.birth_name})"
+          %tr
+            %th= f.label :birthday
+            %td= l @user.member.birthday
+            
+          %tr
+            %th= f.label :member_since
+            %td= l @user.member.member_since
+            
+          %tr
+            %th= f.label :email
+            %td= link_to @user.member.email, "mailto:#{@user.member.email}" unless @user.member.email.blank?
+          
+          - if @user.member.school and @user.member.school > 0
+            %th= f.label :school
+            %td= @user.member.school
+            
         %table.form
           %tr
             %th= f.label :street
@@ -52,10 +81,10 @@
             %td= f.text_field :mobile
           %tr
             %th= f.label :email_extern
-            %td= 'Kann momentan nicht geändert werden' #f.text_field :email_extern
-          / %tr
-          /   %th= f.label :email
-          /   %td= @user.member.email
+            %td
+              = @user.member.email_extern
+              %small
+                (Kann momentan nicht geändert werden)
           
         .actions
           = f.submit 'Änderungen speichern'

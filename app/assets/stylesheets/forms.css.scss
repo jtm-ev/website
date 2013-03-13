@@ -16,6 +16,9 @@
 
 @import 'copy';
 
+form.list > div {
+  margin-bottom: 20px;
+}
 
 /************************************* Text Inputs */
 
@@ -119,14 +122,22 @@ input[type=submit] {
   margin-left: -25px;
   margin-right: -25px;
   padding: 10px 25px;
-  
+  padding-top: 20px;
   text-align: left;
+  > * {
+    vertical-align: bottom;
+  }
+  
+  > a {
+    font-style: italic;
+    color: #333;
+  }
 }
 
-.actions > a {
+.actions > input {
   @extend .btn;
-  margin-top: 20px;
-
+  margin-top: 0px;
+  margin-right: 20px;
 }
 
 /*************************************** File Upload */

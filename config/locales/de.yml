@@ -213,6 +213,7 @@ de:
       project: 'Projekt'
       group: 'Gruppe'
       page: 'Seite'
+      member: 'Mitglied'
     attributes:
       project:
         title: 'Titel'
@@ -227,6 +228,9 @@ de:
         public: 'Öffentlich sichtbar'
         description: 'Kurzbeschreibung'
       member:
+        name: 'Nachname'
+        first_name: 'Vorname'
+        birth_name: 'Geburtsname'
         gender: 'Geschlecht'
         member_since: 'Mitglied seit'
         birthday: 'Geburtstag'
@@ -236,6 +240,13 @@ de:
         mobile: 'Handy'
         email_extern: 'E-Mail'
         email: 'E-Mail (JTM)'
+        school: Schulklasse
+      user:
+        password: 'Passwort'
+        password_confirmation: 'Passwort-Bestätigung'
+        current_password: 'Aktuelles Passwort'
+        
+        
         
         
         

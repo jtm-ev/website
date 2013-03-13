@@ -15,8 +15,6 @@ Website::Application.routes.draw do
 
   resources :teams
   resources :team_memberships
-  
-  resources :members, path: 'mitglieder'
 
   resources :events
 
@@ -27,6 +25,8 @@ Website::Application.routes.draw do
     resources :page_files
   end
   
+  resources :members, path: 'mitglieder'
+  get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
   
   resources :projects, path: 'projekte' do
     # collection do
