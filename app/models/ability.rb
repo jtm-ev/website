@@ -15,6 +15,12 @@ class Ability
       can :read, Project
       can :read, Member
       
+      #############################################################
+      # What ALL logged in user can do
+      #############################################################
+      # unless user.new_record?
+      #   can :read, Page
+      # end
       
       #############################################################
       # Resources a default User can manage by his own
@@ -29,6 +35,14 @@ class Ability
       
       can :update, TeamMembership do |tms|
         user.member === tms.member
+      end
+
+      #############################################################
+      # What Group-Leaders can do
+      #############################################################
+      can [:update, :read], Page do |page|
+        group = page.group
+        group ? user.member.has_role?(:group_leader, group) : false
       end
       #############################################################
       

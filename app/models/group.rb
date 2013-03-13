@@ -1,12 +1,10 @@
 class Group < ActiveRecord::Base
   include Navigatable
-  
-  # resourcify #https://github.com/EppO/rolify/wiki/Tutorial
+  resourcify
   
   belongs_to :page, dependent: :destroy, autosave: true
   
   validates_presence_of :name
-  
   
   accepts_nested_attributes_for :page
   attr_accessible :description, :name, :page_id, :public, :shortcut, :page_attributes

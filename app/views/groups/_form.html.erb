@@ -55,6 +55,29 @@
   
   <div class='tab-content'>
     <div id='verantwortung'>
+      <ul>
+        <%- @group.roles.each do |role| %>
+          <li><%= t "role.#{role.name}" %></li>
+          <ul>
+            <%- role.members.each do |member| %>
+              <li><%= member.full_name %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </ul>
+      
+      <div class='actions'>
+        
+          <select name='add_group_leader_id' class='inline'>
+            <option></option>
+            <%- Member.active.each do |member| %>
+              <option value='<%= member.id %>'><%= member.name %> <%= member.first_name %></option>
+            <% end %>
+          </select>
+          
+          <%= f.submit 'als Gruppenleiter hinzufügen', class: 'btn btn-success', name: 'add_group_leader' %>
+          
+      </div>
       
     </div>
     

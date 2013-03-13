@@ -206,6 +206,8 @@ de:
   gender:
     m: männlich
     w: weiblich
+  role:
+    group_leader: 'Gruppenleiter'
   activerecord:
     errors:
       <<: *errors

@@ -115,6 +115,12 @@ class GroupsController < ApplicationController
           gm.group = new_group
           gm.save
         end
+      elsif params[:add_group_leader]
+        member_id = params[:add_group_leader_id]
+        member = Member.find(member_id.to_i)
+        if member
+          member.add_role :group_leader, @group
+        end
       else
         # Mass-Update GroupMemberships
         @group.group_memberships.update params[:group_memberships].keys, params[:group_memberships].values

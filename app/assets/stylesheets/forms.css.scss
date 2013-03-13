@@ -223,7 +223,10 @@ input[type=submit] {
 
 /*************************************** Tagging, Select */
 .select2-container {
-  width: 100%;
+  min-width: 250px;
+  &:not(.inline){
+    width: 100%;
+  }
   
   .select2-choice {
     height: 35px;
