@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   add_breadcrumb "Home", :root_path
-  load_and_authorize_resource except: [:index]
+  load_and_authorize_resource except: [:index, :show_by_path]
   
   # GET /pages
   # GET /pages.json
@@ -19,14 +19,22 @@ class PagesController < ApplicationController
   # GET /pages/1.json
   def show
     
-    @page.parents.push(@page).each do |page|
-      add_breadcrumb page.title, page_path(page)
-    end
+    add_breadcrumbs_for(@page)
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @page }
     end
+  end
+  
+  def show_by_path
+    Rails.logger.info params.inspect
+    @page = Page.find_by_path(params[:path])
+    authorize! :read, @page
+    
+    add_breadcrumbs_for(@page)
+    
+    render action: :show
   end
 
   # GET /pages/new
@@ -90,4 +98,11 @@ class PagesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def add_breadcrumbs_for(p)
+      p.parents.push(p).each do |page|
+        add_breadcrumb page.title, human_page_path(page.path)
+      end
+    end
 end

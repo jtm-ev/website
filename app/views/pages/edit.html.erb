@@ -22,6 +22,10 @@
       <th><%= f.label :title %></th>
       <td><%= f.text_field :title %></td>
     </tr>
+    <tr>
+      <th>URL</th>
+      <td><%= page.path %></td>
+    </tr>
     
     <tr>
       <th><%= f.label :show_in_navigation %></th>
@@ -50,7 +54,13 @@
     
     <tr>
       <th><%= f.label :parent %></th>
-      <td><%= f.collection_select :parent_id, Page.tree_array, :id, :label, :include_blank => true %></td>
+      <td>
+        <%- if can?(:manage, Page) %>
+          <%= f.collection_select :parent_id, Page.tree_array, :id, :label, :include_blank => true %>
+        <% else %>
+          <%= @page.parent.try :title %>
+        <% end %>
+      </td>
     </tr>
     
     <tr>

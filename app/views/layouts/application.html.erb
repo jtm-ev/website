@@ -24,6 +24,12 @@
 <body class='<%= current_user ? "internal" : "" %>'>
 
   <% if current_user %>
+    <%- content_for :default_actions do %>
+      <%= navigation_link_to 'Seite anlegen', new_page_path if can?(:create, Page) %>
+      <%= navigation_link_to 'Mitglied anlegen', new_member_path if can?(:create, Member) %>
+      <%= navigation_link_to 'Gruppe anlegen', new_group_path if can?(:create, Group) %>
+    <% end %>
+  
     <div class='navbar navbar-fixed-top navbar-inverse'>
       <div class='navbar-inner'>
         <ul class='nav'>
@@ -34,19 +40,24 @@
           <%= navigation_link_to 'E-Mail', '#' %>
           <%= navigation_link_to 'Seiten', pages_path if can?(:manage, Page) %>
       
-          <%# unless yield(:actions).blank? %>
+          
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Actions</a>
               <ul class='dropdown-menu'>
-                <%= yield(:actions) %>
-                <li class='divider'></li>
+                
+                <%- [:actions, :default_actions].each do |y| %>
+                  <% unless yield(y).blank? %>
+                    <%= yield(y) %>
+                    <li class='divider'></li>
+                  <% end %>
+                <% end %>
+                                
                 <li>
                   <%= link_to 'E-Mail schreiben', '#' %>
                 </li>
               </ul>
             </li>
         
-          <%# end %>
         </ul>
         <ul class='nav pull-right'>
           <li><a href='/dashboard'>Dashboard</a></li>
@@ -79,7 +90,7 @@
         <%# navigation_link_to 'Gruppen', groups_path, true %>
         
         <% Page.category('Extern').children.in_navigation.each do |page| %>
-          <%= navigation_link_to page.title, page_path(page) %>
+          <%= navigation_link_to page.title, human_page_path(page.path) %>
         <% end %>
         
         <%= navigation_link_to 'Gästebuch', '#' %>

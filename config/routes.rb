@@ -21,9 +21,10 @@ Website::Application.routes.draw do
   resources :groups, path: 'gruppen'
   resources :group_memberships
 
-  resources :pages do
+  resources :pages, path: 's', constraints: { id: /[0-9]*/ } do
     resources :page_files
   end
+  get '/s/*path' => 'pages#show_by_path', as: :human_page
   
   resources :members, path: 'mitglieder'
   get '/mitglieder(::flags)' => 'members#index', as: :flagged_members

@@ -16,6 +16,13 @@ class Page < ActiveRecord::Base
   
   liquid_methods :title, :group
   
+  before_save :generate_path
+  
+  def path
+    generate_path if super.blank?
+    super
+  end
+  
   def image
     page_files.first
   end
@@ -56,5 +63,15 @@ class Page < ActiveRecord::Base
   def self.category(title)
     Page.roots.find_or_create_by_title(title)
   end
+  
+  # private
+    def generate_path
+      tp = self.title.parameterize
+      if self.parent and self.navigation_style == 'parent'
+        self.path = [self.parent.path, tp].join('/')
+      else
+        self.path = tp
+      end
+    end
   
 end
