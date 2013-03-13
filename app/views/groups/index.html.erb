@@ -1,29 +1,19 @@
-<h1>Listing groups</h1>
+<h1>Gruppen</h1>
 
 <table>
   <tr>
     <th>Name</th>
-    <th>Shortcut</th>
-    <th>Public</th>
-    <th>Page</th>
-    <th>Description</th>
-    <th>Members</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Kürzel</th>
+    <th>Öffentlich</th>
+    <th>Mitglieder</th>
   </tr>
 
 <% @groups.each do |group| %>
   <tr>
-    <td><%= group.name %></td>
+    <td><%= link_to group.name, edit_group_path(group) %></td>
     <td><%= group.shortcut %></td>
     <td><%= group.public %></td>
-    <td><%= group.page_id %></td>
-    <td><%= group.description %></td>
     <td><%= group.group_memberships.count %></td>
-    <td><%= link_to 'Show', group %></td>
-    <td><%= link_to 'Edit', edit_group_path(group) %></td>
-    <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

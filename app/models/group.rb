@@ -5,6 +5,8 @@ class Group < ActiveRecord::Base
   
   belongs_to :page, dependent: :destroy, autosave: true
   
+  validates_presence_of :name
+  
   
   accepts_nested_attributes_for :page
   attr_accessible :description, :name, :page_id, :public, :shortcut, :page_attributes

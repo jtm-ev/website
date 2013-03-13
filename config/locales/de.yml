@@ -224,7 +224,7 @@ de:
         public: 'Öffentlich sichtbar'
         background: 'Hintergrund'
       group:
-        shortcut: 'Kurzname'
+        shortcut: 'Kürzel'
         public: 'Öffentlich sichtbar'
         description: 'Kurzbeschreibung'
       member:
