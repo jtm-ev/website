@@ -203,6 +203,11 @@ de:
   activemodel:
     errors:
       <<: *errors
+  gender:
+    m: männlich
+    w: weiblich
+  role:
+    group_leader: 'Gruppenleiter'
   activerecord:
     errors:
       <<: *errors
@@ -210,6 +215,7 @@ de:
       project: 'Projekt'
       group: 'Gruppe'
       page: 'Seite'
+      member: 'Mitglied'
     attributes:
       project:
         title: 'Titel'
@@ -220,7 +226,29 @@ de:
         public: 'Öffentlich sichtbar'
         background: 'Hintergrund'
       group:
-        shortcut: 'Kurzname'
+        shortcut: 'Kürzel'
         public: 'Öffentlich sichtbar'
         description: 'Kurzbeschreibung'
+      member:
+        name: 'Nachname'
+        first_name: 'Vorname'
+        birth_name: 'Geburtsname'
+        gender: 'Geschlecht'
+        member_since: 'Mitglied seit'
+        birthday: 'Geburtstag'
+        street: 'Straße'
+        city: 'PLZ, Ort'
+        phone: 'Telefon'
+        mobile: 'Handy'
+        email_extern: 'E-Mail'
+        email: 'E-Mail (JTM)'
+        school: Schulklasse
+      user:
+        password: 'Passwort'
+        password_confirmation: 'Passwort-Bestätigung'
+        current_password: 'Aktuelles Passwort'
+        
+        
+        
+        
         

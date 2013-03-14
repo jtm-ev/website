@@ -1,0 +1,9 @@
+
+%ul
+  - @groups.each do |g|
+    %li{}
+      - if g.has_page?
+        %a{href: human_page_path(g.page.path), 'data-image' => g.image.try(:url, :normal, false)}
+          = g.name
+      - else
+        = g.name

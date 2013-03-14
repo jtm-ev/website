@@ -2,13 +2,19 @@ class Member < ActiveRecord::Base
   include FileUpload
   include Navigatable
   
+  rolify
+  
   attr_accessible :active, :birth_name, :birthday, :city, :email, :email_extern, :fax, :first_name, :gender, :member_since, :mobile, :name, :phone, :school, :street
 
   scope :active, lambda { where(active: true) }
+  scope :inactive, lambda { where(active: false) }
 
-  has_many :team_memberships
+  has_many :team_memberships, dependent: :destroy
   has_many :teams, through: :team_memberships
   has_many :projects, through: :teams, uniq: true
+  
+  has_many :group_memberships, dependent: :destroy
+  has_many :groups, through: :group_memberships
 
   liquid_methods :name, :first_name, :full_name
 

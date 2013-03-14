@@ -22,6 +22,10 @@
       <td><%= f.text_field :shortcut %></td>
     </tr>
     <tr>
+      <th><%= f.label :category %></th>
+      <td><%= f.collection_select :category, [OpenStruct.new(key: 'age', value: 'Alter'), OpenStruct.new(key: 'interest', value: 'Interesse')], :key, :value, include_blank: true %></td>
+    </tr>
+    <tr>
       <th><%= f.label :description %></th>
       <td><%= f.text_field :description %></td>
     </tr>
@@ -31,25 +35,63 @@
     </tr>
     
     <tr>
-      <th>Seite</th>
-      <td><%= @group.page.try(:title)  %> (<%= link_to 'bearbeiten', edit_page_path(@group.page) %>)</td>
+      <th>Webseite</th>
+      <td>
+        <%- if @group.page %>
+          <%= @group.page.try(:title)  %> (<%= link_to 'bearbeiten', edit_page_path(@group.page) %>)
+        <% else %>
+          Wird nach dem erstellen erzeugt
+        <% end %>
+      </td>
     </tr>
 
   </table>
   
+  <div class="actions">
+    <%= f.submit %>
+    <%= link_to 'Gruppe löschen', group_path(@group), confirm: 'Wirklich löschen?', method: :delete, class: 'btn btn-danger' unless @group.new_record? %>
+  </div>
+  
   <ul class='tabs'>
     <li><a href='#mitglieder'>Mitglieder</a></li>
-    <!--li><a href='#inhalt'>Inhalt</a></li>
-    <li><a href='#dateien'>Dateien ()</a></li-->
+    <li><a href='#verantwortung'>Verantwortung</a></li>
   </ul>
+  
   <div class='tab-content'>
+    <div id='verantwortung'>
+      <ul>
+        <%- @group.roles.each do |role| %>
+          <li><%= t "role.#{role.name}" %></li>
+          <ul>
+            <%- role.members.each do |member| %>
+              <li><%= member.full_name %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </ul>
+      
+      <div class='actions'>
+        
+          <select name='add_group_leader_id' class='inline'>
+            <option></option>
+            <%- Member.active.each do |member| %>
+              <option value='<%= member.id %>'><%= member.name %> <%= member.first_name %></option>
+            <% end %>
+          </select>
+          
+          <%= f.submit 'als Gruppenleiter hinzufügen', class: 'btn btn-success', name: 'add_group_leader' %>
+          
+      </div>
+      
+    </div>
+    
     <div id='mitglieder'>
-      <table>
+      <table class='system'>
         <thead>
           <th></th>
-          <th>Mitglied</th>
+          <th style='min-width:200px;'>Mitglied</th>
           <th>Rolle</th>
-          <th></th>
+          <th width=20>Sortierung</th>
         </thead>
         <thead>
           <td></td>
@@ -57,7 +99,6 @@
             <td><%= builder.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
             <td><%= builder.text_field :role %></td>
           <% end %>
-          <td></td>
           <td><%= f.submit 'Hinzufügen', name: 'add' %></td>
           
         </thead>
@@ -67,22 +108,38 @@
               <td><%= check_box_tag 'selection[]', gms.id %></td>
               <td><%= gms.member.try :full_name %></td>
               <%= fields_for "group_memberships[]", gms do |b| %>
-              <td>
-                  <%= b.text_field :role %>
-              </td>
-              <td><%= b.text_field :position %></td>
+                <td><%= b.text_field :role %></td>
+                <td><%= b.text_field :position %></td>
               <% end %>
-              <td>
-                
-              </td>
+
           <% end %>
         </tbody>
-        <tfoot>
-          <td></td>
-          <td><%= f.submit 'Auswahl löschen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %></td>
-          <td></td>
-          <td></td>
-        </tfoot>
+        
+        <%- unless @group.new_record? %>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td><%= f.submit 'Auswahl löschen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><%= f.submit 'Auswahl verschieben in:', class: 'btn btn-success', name: 'move', confirm: 'Ausgewählte Mitglieder in neue Gruppe verschieben?' %></td>
+              <td>
+                <select name='move_to_group_id'>
+                  <%- Group.all.each do |group| %>
+                    <option value='<%= group.id %>'><%= group.name %></option>
+                  <% end %>
+                </select>
+              </td>
+              <td></td>
+            </tr>
+          </tfoot>
+        <% end %>
+        
+
+      
       </table>
     </div>
     
@@ -90,9 +147,7 @@
   
   </div>
   
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
   
 <% end %>
 

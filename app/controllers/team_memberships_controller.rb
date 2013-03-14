@@ -1,5 +1,7 @@
 
 class TeamMembershipsController < ApplicationController
+  load_and_authorize_resource
+  
   before_filter :find_team_membership, only: [:edit, :destroy, :update]
   
   def edit

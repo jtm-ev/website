@@ -1,0 +1,15 @@
+@import 'layouts';
+
+.group-grid {
+  .group {
+    @extend %layout-item;
+    border: 1px solid #ccc;
+    width: 280px;
+    height: 210px;
+    background: #888;
+    
+    .group-name {
+      @extend %layout-item-overlay;
+    }
+  }
+}

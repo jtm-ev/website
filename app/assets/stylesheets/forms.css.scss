@@ -1,5 +1,6 @@
 /**
  *= require select2
+ *= require datepicker
  * require bootstrap-colorpicker
  */
 
@@ -11,11 +12,21 @@
 @import 'bootstrap/buttons';
 @import 'bootstrap/button-groups';
 @import 'bootstrap/progress-bars';
-
-
+@import 'bootstrap/alerts';
 
 @import 'copy';
 
+form.list > div {
+  margin-bottom: 20px;
+}
+
+/************************************* Error Handling */
+.field_with_errors {
+  display: inline;
+  input {
+    border: 1px solid red !important;
+  }
+}
 
 /************************************* Text Inputs */
 
@@ -119,14 +130,22 @@ input[type=submit] {
   margin-left: -25px;
   margin-right: -25px;
   padding: 10px 25px;
-  
+  padding-top: 20px;
   text-align: left;
+  > * {
+    vertical-align: bottom;
+  }
+  
+  > a:not(.btn) {
+    font-style: italic;
+    color: #333;
+  }
 }
 
-.actions > a {
+.actions > input {
   @extend .btn;
-  margin-top: 20px;
-
+  margin-top: 0px;
+  margin-right: 20px;
 }
 
 /*************************************** File Upload */
@@ -202,17 +221,18 @@ input[type=submit] {
 }
 
 
-/*************************************** Tagging */
+/*************************************** Tagging, Select */
 .select2-container {
-  width: 100%;
+  min-width: 250px;
+  &:not(.inline){
+    width: 100%;
+  }
   
   .select2-choice {
     height: 35px;
   }
   
 }
-
-
 
 .select2-container-multi {
   .select2-choices {
@@ -229,6 +249,30 @@ input[type=submit] {
       }
     }
   }
+}
+
+.select2-match, .select2-result-label {
+  white-space: nowrap;
+}
+
+
+/************************************** hint */
+.hint {
+  @extend .alert;
+  @extend .alert-info;
+  text-align: center;
+  font-weight: bold;
+}
+
+#flashes {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  top: -20px;
+}
+
+.alert-notice {
+  @extend .alert-success;
 }
 
 

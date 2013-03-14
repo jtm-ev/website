@@ -15,6 +15,7 @@
 #= require jquery.nivo.slider
 #= require jquery.prettyPhoto
 #= require bootstrap-tab
+#= require bootstrap-alert
 #= require editing
 #= require_tree .
 
@@ -42,3 +43,8 @@ jQuery ->
       $(this).tab('show')
     
   $(".tabs a[href='#{window.location.hash}'], .tabs a:first").tab('show')
+  
+  
+  $('.alert').delay(2000).fadeOut('fast')
+  
+  

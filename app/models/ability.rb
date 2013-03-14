@@ -14,6 +14,44 @@ class Ability
       can :read, Location
       can :read, Project
       can :read, Member
+      
+      #############################################################
+      # What ALL logged in user can do
+      #############################################################
+      # unless user.new_record?
+      #   can :read, Page
+      # end
+      
+      #############################################################
+      # Resources a default User can manage by his own
+      #############################################################
+      can :update, User do |u|
+        u === user
+      end
+      
+      can :update, Member do |member|
+        user.member === member
+      end
+      
+      can :update, TeamMembership do |tms|
+        user.member === tms.member
+      end
+
+      #############################################################
+      # What Group-Leaders can do
+      #############################################################
+      can [:update, :read], Page do |page|
+        group = page.group
+        group ? user.member.has_role?(:group_leader, group) : false
+      end
+      #############################################################
+      
+      if user.has_role?(:member_manager)
+        can :manage, Member
+        can :manage, Group
+      end
+      
+      can :manage, Page if user.has_role?(:site_manager)
     end
     
     # The first argument to `can` is the action you are giving the user 

@@ -3,6 +3,6 @@
 
 <ul class='pages-subnav'>
   <% page.children.in_navigation.each do |subpage| %>
-    <%= navigation_link_to subpage.title, page_path(subpage) %>
+    <%= navigation_link_to subpage.title, human_page_path(subpage.path) %>
   <% end %>
 </ul>

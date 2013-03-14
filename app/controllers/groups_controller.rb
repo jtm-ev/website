@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
   def index
     authorize! :manage, Group
     
-    @groups = Group.scoped.order('name')
+    @groups = default_scope
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,15 +45,19 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
+    add_breadcrumb @group.name
+    @next = @group.next_in(default_scope)
+    @prev = @group.previous_in(default_scope)
   end
 
   # POST /groups
   # POST /groups.json
   def create
-
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        process_memberships
+        
+        format.html { redirect_to action: :edit, notice: 'Group was successfully created.' }
         format.json { render json: @group, status: :created, location: @group }
       else
         format.html { render action: "new" }
@@ -65,22 +69,11 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.json
   def update
-    
-    if params[:add]
-      # Create New GroupMembership
-      @group.group_memberships.create(params[:new_membership])
-    elsif params[:delete]
-      # Delete Selection
-      selection_ids = params[:selection].map {|s| s.to_i}
-      GroupMembership.delete( selection_ids )
-    else
-      # Mass-Update GroupMemberships
-      @group.group_memberships.update params[:group_memberships].keys, params[:group_memberships].values
-    end
-
     group_params = params[:group]
     respond_to do |format|
       if @group.update_attributes(group_params)
+        process_memberships
+        
         format.html { redirect_to :back }
         format.json { head :no_content }
       else
@@ -100,4 +93,39 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def default_scope
+      Group.scoped.order('public desc, name')
+    end
+    
+    def process_memberships
+      if params[:add]
+        # Create New GroupMembership
+        @group.group_memberships.create(params[:new_membership])
+      elsif params[:delete]
+        # Delete Selection
+        selection_ids = params[:selection].map {|s| s.to_i}
+        GroupMembership.delete( selection_ids )
+      elsif params[:move]
+        selection_ids = params[:selection].map {|s| s.to_i}
+        new_group = Group.find(params[:move_to_group_id].to_i)
+        selection_ids.each do |id|
+          gm = GroupMembership.find(id)
+          gm.group = new_group
+          gm.save
+        end
+      elsif params[:add_group_leader]
+        member_id = params[:add_group_leader_id]
+        member = Member.find(member_id.to_i)
+        if member
+          member.add_role :group_leader, @group
+        end
+      else
+        # Mass-Update GroupMemberships
+        @group.group_memberships.update params[:group_memberships].keys, params[:group_memberships].values
+      end
+    end
+    
+    
 end

@@ -17,6 +17,7 @@ require 'capistrano/ext/multistage'
 set :user,        "jtm"
 set :application, "website"
 set :domain,      "jtm.m1.relaunche.de"
+set :port, 22
 
 ssh_options[:port] = 22
 ssh_options[:forward_agent] = true
@@ -341,7 +342,7 @@ namespace :db do
   task :seed do
     local = 'tmp/dump.rb'
     # system "bundle exec rake db:data:dump TABLES=members,pages,page_files"
-    models = ['Page', 'Member', 'Group', 'GroupMembership', 'Location', 'Team', 'TeamMembership']
+    models = ['Page', 'Member', 'Group', 'GroupMembership', 'Location', 'Team', 'TeamMembership', 'Role']
     models.each do |m|
       File.open(local, 'w') do |f|
         f.write "# encoding: utf-8\n"
@@ -371,6 +372,14 @@ namespace :files do
     
     puts cmd
     system(cmd)
+  end
+end
+
+namespace :rails do
+  desc "Open the rails console on one of the remote servers"
+  task :console, :roles => :app do
+    hostname = find_servers_for_task(current_task).first
+    exec "ssh -l #{user} #{hostname} -p #{port} -t 'PATH=/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH && cd #{current_path} && bin/rails c #{rails_env}'"
   end
 end
 

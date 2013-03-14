@@ -9,24 +9,32 @@ Website::Application.routes.draw do
   end
   
   resources :users
+  match '/profile' => 'users#profile'
+  match '/profile/role/:id' => 'users#profile_role', as: :profile_role
+  match '/dashboard' => 'users#dashboard', as: :dashboard
 
   resources :locations, path: 'spielorte'
 
 
   resources :teams
   resources :team_memberships
-  
-  resources :members, path: 'mitglieder'
 
   resources :events
 
   resources :groups, path: 'gruppen'
   resources :group_memberships
 
-  resources :pages do
+  resources :pages, path: 's', constraints: { id: /[0-9]*/ } do
     resources :page_files
+    member do
+      get 'images.:format' => 'pages#images'
+      get 'links.:format' => 'pages#links'
+    end
   end
+  get '/s/*path' => 'pages#show_by_path', as: :human_page
   
+  resources :members, path: 'mitglieder'
+  get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
   
   resources :projects, path: 'projekte' do
     # collection do

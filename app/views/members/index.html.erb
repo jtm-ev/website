@@ -1,61 +1,36 @@
 <h1>Mitglieder (<%= @members.count %>)</h1>
 
-<table>
+<ul class='tabs'>
+  <%= navigation_link_to 'Aktive', members_path %>
+  <%= navigation_link_to 'Ehemalige', flagged_members_path('ehemalige') %>
+  <%= navigation_link_to 'Alle', flagged_members_path('alle') %>
+</ul>
+
+<table class='system'>
   <tr>
-    <th></th>
-    <th>Name</th>
-    <th>First name</th>
-    <th>Birth name</th>
-    <th>Street</th>
-    <th>
-      Phone<br />
-      Mobile<br />
-      Fax
-    </th>
-    <th>Email<br/>Email extern</th>
-    <th>Birthday<br/>Member since</th>
-    <th>School</th>
-    <th>Gender</th>
-    <th>Active</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th width=54></th>
+    <th><%= sortable_column 'name,first_name', 'Name' %></th>
+    <th><%= sortable_column 'created_at', 'Erstellt am' %></th>
+    <th><%= sortable_column 'member_since', 'Mitglied seit' %></th>
   </tr>
 
 <% @members.each do |member| %>
-  <input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#member-<%= member.id %>' data-method='PUT' data-url='<%= member_path(member) %>'>
+  <!--input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#member-<%= member.id %>' data-method='PUT' data-url='<%= member_path(member) %>'-->
 
   <tr id='member-<%= member.id %>'>
-    <td>
+    <td class='image-td'>
       <% if member.has_image? %>
-        <img src='<%= member.file.url(:square) %>'>
+        <img width=50 src='<%= member.file.url(:square) %>'>
       <% end %>
     </td>
-    <td><%= member.name %></td>
-    <td><%= member.first_name %></td>
-    <td><%= member.birth_name %></td>
-    <td>
-      <%= member.street %><br />
-      <%= member.city %>
-    </td>
-    <td>
-      <%= member.phone %>  <br/>
-      <%= member.mobile %>  <br/>
-      <%= member.fax %>
-    </td>
-    <td><%= member.email %><br/><%= member.email_extern %></td>
-    <td><%= member.birthday %><br/><%= member.member_since %></td>
-    <td><%= member.school %></td>
-    <td><%= member.gender %></td>
-    <td><%= member.active %></td>
-    <td><%= link_to 'Show', member %></td>
-    <td><%= link_to 'Edit', edit_member_path(member) %></td>
-    <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td class='oneline'><%= link_to [member.name, member.first_name].join(' '), edit_member_path(member) %></td>
+    <td>vor <%= time_ago_in_words member.created_at %></td>
+    <td><%= member.member_since %></td>
   </tr>
 <% end %>
 </table>
 
 
-<div class='actions'>
-  <%= link_to 'Mitglied anlegen', new_member_path %>
-</div>
+<% content_for :actions do %>
+  <%= navigation_link_to 'Neues Mitglied anlegen', new_member_path %>
+<% end %>

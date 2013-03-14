@@ -1,10 +1,10 @@
-#= require wysihtml5
-#= require_tree ./wysihtml5
-# require parser_rules/advanced
+#= require tinymce-jquery
 #= require jquery-fileupload/basic
 #= require bootstrap-dropdown
 #= require select2
 #= require jquery-ui
+#= require bootstrap-datepicker
+
 # require jquery.mjs.nestedSortable
 # require bootstrap-colorpicker
 
@@ -18,7 +18,8 @@ jQuery ->
     
     if $dropZone != $item
       $item.css 'display', 'none'  
-      $dropZone.click ->
+      $dropZone.click (e)->
+        e.preventDefault()
         $item.click()
       
     $item.fileupload {
@@ -34,15 +35,18 @@ jQuery ->
         data.submit()
       done: (e, data)->
         console.log "Done", data
-        if $item.data('reload')
-          
-          window.location.reload()
       fail: (e, data)->
         console.log "Upload Fail", e, data
       drop: (e, data)->
         console.log "Something Dropped", data
       # dragover: (e, data)->
       #   console.log "Drag Over", data
+      start: (e, data)->
+        $dropZone.addClass 'uploading'
+      stop: (e, data)->
+        $dropZone.removeClass 'uploading'
+        if $item.data('reload')
+          window.location.reload()
       progressall: (e, data)->
         console.log "Progress", data.loaded, data.total
         percentage = 100.0 / data.total * data.loaded
@@ -99,6 +103,9 @@ jQuery ->
     update: (event, ui)->
       console.log 'sort'
   }
+  
+  # Datepicker
+  $('.datepicker').datepicker()
   
   # $('.sortable-tree').nestedSortable {
   #   handle: 'div'

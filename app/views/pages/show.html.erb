@@ -9,5 +9,5 @@
 
 
 <% content_for :actions do %>
-  <%= navigation_link_to 'Seite bearbeiten', edit_page_path(@page) %>
+  <%= navigation_link_to 'Seite bearbeiten', edit_page_path(@page) if can?(:update, @page) %>
 <% end %>
