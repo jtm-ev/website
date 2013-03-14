@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content:</b>
+  <%= @guestbook.content %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @guestbook.name %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= @guestbook.website %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @guestbook.email %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%= @guestbook.project_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_guestbook_path(@guestbook) %> |
+<%= link_to 'Back', guestbooks_path %>

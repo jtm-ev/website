@@ -257,10 +257,21 @@ namespace :seed do
     end
   end
   
+  task :guestbook => :environment do
+    Guestbook.destroy_all
+    guestbooks = read_xml('jtm_gaestebuch')
+    guestbooks.each do |entry|
+      timestamp = entry['timestamp']
+      datum = DateTime.strptime("#{timestamp}",'%s')
+      m = create_model entry, Guestbook, name: 'name', email: 'email', website: 'internet', content: 'nachricht'
+      m.created_at = datum
+      m.save
+    end
+  end
+  
   task :teams => :environment do
     Team.destroy_all
     TeamMembership.destroy_all
-    
     akts = read_xml('jtm_stueck_akteure')
     team_index = create_index('jtm_stueck_akteur_bereiche')
     akts.each do |akt|

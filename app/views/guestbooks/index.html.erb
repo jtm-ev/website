@@ -1,0 +1,24 @@
+<h1>Gästebuch</h1>
+
+<% @guestbooks.each do |guestbook| %>
+  <div class='guestbook_entry'>
+    <div class='header'>
+      <div class='name'>
+        <%= guestbook.name %>
+      </div>
+      <div class='website'>
+        <%= guestbook.website %>
+      </div>
+      <div class='email'>
+        <%= guestbook.email %>
+      </div>
+    </div>
+    <div class='body'>
+      <div class='content'>
+        <%= guestbook.content.try :html_safe %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to 'Eintragen', new_guestbook_path %>
