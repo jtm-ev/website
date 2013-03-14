@@ -23,6 +23,10 @@ Website::Application.routes.draw do
 
   resources :pages, path: 's', constraints: { id: /[0-9]*/ } do
     resources :page_files
+    member do
+      get 'images.:format' => 'pages#images'
+      get 'links.:format' => 'pages#links'
+    end
   end
   get '/s/*path' => 'pages#show_by_path', as: :human_page
   

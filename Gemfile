@@ -27,6 +27,7 @@ group :assets do
   gem 'bootstrap-sass'
   gem "jquery-fileupload-rails"
   gem "select2-rails"
+  
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -35,6 +36,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'tinymce-rails'
 
 # Image Upload / Processing
 gem "paperclip", '3.4.0'

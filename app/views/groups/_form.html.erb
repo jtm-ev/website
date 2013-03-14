@@ -22,6 +22,10 @@
       <td><%= f.text_field :shortcut %></td>
     </tr>
     <tr>
+      <th><%= f.label :category %></th>
+      <td><%= f.collection_select :category, [OpenStruct.new(key: 'age', value: 'Alter'), OpenStruct.new(key: 'interest', value: 'Interesse')], :key, :value, include_blank: true %></td>
+    </tr>
+    <tr>
       <th><%= f.label :description %></th>
       <td><%= f.text_field :description %></td>
     </tr>
@@ -82,7 +86,7 @@
     </div>
     
     <div id='mitglieder'>
-      <table>
+      <table class='system'>
         <thead>
           <th></th>
           <th style='min-width:200px;'>Mitglied</th>

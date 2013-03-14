@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,800,700,300);
 @import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
 
+@import 'compass';
 @import 'tables';
 
 %font-copy {
@@ -14,16 +15,7 @@
   font-family: 'Rokkitt', serif;
 }
 
-body {
-  @extend %font-copy;
-}
-
-img {
-  max-width: 100%;
-}
-
-
-table, td, th {
+body, table, td, th {
   @extend %font-copy;
 }
 
@@ -37,6 +29,27 @@ h1 {
   margin-top: 15px;
 }
 
+/************************* Images */
+img {
+  max-width: 100%;
+}
+
+.polaroid-image {
+/*  display: inline-block;*/
+  line-height: 1em;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: white;
+  -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+}
+
+.group-list-gallery {
+
+}
+
+
+/************************************/
 .subtitle {
   @extend %font-copy;
   color: #666;
@@ -45,7 +58,7 @@ h1 {
   line-height: 0.6em;
 }
 
-.wysiwyg-text-align-center {
+/*.wysiwyg-text-align-center {
   text-align: center;
 }
 
@@ -71,12 +84,20 @@ h1 {
   float: left;
   margin: 15px;
   margin-left: 0px;
-}
+}*/
 
 pre {
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
+}
+
+code {
+  background-color: #eee;
+  display: block;
+  border: 1px solid #aaa;
+  padding: 10px;
+  @include border-radius(4px);
 }
 
 a {
@@ -91,65 +112,32 @@ a {
   
   &:hover {
     text-decoration: underline;
-
   }
 }
 
-ol {
-  li {
-    margin-bottom: 20px;
-  }
+/******************** Lists ***********/
+ol li {
+  margin-bottom: 20px;
 }
 
+ol.lower-alpha {
+  list-style-type: lower-alpha;
+  li { margin-bottom: 5px; }
+}
 
-/*OL { 
-  counter-reset: item;
-
-    LI:before { 
-      content: counter(item) counter(item);
-      color: red;
-    }
-
-  LI {
-    counter-increment: item;
-  }
-
-
-  
-}*/
 
 
 /************************************ Clearfix */
-/*.clearfix:after {
-  content: ".";
-  display: block;
-  clear: both;
-  visibility: hidden;
-  line-height: 0;
-  height: 0;
-}
- 
-.clearfix {
-  display: inline-block;
-}
- 
-html[xmlns] .clearfix {
-  display: block;
-}
- 
-* html .clearfix {
-  height: 1%;
-}*/
-
 .clearfix:before,
 .clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+    content: " "; 
+    display: table;
 }
 
 .clearfix:after {
     clear: both;
 }
+
 
 iframe {
   border: 1px solid #ccc;

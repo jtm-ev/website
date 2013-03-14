@@ -40,7 +40,7 @@ class PagesController < ApplicationController
   # GET /pages/new
   # GET /pages/new.json
   def new
-
+    @page = Page.create(title: "Neue Seite #{Page.count}")
     respond_to do |format|
       format.html { redirect_to edit_page_path(@page) }
       format.json { render json: @page }
@@ -96,6 +96,18 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to pages_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def images
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  def links
+    respond_to do |format|
+      format.js
     end
   end
   

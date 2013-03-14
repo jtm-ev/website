@@ -7,6 +7,8 @@ module FileUpload
     attr_accessible :file, :file_fingerprint, :file_meta, :description, :file_file_name, :meta
     serialize :meta, Hash
     
+    delegate :url, to: :file
+    
     # Auto-Rotate gibt bei manchen Bildern Probleme (EXIF autoorient?): http://pjkh.com/articles/rails-paperclip-auto-orient-and-resizing/
     # https://github.com/thoughtbot/paperclip/wiki/Interpolations
     has_attached_file :file, {

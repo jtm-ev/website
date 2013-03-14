@@ -1,34 +1,71 @@
+
 @import 'bootstrap/variables';
 @import 'bootstrap/mixins';
 
 @import 'bootstrap/tables';
 
 table {
-  @extend .table;
-  @extend .table-bordered;
-  background: white;
-}
-
-table:not(.form) {
-  @extend .table-striped;
+  vertical-align: top;
+  td {
+    vertical-align: top;
+  }
 }
 
 table.form {
+  @extend .table;
+  @extend .table-bordered;
+  background: white;
+  
   th {
     vertical-align: middle;
   }
-  
+
   th:after {
     content: ':';
   }
 }
 
-.oneline {
-  white-space: nowrap;
+table.system {
+  @extend .table;
+  @extend .table-bordered;
+  @extend .table-striped;
+  background: white;
 }
 
-td.image-td {
-  padding: 2px;
-  line-height: 1em;
+.copy-content {
+  /*table {
+    background: transparent;
+    border: 1px solid red;
+  }*/
 
+  table:not(.invisible-table) {
+    @extend .table;
+    @extend .table-bordered;
+    background: white;
+  }
+
+  table:not(.invisible-table) {
+    @extend .table-striped;
+
+  }
+
+  /*table.invisible-table {
+    border: none !important;
+    background: transparent !important;
+    td, tr, th {
+      border: none !important; 
+    }
+  }*/
+
+
+
+  .oneline {
+    white-space: nowrap;
+  }
+
+  td.image-td {
+    padding: 2px;
+    line-height: 1em;
+
+  }
 }

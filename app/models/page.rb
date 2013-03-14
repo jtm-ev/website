@@ -31,8 +31,16 @@ class Page < ActiveRecord::Base
     self.children.length > 0
   end
   
+  def has_image?
+    !self.image.nil?
+  end
+  
   def root?
     self.parent.nil?
+  end
+  
+  def is_public?
+    read_attribute :public
   end
   
   def parents

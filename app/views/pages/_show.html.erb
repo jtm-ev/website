@@ -1,6 +1,7 @@
 <% page ||= @page %>
 
-<%= liquidize page.content, 'page' => page %>
-<%# raw Liquid::Template.parse(@page.content).render({page: @page}) %>
+<div class='copy-content'>
+  <%= liquidize page.content, 'page' => page %>
+</div>
 
 <div class='clearfix'></div>
