@@ -95,6 +95,30 @@ a {
   }
 }
 
+ol {
+  li {
+    margin-bottom: 20px;
+  }
+}
+
+
+/*OL { 
+  counter-reset: item;
+
+    LI:before { 
+      content: counter(item) counter(item);
+      color: red;
+    }
+
+  LI {
+    counter-increment: item;
+  }
+
+
+  
+}*/
+
+
 /************************************ Clearfix */
 /*.clearfix:after {
   content: ".";
