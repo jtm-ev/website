@@ -1,5 +1,6 @@
 Website::Application.routes.draw do
-  resources :guestbooks
+  resources :guestbooks, path: 'gaestebuch'
+  post '/gaestebuch/manage' => 'guestbooks#manage'
 
 
   devise_for :users

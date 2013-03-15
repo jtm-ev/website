@@ -1,9 +1,57 @@
-.guestbook_entry{
+@import 'layouts';
+@import 'mixins';
+
+
+
+.guestbook-section {
+  position: relative;
+  min-height: 175px;
+  border-top: 1px solid #ccc;
+  margin: 0 -25px;
+  padding-left: 25px;
+  padding-top: 10px;
+  padding-right: 25px;
+}
+
+.guestbook-project {
+  @extend %layout-item;
+  width: 150px;
+  position: absolute;
+  top: 0;
+  margin-top: 10px; margin-left: 0;
+  .title {
+    @extend %layout-item-overlay;
+    font-size: 0.8em;
+    line-height: 1.3em;
+  }
+
+}
+
+
+.guestbook-entry{
+  margin-left: 170px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  
   .header{
-    border: 1px solid red;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    overflow: auto;
+    
+    .name {
+      float: left;
+      font-weight: bold;
+    }
+    
+    .created-at {
+      float: right;
+      font-size: 0.8em;
+      margin-top: 3px;
+    }
   }
-  .body{
-    border: 1px solid green;
+  
+  .body {
+    padding: 10px;
   }
-  margin-bottom: 10px;
 }

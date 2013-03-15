@@ -49,6 +49,7 @@ gem "breadcrumbs_on_rails"
 gem "liquid"
 
 gem "geocoder"
+gem "sanitize"
 
 
 # To use ActiveModel has_secure_password

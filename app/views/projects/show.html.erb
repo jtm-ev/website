@@ -54,7 +54,7 @@
               <div class='event'>
                 <%= l event.start_time, format: :project %>
                 <span class='time'><%= l event.start_time, format: :time_only %></span>
-                <span class='hint'><%= with_clamps_unless_nil(event.title) %></span>
+                <span class='description'><%= with_clamps_unless_nil(event.title) %></span>
               </div>
             <% end %>
           </div>

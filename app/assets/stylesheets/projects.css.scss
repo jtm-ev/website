@@ -123,6 +123,9 @@ iframe.youtube {
   width: 425px;
   text-align: center;
   
+  a {
+    color: black;
+  }
   
   .team-name {
     font-size: 1.2em;
@@ -152,45 +155,9 @@ iframe.youtube {
   }
 }
 
-/*.actor {
-  border: 1px solid black;
-  display: inline-block;
-  width: 160px;
-  vertical-align: top;
-  margin: 5px;
-  margin-bottom: 25px;
-  text-align: center;
-  
-  .role {
-    display: block;
-    font-weight: bold;
-
-  }
-  
-  .member {
-    font-size: 0.8em;
-  }
-  
-  .role-description {
-    display: block;
-  }
-}*/
-
-/*.actor {
-  display: inline-block;
-  width: 425px;
-  margin: 5px;
-  
-  .member:after {
-    content: ' - ' 
-  }
-  
-  .role {
-    font-size: .8em;
-    font-style: italic;
-  }
-  
-}*/
+#darsteller .actor {
+  vertical-align: bottom;
+}
 
 .actor {
   position: relative;
@@ -200,6 +167,10 @@ iframe.youtube {
   margin-bottom: 25px;
   text-align: center;
   vertical-align: top;
+  
+  a {
+    color: black;
+  }
   
   .actor-image {
     border: 1px solid #ccc;

@@ -1,24 +1,67 @@
-<h1>Gästebuch</h1>
+<h1>Gästebuch (<%= @guestbooks.count %> Einträge)</h1>
 
-<% @guestbooks.each do |guestbook| %>
-  <div class='guestbook_entry'>
-    <div class='header'>
-      <div class='name'>
-        <%= guestbook.name %>
+<%= form_tag '/gaestebuch/manage' do %>
+
+  <%= admin_panel_for Guestbook do %>
+    <%= submit_tag 'Auswahl löschen', name: 'delete', class: 'btn btn-danger', confirm: 'Wirklich löschen?' %>
+      <%= submit_tag 'Auswahl Projekt zuweisen:', name: 'assign_project', class: 'btn' %>
+      <%= collection_select 'guestbook', 'project_id', Project.latest_first, :id, :title %>
+  <% end %>
+
+  <p>
+    <%= link_to 'Eintrag erstellen', new_guestbook_path, class: 'btn', style: 'width: 150px;' %>
+  </p>
+
+  <%- count = 0 %>
+  <%- p = -1 %>
+  <div class='guestbook'>
+    <div class='guestbook-section'>
+    <% @guestbooks.each do |guestbook| %>
+
+      <% if guestbook.project != p %>
+      
+        <% unless count == 0 %>
+          </div>
+          <div class='guestbook-section'>
+        <% end %>
+      
+        <% 
+          count += 1
+          p = guestbook.project 
+        %>
+        
+        <% if p %>
+          <a class='guestbook-project sticky' href='<%= project_path(p) %>'>
+            <% if p.has_image? %>
+              <img src='<%= p.image.url(:square) %>'>
+            <% end %>
+            <div class='title'>
+              <%= guestbook.project.try :title %>
+            </div>
+          </a>
+        <% end %>
+      <% end %>
+
+      <div class='guestbook-entry'>
+        <div class='header'>
+          <div class='name'>
+            <%= guestbook.name %>
+          </div>
+          <div class='created-at'>
+            <%= l guestbook.created_at, format: :no_time %>
+            <% if can?(:manage, Guestbook) %>
+              <%= check_box_tag 'guestbook[selection][]', guestbook.id %>
+            <% end %>
+          </div>
+        </div>
+        <div class='body'>
+          <div class='content'>
+            <%= guestbook.content.try :html_safe %>
+          </div>
+        </div>
       </div>
-      <div class='website'>
-        <%= guestbook.website %>
-      </div>
-      <div class='email'>
-        <%= guestbook.email %>
-      </div>
-    </div>
-    <div class='body'>
-      <div class='content'>
-        <%= guestbook.content.try :html_safe %>
-      </div>
+    <% end %>
     </div>
   </div>
-<% end %>
 
-<%= link_to 'Eintragen', new_guestbook_path %>
+<% end %>

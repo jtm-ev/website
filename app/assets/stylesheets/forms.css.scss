@@ -58,60 +58,12 @@ textarea {
   white-space: nowrap;
   height: 100px;
   resize: vertical;
-}
-
-.wysihtml5-sandbox {
-  @extend %text-input;
-  height: 1000px;
-  width: 100%;
-  border-left: 0; border-right: 0;
-  padding-left: 0; padding-right: 0;
-  background: transparent;
-}
-
-.wysihtml5-toolbar {
-  @extend .btn-toolbar;
-  margin-bottom: 45px;
-  position: relative;
   
-  a {
-    @extend .btn;
-    @extend .btn-small;
-    text-decoration: none;
-  }
-  
-  div[data-wysihtml5-dialog] {
-    @extend %text-input;
-    margin-top: 5px;
-    background-color: #FFE6D8;
-    height: 35px;
-    position: absolute;
-    width: 100%;
-    
-    input.text {
-      @extend %font-copy;
-      @extend %small-text-input;
-      font-size: 11px;
-      line-height: 1em;
-      vertical-align: top;
-    }
-    
-    a {
-      @extend .btn-inverse;
-      @extend .btn-mini;
-      vertical-align: top;
-    }
+  &.size-middle {
+    height: 200px;
   }
 }
 
-.wysihtml5-toolbar-group {
-  @extend .btn-group;
-}
-
-.wysihtml5-command-active {
-/*  font-weight: bold;*/
-  @extend .active;
-}
 
 /************************************* Buttons */
 
@@ -244,7 +196,6 @@ input[type=submit] {
         @extend %font-copy;
         margin: 0;
         padding: 0;
-/*        border: 1px solid red;*/
         height: 100%;
       }
     }

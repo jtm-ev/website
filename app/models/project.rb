@@ -32,6 +32,10 @@ class Project < ActiveRecord::Base
     images.first
   end
   
+  def has_image?
+    self.image != nil
+  end
+  
   def press
     self.project_files.where(kind: 'press')
   end

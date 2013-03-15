@@ -47,4 +47,24 @@ jQuery ->
   
   $('.alert').delay(2000).fadeOut('fast')
   
+  $('.sticky').each (index, item)->
+    i = $(item)
+    p = i.parent()
+    
+    $(window).scroll ->
+      iH = i.height()
+      pH = p.height()
+      
+      margin = 43
+      offset = p.offset().top - margin - $(window).scrollTop()
+      
+      new_top = 0
+      if offset < 0
+        new_top = offset * -1
+      
+      if (new_top + iH) > pH
+        new_top = pH - iH
+        
+      i.css 'top', new_top
+  
   

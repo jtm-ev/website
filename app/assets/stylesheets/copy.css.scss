@@ -3,6 +3,7 @@
 
 @import 'compass';
 @import 'tables';
+@import 'mixins';
 
 %font-copy {
   font-family: 'Open Sans', sans-serif;
@@ -128,14 +129,8 @@ ol.lower-alpha {
 
 
 /************************************ Clearfix */
-.clearfix:before,
-.clearfix:after {
-    content: " "; 
-    display: table;
-}
-
-.clearfix:after {
-    clear: both;
+.clearfix {
+  @include clearfix;
 }
 
 

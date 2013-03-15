@@ -261,11 +261,18 @@ namespace :seed do
     Guestbook.destroy_all
     guestbooks = read_xml('jtm_gaestebuch')
     guestbooks.each do |entry|
-      timestamp = entry['timestamp']
-      datum = DateTime.strptime("#{timestamp}",'%s')
-      m = create_model entry, Guestbook, name: 'name', email: 'email', website: 'internet', content: 'nachricht'
-      m.created_at = datum
-      m.save
+      if entry['sichtbar'] == '1'
+        timestamp = entry['timestamp']
+        datum = DateTime.strptime("#{timestamp}",'%s')
+        m = create_model entry, Guestbook, name: 'name', email: 'email', website: 'internet'
+        m.created_at = datum
+      
+        content = (entry['nachricht'] or '').strip.gsub(/\n/, '<br/>')
+        # content[/\n/] = '<br/>'
+        m.content = content
+      
+        m.save
+      end
     end
   end
   
