@@ -87,7 +87,7 @@ def start_task(name)
 end
 
 namespace :seed do
-  task :public => [:projects, :events, :event_locations, :pictures] do #, :press] do # :events, :event_locations] do
+  task :public => [:projects, :events, :event_locations, :pictures, :press, :guestbook, :groups, :teams] do # :events, :event_locations] do
     
   end
   
