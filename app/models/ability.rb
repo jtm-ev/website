@@ -42,7 +42,7 @@ class Ability
       #############################################################
       can [:update, :read], Page do |page|
         group = page.group
-        group ? user.member.has_role?(:group_leader, group) : false
+        group ? (user.member and user.member.has_role?(:group_leader, group)) : false
       end
       #############################################################
       

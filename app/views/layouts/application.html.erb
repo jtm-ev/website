@@ -90,7 +90,7 @@
         <%# navigation_link_to 'Gruppen', groups_path, true %>
         
         <% Page.category('Extern').children.in_navigation.each do |page| %>
-          <%= navigation_link_to page.title, human_page_path(page.path) %>
+          <%= navigation_link_to page.title, human_page_path(page.path), true %>
         <% end %>
         
         <%= navigation_link_to 'Gästebuch', guestbooks_path %>
