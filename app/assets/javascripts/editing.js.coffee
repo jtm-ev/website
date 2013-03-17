@@ -87,6 +87,7 @@ jQuery ->
       input.val ids.toArray().join(',') 
   }
   
+  # Page Sorting
   $('.sortable-pages').sortable {
     items: '> li'
     update: (event, ui)->
@@ -103,6 +104,24 @@ jQuery ->
     update: (event, ui)->
       console.log 'sort'
   }
+  
+  # Table sorting
+  $('table.sortable tbody').sortable({
+    helper: (e, ui)->
+      ui.children().each ->
+        $(this).width($(this).width())
+      return ui;
+    update: (event, ui)->
+      parent = ui.item.parent()
+      input = $($(this).data('sort-target')) #parent.find('input')
+
+      ids = parent.find('> tr').map (index, item)->
+        $(item).data('id')
+      
+      id_val = ids.toArray().join(',')
+      input.val id_val
+      
+  }).disableSelection()
   
   # Datepicker
   $('.datepicker').datepicker()

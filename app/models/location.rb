@@ -1,7 +1,7 @@
 class Location < ActiveRecord::Base
   include Navigatable
   
-  attr_accessible :address, :latitude, :longitude, :name, :page_id
+  attr_accessible :address, :latitude, :longitude, :name, :page_id, :position
   geocoded_by :joined_address
   
   after_validation :geocode #, if: :address_changed?

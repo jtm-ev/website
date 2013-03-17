@@ -1,5 +1,24 @@
 <%= render_breadcrumbs %>
 
+<%= admin_panel_for Location do %>
+  <%= form_tag locations_path, method: 'put' do %>
+    <table class='system sortable'>
+      <thead>
+        <th>Spielorte</th>
+      </thead>
+      <tbody data-sort-target='#location_positions'>
+        <input type='hidden' name='ids' id='location_positions' />
+        <% @locations.each do |location| %>
+          <tr data-id='<%= location.id %>'>
+            <td><%= location.name %></td>
+          <tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= submit_tag 'Sortierung speichern' %>
+  <% end %>
+<% end %>
+
 <h1>Spielorte</h1>
 
 

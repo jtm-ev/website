@@ -14,7 +14,11 @@ Website::Application.routes.draw do
   match '/profile/role/:id' => 'users#profile_role', as: :profile_role
   match '/dashboard' => 'users#dashboard', as: :dashboard
 
-  resources :locations, path: 'spielorte'
+  resources :locations, path: 'spielorte' do
+    collection do
+      put '/' => 'locations#manage'
+    end
+  end
 
 
   resources :teams

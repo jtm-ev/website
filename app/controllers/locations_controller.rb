@@ -1,13 +1,22 @@
 class LocationsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:index]
   
   add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Spielorte', :locations_path
   
+  def manage
+    params[:ids].split(',').each_with_index do |id, pos|
+      o = Location.find(id)
+      o.update_attributes position: pos
+    end
+    redirect_to action: :index
+  end
+  
   # GET /locations
   # GET /locations.json
   def index
-    # @locations = Location.all
+    @locations = default_scope
+    authorize! :read, Location
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,8 +30,8 @@ class LocationsController < ApplicationController
 
     add_breadcrumb @location.name
     
-    @previous = @location.previous_in(Location.all)
-    @next = @location.next_in(Location.all)
+    @previous = @location.previous_in(default_scope)
+    @next = @location.next_in(default_scope)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -84,4 +93,9 @@ class LocationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def default_scope
+      Location.order(:position)
+    end
 end
