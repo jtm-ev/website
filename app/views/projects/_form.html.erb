@@ -36,7 +36,6 @@
   
   <ul class='tabs'>
     <li><a href='#inhalt'>Inhalt</a></li>
-    <li><a href='#darsteller'>Darsteller</a></li>
     <li><a href='#teams'>Teams</a></li>
     <li><a href='#bilder'>Bilder</a></li>
     <li><a href='#presse'>Presse</a></li>
@@ -63,8 +62,8 @@
     
     <div id='teams'>
       <ul>
-        <% @project.non_actor_teams.each do |team| %>
-          <li><%= link_to team.name, edit_team_path(team) %></li>
+        <% @project.teams.each do |team| %>
+          <li><%= link_to team.name, edit_project_team_path(@project, team) %></li>
         <% end %>
       </ul>
     </div>

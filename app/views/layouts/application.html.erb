@@ -36,8 +36,8 @@
           <%= navigation_link_to 'User', users_path if can?(:manage, User) %>
           <%= navigation_link_to 'Mitglieder', members_path if can?(:manage, Member) %>
           <%= navigation_link_to 'Gruppen', groups_path if can?(:manage, Group)%>
-          <%= navigation_link_to 'Kalender', '#' %>
-          <%= navigation_link_to 'E-Mail', '#' %>
+          <%# navigation_link_to 'Kalender', '#' %>
+          <%# navigation_link_to 'E-Mail', '#' %>
           <%= navigation_link_to 'Seiten', pages_path if can?(:manage, Page) %>
       
           
@@ -51,10 +51,7 @@
                     <li class='divider'></li>
                   <% end %>
                 <% end %>
-                                
-                <li>
-                  <%= link_to 'E-Mail schreiben', '#' %>
-                </li>
+
               </ul>
             </li>
         

@@ -21,7 +21,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    
     collection = filtered_collection
     @previous = @project.previous_in(collection)
     @next     = @project.next_in(collection)
@@ -37,7 +36,6 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.json
   def new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @project }
@@ -46,6 +44,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    @next = @project.next_in(Project.latest_first)
+    @prev = @project.prev_in(Project.latest_first)
   end
 
   # POST /projects
@@ -79,7 +79,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to action: :edit, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -21,7 +21,7 @@ Website::Application.routes.draw do
   end
 
 
-  resources :teams
+  # resources :teams
   resources :team_memberships
 
   resources :events
@@ -53,6 +53,7 @@ Website::Application.routes.draw do
     end
     
     resources :members, path: 'darsteller', only: :show
+    resources :teams
   end
   
   get '/projekte(::tags)' => 'projects#index', as: :tagged_projects

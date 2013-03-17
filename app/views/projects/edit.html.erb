@@ -1,4 +1,10 @@
 <% set_background @project.images.first %>
+<%= render_breadcrumbs %>
+
+<div id='navigatable-nav'>
+  <%= render_navigatable_nav(@prev, '&laquo;', lambda {|i| edit_project_path(i) }, :title) %>
+  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| edit_project_path(i) }, :title) %>  
+</div>
 
 <h1>Projekt bearbeiten</h1>
 

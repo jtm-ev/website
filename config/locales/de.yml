@@ -217,6 +217,7 @@ de:
       page: 'Seite'
       member: 'Mitglied'
       guestbook: 'Gästebucheintrag'
+      team_membership: 'Team-Mitgliedschaft'
     attributes:
       project:
         title: 'Titel'

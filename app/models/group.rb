@@ -16,7 +16,7 @@ class Group < ActiveRecord::Base
   has_many :members, through: :group_memberships
   
   # alias :memberships :group_memberships
-  liquid_methods :name, :group_memberships, :members
+  liquid_methods :name, :shortcuts, :group_memberships, :members, :group_leader
   
   before_save :ensure_page
   

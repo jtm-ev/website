@@ -31,6 +31,7 @@ module Navigatable
   def previous_in(scope)
     in_scope(scope, -1)
   end
+  alias :prev_in :previous_in
   
   private
     def in_scope(scope, offset = 1)

@@ -73,4 +73,12 @@ module ApplicationHelper
     link_to title, params.merge({:sort => column, :direction => direction}), {:class => css_class}
   end
   
+  def link_to_if_true(href, is_true = true, &block)
+    if is_true
+      content_tag :a, capture(&block), href: href
+    else
+      capture(&block)
+    end
+  end
+  
 end
