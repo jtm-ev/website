@@ -190,6 +190,7 @@ namespace :seed do
   task :press => :environment do
     start_task 'Press'
     # ProjectFile.delete_all
+    ProjectFile.where(kind: 'press').destroy_all
 
     ppm = create_map('jtm_presse', 'projekt_id')
     di = create_index('jtm_dokumente')
