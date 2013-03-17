@@ -25,7 +25,7 @@ class TeamMembershipsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html { redirect_to edit_team_path(@team_membership.team) }
+      format.html { redirect_to edit_project_team_path(@team_membership.team.project, @team_membership.team) }
       format.json
     end
   end

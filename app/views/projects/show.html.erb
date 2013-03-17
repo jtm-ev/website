@@ -94,7 +94,7 @@
     <div id='teams'>
       <% @project.non_actor_teams.each do |team| %>
         <div class='team'>
-          <div class='team-name'><%= link_to team.name, edit_team_path(team) %></div>
+          <div class='team-name'><%= team.name %></div>
         
           <% if team.has_image? %>
             <div class='team-image'>
