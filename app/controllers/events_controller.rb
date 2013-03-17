@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  skip_authorization_check
+  
   # GET /events
   # GET /events.json
   def index

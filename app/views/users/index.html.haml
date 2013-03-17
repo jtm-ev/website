@@ -1,0 +1,18 @@
+
+%h1 User Verwaltung
+
+%table.system
+  %tr
+    %th Username
+    %th E-Mail
+    %th Roles
+    %th Mitglied
+    %th
+  - @users.each do |user|
+    %tr
+      %td= user.username
+      %td= user.email
+      %td= user.roles.join(', ')
+      %td= user.member.try :full_name
+      %td
+        = link_to 'Edit', edit_user_path(user)

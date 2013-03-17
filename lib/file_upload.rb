@@ -7,6 +7,8 @@ module FileUpload
     attr_accessible :file, :file_fingerprint, :file_meta, :description, :file_file_name, :meta
     serialize :meta, Hash
     
+    delegate :url, to: :file
+    
     # Auto-Rotate gibt bei manchen Bildern Probleme (EXIF autoorient?): http://pjkh.com/articles/rails-paperclip-auto-orient-and-resizing/
     # https://github.com/thoughtbot/paperclip/wiki/Interpolations
     has_attached_file :file, {
@@ -34,15 +36,16 @@ module FileUpload
       #   # large_photo: {geometry: '1024x768#', format: :png}    #4:3
       # },
       styles: lambda { |asset|
-        lc_style = { geometry: '1024x576#', format: :png }
+        image_format = :jpg
+        lc_style = { geometry: '1024x576#', format: image_format }
         # unless asset.instance.landscape?
         #   lc_style = { geometry: '1024x', format: :png, convert_options: '+repage -crop 1024x576+0+100 -gravity North' }
         # end
         {
-          square: {geometry: '150x150#', format: :png},
-          square_300: {geometry: '300x300#', format: :png},
-          normal: {geometry: '350x', format: :png},
-          large:  {geometry: '1024x', format: :png},
+          square: {geometry: '150x150#', format: image_format},
+          square_300: {geometry: '300x300#', format: image_format},
+          normal: {geometry: '350x', format: image_format},
+          large:  {geometry: '1024x', format: image_format},
           large_cinema: lc_style
         }
       },
@@ -54,7 +57,7 @@ module FileUpload
       #   # thumb:  "-quality 75 -strip",
       #   # large:  "-quality 100 -strip"  
       },
-      url: "/system/project_files/:hash.:extension",
+      # url: "/system/project_files/:hash.:extension",
       hash_secret: "207ff786710bf9b55b4481b393cff8be9a64a96088cface4b4ab7cf648cd01d8222030def29bbc52b284e4327c73b97d4e45468e676"
     }
     

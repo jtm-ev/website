@@ -1,4 +1,6 @@
-<h1>Projekte (<%= @projects.count %>)</h1>
+<%= render_breadcrumbs %>
+
+<h1>Projekte (<%= Project.count %>)</h1>
 
 <ul class='tabs'>
   <%= navigation_link_to 'Alle', tagged_projects_path() %>
@@ -9,14 +11,14 @@
 
 <div class='large-square-layout'>
   <% @projects.each do |project| %>
-    <a href='<%= project_path(project) %>' class='square'>
+    <a href='<%= show_tagged_project_path(params[:tags], project) %>' class='square' data-ongoing='<%= project.ongoing? %>'>
 
           <% if project.images.length > 0 %> 
             <img src= '<%=project.images.first.file.url(:square_300)%>' >
           <% else %>
-            <div class='empty'>
-            </div>
+            <div class='empty'></div>
           <% end %>
+          
           <div class ='title' >
             <%= project.title %>
           </div>

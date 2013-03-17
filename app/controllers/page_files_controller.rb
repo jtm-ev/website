@@ -1,15 +1,18 @@
 
 class PageFilesController < ApplicationController
+  load_and_authorize_resource except: [:create]
+  
   def create
-    page = Page.find params[:page_id]
+    @page = Page.find params[:page_id]
+    authorize! :manage, @page
+    
     uploaded_files.each do |file|
-      page.page_files.create! file: file
+      @page.page_files.create! file: file
     end
   end
   
   def destroy
-    pf = PageFile.find params[:id]
-    pf.destroy
+    @page_file.destroy
     
     redirect_to :back
   end

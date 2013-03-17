@@ -1,96 +1,66 @@
-<p id="notice"><%= notice %></p>
+<%= render_breadcrumbs %>
 
-<p>
-  <b>Name:</b>
-  <%= @member.name %>
-</p>
+<% if @previous or @next %>
+  <div id='navigatable-nav'>
+    <%= render_navigatable_nav(@previous, '&laquo;',  lambda {|i| project_member_path(@project, i) }, :full_name) %>
+    <%= render_navigatable_nav(@next, '&raquo;',      lambda {|i| project_member_path(@project, i) }, :full_name) %>  
+  </div>
+<% end %>
 
-<p>
-  <b>First name:</b>
-  <%= @member.first_name %>
-</p>
+<% if @member.has_image? %>
+  <img class="profile-image" src="<%= @member.file.url(:square_300) %>">
+<% end %>
 
-<p>
-  <b>Birth name:</b>
-  <%= @member.birth_name %>
-</p>
+<h1 class="profile-name"><%= @member.full_name %><%= with_clamps_unless_nil @member.age %></h1>
+<% if @member.active and @member.member_since %>
+  <h3 class="profile-info">Mitglied seit: <%= l @member.member_since %></h3>
+<% end %>
 
-<p>
-  <b>Street:</b>
-  <%= @member.street %>
-</p>
+<div class='clearfix'></div>
 
-<p>
-  <b>City:</b>
-  <%= @member.city %>
-</p>
-
-<p>
-  <b>Phone:</b>
-  <%= @member.phone %>
-</p>
-
-<p>
-  <b>Fax:</b>
-  <%= @member.fax %>
-</p>
-
-<p>
-  <b>Mobile:</b>
-  <%= @member.mobile %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @member.email %>
-</p>
-
-<p>
-  <b>Email extern:</b>
-  <%= @member.email_extern %>
-</p>
-
-<p>
-  <b>Birthday:</b>
-  <%= @member.birthday %>
-</p>
-
-<p>
-  <b>Member since:</b>
-  <%= @member.member_since %>
-</p>
-
-<p>
-  <b>School:</b>
-  <%= @member.school %>
-</p>
-
-<p>
-  <b>Gender:</b>
-  <%= @member.gender %>
-</p>
-
-<p>
-  <b>Active:</b>
-  <%= @member.active %>
-</p>
-
-<p>
-  <b>Projekte:</b>
-  <ul>
-  <% @member.projects.each do |project| %>
-    <li>
-      <%= link_to project.title, project %>
-      <ul>
-        <% project.team_memberships_for(@member).each do |team_membership| %>
-          <li><%= team_membership.team.name %> (<%= team_membership.role %>)</li>
-        <% end %>
-      </ul>
-    </li>
+<ul class='tabs'>
+  <li><a href='#rollen' data-toggle='tab'>Rollen (<%= @member.actor_team_memberships.length %>)</a></li>
+  <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
+    <li><a href='#hdk' data-toggle='tab'>Hinter den Kulissen</a></li>
   <% end %>
-  </ul>
-</p>
+</ul>
+
+<div class='tab-content'>
+
+  <div id='rollen'>
+    <%= render 'actor_team_memberships', member: @member %>
+  </div>
+  
+  <div id='hdk'>
+    <% @member.non_actor_team_memberships.each do |team_membership| %>
+      <% 
+        project = team_membership.project 
+        team = team_membership.team
+      %>
+      
+      <div class='team'>
+        <div class='team-name'><%= team.name %><%= with_clamps_unless_nil(team_membership.role) %></div>
+        <div class='team-project'>
+          <%= link_to project.title, project %>
+        </div>
+        <% if team.has_image? %>
+          <div class='team-image'>
+            <a href='<%= project_path(project) %>'><img src='<%= team.file.url(:normal) %>'></a>
+          </div>
+        <% end %>
+        
 
 
-<%= link_to 'Edit', edit_member_path(@member) %> |
-<%= link_to 'Back', members_path %>
+      </div>
+      
+    <% end %>
+  </div>
+  
+  
+  
+</div>
+
+
+<% content_for :actions do %>
+  <%= navigation_link_to 'Mitglied bearbeiten', edit_member_path(@member) %>
+<% end %>

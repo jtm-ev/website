@@ -1,6 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,800,700,300);
 @import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
 
+@import 'compass';
+@import 'tables';
+@import 'mixins';
+
 %font-copy {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
@@ -8,19 +12,53 @@
   color: #333;
 }
 
-body {
-  @extend %font-copy;
+%font-header {
+  font-family: 'Rokkitt', serif;
 }
 
-
-table, td, th {
+body, table, td, th {
   @extend %font-copy;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Rokkitt', serif;
+  @extend %font-header;
 }
 
+h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.copy-content {
+  margin: 0px !important;
+}
+
+body#tinymce {
+  background: transparent !important;
+}
+
+/************************* Images */
+img {
+  max-width: 100%;
+}
+
+.polaroid-image {
+/*  display: inline-block;*/
+  line-height: 1em;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: white;
+  -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+}
+
+.group-list-gallery {
+
+}
+
+
+/************************************/
 .subtitle {
   @extend %font-copy;
   color: #666;
@@ -29,7 +67,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 0.6em;
 }
 
-.wysiwyg-text-align-center {
+/*.wysiwyg-text-align-center {
   text-align: center;
 }
 
@@ -55,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
   margin: 15px;
   margin-left: 0px;
-}
+}*/
 
 pre {
   background-color: #eee;
@@ -63,48 +101,56 @@ pre {
   font-size: 11px;
 }
 
+code {
+  background-color: #eee;
+  display: block;
+  border: 1px solid #aaa;
+  padding: 10px;
+  @include border-radius(4px);
+}
+
 a {
-  color: #000;
+/*  color: #000;*/
+  color: #B8004A;
   text-decoration: none;
+  cursor: pointer;
+  
   &:visited {
 
   }
+  
   &:hover {
     text-decoration: underline;
-
   }
 }
 
+/******************** Lists ***********/
+ol li {
+  margin-bottom: 20px;
+}
+
+ol.lower-alpha {
+  list-style-type: lower-alpha;
+  li { margin-bottom: 5px; }
+}
+
+
+
 /************************************ Clearfix */
-/*.clearfix:after {
-  content: ".";
-  display: block;
-  clear: both;
-  visibility: hidden;
-  line-height: 0;
-  height: 0;
-}
- 
 .clearfix {
-  display: inline-block;
-}
- 
-html[xmlns] .clearfix {
-  display: block;
-}
- 
-* html .clearfix {
-  height: 1%;
-}*/
-
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+  @include clearfix;
 }
 
-.clearfix:after {
-    clear: both;
+
+iframe {
+  border: 1px solid #ccc;
 }
+
+hr {
+  border: 0px solid black;
+  border-top: 1px solid #ccc;
+  margin: 20px -25px;
+}
+
 
 

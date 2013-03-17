@@ -1,11 +1,7 @@
 class Project < ActiveRecord::Base
-  scope :previous,  lambda { |i| {conditions: ["#{self.table_name}.id > ?", i.id]} }
-  scope :next,      lambda { |i| {conditions: ["#{self.table_name}.id < ?", i.id]} }
-  scope :latest_first,  lambda { order('id DESC') }
+  include Navigatable
   
-  # default_scope scoped
-  # scope :previous,  lambda { |i| where('id < ?', i.id).first }
-  # scope :next,      lambda { |i| where('id > ?', i.id).first }
+  scope :latest_first, lambda { joins(:events).uniq.order('events.start_time DESC') }
   
   attr_accessible :description, :title, :subtitle, :tag_list, :videos
 
@@ -14,24 +10,38 @@ class Project < ActiveRecord::Base
 
   has_many :project_files, dependent: :destroy, order: 'position ASC'
   has_many :events, dependent: :destroy, order: 'start_time ASC'
+  has_many :locations, through: :events, uniq: true
   
   acts_as_taggable_on :tags
   
+  def ongoing?
+    return false unless events.last
+    events.last.outstanding?
+  end
+  
+  def year
+    return 0 unless events.first
+    events.first.start_time.year
+  end
+  
   def images
     self.project_files.where(kind: 'image')
+  end
+  
+  def image
+    images.first
+  end
+  
+  def has_image?
+    self.image != nil
   end
   
   def press
     self.project_files.where(kind: 'press')
   end
   
-  def team_memberships_for(member)
-    self.team_memberships.where(member_id: member.id)
-  end
-  alias :team_memberships_of :team_memberships_for 
-  
   def actor_team
-    self.teams.where(name: 'Darsteller').first
+    self.teams.find_or_create_by_name('Darsteller')
   end
   
   def non_actor_teams

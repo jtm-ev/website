@@ -17,6 +17,7 @@ require 'capistrano/ext/multistage'
 set :user,        "jtm"
 set :application, "website"
 set :domain,      "jtm.m1.relaunche.de"
+set :port, 22
 
 ssh_options[:port] = 22
 ssh_options[:forward_agent] = true
@@ -84,7 +85,8 @@ set(:bundle_path) {
 
 namespace :bundle do
   task :install do
-    run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --deployment --without development test --binstubs --shebang ruby-local-exec"
+    run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --without development test --binstubs --shebang ruby-local-exec"
+    # run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --deployment --without development test --binstubs --shebang ruby-local-exec"
   end
 end
 
@@ -96,7 +98,8 @@ namespace :deploy do
   end
 end
 
-after 'deploy:create_symlink', 'shared:configure'
+# after 'deploy:create_symlink', 'shared:configure'
+before 'deploy:assets:precompile', 'shared:configure'
 namespace :shared do
   task :configure, :roles => :app do
     run "mkdir -p #{shared_path}/shared"
@@ -329,4 +332,64 @@ namespace :bootstrap do
     run "apt-get update; apt-get install redis-server"
   end
 end
+
+namespace :db do
+  task :configure do
+    run "cp -f #{shared_path}/database.yml #{release_path}/config/database.yml"
+  end
+  
+  desc 'Seed remote DB with local Data'
+  task :seed do
+    local = 'tmp/dump.rb'
+    # system "bundle exec rake db:data:dump TABLES=members,pages,page_files"
+    # models = ['Page', 'Member', 'Group', 'GroupMembership', 'Location', 'Team', 'TeamMembership', 'Role']
+    models = ['Page', 'Member', 'Group', 'GroupMembership', 'Team', 'TeamMembership', 'Role']
+    models.each do |m|
+      File.open(local, 'w') do |f|
+        f.write "# encoding: utf-8\n"
+        f.write "#{m}.destroy_all\n"
+      end
+      system "bundle exec rake db:seed:dump MODELS=#{m} FILE=#{local} APPEND=true WITH_ID=1 TIMESTAMPS=1"
+      upload local, "#{current_path}/db/seeds.rb", :via => :scp
+      run("cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}") 
+    end  
+  end
+end
+after "deploy:finalize_update", "db:configure"
+
+task :configure do
+  ['email.yml', 'newrelic.yml'].each do |f|
+    run "cp -f #{deploy_to}/../#{f} #{release_path}/config/#{f}"
+  end
+end
+after "deploy:finalize_update", "configure"
+
+namespace :files do
+  task :sync do
+    src = 'public/system/'
+    dest = "#{current_path}/public/system"
+    #  --progress --stats
+    cmd = "rsync --verbose --checksum --recursive #{src} #{user}@#{domain}:#{dest}"
+    
+    puts cmd
+    system(cmd)
+  end
+end
+
+namespace :rails do
+  desc "Open the rails console on one of the remote servers"
+  task :console, :roles => :app do
+    hostname = find_servers_for_task(current_task).first
+    exec "ssh -l #{user} #{hostname} -p #{port} -t 'PATH=/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH && cd #{current_path} && bin/rails c #{rails_env}'"
+  end
+  task :logs, :roles => :app do
+    hostname = find_servers_for_task(current_task).first
+    exec "ssh -l #{user} #{hostname} -p #{port} -t 'tail -f #{current_path}/log/#{rails_env}.log'"
+  end
+end
+
+# before 'deploy:assets:precompile', 'deploy:migrate'
+
+
+
 

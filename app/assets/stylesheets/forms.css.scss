@@ -1,5 +1,6 @@
 /**
  *= require select2
+ *= require datepicker
  * require bootstrap-colorpicker
  */
 
@@ -11,11 +12,21 @@
 @import 'bootstrap/buttons';
 @import 'bootstrap/button-groups';
 @import 'bootstrap/progress-bars';
-
-
+@import 'bootstrap/alerts';
 
 @import 'copy';
 
+form.list > div {
+  margin-bottom: 20px;
+}
+
+/************************************* Error Handling */
+.field_with_errors {
+  display: inline;
+  input {
+    border: 1px solid red !important;
+  }
+}
 
 /************************************* Text Inputs */
 
@@ -36,9 +47,6 @@
 input[type=text], input[type=email], input[type=password] {
   @extend %text-input;
   @extend %font-copy;
-}
-
-td input {
   width: 100%;
 }
 
@@ -50,57 +58,12 @@ textarea {
   white-space: nowrap;
   height: 100px;
   resize: vertical;
-}
-
-.wysihtml5-sandbox {
-  @extend %text-input;
-  height: 400px;
-  width: 100%;
-}
-
-.wysihtml5-toolbar {
-  @extend .btn-toolbar;
-  margin-bottom: 45px;
-  position: relative;
   
-  a {
-    @extend .btn;
-    @extend .btn-small;
-    text-decoration: none;
-  }
-  
-  div[data-wysihtml5-dialog] {
-    @extend %text-input;
-    margin-top: 5px;
-    background-color: #FFE6D8;
-    height: 35px;
-    position: absolute;
-    width: 100%;
-    
-    input.text {
-      @extend %font-copy;
-      @extend %small-text-input;
-      font-size: 11px;
-      line-height: 1em;
-      vertical-align: top;
-    }
-    
-    a {
-      @extend .btn-inverse;
-      @extend .btn-mini;
-      vertical-align: top;
-    }
+  &.size-middle {
+    height: 200px;
   }
 }
 
-.wysihtml5-toolbar-group {
-  @extend .btn-group;
-}
-
-.wysihtml5-command-active {
-/*  font-weight: bold;*/
-  @extend .active;
-}
 
 /************************************* Buttons */
 
@@ -119,14 +82,22 @@ input[type=submit] {
   margin-left: -25px;
   margin-right: -25px;
   padding: 10px 25px;
-  
+  padding-top: 20px;
   text-align: left;
+  > * {
+    vertical-align: bottom;
+  }
+  
+  > a:not(.btn) {
+    font-style: italic;
+    color: #333;
+  }
 }
 
-.actions > a {
+.actions > input {
   @extend .btn;
-  margin-top: 20px;
-
+  margin-top: 0px;
+  margin-right: 20px;
 }
 
 /*************************************** File Upload */
@@ -202,17 +173,18 @@ input[type=submit] {
 }
 
 
-/*************************************** Tagging */
+/*************************************** Tagging, Select */
 .select2-container {
-  width: 100%;
+  min-width: 250px;
+  &:not(.inline){
+    width: 100%;
+  }
   
   .select2-choice {
     height: 35px;
   }
   
 }
-
-
 
 .select2-container-multi {
   .select2-choices {
@@ -224,11 +196,34 @@ input[type=submit] {
         @extend %font-copy;
         margin: 0;
         padding: 0;
-/*        border: 1px solid red;*/
         height: 100%;
       }
     }
   }
+}
+
+.select2-match, .select2-result-label {
+  white-space: nowrap;
+}
+
+
+/************************************** hint */
+.hint {
+  @extend .alert;
+  @extend .alert-info;
+  text-align: center;
+  font-weight: bold;
+}
+
+#flashes {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  top: -20px;
+}
+
+.alert-notice {
+  @extend .alert-success;
 }
 
 

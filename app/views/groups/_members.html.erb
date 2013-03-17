@@ -1,0 +1,14 @@
+<% @group.group_memberships.each do |membership| %>
+  <div class='actor'>
+
+    <div class='actor-image'>
+      <% if membership.member.has_image? %>
+        <a href='<%= member_path(membership.member) %>'><img src='<%= membership.member.file.url(:square) %>'></a>
+      <% end %>
+    </div>
+
+    <span class='member'><%= link_to membership.member.full_name, member_path(membership.member) %></span>
+    <span class='role'><%= membership.role %></span>
+  
+  </div>
+<% end %>

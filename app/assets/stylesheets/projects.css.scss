@@ -1,16 +1,80 @@
-
 .slider-wrapper {
   margin-left: -25px;
   margin-right: -25px;
+
+  -webkit-transform: translate3d(0, 0, 0);
+  -mox-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   
   .nivo-controlNav {
-    display: none;
+
   }
-  
-  .nivo-directionNav {
-    display: none;
+	.nivo-control img{
+	  -webkit-transition: all .6s ;
+	  -webkit-backface-visibility: hidden;
+	  width:50px;
+	  height:50px;
+	  margin:1px;
+	  -webkit-filter: grayscale(100%);
+    -moz-filter:  grayscale(100%);
+    -o-filter:  grayscale(100%);
+    -ms-filter:  grayscale(100%);
+	}
+
+	.nivo-control.active img {	
+	  -webkit-transition: all .6s ;
+	  -webkit-backface-visibility: hidden;
+	  -webkit-transition: grayscale .5s;
+	  -webkit-filter:  grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -o-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+	  
+	}
+
+  .nivo-nextNav{
+  	-webkit-transition: opacity .5s;
+  	-moz-transition: opacity .5s;
+  	-o-transition: opacity .5s;
+  	opacity: 0;
+    margin-right: 5px;
+  	margin-top: -15px;
+  	text-indent: -9999px;
+  	width: 50px;
+  	height: 49px;
+  	background-image: url(/images/right_arrow.png);
+  	background-size: 50px, 50px;
+  }  
+  .nivo-prevNav{
+  	transition: opacity .5s;
+  	-webkit-transition: opacity .5s;
+  	-moz-transition: opacity .5s;
+  	-o-transition: opacity .5s;
+  	opacity: 0;
+  	margin-left: 5px;
+  	margin-top: -15px;
+  	text-indent: -9999px;
+  	width: 50px;
+  	height: 50px;
+  	background-image: url(/images/left_arrow.png);
+  	background-size: 50px, 50px;
   }
 }
+.nivoSlider:hover .nivo-prevNav{
+	opacity: 1;
+}
+.nivoSlider:hover .nivo-nextNav{
+	opacity: 1;
+}
+.nivo-controlNav:hover .nivo-control img{
+    -webkit-transition: all .6s;
+    -webkit-backface-visibility: hidden;
+    -webkit-filter:  grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -o-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+}
+
 
 .sortable-images {
   font-size: 0;
@@ -30,48 +94,7 @@ iframe.youtube {
   margin: 5px;
 }
 
-.large-square-layout {
-  .square {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    height: 280px;
-    width: 280px;
-    margin: 5px;
-    padding: 0;
-    line-height: 1em;
-    border: 1px solid #ccc;
 
-    img {
-      width: 280px;
-      background: white;
-    }
-    
-    .empty {
-      width: 280px;
-      height: 280px;
-      background-color: #888;
-    }
-    
-    .title {
-      font-size: 13;
-      line-height: 1.5em;
-      padding: 5px 10px;
-      width: 280px;
-/*      background-color: #1C1C1C;*/
-      background-color: rgba(0, 0, 0, 0.8);
-/*      background: black;*/
-/*      opacity: 0.8;*/
-      position: absolute;
-      bottom: 0px;
-      text-align: center;
-      color: #BDBDBD;
-      &:empty {
-        display: none;
-      }
-    }
-  }
-}
 
 .team-image {
   border: 1px solid #ccc;
@@ -100,6 +123,9 @@ iframe.youtube {
   width: 425px;
   text-align: center;
   
+  a {
+    color: black;
+  }
   
   .team-name {
     font-size: 1.2em;
@@ -121,60 +147,50 @@ iframe.youtube {
       content: ', '
     }
   }
+  
+  .team-project {
+    font-size: 0.8em;
+    margin-bottom: 10px;
+    margin-top: -5px;
+  }
 }
 
-/*.actor {
-  border: 1px solid black;
-  display: inline-block;
-  width: 160px;
-  vertical-align: top;
-  margin: 5px;
-  margin-bottom: 25px;
-  text-align: center;
-  
-  .role {
-    display: block;
-    font-weight: bold;
-
-  }
-  
-  .member {
-    font-size: 0.8em;
-  }
-  
-  .role-description {
-    display: block;
-  }
-}*/
-
-/*.actor {
-  display: inline-block;
-  width: 425px;
-  margin: 5px;
-  
-  .member:after {
-    content: ' - ' 
-  }
-  
-  .role {
-    font-size: .8em;
-    font-style: italic;
-  }
-  
-}*/
+#darsteller .actor {
+  vertical-align: bottom;
+}
 
 .actor {
+  position: relative;
   display: inline-block;
   width: 205px;
   margin: 5px;
   margin-bottom: 25px;
   text-align: center;
+  vertical-align: top;
+  
+  a {
+    color: black;
+  }
   
   .actor-image {
     border: 1px solid #ccc;
     width: 150px;
     height: 150px;
     display: inline-block;
+    
+    img {
+      display: block;
+    }
+    
+    &.uploading:after {
+      content: 'uploading';
+      position: absolute;
+      top: 20px;
+      left: 28px;
+      right: 27px;
+      background: #ccc;
+    }
+    
   }
   
   .member {
@@ -187,6 +203,32 @@ iframe.youtube {
     font-style: italic;
   }
   
+}
+
+#navigatable-nav {
+  pointer-events: none;
+  position: absolute;
+  top: -12px;
+  right: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 30px;
+  a {
+    color: white;
+    pointer-events: auto;
+    margin-left: 3px;
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+    }
+  }
+}
+
+
+.youtube-preview {
+  img {
+    width: 428px;
+    margin: 5px;
+  }
 }
 
 

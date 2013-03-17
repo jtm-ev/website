@@ -1,0 +1,14 @@
+
+.group-grid
+  - @groups.each do |g|
+    .group
+      - if g.has_page? #or can?(:update, g)
+        %a{href: human_page_path(g.page.path)}
+          - if g.has_image?
+            %img{src: g.image.url(:normal, false)}
+          .group-name= g.name
+      - else
+        - if g.has_image?
+          %img{src: g.image.url(:normal, false)}
+        .group-name
+          = g.name

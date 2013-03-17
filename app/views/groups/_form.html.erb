@@ -22,6 +22,10 @@
       <td><%= f.text_field :shortcut %></td>
     </tr>
     <tr>
+      <th><%= f.label :category %></th>
+      <td><%= f.collection_select :category, [OpenStruct.new(key: 'age', value: 'Alter'), OpenStruct.new(key: 'interest', value: 'Interesse')], :key, :value, include_blank: true %></td>
+    </tr>
+    <tr>
       <th><%= f.label :description %></th>
       <td><%= f.text_field :description %></td>
     </tr>
@@ -31,58 +35,130 @@
     </tr>
     
     <tr>
-      <th>Seite</th>
-      <td><%= @group.page.try(:title)  %></td>
+      <th>Webseite</th>
+      <td>
+        <%- if @group.page %>
+          <%= @group.page.try(:title)  %> (<%= link_to 'bearbeiten', edit_page_path(@group.page) %>)
+        <% else %>
+          Wird nach dem erstellen erzeugt
+        <% end %>
+      </td>
     </tr>
 
   </table>
 
   <div class="actions">
     <%= f.submit %>
+    <%= link_to 'Gruppe löschen', group_path(@group), confirm: 'Wirklich löschen?', method: :delete, class: 'btn btn-danger' unless @group.new_record? %>
   </div>
+  
+  <hr />
+  
+<% end  %>
 
-<% end %>
+  
+
   
   <ul class='tabs'>
-    <li><a href='#mitglieder'>Mitglieder</a></li>
-    <li><a href='#inhalt'>Inhalt</a></li>
-    <li><a href='#dateien'>Dateien ()</a></li>
+    <li><a href='#mitglieder'>Mitglieder (<%= @group.group_memberships.count %>)</a></li>
+    <li><a href='#verantwortung'>Gruppenleiter (<%= @group.group_leader.count %>)</a></li>
   </ul>
+  
   <div class='tab-content'>
+    <div id='verantwortung'>
+      <%= form_for(@group) do |f| %>
+        <table class='system'>
+          <thead>
+            <th></th>
+            <th>Gruppenleiter</th>
+          </thead>
+          <tbody>
+            <%- @group.roles.each do |role| %>
+              <%- role.members.each do |member| %>
+                <tr>
+                  <td><%= check_box_tag 'selection[]', member.id %></td>
+                  <td><%= member.full_name %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          
+            <tr>
+              <td></td>
+              <td><%= f.submit 'Auswahl löschen', class: 'btn btn-danger', confirm: 'Sicher?', name: 'remove_group_leader' %></td>
+            </tr>
+          
+            <tr>
+              <td>
+              <td>
+                <select name='add_group_leader_id' class='inline'>
+                  <option></option>
+                  <%- Member.active.each do |member| %>
+                    <option value='<%= member.id %>'><%= member.name %> <%= member.first_name %></option>
+                  <% end %>
+                </select>
+          
+                <%= f.submit 'als Gruppenleiter hinzufügen', class: 'btn btn-success', name: 'add_group_leader' %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+
+    
     <div id='mitglieder'>
-      <table>
+      <table class='system'>
         <thead>
           <th></th>
-          <th>Mitglied</th>
+          <th style='min-width:200px;'>Mitglied</th>
           <th>Rolle</th>
-          <th></th>
+          <th width=20>Sortierung</th>
         </thead>
         
-        <%= form_for GroupMembership.new(group_id: @group.id), remote: true do |f| %>
-          <%= f.hidden_field :group_id %>
-          <thead>
-            <td></td>
+        <%= form_for(@group) do |f| %>
+               
+          <tbody id='group_memberships_container'>
+            <% @group.group_memberships.each do |gms| %>
+              <%= render 'group_memberships/item', gms: gms %>
+            <% end %>
+          </tbody>
 
-              <td><%= f.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
-              <td><%= f.text_field :role %></td>
-
-          
-            <td><%= f.submit 'Hinzufügen', remote: true %></td>
-          
-          </thead>
-        <% end %>
         
-        <tbody id='group_memberships_container'>
-          <% @group.group_memberships.each do |gms| %>
-            <%= render 'group_memberships/item', gms: gms %>
+          <%- unless @group.new_record? %>
+            <tbody>
+              <tr>
+                <td></td>
+                <td colspan=3>
+                  <span class='btn'>Auswahl: </span>
+                  <%= f.submit 'aktualisieren', class: 'btn btn-success' %>
+                  <%= f.submit 'löschen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %>
+                  <%= f.submit 'verschieben in:', class: 'btn btn-success', name: 'move', confirm: 'Ausgewählte Mitglieder in neue Gruppe verschieben?' %>
+                  <select name='move_to_group_id' class='inline'>
+                    <%- Group.all.each do |group| %>
+                      <option value='<%= group.id %>'><%= group.name %></option>
+                    <% end %>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
           <% end %>
-        </tbody>
-        <tfoot>
-          <td></td>
-          <td><%# f.submit 'Auswahl löschen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %></td>
-          <td></td>
-          <td></td>
-        </tfoot>
+        <% end %>
+
+
+          <tbody>
+            <tr>
+              <td></td>
+              <%= form_for GroupMembership.new(group_id: @group.id), remote: true do |f2| %>
+                <%= f2.hidden_field :group_id %>
+                <td><%= f2.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
+                <td><%= f2.text_field :role %></td>
+                <td><%= f2.submit 'Hinzufügen', name: 'add' %></td>
+              <% end %>
+            </tr>
+          </tbody>
+
+
+
       </table>
     </div>
     
@@ -90,5 +166,10 @@
   
   </div>
   
+
+
+<table class='system'>
+
+</table>
 
 

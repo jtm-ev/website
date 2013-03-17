@@ -1,4 +1,5 @@
 
 
-html = '<%= render "item", gms: @group_membership %>'
-jQuery(html).prependTo('#group_memberships_container')
+html = '<%= (render "item", gms: @group_membership).strip.gsub("\n", '').html_safe %>'
+console.log html
+jQuery(html).appendTo('#group_memberships_container')

@@ -1,60 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Website</title>
+  <title>JTM - Jugendtheater Martinszell e.V.</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-</head>
-<body class='internal'>
+  <script type="text/javascript">
 
-  <div class='navbar navbar-fixed-top navbar-inverse'>
-    <div class='navbar-inner'>
-      <ul class='nav'>
-        <%= navigation_link_to 'Seiten', pages_path %>
-        <%= navigation_link_to 'Gruppen', groups_path %>
-        <%= navigation_link_to 'Mitglieder', members_path %>
-        <%# unless yield(:actions).blank? %>
-          <li class='dropdown'>
-            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Actions</a>
-            <ul class='dropdown-menu'>
-              <%= yield(:actions) %>
-              <li class='divider'></li>
-              <li>
-                <%= link_to 'E-Mail schreiben', '#' %>
-              </li>
-            </ul>
-          </li>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-20299192-1']);
+    _gaq.push(['_setDomainName', 'jtm.de']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</head>
+<body class='<%= current_user ? "internal" : "" %>'>
+
+  <% if current_user %>
+    <%- content_for :default_actions do %>
+      <%= navigation_link_to 'Seite anlegen', new_page_path if can?(:create, Page) %>
+      <%= navigation_link_to 'Mitglied anlegen', new_member_path if can?(:create, Member) %>
+      <%= navigation_link_to 'Gruppe anlegen', new_group_path if can?(:create, Group) %>
+    <% end %>
+  
+    <div class='navbar navbar-fixed-top navbar-inverse'>
+      <div class='navbar-inner'>
+        <ul class='nav'>
+          <%= navigation_link_to 'User', users_path if can?(:manage, User) %>
+          <%= navigation_link_to 'Mitglieder', members_path if can?(:manage, Member) %>
+          <%= navigation_link_to 'Gruppen', groups_path if can?(:manage, Group)%>
+          <%= navigation_link_to 'Kalender', '#' %>
+          <%= navigation_link_to 'E-Mail', '#' %>
+          <%= navigation_link_to 'Seiten', pages_path if can?(:manage, Page) %>
+      
           
-        <%# end %>
-      </ul>
-      <ul class='nav pull-right'>
+            <li class='dropdown'>
+              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Actions</a>
+              <ul class='dropdown-menu'>
+                
+                <%- [:actions, :default_actions].each do |y| %>
+                  <% unless yield(y).blank? %>
+                    <%= yield(y) %>
+                    <li class='divider'></li>
+                  <% end %>
+                <% end %>
+                                
+                <li>
+                  <%= link_to 'E-Mail schreiben', '#' %>
+                </li>
+              </ul>
+            </li>
         
-        <li><a href='#profile'>Profil</a></li>
-        <li><%= link_to 'Logout', '#logout' %></li>
-      </ul>
+        </ul>
+        <ul class='nav pull-right'>
+          <li><a href='/dashboard'>Dashboard</a></li>
+          <li><a href='/profile'>Profil</a></li>
+          <li><%= link_to 'Logout', '/logout' %></li>
+          <%- if current_user.member.has_image? %>
+            <li class='nav-profile-image'>
+              <img src='<%= current_user.member.file.url(:square) %>'>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-  </div>
+  <% end %>
+
 
 
   <section id='sidebar'>
+
+    <% unless current_user %>
+      <a id='login-link' href='/login'>Intern</a>
+    <% end %>
+  
     <a href='/'><img id='logo' src='/images/logo2.png'></a>
     <nav>
       <ul>
         <%= navigation_link_to 'Projekte', projects_path, true %>
-        <%= navigation_link_to 'Termine', events_path, true %>
-        <%= navigation_link_to 'Gruppen', groups_path, true %>
+        <%= navigation_link_to 'Spielorte', locations_path, true %>
+        <%# navigation_link_to 'Termine', events_path, true %>
+        <%# navigation_link_to 'Gruppen', groups_path, true %>
         
-        <% Page.roots.where(show_in_navigation: true).each do |page| %>
-          <%= navigation_link_to page.title, page_path(page) %>
+        <% Page.category('Extern').children.in_navigation.each do |page| %>
+          <%= navigation_link_to page.title, human_page_path(page.path), true %>
         <% end %>
         
+        <%= navigation_link_to 'Gästebuch', guestbooks_path %>
       </ul>
     </nav>
   </section>
   
-  <section id='content' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'>
+  <section id='content'>
+    <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
     <div class='container'>
+      <div id='flashes'>
+      <%- flash.each do |key, value| %>
+        <div class='alert alert-<%= key %>'>
+          <!--button type="button" class="close" data-dismiss="alert">&times;</button-->
+          <%= value %>
+        </div>
+      <% end %>
+      </div>
+      
       <%= yield %>
     </div>
   </section>

@@ -1,14 +1,6 @@
 <h1>Seiten</h1>
 
-
-<!--ol class='sortable-tree'>
-  <% Page.all.each do |page| %>
-    <%= tree_item(page) %>
-    
-  <% end %>
-</ol-->
-
-<table>
+<table class='system'>
   <thead>
     <th>Title</th>
     <th>In Navigation</th>
@@ -19,10 +11,16 @@
   </thead>
 
   <tbody class='sortable-table'>
-<% Page.tree_array(@pages).each do |entry| %>
+<% Page.tree_array.each do |entry| %>
   <% page = entry.instance %>
   <tr>
-    <td><%= entry.label %></td>
+    <td>
+      <% if entry.level == 0 %>
+        <strong><%= entry.label %></strong>
+      <% else %>
+        <%= entry.label %>
+      <% end %>
+    </td>
     <td><%= page.show_in_navigation %></td>
     <td><%= page.public %></td>
     <td><%= link_to 'Show', page %></td>
@@ -35,5 +33,5 @@
 
 
 <% content_for :actions do %>
-  <%= link_to 'Seite anlegen', new_page_path %>
+  <%= navigation_link_to 'Seite anlegen', new_page_path %>
 <% end %>

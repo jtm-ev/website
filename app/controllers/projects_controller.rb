@@ -1,15 +1,14 @@
 class ProjectsController < ApplicationController
+  load_and_authorize_resource except: [:index]
   
-  def filtered_collection
-    col = Project.scoped
-    col = col.tagged_with(params[:tags].split(':')) unless params[:tags].blank?
-    
-    col = col.order('id DESC')
-  end
+  add_breadcrumb 'Home', :root_path
+  add_breadcrumb 'Projekte', :projects_path
   
   # GET /projects
   # GET /projects.json
   def index
+    authorize! :read, Project
+    
     @projects = filtered_collection
     # @projects = @projects.order(id: :desc)
 
@@ -22,11 +21,12 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
     
     collection = filtered_collection
-    @previous = collection.previous(@project).last
-    @next     = collection.next(@project).first
+    @previous = @project.previous_in(collection)
+    @next     = @project.next_in(collection)
+
+    add_breadcrumb @project.title
 
     respond_to do |format|
       format.html # show.html.erb
@@ -37,7 +37,6 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.json
   def new
-    @project = Project.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,13 +46,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
   end
 
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(params[:project])
 
     respond_to do |format|
       if @project.save
@@ -69,14 +66,11 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    @project = Project.find(params[:id])
     
     # Update Image Sorting
     if params[:sorting]
-      puts "Sorting: #{params[:sorting].inspect}"
       params[:sorting].each do |sort|
         sort.split(',').each_with_index do |id, index|
-          puts "SORT: #{index}: #{id}"
           project_file = @project.project_files.find(id.to_i)
           project_file.update_attributes position: index
         end
@@ -97,7 +91,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project = Project.find(params[:id])
     @project.destroy
 
     respond_to do |format|
@@ -105,4 +98,20 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def filtered_collection
+      col = Project.latest_first
+      
+      unless params[:tags].blank?
+        tags = params[:tags].split(':')
+        col = col.tagged_with(tags)
+
+        first_tag = tags.first
+        htags = tags.map {|t| t.humanize}
+        add_breadcrumb htags.join(', '), tagged_projects_path(params[:tags])
+      end
+
+      col
+    end
 end

@@ -1,2 +1,7 @@
+<% page ||= @page %>
 
-<%= page.content.try :html_safe %>
+<div class='copy-content'>
+  <%= liquidize page.content, 'page' => page %>
+</div>
+
+<div class='clearfix'></div>

@@ -80,23 +80,35 @@ def find_member(name, first_name)
   nil
 end
 
+def start_task(name)
+  puts '############################################################'
+  puts "# #{name}"
+  puts '############################################################'
+end
+
 namespace :seed do
+  task :public => [:projects, :events, :event_locations, :pictures, :press, :guestbook] do # :events, :event_locations] do
+    
+  end
+  
   desc "Seed existing data"
   task :projects => :environment do
+    start_task 'Projekte'
     Project.destroy_all
     projects = read_xml('jtm_stuecke')
     projects.each do |project|
       m = create_model project, Project, id: 'id', title: 'titel', subtitle: 'untertitel', description: 'inhalt'
-      puts m.inspect
+      puts m.title
     end
   end
   
   task :events => :environment do
+    start_task 'Events'
     Event.delete_all
     em = create_map('jtm_stueck_termine', 'stueck_id')
     em.each do |index, items|
       p = Project.find(index.to_i)
-      puts "Project: #{p.title}"
+      puts "Project: #{p.title} : #{items.length}"
       items.each do |t|
         ort, timestamp, zusatz = t['ort'], t['timestamp'], t['zusatz']
         datum = DateTime.strptime("#{timestamp}",'%s')
@@ -105,7 +117,42 @@ namespace :seed do
     end
   end
   
+  task :event_locations => :environment do
+    start_task 'Event Locations'
+    pfarrheim = Location.find_or_create_by_name('Pfarrheim Martinszell')
+    mzh = Location.find_or_create_by_name('Mehrzweckhalle Oberdorf')
+    studio = Location.find_or_create_by_name('Studiotheater')
+    theatrium = Location.find_or_create_by_name('Theatrium')
+    
+    map = {
+      'Pfarrheim in Martinszell' => pfarrheim,
+      'Sporthalle Oberdorf' => mzh,
+      'Sporthalle Oberdorf, Studiotheater' => studio,
+      'Mehrzweckhalle Oberdorf' => mzh,
+      'Studiotheater Mehrzweckhalle Oberdorf' => studio,
+      'MZH Oberdorf' => mzh,
+      'Pausenhof an der neuen Schule' => theatrium,
+      'Studiotheater' => studio,
+      'Theatrium' => theatrium,
+      'Pausenhof Grundschule' => theatrium,
+      'Pausenhof Grundschule Oberdorf' => theatrium,
+      'Pausenhof - Grundschule' => theatrium,
+      'Studiotheater MZH Oberdorf' => studio
+    }
+    Event.all.group_by(&:location_name).each do |location_name, events|
+      location = map[location_name]
+      if location
+        puts "#{location_name} : #{events.count}"
+        events.each do |event|
+          event.location = location
+          event.save
+        end
+      end
+    end
+  end
+  
   task :pictures => :environment do
+    start_task 'Pictures'
     # Probleme:
     # 404 Forbidden: 115, 113, 112, 111, 109, 108
     # Bad Url (4 Stück): Aladin, TH Live 2005
@@ -117,7 +164,7 @@ namespace :seed do
     puts ppm.length
     ppm.each do |index, items|
       p = Project.find(index.to_i)
-      next unless p.id == 125
+      # next unless p.id == 125
       puts p.title
       items.each do |item|
         dokument = di[item['file_id']]
@@ -130,7 +177,7 @@ namespace :seed do
         begin
           open url do |f|
             pf = p.project_files.create file: f, kind: 'image', description: dokument['beschreibung'], file_file_name: file_name
-            puts pf.inspect
+            # puts pf.inspect
           end
         rescue Exception => e
           puts " - ERROR: #{url}  : #{e}"
@@ -141,6 +188,7 @@ namespace :seed do
   end
   
   task :press => :environment do
+    start_task 'Press'
     # ProjectFile.delete_all
 
     ppm = create_map('jtm_presse', 'projekt_id')
@@ -179,6 +227,8 @@ namespace :seed do
   end
 
   task :groups => :environment do
+    start_task 'Groups'
+    
     Group.destroy_all
     groups = read_xml('jtm_gruppen')
     gm = create_map('jtm_gruppen_mitglieder', 'gruppe_id')
@@ -207,7 +257,28 @@ namespace :seed do
     end
   end
   
+  task :guestbook => :environment do
+    Guestbook.destroy_all
+    guestbooks = read_xml('jtm_gaestebuch')
+    guestbooks.each do |entry|
+      if entry['sichtbar'] == '1'
+        timestamp = entry['timestamp']
+        datum = DateTime.strptime("#{timestamp}",'%s')
+        m = create_model entry, Guestbook, name: 'name', email: 'email', website: 'internet'
+        m.created_at = datum
+      
+        content = (entry['nachricht'] or '').strip #.gsub(/\n/, '<br/>')
+        # content[/\n/] = '<br/>'
+        m.content = content
+      
+        m.save
+      end
+    end
+  end
+  
   task :teams => :environment do
+    Team.destroy_all
+    TeamMembership.destroy_all
     akts = read_xml('jtm_stueck_akteure')
     team_index = create_index('jtm_stueck_akteur_bereiche')
     akts.each do |akt|

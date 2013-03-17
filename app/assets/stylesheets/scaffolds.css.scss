@@ -18,10 +18,8 @@ $sidebar_width: 200px;
   @include debug-border(top);
   @include debug-border(bottom);
   
-/*  max-width: 960px;*/
   width: 935px;
-  
-/*  margin: 0 auto;*/
+  margin-bottom: 300px;
   
   padding: 25px;
   position: relative;
@@ -48,11 +46,15 @@ header {
 
 
 #sidebar {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  
   position: fixed;
   width: $sidebar_width;
   left: 0; top: 0; bottom: 0;
   background: white;
-/*  z-index: 1000;*/
+  z-index: 2;
 /*  border-right: 1px solid black;*/
   text-align: center;
   
@@ -94,24 +96,46 @@ header {
   #sidebar {
     top: 30px;
   }
+  
   #content {
-    margin-top: 30px;
+    padding-top: 80px;
   }
 }
 
 
 
 #content {
+  position: relative;
   margin-left: $sidebar_width - 10px;
-  background-image: url(/images/background.jpg);
-  background-size: cover;
+  
   background-attachment: fixed;
 /*  border: 1px solid red;*/
-  padding: 80px;
+  padding: 70px;
+  padding-top: 35px;
   min-height: 100%;
   
-/*  -webkit-filter: blur(10px);
-  filter: blur(10px);*/
+
+}
+
+$background-blur: 5px;
+
+#background {
+  background-image: url(/images/background.png);
+  background-size: cover;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  -webkit-filter: blur($background-blur);
+  -moz-filter: blur($background-blur);
+  filter: blur($background-blur);
+  
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  
 }
 
 .container {
@@ -163,6 +187,21 @@ body {
   li.active a {
     text-decoration: underline;
   }
+}
+
+#login-link {
+  position: fixed;
+  left: 0px;
+  bottom: 5px;
+  width: $sidebar_width;
+  text-align: center;
+/*  border: 1px solid red;*/
+  z-index: 3000;
+  font-size: 0.8em ;
+  color: #aaa;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 

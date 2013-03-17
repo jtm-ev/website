@@ -1,0 +1,23 @@
+
+%h1 User bearbeiten
+
+= form_for(@user) do |f|
+  %table
+    %tr
+      %th Username
+      %td= @user.username
+    %tr
+      %th E-Mail
+      %td= @user.email
+    %tr
+      %th= f.label :member
+      %td= f.collection_select :member_id, Member.all, :id, :full_name, include_blank: true
+    %tr
+      %th= f.label :roles
+      %td
+        - Role.all.each do |role|
+          = check_box_tag "user[role_ids][]", role.id, @user.role_ids.include?(role.id)
+          = role.name
+      
+  .actions
+    = f.submit

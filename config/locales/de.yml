@@ -193,12 +193,21 @@ de:
     formats:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
+      long_without_time: ! '%A, %d. %B %Y'
+      project: ! '%A, %d. %B'
       short: ! '%d. %B, %H:%M Uhr'
+      no_time: ! '%A, %d. %B %Y'
+      time_only: ! '%H:%M Uhr'
     pm: nachmittags
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
     errors:
       <<: *errors
+  gender:
+    m: männlich
+    w: weiblich
+  role:
+    group_leader: 'Gruppenleiter'
   activerecord:
     errors:
       <<: *errors
@@ -206,16 +215,47 @@ de:
       project: 'Projekt'
       group: 'Gruppe'
       page: 'Seite'
+      member: 'Mitglied'
+      guestbook: 'Gästebucheintrag'
     attributes:
       project:
         title: 'Titel'
+        subtitle: 'Untertitel'
+        description: 'Inhalt'
       page:
         title: 'Überschrift'
         parent: 'Oberseite'
         show_in_navigation: 'In Navigation zeigen'
         public: 'Öffentlich sichtbar'
+        background: 'Hintergrund'
       group:
-        shortcut: 'Kurzname'
+        shortcut: 'Kürzel'
         public: 'Öffentlich sichtbar'
         description: 'Kurzbeschreibung'
+      member:
+        name: 'Nachname'
+        first_name: 'Vorname'
+        birth_name: 'Geburtsname'
+        gender: 'Geschlecht'
+        member_since: 'Mitglied seit'
+        birthday: 'Geburtstag'
+        street: 'Straße'
+        city: 'PLZ, Ort'
+        phone: 'Telefon'
+        mobile: 'Handy'
+        email_extern: 'E-Mail'
+        email: 'E-Mail (JTM)'
+        school: Schulklasse
+      user:
+        password: 'Passwort'
+        password_confirmation: 'Passwort-Bestätigung'
+        current_password: 'Aktuelles Passwort'
+      guestbook:
+        name: 'Von'
+        content: 'Nachricht'
+        project: 'Projekt'
+        
+        
+        
+        
         

@@ -1,0 +1,17 @@
+
+development:
+  :method: :letter_opener
+  
+staging:
+  :method: :sendmail
+  
+# production:
+#   :method: :smtp
+#   :settings:
+#     :address              : "mail.jtm.de"
+#     :port                 : 587
+#     :user_name            : ''
+#     :password             : ''
+#     :enable_starttls_auto : true
+#     :openssl_verify_mode: 0
+  

@@ -12,23 +12,11 @@ module ApplicationHelper
       end
     end
   end
-  
-  def youtube_embed(youtube_url)
-	  if youtube_url[/youtu\.be\/([^\?]*)/]
-	    youtube_id = $1
-	  else
-	    # Regex from # http://stackoverflow.com/questions/3452546/javascript-regex-how-to-get-youtube-video-id-from-url/4811367#4811367
-	    youtube_url[/^.*((v\/)|(embed\/)|(watch\?))\??v?=?([^\&\?]*).*/]
-	    youtube_id = $5
-	  end
-
-  	%Q{<iframe class='youtube' title="YouTube video player" width="428" height="320" src="http://www.youtube.com/embed/#{ youtube_id }" frameborder="0" allowfullscreen></iframe>}
-  end
  
   def set_background(image)
     return unless image
     content_for :background do 
-     image.file.url(:large)
+     image.file.url(:square_300)
     end
   end
   
@@ -60,4 +48,29 @@ module ApplicationHelper
     # end
     
   end
+  
+  def render_breadcrumbs
+    content_tag :div, id: 'breadcrumbs' do
+      super
+    end
+  end
+  
+  def render_navigatable_nav(item, text, link, title_sym)
+    return text.html_safe if item.nil?
+    link_to text.html_safe, link.call(item), {title: item.try(title_sym)}
+  end
+  
+
+  
+  def with_clamps_unless_nil(text)
+    text.blank? ? '' : " (#{text})"
+  end
+  
+  def sortable_column(column, title = nil)
+    title ||= column.titleize
+    css_class = column == sort_column ? "current #{sort_direction}" : nil
+    direction = column == sort_column && sort_direction == :asc ? "desc" : "asc"
+    link_to title, params.merge({:sort => column, :direction => direction}), {:class => css_class}
+  end
+  
 end

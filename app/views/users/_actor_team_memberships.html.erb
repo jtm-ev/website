@@ -1,0 +1,16 @@
+<% member.actor_team_memberships.each do |team_membership| %>
+  <% project = team_membership.project %>
+  <div class='actor' id='actor-<%= team_membership.id %>'>
+      <input class='fileupload' type='file' name='files' data-url='<%= team_membership_path(team_membership) %>' data-method= 'PUT' data-reload= 'true' data-dropzone= '#actor-<%= team_membership.id %> .actor-image'>
+      
+      <div class='actor-image'>
+        <% if team_membership.role_image %>
+          <a href='<%= profile_role_path(team_membership.id) %>'><img src='<%= team_membership.role_image.file.url(:square) %>'></a>
+        <% end %>
+      </div>
+
+    <span class='member'><%= team_membership.role %></span>
+    <span class='role'><%= link_to project.title, project %></span>
+
+  </div>
+<% end %>

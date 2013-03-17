@@ -1,0 +1,101 @@
+= render_breadcrumbs
+
+- unless @user.member.nil?
+  .profile-image
+    - if @user.member.has_image?
+      %img{src: @user.member.file.url(:square_300)}
+    
+    %input.fileupload{'type' => 'file', 'name' => 'files', 'data-url' => member_path(@user.member), 'data-method' => 'PUT', 'data-reload' => 'true', 'data-dropzone' => '#upload-profile-image'}
+    
+    #upload-profile-image.droptarget.btn
+      Profilbild hochladen
+      .progress
+        .bar
+
+%h1 Mein Profil
+
+%ul
+  %li
+    = link_to 'Öffentliches Profil zeigen', member_path(@user.member) unless @user.member.nil?
+  %li
+    = link_to 'Passwort ändern', edit_user_registration_path
+
+.clearfix
+
+%ul.tabs
+  - unless @user.member.nil?
+    %li
+      %a{href: '#daten'} Daten
+  %li
+    %a{href: '#rollen'} Rollen
+  / - unless @user.roles.empty?
+  /   %li
+  /     %a{href: '#rechte'}= "Rechte (#{@user.roles.count})"
+
+    
+.tab-content
+  - unless @user.member.nil?
+    #daten
+      = form_for(@user.member) do |f|
+        %table.form
+          %tr
+            %th Name
+            %td
+              = @user.member.full_name
+              - unless @user.member.birth_name.blank?
+                = " (geb. #{@user.member.birth_name})"
+          %tr
+            %th= f.label :birthday
+            %td= l @user.member.birthday
+            
+          %tr
+            %th= f.label :member_since
+            %td= l @user.member.member_since
+            
+          %tr
+            %th= f.label :email
+            %td= link_to @user.member.email, "mailto:#{@user.member.email}" unless @user.member.email.blank?
+          
+          - if @user.member.school and @user.member.school > 0
+            %th= f.label :school
+            %td= @user.member.school
+            
+        %table.form
+          %tr
+            %th= f.label :street
+            %td= f.text_field :street
+
+          %tr
+            %th= f.label :city
+            %td= f.text_field :city
+            
+
+          %tr
+            %th= f.label :phone
+            %td= f.text_field :phone
+          %tr
+            %th= f.label :fax
+            %td= f.text_field :fax
+          %tr
+            %th= f.label :mobile
+            %td= f.text_field :mobile
+          %tr
+            %th= f.label :email_extern
+            %td
+              = @user.member.email_extern
+              %small
+                (Kann momentan nicht geändert werden)
+          
+        .actions
+          = f.submit 'Änderungen speichern'
+  
+  #rollen
+    - if @user.member.nil?
+      Kein Mitglied verknüpft!
+    - else
+      .hint Klicke auf ein Bild um dein spezielles Rollen-Bild hochzuladen!
+      = render 'actor_team_memberships', member: @user.member
+      
+  #rechte
+    - @user.roles.each do |role|
+      = role
