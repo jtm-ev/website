@@ -1,6 +1,6 @@
 
 class TeamsController < ApplicationController
-  before_filter :find_team, only: [:edit, :update, :destroy]
+  load_and_authorize_resource
   
   def edit
     @team_membership = TeamMembership.new
@@ -20,10 +20,5 @@ class TeamsController < ApplicationController
     
     redirect_to project
   end
-  
-  private
-    def find_team
-      @team = Team.find(params[:id])
-    end
   
 end

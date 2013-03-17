@@ -41,7 +41,7 @@ class Project < ActiveRecord::Base
   end
   
   def actor_team
-    self.teams.where(name: 'Darsteller').first
+    self.teams.find_or_create_by_name('Darsteller')
   end
   
   def non_actor_teams

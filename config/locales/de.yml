@@ -220,6 +220,8 @@ de:
     attributes:
       project:
         title: 'Titel'
+        subtitle: 'Untertitel'
+        description: 'Inhalt'
       page:
         title: 'Überschrift'
         parent: 'Oberseite'

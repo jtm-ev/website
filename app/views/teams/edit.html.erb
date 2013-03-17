@@ -12,13 +12,13 @@
   
 </div>
 
-<h1><%= @team.name %>
+<h1>Team: <%= @team.name %>
   <div class='subtitle'><%= link_to @team.project.title, "#{project_path(@team.project)}#teams" %></div>
 </h1>
 
 
 
-<table>
+<table class='system'>
   <thead>
     <th></th>
     <th>Mitglied</th>
@@ -38,13 +38,13 @@
     <% @team.team_memberships.each do |team_membership| %>
       <input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#team-membership-<%= team_membership.id %>' data-method='PUT' data-url='<%= team_membership_path(team_membership) %>'>
       
-      <tr id='team-membership-<%= team_membership.id %>'>
+      <tr >
         <td>
           <% if team_membership.has_image? %>
             <img src='<%= team_membership.file.url(:square) %>' >
           <% end %>
         </td>
-        <td><%= team_membership.member.try :full_name %></td>
+        <td id='team-membership-<%= team_membership.id %>'><%= team_membership.member.try :full_name %></td>
         <td><%= team_membership.role %></td>
         <td>
           <%= link_to 'Bearbeiten', edit_team_membership_path(team_membership) %>,

@@ -87,7 +87,7 @@ def start_task(name)
 end
 
 namespace :seed do
-  task :public => [:projects, :events, :event_locations, :pictures, :press, :guestbook, :groups, :teams] do # :events, :event_locations] do
+  task :public => [:projects, :events, :event_locations, :pictures, :press, :guestbook] do # :events, :event_locations] do
     
   end
   
@@ -267,7 +267,7 @@ namespace :seed do
         m = create_model entry, Guestbook, name: 'name', email: 'email', website: 'internet'
         m.created_at = datum
       
-        content = (entry['nachricht'] or '').strip.gsub(/\n/, '<br/>')
+        content = (entry['nachricht'] or '').strip #.gsub(/\n/, '<br/>')
         # content[/\n/] = '<br/>'
         m.content = content
       
