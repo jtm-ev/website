@@ -201,7 +201,7 @@ namespace :seed do
         next
       end
       p = Project.find(index)
-      next unless p.id == 125
+      # next unless p.id == 125
       puts p.title
       items.each do |item|
         dokument = di[item['file_id']]
