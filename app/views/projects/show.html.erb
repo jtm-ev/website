@@ -103,7 +103,7 @@
           <% end %>
         
           <div class='team-members'>
-            <% team.team_memberships.each do |tmember| %>
+            <% team.ordered_team_memberships.each do |tmember| %>
                 <span><%= link_to tmember.member.full_name, tmember.member %><%= with_clamps_unless_nil tmember.role %></span>
             <% end %>
           </div>

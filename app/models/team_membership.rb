@@ -4,7 +4,7 @@ class TeamMembership < ActiveRecord::Base
   attr_accessible :role, :public, :position, :member_id, :team_id, :member, :team
   
   belongs_to :team
-  belongs_to :member  
+  belongs_to :member
   
   def <=>(o)
     return o.team.project.year <=> self.team.project.year
