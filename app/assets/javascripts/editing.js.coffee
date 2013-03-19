@@ -76,16 +76,16 @@ jQuery ->
   $('input[type=text]').first().focus()
   
   # Image Sorting
-  $('.sortable-images').sortable {
-    items: '> img'
-    update: (event, ui)->
-      parent = ui.item.parent()
-      input = parent.find('input')
-      ids = parent.find('> img').map (index, item)->
-        $(item).data('id')
-      
-      input.val ids.toArray().join(',') 
-  }
+  # $('.sortable-images').sortable {
+  #   items: '> img'
+  #   update: (event, ui)->
+  #     parent = ui.item.parent()
+  #     input = parent.find('input')
+  #     ids = parent.find('> img').map (index, item)->
+  #       $(item).data('id')
+  #     
+  #     input.val ids.toArray().join(',') 
+  # }
   
   # Page Sorting
   $('.sortable-pages').sortable {
@@ -102,7 +102,12 @@ jQuery ->
   $('.multifile-upload').sortable {
     items: '> .file:not(.drop-target)'
     update: (event, ui)->
-      console.log 'sort'
+      parent = ui.item.parent()
+      input = parent.find('input[type=hidden]')
+      ids = parent.find('> [data-id]').map (index, item)->
+        $(item).data('id')
+      
+      input.val ids.toArray().join(',')
   }
   
   # Table sorting

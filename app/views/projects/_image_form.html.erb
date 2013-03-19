@@ -1,0 +1,34 @@
+<div class='multifile-upload'>
+    
+  <div class='file drop-target'>
+    Neue Dateien per Drag&Drop hereinziehen oder hier klicken:
+    
+    <div class='progress'>
+      <div class='bar' style='width: 0%;'></div>
+    </div>
+  </div>
+  
+  <input class='fileupload' type='file' name='files' multiple data-reload=true data-dropzone='#<%= container_id %> .drop-target' data-method='POST' data-url='<%= upload_url %>'>
+  <input type='hidden' name='sorting[]' />
+  
+  <% collection.each do |pf| %>
+    
+    <div class='file' data-id='<%= pf.id %>'>
+      <div class='file-name'>#<%= pf.id %> : <%= pf.file_file_name %></div>
+      <img src='<%= pf.file.url(:square) %>' />
+      
+      <div class='file-details'>
+        <%= text_field_tag "file_descriptions[#{pf.id}]", pf.description %>
+        
+        <div class='file-actions'>
+          <%= link_to 'Löschen', project_project_file_path(@project, pf), class: 'btn btn-danger', method: :delete, confirm: 'Datei wirklich löschen?' %>
+        </div>
+      </div>
+      
+    </div>
+    
+    
+
+  <% end %>
+</div>
+

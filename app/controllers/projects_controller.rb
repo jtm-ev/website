@@ -76,6 +76,12 @@ class ProjectsController < ApplicationController
         end
       end
     end
+    
+    if params[:file_descriptions]
+      params[:file_descriptions].each do |id, value|
+        ProjectFile.find(id).update_attributes description: value
+      end
+    end
 
     respond_to do |format|
       if @project.update_attributes(params[:project])

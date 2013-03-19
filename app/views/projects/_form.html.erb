@@ -37,8 +37,8 @@
   <ul class='tabs'>
     <li><a href='#inhalt'>Inhalt</a></li>
     <li><a href='#teams'>Teams</a></li>
-    <li><a href='#bilder'>Bilder</a></li>
-    <li><a href='#presse'>Presse</a></li>
+    <li><a href='#bilder'>Bilder (<%= @project.images.count %>)</a></li>
+    <li><a href='#presse'>Presse (<%= @project.press.count %>)</a></li>
   </ul>
   
   <div class='tab-content'>
@@ -48,11 +48,11 @@
     
     <% unless @project.new_record? %>
       <div id='bilder'>
-        <%= render 'image_form', {collection: @project.images, upload_url: specific_project_project_files_url(@project, {kind: 'image'})} %>
+        <%= render 'image_form', {collection: @project.images, container_id: 'bilder', upload_url: specific_project_project_files_url(@project, {kind: 'image'})} %>
       </div>
       
       <div id='presse'>
-        <%= render 'image_form', {collection: @project.press, upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
+        <%= render 'image_form', {collection: @project.press, container_id: 'presse', upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
       </div>
     <% end %>
     
