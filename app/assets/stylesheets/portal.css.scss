@@ -1,0 +1,41 @@
+
+$portal-margin: 10px;
+$portal-column: 280px;
+
+.portal {
+  position: relative;
+  
+  .portlet.ui-sortable-placeholder {
+    visibility: visible !important;
+    opacity: 0.5;
+  }
+    
+  .portlet {
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin-right: $portal-margin;
+    margin-bottom: $portal-margin;
+    display: inline-block;
+    width: $portal-column;
+    vertical-align: top;
+    background: white;
+    
+    &.span2 {
+      width: $portal-column * 2 + 15px; 
+    }
+    
+    &.span3 {
+      width: $portal-column * 3 + 28;
+    }
+  }
+  
+  .portlet-header {
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+  }
+  
+  .portlet-content {
+    padding: 10px;
+  }
+}

@@ -17,6 +17,7 @@
 #= require bootstrap-tab
 #= require bootstrap-alert
 #= require editing
+#= require intern
 #= require_tree .
 
 jQuery ->

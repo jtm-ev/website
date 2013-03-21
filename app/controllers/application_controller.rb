@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   check_authorization :unless => :devise_controller?
   
   private
+    def after_sign_in_path_for(user)
+      "/dashboard"
+    end
 
     def default_sort_column
       "created_at"

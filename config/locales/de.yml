@@ -35,6 +35,7 @@ de:
       default: ! '%d.%m.%Y'
       long: ! '%e. %B %Y'
       short: ! '%e. %b'
+      birthday: ! '%d.%m.'
     month_names:
     - 
     - Januar
@@ -198,6 +199,8 @@ de:
       short: ! '%d. %B, %H:%M Uhr'
       no_time: ! '%A, %d. %B %Y'
       time_only: ! '%H:%M Uhr'
+      month_only: ! '%B'
+      
     pm: nachmittags
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:

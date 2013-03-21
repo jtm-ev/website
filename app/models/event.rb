@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  scope :outstanding, lambda { where('start_time > ? OR end_time > ?', Time.now, Time.now)  }
+  scope :upcoming, lambda { where('start_time > ? OR end_time > ?', Time.now, Time.now)  }
 
   attr_accessible :description, :end_time, :location_name, :project_id, :public, :start_time, :title
   delegate :year, to: :start_time

@@ -8,6 +8,7 @@ class Member < ActiveRecord::Base
 
   scope :active, lambda { where(active: true) }
   scope :inactive, lambda { where(active: false) }
+  scope :with_birthday_in, lambda { |month| where(birth_month: month).order(:birth_month, :birth_day) }
 
   has_many :team_memberships, dependent: :destroy
   has_many :teams, through: :team_memberships
@@ -17,6 +18,13 @@ class Member < ActiveRecord::Base
   has_many :groups, through: :group_memberships
 
   liquid_methods :name, :first_name, :full_name
+  
+  before_save do
+    if self.birthday
+      self.birth_month  = self.birthday.month
+      self.birth_day    = self.birthday.day
+    end
+  end
 
   def full_name
     [self.first_name, self.name].join ' '

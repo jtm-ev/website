@@ -1,0 +1,10 @@
+.portlet
+  .portlet-header= "Geburtstage im #{ t('date.month_names')[month] }"
+  .portlet-content
+    - Member.with_birthday_in(month).each do |member|
+      = l member.birthday, format: :birthday
+      - if month == Time.now.month and member.birth_day == Time.now.day
+        = link_to member.full_name, "mailto:#{member.email}"
+      - else
+        = member.full_name
+      %br

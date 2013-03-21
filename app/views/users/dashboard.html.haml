@@ -1,3 +1,22 @@
+= render_breadcrumbs
 
-%h1 Dashboard
-.subtitle Das wichtigste auf einen Blick
+.portal 
+  .portlet
+    .portlet-header Termine
+    .portlet-content
+      - Event.upcoming.each do |event|
+        = l event.start_time
+        = event.title
+  
+  = render 'birthday_portlet', month: @current_month
+  = render 'birthday_portlet', month: @current_month + 1
+
+    
+  .portlet.span3
+    .portlet-header Was hat sich getan?
+    .portlet-content
+      xxx
+      
+
+
+
