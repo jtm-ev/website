@@ -1,7 +1,16 @@
 class Project < ActiveRecord::Base
   include Navigatable
   
-  scope :latest_first, lambda { joins(:events).uniq.order('events.start_time DESC') }
+  scope :latest_first, lambda { 
+    joins(:events).uniq.order('events.start_time DESC')
+    # scoped.sort do |p1, p2|
+    #   t1 = p1.events.first.try(:start_time) or Time.now
+    #   t2 = p2.events.first.try(:start_time) or Time.now
+    #   t1 <=> t2
+    # end
+    # scoped.sort_by{ |p| p.date }.to_a.reverse
+    # scoped
+  }
   
   attr_accessible :description, :title, :subtitle, :tag_list, :videos
 
@@ -13,6 +22,15 @@ class Project < ActiveRecord::Base
   has_many :locations, through: :events, uniq: true
   
   acts_as_taggable_on :tags
+  
+  # def self.latest_first
+  #   # scope :latest_first, lambda { joins(:events).uniq.order('events.start_time DESC') }
+  #   
+  # end
+  
+  def date
+    self.events.first.try(:start_time) or Time.now
+  end
   
   def ongoing?
     return false unless events.last

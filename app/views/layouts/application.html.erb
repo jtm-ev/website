@@ -31,6 +31,7 @@
       <%= navigation_link_to 'Mitglied anlegen', new_member_path if can?(:create, Member) %>
       <%= navigation_link_to 'Gruppe anlegen', new_group_path if can?(:create, Group) %>
       <%= navigation_link_to 'Termin anlegen', new_event_path if can?(:create, Event) %>
+      <%= navigation_link_to 'Projekt anlegen', new_project_path if can?(:create, Project) %>
     <% end %>
   
     <div class='navbar navbar-fixed-top navbar-inverse'>

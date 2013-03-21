@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     collection = filtered_collection
-    @previous = @project.previous_in(collection)
+    @previous = @project.prev_in(collection)
     @next     = @project.next_in(collection)
 
     add_breadcrumb @project.title

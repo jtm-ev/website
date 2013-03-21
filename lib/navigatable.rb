@@ -37,6 +37,7 @@ module Navigatable
     def in_scope(scope, offset = 1)
       ids = scope.map {|mm| mm.id}
       index = ids.index(self.id)
+      return nil if index.nil?
       pindex = index + offset
       return nil if pindex < 0
       

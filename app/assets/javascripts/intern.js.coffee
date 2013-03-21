@@ -1,4 +1,5 @@
 
 jQuery ->
-  $('.portal').sortable()
-  $('.portal').disableSelection()
+  $('.portal').sortable {
+    handle: '.portlet-header'
+  }
