@@ -81,4 +81,14 @@ module ApplicationHelper
     end
   end
   
+  def with_br(content, prepend = '')
+    return "#{prepend}#{content}<br/>".html_safe unless (content.blank? or content == 0)
+    ''
+  end
+  
+  def nl(date)
+    return l(date) unless date.nil?
+    nil
+  end
+  
 end

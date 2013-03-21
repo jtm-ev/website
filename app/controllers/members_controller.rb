@@ -6,8 +6,16 @@ class MembersController < ApplicationController
   add_breadcrumb 'Home', :root_path
   
   def addresses
-    add_breadcrumb 'Adressen'
-    @adresses = Member.active
+    add_breadcrumb 'Adressen', address_members_path
+    
+    if params[:id]
+      @group = Group.find(params[:id])
+      @members = @group.members
+      add_breadcrumb @group.name, group_path(@group)
+    else
+      @members = scope
+    end
+    
   end
   
   # GET /members/1
@@ -75,14 +83,6 @@ class MembersController < ApplicationController
   def index
     authorize! :manage, Member
     
-    if params[:flags] == 'ehemalige'
-      scope = Member.scoped.inactive
-    elsif params[:flags] == 'alle'
-      scope = Member.scoped
-    else
-      scope = Member.scoped.active
-    end
-    
     s = sort_column.split(',').map {|s| "#{s} #{sort_direction}"}
     @members = scope.order(s) #.page(params[:all_page]).per(25)
     
@@ -137,6 +137,15 @@ class MembersController < ApplicationController
   end
   
   private
+    def scope
+      if params[:flags] == 'ehemalige'
+        return Member.scoped.inactive
+      elsif params[:flags] == 'alle'
+        return Member.scoped
+      end
+      Member.scoped.active
+    end
+    
     def default_sort_column
       "name"
     end

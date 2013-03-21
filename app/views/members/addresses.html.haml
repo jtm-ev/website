@@ -1,0 +1,32 @@
+= render_breadcrumbs
+
+- if @group
+  %h1= "#{@group.name} (#{@members.count})"
+- else
+  %h1= "Adressen (#{@members.count})"
+
+%table.system
+  %thead
+    %th Adresse
+    %th Kontakt
+    %th Info
+  %tbody
+    - @members.order(:name, :first_name).each do |member|
+      %tr
+        %td
+          = with_br [member.name, member.first_name].join(' ')
+          = with_br member.street
+          = member.city
+        %td
+          = with_br member.phone, 'Telefon: '
+          = with_br member.mobile, 'Handy: '
+          = with_br member.fax, 'Fax: '
+          
+          - unless member.email.blank?
+            = 'E-Mail'
+            = link_to member.email, "mailto:#{member.email}"
+        
+        %td
+          = with_br nl(member.birthday), 'Geburtstag: '
+          = with_br nl(member.member_since), 'Mitglied seit: '
+          = "Alter: #{member.age}#{with_br member.school, ', Klasse: '}".html_safe
