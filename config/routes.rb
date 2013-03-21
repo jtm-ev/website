@@ -42,12 +42,12 @@ Website::Application.routes.draw do
   end
   get '/s/*path' => 'pages#show_by_path', as: :human_page
   
-  resources :members, path: 'mitglieder(::flags)' do
+  resources :members, path: 'mitglieder' do
     collection do
       get 'adressen' => 'members#addresses', as: :address
     end
   end
-  # get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
+  get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
   
   resources :projects, path: 'projekte' do
     # collection do

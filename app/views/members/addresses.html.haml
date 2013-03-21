@@ -5,7 +5,7 @@
 - else
   %h1= "Adressen (#{@members.count})"
 
-%table.system
+%table.system.address-table
   %thead
     %th Adresse
     %th Kontakt
@@ -13,6 +13,9 @@
   %tbody
     - @members.order(:name, :first_name).each do |member|
       %tr
+        / %td
+        /   - if member.has_image?
+        /     = image_tag member.file.url(:square)
         %td
           = with_br [member.name, member.first_name].join(' ')
           = with_br member.street
