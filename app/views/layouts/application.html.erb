@@ -21,13 +21,16 @@
 
   </script>
 </head>
+
 <body class='<%= current_user ? "internal" : "" %>'>
 
   <% if current_user %>
+  
     <%- content_for :default_actions do %>
       <%= navigation_link_to 'Seite anlegen', new_page_path if can?(:create, Page) %>
       <%= navigation_link_to 'Mitglied anlegen', new_member_path if can?(:create, Member) %>
       <%= navigation_link_to 'Gruppe anlegen', new_group_path if can?(:create, Group) %>
+      <%= navigation_link_to 'Termin anlegen', new_event_path if can?(:create, Event) %>
     <% end %>
   
     <div class='navbar navbar-fixed-top navbar-inverse'>
@@ -39,6 +42,7 @@
           <%# navigation_link_to 'Kalender', '#' %>
           <%# navigation_link_to 'E-Mail', '#' %>
           <%= navigation_link_to 'Seiten', pages_path if can?(:manage, Page) %>
+          <%= navigation_link_to 'Termine', events_path if can?(:manage, Event) %>
       
           
             <li class='dropdown'>

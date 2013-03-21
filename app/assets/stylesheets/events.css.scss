@@ -64,3 +64,14 @@
     }
   }
 }
+
+.portal {
+  .event {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    .event-date {
+      color: #444;
+      font-weight: bold; 
+    }
+  }
+}

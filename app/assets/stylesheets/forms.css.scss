@@ -44,6 +44,10 @@ input#user_username {
   text-align: right;
 }
 
+th label {
+  font-weight: bold;
+}
+
 /************************************* Error Handling */
 .field_with_errors {
   display: inline;

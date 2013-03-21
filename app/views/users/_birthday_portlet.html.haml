@@ -7,4 +7,10 @@
         = link_to member.full_name, "mailto:#{member.email}"
       - else
         = member.full_name
+      
+      - this_year_age =  Time.now.year - member.birthday.year
+      
+      - if (this_year_age % 10) == 0 or this_year_age == 18
+        = "(#{this_year_age})"
+        
       %br

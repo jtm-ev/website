@@ -5,8 +5,10 @@
     .portlet-header Termine
     .portlet-content
       - Event.upcoming.each do |event|
-        = l event.start_time
-        = event.title
+        .event
+          .event-date
+            = l event.start_time
+          = event.title
   
   = render 'birthday_portlet', month: @current_month
   = render 'birthday_portlet', month: @current_month + 1

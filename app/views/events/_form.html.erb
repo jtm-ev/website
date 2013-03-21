@@ -11,36 +11,45 @@
     </div>
   <% end %>
   
-  <div class="field">
-    <%= f.label :project_id %><br />
-    <%= f.collection_select :project_id, Project.latest_first, :id, :title, include_blank: true %>
-  </div>
+  <table class='form'>
+    <tr>
+      <th><%= f.label :project %></th>
+      <td><%= f.collection_select :project_id, Project.latest_first, :id, :title, include_blank: true %></td>
+    </tr>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :start_time %><br />
-    <%= f.datetime_select :start_time %>
-  </div>
-  <div class="field">
-    <%= f.label :end_time %><br />
-    <%= f.datetime_select :end_time, include_blank: true %>
-  </div>
-  <div class="field">
-    <%= f.label :public %><br />
-    <%= f.check_box :public %>
-  </div>
+    <tr>
+      <th><%= f.label :title %></th>
+      <td><%= f.text_field :title %></td>
+    </tr>
+    
+    <tr>
+      <th><%= f.label :description %></th>
+      <td><%= f.text_area :description %></td>
+    </tr>    
 
-  <div class="field">
-    <%= f.label :location_name %><br />
-    <%= f.text_field :location_name %>
-  </div>
+    <tr>
+      <th><label>Datum</label></th>
+      <td>
+        <div class='input-append'>
+          <%= f.text_field :start_time, class: 'datepicker', 'data-date-format' => 'dd.mm.yyyy hh:mm', placeholder: '21.05.2013 14:30' %>
+          <span class='add-on'><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
+        </div>
+      </td>
+    
+    </tr>    
+
+    <tr>
+      <th><%= f.label :public %></th>
+      <td><%= f.check_box :public %></td>
+    </tr>    
+
+    
+
+  
+  </table>
+  
+  
+  
   <div class="actions">
     <%= f.submit %>
   </div>
