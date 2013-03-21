@@ -35,7 +35,7 @@ de:
       failure: 'Sie konnten nicht mit dem %{kind}-Account angemeldet werden, weil "%{reason}".'
     mailer:
       confirmation_instructions:
-        subject: 'Anleitung zur Bestätigung Ihres Accounts'
+        subject: 'Anleitung zur Bestätigung Deines JTM-Accounts'
       reset_password_instructions:
         subject: 'Anleitung um das Passwort zurückzusetzten'
       unlock_instructions:

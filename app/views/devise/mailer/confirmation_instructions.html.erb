@@ -1,5 +1,12 @@
-<p>Welcome <%= @email %>!</p>
+<p>Hallo <%= @resource.member.first_name %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Um deinen JTM-Account einzurichten, musst du nur noch auf folgenden Link klicken:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to 'Account Bestätigen', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>
+  <br/>
+  Viel Spaß auf unserer Website wünscht dir
+  <br/><br/>
+  das JTM-Website-Team
+</p>

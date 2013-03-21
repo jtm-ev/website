@@ -83,5 +83,6 @@ group :development do
   gem 'term-ansicolor'    # Pretty printed test output
   gem 'quiet_assets'      # depress asset-pipeline-logs during development
   gem 'letter_opener'     # show sent emails in browser
+  gem 'mail_view'
 end
 

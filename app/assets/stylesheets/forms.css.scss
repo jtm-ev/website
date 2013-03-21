@@ -8,16 +8,40 @@
 @import 'bootstrap/variables';
 @import 'bootstrap/mixins';
 
+$baseFontSize: 16px;
+$baseLineHeight: 25px;
+$inputHeight: 30px;
+
 @import 'bootstrap/sprites';
 @import 'bootstrap/buttons';
 @import 'bootstrap/button-groups';
 @import 'bootstrap/progress-bars';
 @import 'bootstrap/alerts';
+@import 'bootstrap/wells';
+
+@import 'bootstrap/forms';
 
 @import 'copy';
 
+label {
+  display: inline !important;
+}
+
+.input-append {
+  margin-bottom: 0 !important;
+}
+
+.input-append .add-on, .input-prepend .add-on {
+  padding: 5px 10px 0 5px !important;
+  height: $inputHeight;
+}
+
 form.list > div {
   margin-bottom: 20px;
+}
+
+input#user_username {
+  text-align: right;
 }
 
 /************************************* Error Handling */
@@ -33,7 +57,6 @@ form.list > div {
 %text-input {
   border: 1px solid #aaa;
   padding: 5px 10px;
-  @include border-radius(4px);
   background: white;
 }
 
@@ -47,7 +70,8 @@ form.list > div {
 input[type=text], input[type=email], input[type=password] {
   @extend %text-input;
   @extend %font-copy;
-  width: 100%;
+  height: $inputHeight;
+  min-width: 300px;
 }
 
 textarea {
@@ -189,6 +213,7 @@ input[type=submit] {
 .select2-container-multi {
   .select2-choices {
     @extend %text-input;
+    @include border-radius(4px);
     
     .select2-search-field {
       margin-left: 10px;

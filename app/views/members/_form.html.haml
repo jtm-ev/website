@@ -38,7 +38,7 @@
       
       = link_to 'Mitglied löschen', member_path(@member), method: :delete, confirm: 'Bist du sicher?', class: 'btn btn-danger'
       
-      - if current_user.is_admin?
+      - if current_user.has_role?(:admin)
         %hr
         %h2 Mitglied verbinden
         

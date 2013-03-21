@@ -17,13 +17,17 @@ table.form {
   background: white;
   
   th {
-    vertical-align: top;
-    padding-top: 18px;
+/*    vertical-align: top;*/
+/*    padding-top: 18px;*/
   }
 
   th:after {
     content: ':';
   }
+}
+
+table.devise-form {
+  th { width: 200px; }
 }
 
 table.system {

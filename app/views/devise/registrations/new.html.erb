@@ -1,19 +1,64 @@
-<h2>Sign up</h2>
+<h2>Registrieren</h2>
 
+<div class='well'>
+  <h3>Hallo liebes JTM-Mitglied</h3>
+  <p>
+    Da du dich hier registrieren willst, gehe ich davon aus, dass du ein Mitglied im Jugendtheater Martinszell bist. Denn nur Mitglieder können sich hier registrieren!
+  </p>
+  <p>
+    <strong>Und so gehts:</strong>
+    <ul>
+      <li>Benutzername eingeben (das ist der Teil for dem @ in deiner existierenden JTM E-Mail Adresse)</li>
+      <li>Passwort und Passwort-Bestätigung eingeben</li>
+      <li>auf 'Registrieren' klicken</li>
+      <li>Jetzt bekommst du eine E-Mail an deine bei uns hinterlegte E-Mail Adresse geschickt</li>
+      <li>In der E-Mail befindet sich ein Link den du zur Bestätigung anklicken musst</li>
+      <li>FERTIG!</li>
+    </ul>
+  </p>
+  <p>
+    Solltest du Fragen haben, oder sollten Probleme bei einem der oben genannten Schritte auftreten, schreib einfach eine E-Mail an <a href='mailto:webmaster@jtm.de'>webmaster@jtm.de</a> - ein Mitglied aus unserem Website-Team wird sich dann darum kümmern!
+  </p>
+  <p>
+    Viel Spaß wünscht euch das JTM Website-Team
+  </p>
+</div>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  
+  
+  <% unless resource.errors.empty? %>
+    <h2>Es sind Fehler aufgetreten!</h2>
+    <ul>
+      <% if resource.errors[:member].present? %>
+        <li>Wir konnten kein Mitglied mit dieser E-Mail Adresse in unserer Datenbank finden</li>
+      <% end %>
+      
+      <% if resource.errors[:password].present? %>
+        <%= resource.errors[:password].map{|m| "<li>Passwort #{m}</li>"}.join.html_safe %>
+      <% end %>
+      
+    </ul>
+      
+  <% end %>
+  
 
-  <table class='form'>
+
+  <table class='form devise-form'>
 
     <tr>
       <th><%= f.label :username %></th>
-      <td><%= f.text_field :username, :autofocus => true %></td>
+      <td>
+        <div class='input-append'>
+          <%= f.text_field :username, :autofocus => true %>
+          <span class='add-on'>@jtm.de</span>
+        </div>
+      </td>
     </tr>
   
     <tr>
       <th><%= f.label :password %></th>
-      <td><%= f.password_field :password %></td>
+      <td><%= f.password_field :password, placeholder: 'mindestens 4 Zeichen lang' %></td>
     </tr>
     <tr>
       <th><%= f.label :password_confirmation %></th>
@@ -22,7 +67,7 @@
 
   </table>
 
-  <div class='actions'><%= f.submit "Sign up" %></div>
+  <div class='actions'><%= f.submit "Registrieren" %></div>
 <% end %>
 
 <div class=''>
