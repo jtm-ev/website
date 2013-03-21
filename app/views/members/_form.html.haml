@@ -8,39 +8,40 @@
     %a{href: '#spezial'}= "Spezial Aktionen"
 
 
-= form_for(@member) do |f|
+= form_for(@member) do |f|  
   .tab-content
-    #spezial
-      %h2 Mitglied ist ausgetreten
-      Wenn ein Mitglied austritt passiert folgendes:
-      %ul
-        %li Status wird auf 'inaktiv' gesetzt
-        %li Alle Gruppen-Mitgliedschaften werden gelöscht
-        %li Benutzer-Konto für www.jtm.de wird gelöscht
-        %li Interne E-Mail Adresse wird gelöscht
-      
-      %p
-        Die Mitglieder-Daten bestehen weiterhin in der Datenbank, hauptsächlich wegen der Auflistungen für Projekt-Darsteller und Projekt-Teams
-      
-      %p
-        Bei einem Wiedereintritt zu einem späteren Zeitpunkt kann das existierende Mitglied wieder aktiviert werden!
-      
-      = link_to 'Mitglied ist ausgetreten', '', confirm: 'Bist du sicher?', class: 'btn btn-danger'
-      
-      %hr
-      %h2 Mitglied löschen
-      ACHTUNG! Diese Aktion ist unwiederruflich!
-      %ul
-        %li Mitglied wird komplett aus der Datenbank gelöscht
-        %li Alle Verknüpfungen zu Projekten werden entfernt!
-        %li Benutzer-Konto für www.jtm.de wird gelöscht
-        %li Interne E-Mail Adresse wird gelöscht
-      
-      = link_to 'Mitglied löschen', member_path(@member), method: :delete, confirm: 'Bist du sicher?', class: 'btn btn-danger'
-      
-      - if current_user.has_role?(:admin)
+    - unless @member.new_record?
+      #spezial
+        %h2 Mitglied ist ausgetreten
+        Wenn ein Mitglied austritt passiert folgendes:
+        %ul
+          %li Status wird auf 'inaktiv' gesetzt
+          %li Alle Gruppen-Mitgliedschaften werden gelöscht
+          %li Benutzer-Konto für www.jtm.de wird gelöscht
+          %li Interne E-Mail Adresse wird gelöscht
+  
+        %p
+          Die Mitglieder-Daten bestehen weiterhin in der Datenbank, hauptsächlich wegen der Auflistungen für Projekt-Darsteller und Projekt-Teams
+  
+        %p
+          Bei einem Wiedereintritt zu einem späteren Zeitpunkt kann das existierende Mitglied wieder aktiviert werden!
+  
+        = link_to 'Mitglied ist ausgetreten', '', confirm: 'Bist du sicher?', class: 'btn btn-danger'
+  
         %hr
-        %h2 Mitglied verbinden
+        %h2 Mitglied löschen
+        ACHTUNG! Diese Aktion ist unwiederruflich!
+        %ul
+          %li Mitglied wird komplett aus der Datenbank gelöscht
+          %li Alle Verknüpfungen zu Projekten werden entfernt!
+          %li Benutzer-Konto für www.jtm.de wird gelöscht
+          %li Interne E-Mail Adresse wird gelöscht
+  
+        = link_to 'Mitglied löschen', member_path(@member), method: :delete, confirm: 'Bist du sicher?', class: 'btn btn-danger'
+  
+        - if current_user.has_role?(:admin)
+          %hr
+          %h2 Mitglied verbinden
         
           
       

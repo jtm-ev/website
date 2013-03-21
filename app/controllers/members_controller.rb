@@ -1,7 +1,14 @@
 class MembersController < ApplicationController
-  load_and_authorize_resource except: [:index]
+  load_and_authorize_resource except: [:index, :addresses]
+  skip_authorization_check only: [:addresses]
+  before_filter :authenticate_user!, except: [:show]
   
   add_breadcrumb 'Home', :root_path
+  
+  def addresses
+    add_breadcrumb 'Adressen'
+    @adresses = Member.active
+  end
   
   # GET /members/1
   # GET /members/1.json

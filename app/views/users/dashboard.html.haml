@@ -1,6 +1,8 @@
 = render_breadcrumbs
 
-.portal 
+.portal
+
+      
   .portlet
     .portlet-header Termine
     .portlet-content
@@ -10,8 +12,18 @@
             = l event.start_time
           = event.title
   
-  = render 'birthday_portlet', month: @current_month
-  = render 'birthday_portlet', month: @current_month + 1
+  = render 'birthday_portlet', month: Time.now.month
+  = render 'birthday_portlet', month: Time.now.month + 1
+
+  .portlet
+    .portlet-header Deine Gruppen
+    .portlet-content
+      - current_user.groups.each do |group|
+        .group
+          %strong= group.name
+          .group-actions
+            = link_to 'Adressen', address_group_path(group)
+            /= link_to 'Rundmail', '#'
 
     
   .portlet.span3

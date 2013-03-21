@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
     self.email = self.member.email_extern if self.member
   end
   
+  def groups
+    [member.groups, member.leaded_groups].flatten.uniq
+  end
+  
 end

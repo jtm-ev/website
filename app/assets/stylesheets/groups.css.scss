@@ -13,3 +13,19 @@
     }
   }
 }
+
+.portal {
+  .group {
+    margin-bottom: 10px;
+/*    font-size: 0.8em;*/
+  }
+  
+  .group-actions {
+    font-size: 0.8em;
+    > a:not(:last-child) {
+      &:after {
+        content: ', '
+      }
+    }
+  }
+}

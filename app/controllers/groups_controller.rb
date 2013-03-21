@@ -1,14 +1,14 @@
 class GroupsController < ApplicationController
   load_and_authorize_resource except: [:index]
+  before_filter :authenticate_user!, except: [:show]
+  skip_authorization_check only: [:index]
   
   add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Gruppen', :groups_path
 
   # GET /groups
   # GET /groups.json
-  def index
-    authorize! :manage, Group
-    
+  def index    
     @groups = default_scope
 
     respond_to do |format|

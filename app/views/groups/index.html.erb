@@ -3,21 +3,15 @@
 <table class='system'>
   <tr>
     <th>Name</th>
-    <th>Kürzel</th>
-    <th>Öffentlich</th>
+    <th>Leiter</th>
     <th>Mitglieder</th>
   </tr>
 
 <% @groups.each do |group| %>
   <tr>
-    <td><%= link_to group.name, edit_group_path(group) %></td>
-    <td><%= group.shortcut %></td>
-    <td><%= group.public %></td>
+    <td><%= link_to group.name, group_path(group) %></td>
+    <td><%= group.leader.map {|m| m.full_name }.join(', ') %></td>
     <td><%= group.group_memberships.count %></td>
   </tr>
 <% end %>
 </table>
-
-<% content_for :actions do %>
-  <%= navigation_link_to 'Gruppe anlegen', new_group_path %>
-<% end %>

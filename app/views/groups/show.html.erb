@@ -16,5 +16,6 @@
 
 
 <% content_for :actions do %>
-  <%= navigation_link_to 'Gruppe bearbeiten', edit_group_path(@group) %>
+  <%= navigation_link_to 'Gruppe bearbeiten', edit_group_path(@group) if can?(:update, @group) %>
+  <%= navigation_link_to 'Gruppenseite bearbeiten', edit_page_path(@group.page) if can?(:update, @group.page) %>
 <% end %>

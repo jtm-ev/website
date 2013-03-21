@@ -18,9 +18,10 @@ class Ability
       #############################################################
       # What ALL logged in user can do
       #############################################################
-      # unless user.new_record?
-      #   can :read, Page
-      # end
+      unless user.new_record?
+        can :read, Group
+        can :read, Page
+      end
       
       #############################################################
       # Resources a default User can manage by his own

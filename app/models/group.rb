@@ -3,6 +3,7 @@ class Group < ActiveRecord::Base
   resourcify
   
   scope :public, lambda { where(public: true) }
+  scope :category, lambda { |cat| where(category: cat) }
   
   belongs_to :page, dependent: :destroy, autosave: true
   
@@ -45,7 +46,7 @@ class Group < ActiveRecord::Base
     page and page.has_image?
   end
   
-  def group_leader
+  def leader
     roles.where(name: 'group_leader').first.try(:members) or []
   end
   

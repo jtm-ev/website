@@ -49,6 +49,10 @@ class Member < ActiveRecord::Base
     end
   end
   
+  def leaded_groups
+    Group.with_role(:group_leader, self)
+  end
+  
   
 end
 

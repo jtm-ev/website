@@ -30,10 +30,5 @@ class UsersController < ApplicationController
   def dashboard
     add_breadcrumb 'Dashboard'
     
-    # Birthdays
-    @current_month = Time.zone.now.month
-    @birthdays = Member.with_birthday_in(@current_month)
-
-    
   end
 end

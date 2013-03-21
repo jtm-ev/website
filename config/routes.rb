@@ -26,7 +26,11 @@ Website::Application.routes.draw do
 
   resources :events
 
-  resources :groups, path: 'gruppen'
+  resources :groups, path: 'gruppen' do
+    member do
+      get 'adressen' => 'members#addresses', as: :address
+    end
+  end
   resources :group_memberships
 
   resources :pages, path: 's', constraints: { id: /[0-9]*/ } do
@@ -38,7 +42,11 @@ Website::Application.routes.draw do
   end
   get '/s/*path' => 'pages#show_by_path', as: :human_page
   
-  resources :members, path: 'mitglieder'
+  resources :members, path: 'mitglieder' do
+    collection do
+      get 'adressen' => 'members#addresses', as: :address
+    end
+  end
   get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
   
   resources :projects, path: 'projekte' do
