@@ -1,0 +1,15 @@
+<% unicorn_monit_base = "unicorn_jtm_#{application}_#{rails_env}" %>
+
+check process <%= unicorn_monit_base %>
+  with pidfile <%= unicorn_pid %>
+  #start program = "<%= unicorn_start_cmd %>"
+  #stop program = "<%= unicorn_stop_cmd %>"
+  if mem is greater than 175.0 MB for 1 cycles then alert
+  if cpu is greater than 22% for 2 cycles then alert
+  if cpu is greater than 25% for 1 cycles then alert
+
+<% unicorn_workers.times do |i| %>
+check process <%= unicorn_monit_base %>_<%= i %>
+  with pidfile <%= unicorn_worker_pid(i) %>
+  depends on <%= unicorn_monit_base %>
+<% end %>

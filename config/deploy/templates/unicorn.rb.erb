@@ -12,7 +12,7 @@ rails_env = "<%= rails_env %>"
 
 # Use at least one worker per core if you're on a dedicated server,
 # more will usually help for _short_ waits on databases/caches.
-worker_processes (rails_env == 'production' ? 8 : 2)
+worker_processes <%= unicorn_workers %> #(rails_env == 'production' ? 8 : 2)
 
 # Since Unicorn is never exposed to outside clients, it does not need to
 # run on the standard HTTP port (80), there is no reason to start Unicorn
@@ -98,4 +98,20 @@ after_fork do |server, worker|
   # and Redis.  TokyoCabinet file handles are safe to reuse
   # between any number of forked children (assuming your kernel
   # correctly implements pread()/pwrite() system calls)
+  
+  # Saver pid per worker (for monitoring)
+  child_pid = server.config[:pid].sub('.pid', ".#{worker.nr}.pid")
+  system("echo #{Process.pid} > #{child_pid}")
+  
+  #one log per unicorn worker
+  # DOES NOT WORK!
+  # if log = Rails.logger.instance_values['log']
+  #   ext = File.extname log.path
+  #   new_path =log.path.sub('.log', ".#{worker.nr}.log")
+  #   Rails.logger.instance_eval do
+  #     @log.close
+  #     @log = open_log new_path, 'a+'
+  #   end
+  # end
+  
 end

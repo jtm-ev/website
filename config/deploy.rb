@@ -12,6 +12,8 @@ set :repository,  "git@github.com:jtm-ev/website.git"
 set :ssl_csr, false
 set :ssl_key, false
 
+set :unicorn_workers, 2
+
 require 'capistrano/ext/multistage'
 
 set :user,        "jtm"
@@ -85,7 +87,7 @@ set(:bundle_path) {
 
 namespace :bundle do
   task :install do
-    run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --without development test --binstubs --shebang ruby-local-exec"
+    run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --without development test --binstubs" # --shebang ruby-local-exec"
     # run "#{cd_bundle_cmd} install --gemfile #{release_path}/Gemfile --path #{bundle_path} --deployment --without development test --binstubs --shebang ruby-local-exec"
   end
 end
@@ -116,6 +118,9 @@ end
 after 'deploy:create_symlink', 'unicorn:configure'
 
 set(:unicorn_pid) { "#{shared_path}/pids/unicorn.pid" }
+def unicorn_worker_pid(worker)
+  unicorn_pid.sub('.pid', ".#{worker}.pid")
+end
 # set(:unicorn_cmd) { "#{current_path}/bin/unicorn" }
 set(:unicorn_cmd) { "cd #{current_path}; bundle exec unicorn" }
 # set(:unicorn_cmd) { "#{release_path}/bin/unicorn_rails" }
@@ -208,6 +213,33 @@ namespace :nginx do
     run "service nginx restart"
   end
 end
+
+###################################################################################
+# Monit
+###################################################################################
+namespace :monit do
+  task :configure do
+    set :user, 'root'
+    generate_config './config/deploy/templates/monit.conf.erb', "/etc/monit/conf.d/jtm.#{application}.#{rails_env}.monitrc"
+    # run 'service monit restart'
+    run 'monit reload'
+  end
+  
+  task :configure_system do
+    set :user, 'root'
+    generate_config './config/deploy/templates/system.monit.conf.erb', "/etc/monit/conf.d/system.monitrc"
+    # run 'service monit restart'
+    run 'monit reload'
+  end
+  
+  task :tunnel do
+    monit_port = 2812
+    # exec "ssh -g -R 2812:localhost:2812 root@#{domain} -p #{port}"
+    puts "Open Browser at: http://localhost:#{monit_port}".green
+    exec "ssh root@#{domain} -p #{port} -L #{monit_port}:localhost:#{monit_port}"
+  end
+end
+
 
 ###################################################################################
 # Worker (Sidekiq)
