@@ -260,6 +260,9 @@ de:
         name: 'Von'
         content: 'Nachricht'
         project: 'Projekt'
+      email:
+        subject: 'Betreff'
+        content: 'Inhalt'
         
         
         

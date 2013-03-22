@@ -1,4 +1,7 @@
 Website::Application.routes.draw do
+  resources :emails
+
+
   resources :guestbooks, path: 'gaestebuch'
   post '/gaestebuch/manage' => 'guestbooks#manage'
 

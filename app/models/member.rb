@@ -9,6 +9,7 @@ class Member < ActiveRecord::Base
   scope :active, lambda { where(active: true) }
   scope :inactive, lambda { where(active: false) }
   scope :with_birthday_in, lambda { |month| where(birth_month: month).order(:birth_month, :birth_day) }
+  scope :ordered, lambda { order(:name, :first_name) }
 
   has_many :team_memberships, dependent: :destroy
   has_many :teams, through: :team_memberships
@@ -28,6 +29,10 @@ class Member < ActiveRecord::Base
 
   def full_name
     [self.first_name, self.name].join ' '
+  end
+  
+  def ordered_full_name
+    [self.name, self.first_name].join ' '
   end
 
   def age
