@@ -1,6 +1,7 @@
 class Member < ActiveRecord::Base
   include FileUpload
   include Navigatable
+  include ActivityTrackable
   
   rolify
   

@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
   include Navigatable
+  include ActivityTrackable
   
   attr_accessible :address, :latitude, :longitude, :name, :page_id, :position
   geocoded_by :joined_address

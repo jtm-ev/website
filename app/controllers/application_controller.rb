@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include PublicActivity::StoreController
+  
   helper_method :sort_column, :sort_direction
   
   protect_from_forgery

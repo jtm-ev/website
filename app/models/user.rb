@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include ActivityTrackable
+  
   rolify
   
   # Include default devise modules. Others available are:
@@ -11,6 +13,8 @@ class User < ActiveRecord::Base
   attr_accessible :username, :password, :password_confirmation, :remember_me, :member_id, :role_ids
   
   belongs_to :member
+  
+  delegate :full_name, to: :member
   
   validates_presence_of :member
   

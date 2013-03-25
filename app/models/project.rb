@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base
   include Navigatable
+  include ActivityTrackable
+  
   
   scope :latest_first, lambda { 
     joins(:events).uniq.order('events.start_time DESC')

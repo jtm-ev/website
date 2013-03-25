@@ -1,6 +1,7 @@
 class Team < ActiveRecord::Base
   include FileUpload
   include Navigatable
+  # include ActivityTrackable
     
   attr_accessible :name, :public, :position
   

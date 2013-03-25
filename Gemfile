@@ -15,6 +15,8 @@ gem 'devise'
 gem 'cancan'
 gem 'rolify'
 
+gem 'public_activity'
+
 gem 'haml'
 
 

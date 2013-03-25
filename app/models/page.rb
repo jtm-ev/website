@@ -1,5 +1,6 @@
 class Page < ActiveRecord::Base
   include ActsAsTree
+  include ActivityTrackable
   
   scope :public, lambda { where(public: true) }
   scope :in_navigation, lambda { public.where(show_in_navigation: true) }
