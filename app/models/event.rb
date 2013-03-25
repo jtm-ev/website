@@ -1,4 +1,7 @@
 class Event < ActiveRecord::Base
+  include ActivityTrackable
+  tracked only: :create
+  
   scope :upcoming, lambda { where('start_time > ? OR end_time > ?', Time.now, Time.now).order(:start_time)  }
 
   attr_accessible :description, :end_time, :location_name, :project_id, :public, :start_time, :title

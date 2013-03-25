@@ -25,12 +25,14 @@
             = link_to 'Adressen', address_group_path(group)
             /= link_to 'Rundmail', '#'
 
-    
-  .portlet.span3
-    .portlet-header Was hat sich getan?
-    .portlet-content
-      xxx
-      
+  
+  - if current_user.has_role?(:admin)
+    .portlet.span3
+      .portlet-header Was hat sich getan?
+      .portlet-content
+        - @activities.each do |activity|
+          .activity
+            = render_activity activity, layout: 'activity'
 
 
 

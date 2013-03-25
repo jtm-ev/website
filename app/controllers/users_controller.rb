@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   
   def update
     @user.update_attributes params[:user]
+    @user.create_activity :update, owner: current_user
     redirect_to action: :index
   end
   
@@ -29,6 +30,6 @@ class UsersController < ApplicationController
   
   def dashboard
     add_breadcrumb 'Dashboard'
-    
+    @activities = PublicActivity::Activity.order('created_at desc').limit(50)
   end
 end

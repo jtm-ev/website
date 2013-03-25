@@ -1,5 +1,7 @@
 class Group < ActiveRecord::Base
   include Navigatable
+  # include ActivityTrackable
+  
   resourcify
   
   scope :public, lambda { where(public: true) }
