@@ -1,6 +1,7 @@
 
-= activity.owner.full_name unless activity.owner.nil?
-hat
+- unless activity.owner.nil?
+  = activity.owner.full_name 
+  hat
 = yield
 .description
   = "(vor #{time_ago_in_words activity.created_at})"

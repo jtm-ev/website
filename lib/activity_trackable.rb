@@ -3,6 +3,11 @@ module ActivityTrackable
   
   included do
     include PublicActivity::Model
-    tracked owner: ->(controller, model) { controller && controller.current_user }
+    
+    def self.tracked(opts = {})
+      opts[:owner] ||= ->(controller, model) { controller && controller.current_user }
+      super(opts)
+    end
   end
+  
 end

@@ -56,7 +56,7 @@ class MembersController < ApplicationController
 
     if params[:files]
       @member.file = params[:files]
-      @member.save
+      # @member.save
     end
 
     respond_to do |format|

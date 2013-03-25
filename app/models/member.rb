@@ -2,6 +2,7 @@ class Member < ActiveRecord::Base
   include FileUpload
   include Navigatable
   include ActivityTrackable
+  tracked
   
   rolify
   
@@ -52,6 +53,10 @@ class Member < ActiveRecord::Base
   
   def leaded_groups
     Group.with_role(:group_leader, self)
+  end
+  
+  def male?
+    self.gender == 'm'
   end
   
   

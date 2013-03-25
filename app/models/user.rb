@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include ActivityTrackable
+  tracked except: :update
   
   rolify
   

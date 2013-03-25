@@ -1,3 +1,10 @@
+- member = activity.trackable
 
-updated
-= activity.trackable.class.name
+- if member == activity.owner.member
+  = member.male? ? 'sein' : 'ihr'
+  = link_to 'Profil', member 
+  = "aktualisiert"
+- else
+  = 'das Profil von'
+  = link_to member.full_name, member
+  = 'aktualisiert'

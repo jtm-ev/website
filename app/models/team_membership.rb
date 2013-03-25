@@ -1,5 +1,7 @@
 class TeamMembership < ActiveRecord::Base
   include FileUpload
+  include ActivityTrackable
+  tracked
   
   attr_accessible :role, :public, :position, :member_id, :team_id, :member, :team
   
