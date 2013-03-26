@@ -1,3 +1,4 @@
 class Email < ActiveRecord::Base
-  attr_accessible :addresses, :content, :subject
+  attr_accessible :to, :content, :subject
+  serialize :to, Array
 end

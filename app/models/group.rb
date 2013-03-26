@@ -6,6 +6,7 @@ class Group < ActiveRecord::Base
   
   scope :public, lambda { where(public: true) }
   scope :category, lambda { |cat| where(category: cat) }
+  scope :ordered, lambda { order('name') }
   
   belongs_to :page, dependent: :destroy, autosave: true
   

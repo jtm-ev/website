@@ -3,8 +3,11 @@ class CreateEmails < ActiveRecord::Migration
     create_table :emails do |t|
       t.string :subject
       t.text :content
-      t.text :addresses
+      t.text :to
+      
       t.string :state
+
+      t.integer :user_id
 
       t.timestamps
     end

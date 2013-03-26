@@ -12,35 +12,38 @@
   <% end %>
   
   <table class='form'>
-    <thead>
-      <th>Inhalt</th>
-      <th style='width:250px;'>Empfänger</th>
-    </thead>
+
     <tbody>
       <tr>
+        <th style='width:100px;'>An</th>
         <td>
-          <div class="field">
-            <%= f.text_field :subject, style: 'width: 100%;' %>
-          </div>
-          <div class="field">
-            <%= f.text_area :content, style: 'height: 300px;' %>
+          <div class='field'>
+            <% f.select :to, options_for_select(['a', 'b']), multiple: true, style: 'width: 100%;' %>
+            <select id='email_to' name='email[to]' multiple>
+              <optgroup label='Mitglieder'>
+                <%- Member.active.ordered.each do |m| %>
+                  <option value='<%= m.email %>'><%= m.ordered_full_name %></option>
+                <% end %>
+              </optgroup>
+              <optgroup label='Gruppen'>
+                <%- Group.ordered.each do |g| %>
+                  <option value='group_<%= g.id %>'><%= g.name %></option>
+                <% end %>
+              </optgroup>
+            </select>
           </div>
         </td>
+      </tr>
+      <tr>
+        <th>Betreff</th>
         <td>
-          <div class='accordion' style='height: 300px;'>
-            <div class='accordion-header'>Mitglieder</div>
-            <div class='accordion-body'>
-              <% Member.active.ordered.each do |member| %>
-                <div><%= member.ordered_full_name %></div>
-              <% end %>
-            </div>
-            <div class='accordion-header'>Gruppen</div>
-            <div class='accordion-body'>
-              <% Group.scoped.order(:name).each do |group| %>
-                <div><%= group.name %></div>
-              <% end %>
-            </div>
-          </div>
+          <%= f.text_field :subject, style: 'width: 100%;' %>
+        </td>
+      </tr>
+      <tr>
+        <th>Inhalt</th>
+        <td>
+          <%= f.text_area :content, style: 'height: 300px;' %>
         </td>
       </tr>
     </tbody>
@@ -50,3 +53,7 @@
     <%= f.submit 'E-Mail versenden' %>
   </div>
 <% end %>
+
+<script>
+  $('#email_to2').select2();
+</script>
