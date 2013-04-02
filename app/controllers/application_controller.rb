@@ -1,10 +1,20 @@
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
   
+  rescue_from CanCan::AccessDenied, :with => :unauthorized
+  
   helper_method :sort_column, :sort_direction
   
   protect_from_forgery
   check_authorization :unless => :devise_controller?
+  
+  def unauthorized
+    if current_user
+      render 'unauthorized'
+    else
+      redirect_to :root
+    end
+  end
   
   private
     def after_sign_in_path_for(user)

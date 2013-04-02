@@ -2,7 +2,7 @@
 %h1 User bearbeiten
 
 = form_for(@user) do |f|
-  %table
+  %table.system
     %tr
       %th Username
       %td= @user.username
@@ -15,9 +15,9 @@
     %tr
       %th= f.label :roles
       %td
-        - Role.all.each do |role|
+        - @roles.each do |role|
           = check_box_tag "user[role_ids][]", role.id, @user.role_ids.include?(role.id)
-          = role.name
+          = t "roles.#{role.name}"
       
   .actions
     = f.submit

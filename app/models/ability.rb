@@ -50,9 +50,22 @@ class Ability
       if user.has_role?(:member_manager)
         can :manage, Member
         can :manage, Group
+        can :manage, GroupMembership
       end
       
-      can :manage, Page if user.has_role?(:site_manager)
+      if user.has_role?(:site_manager)
+        can :manage, Page
+        can :manage, PageFile
+        can :manage, Guestbook
+        can :manage, Location
+      end
+      
+      if user.has_role?(:project_manager)
+        can :manage, Project
+        can :manage, ProjectFile
+        can :manage, Team
+        can :manage, TeamMembership
+      end
     end
     
     # The first argument to `can` is the action you are giving the user 

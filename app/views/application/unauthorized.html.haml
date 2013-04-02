@@ -1,0 +1,15 @@
+%h1 Zugriff verweigert!!
+
+%p
+  Du hast keine ausreichenden Zugriffsrechte für diese Seite.
+  
+%p
+  Falls du bestimmte Zugriffsrechte brauchst, setze dich bitte kurz mit dem Webmaster in Verbindung:
+  
+%p
+  = link_to "E-Mail an Webmaster schreiben", "mailto:webmaster@jtm.de?subject=[#{current_user.try(:username)}] Zugriffsrechte:#{request.path}", class: 'btn'
+  
+%p
+  Dein
+  JTM-Website Team
+  

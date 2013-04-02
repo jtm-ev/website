@@ -12,10 +12,16 @@ class UsersController < ApplicationController
   end
   
   def edit
-    
+    @roles = [
+      Role.find_or_create_by_name('member_manager'),
+      Role.find_or_create_by_name('site_manager'),
+      Role.find_or_create_by_name('project_manager')
+    ]
+    @roles.push Role.find_or_create_by_name('admin') if current_user.has_role?(:admin)
   end
   
   def update
+    params[:user][:role_ids] ||= []
     @user.update_attributes params[:user]
     @user.create_activity :update, owner: current_user
     redirect_to action: :index
