@@ -18,7 +18,6 @@
 #= require bootstrap-alert
 #= require editing
 #= require intern
-#= require_tree .
 
 jQuery ->
   # Image-Slider

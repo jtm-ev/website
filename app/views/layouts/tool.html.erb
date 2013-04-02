@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JTM - Jugendtheater Martinszell e.V.</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <%= stylesheet_link_tag    "image_editor", :media => "all" %>
+  <%= javascript_include_tag "image_editor" %>
+  <%= csrf_meta_tags %>
+
+</head>
+
+<body class='<%= current_user ? "internal" : "" %>'>
+
+  <%= yield %>
+
+</body>
+</html>
