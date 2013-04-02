@@ -45,6 +45,9 @@ class Ability
         group = page.group
         group ? (user.member and user.member.has_role?(:group_leader, group)) : false
       end
+      can [:update], Group do |group|
+        user.member.has_role?(:group_leader, group)
+      end
       #############################################################
       
       if user.has_role?(:member_manager)

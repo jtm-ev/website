@@ -131,7 +131,7 @@
                 <td colspan=3>
                   <span class='btn'>Auswahl: </span>
                   <%= f.submit 'aktualisieren', class: 'btn btn-success' %>
-                  <%= f.submit 'löschen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %>
+                  <%= f.submit 'aus Gruppe entfernen', class: 'btn btn-danger', name: 'delete', confirm: 'Ausgewählte Gruppenmitglieder löschen?' %>
                   <%= f.submit 'verschieben in:', class: 'btn btn-success', name: 'move', confirm: 'Ausgewählte Mitglieder in neue Gruppe verschieben?' %>
                   <select name='move_to_group_id' class='inline'>
                     <%- Group.all.each do |group| %>
