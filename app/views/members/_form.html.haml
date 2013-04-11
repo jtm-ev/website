@@ -119,15 +119,17 @@
         %tr
           %th= f.label :email_extern
           %td
-            = @member.email_extern
-            %small
-              (Kann momentan nicht geändert werden)
+            = f.text_field :email_extern
+            / = @member.email_extern
+            / %small
+            /   (Kann momentan nicht geändert werden)
         %tr
           %th= f.label :email
           %td
-            = @member.email
-            %small
-              (Kann momentan nicht geändert werden)
+            = f.text_field :email
+            / = @member.email
+            / %small
+            /   (Kann momentan nicht geändert werden)
 
       .actions
         = f.submit
