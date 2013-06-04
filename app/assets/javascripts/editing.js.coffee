@@ -3,7 +3,7 @@
 #= require bootstrap-dropdown
 #= require select2
 #= require jquery
-#= require jquery-ui
+#= require jquery.ui.all
 #= require bootstrap-datepicker
 
 # require jquery.mjs.nestedSortable
