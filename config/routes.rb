@@ -64,6 +64,8 @@ Website::Application.routes.draw do
     resources :teams
   end
   
+  get '/tools/:action' => 'tools'
+  
   post '/project_files/:id/crop' => 'project_files#crop'
   
   get '/projekte(::tags)' => 'projects#index', as: :tagged_projects

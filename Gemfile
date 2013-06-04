@@ -26,7 +26,10 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails'
   gem 'compass-rails'
+  
   gem 'bootstrap-sass'
+  gem 'anjlab-bootstrap-rails'
+  
   gem "jquery-fileupload-rails"
   gem "select2-rails"
   

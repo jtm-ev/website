@@ -1,9 +1,0 @@
-.data{ data: {id: @image.id}}
-
-%p
-  .image-editor-grid
-    = image_tag @image.url, id: 'image-cinema', data: {width: @image.width, height: @image.height}
-  .image-editor-grid
-    = image_tag @image.url, id: 'image-square', data: {width: @image.width, height: @image.height}
-%p
-  %button#save Speichern

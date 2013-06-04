@@ -1,16 +1,36 @@
 /*
  # require application
  *= require jquery.Jcrop
+ *= require bootstrap
  */
  
+#image-cropper {
+  width: 1000px;
+  left: 500px;
+}
+
+.image-group {
+  border: 2px solid black;
+  margin: 10px;
+  cursor: pointer;
+  img {
+    pointer-events: none;
+  }
+  display: inline-block;
+  padding: 0px;
+  width: 450px;
+}
+ 
 .image-editor-grid {
+/*  position: relative;*/
+  float: left;
 /*    width: 350px !important;*/
 /*    height: 350px !important;*/
 /*    border: 1px solid red;*/
     margin: 10px;
 /*    overflow: hidden;*/
-    display: inline-block;
-    vertical-align: top;
+/*    display: inline-block;*/
+/*    vertical-align: top;*/
 /*    text-align: center;*/
 
 }

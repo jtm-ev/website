@@ -81,7 +81,7 @@ module FileUpload
       false
     end
     
-  private
+  
     def cropping?
       self.meta and self.meta[:crop] and !self.meta[:crop].empty?
     end

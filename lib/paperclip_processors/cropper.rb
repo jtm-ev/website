@@ -9,14 +9,15 @@ module Paperclip
     end
     
     def transformation_command
-      if crop_command
+      if true #crop_command
         cmd = super
-        # Rails.logger.info "\n ORG: #{cmd.inspect}\n"
+        Rails.logger.info "\n ORG: #{cmd.inspect}\n"
         
         crop_index = cmd.index('-crop')
         unless crop_index.nil?
           new_crop = (cmd[ crop_index + 1].gsub /(\d*)x(\d*)\+(\d*)\+(\d*)/ do |s|
             i = @attachment.instance
+            Rails.logger.info "\n Image: #{i.inspect}"
             square = ($1 == $2)
             oX = oY = 0
             if square
@@ -28,18 +29,35 @@ module Paperclip
             x = d['x'].to_i
             y = d['y'].to_i
             
-            ratio = $1.to_f / i.width
-            oX = (ratio * x).to_i
-            oY = (ratio * y).to_i
+            Rails.logger.info "GSUB: #{$1} | #{$2} | #{$3} | #{$4}"
             
-            # Rails.logger.info "\n SQUARE: #{$1.to_i} / #{i.width} * #{y} = #{oY} \n"
+            if i.portrait?            
+              Rails.logger.info "------ Portrait"
+              ratio = $1.to_f / i.width.to_f
+            else
+              Rails.logger.info "------ Landscape"
+              ratio = $1.to_f / i.height.to_f
+              
+              # oX = (x.to_f / i.height.to_f * $1.to_f).to_i
+              # oY = (ratio * y).to_i
+            end
+
+            oX = (ratio * x).to_i
+            oY = (ratio * y).to_i                            
+            
+            
+            Rails.logger.info "\n INFO: #{$1.to_i} / #{i.width} * #{y} = #{oY}"
+            Rails.logger.info " INFO: #{$1.to_i} / #{i.height} * #{x} = #{oX} : r= #{ratio} \n"
             
             # Rails.logger.info "\n Replace: #{d.inspect} \n"
             
             "#{$1}x#{$2}#{plus_helper(oX)}#{plus_helper(oY)}"
           end)
-          # Rails.logger.info "\n DO CROP: #{new_crop} \n"
+          Rails.logger.info "\n DO CROP: #{new_crop} \n"
           cmd[ crop_index + 1 ]  = new_crop
+          
+          cmd.shift
+          Rails.logger.info "UNSHIFTED: #{cmd.inspect}"
         end
         # cmd = crop_command + super.sub(/ -crop \S+/, '')
         # Rails.logger.info "\n MOD: #{cmd.inspect}\n"
