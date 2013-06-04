@@ -2,7 +2,7 @@
 #= require jquery-fileupload/basic
 #= require bootstrap-dropdown
 #= require select2
-#= require jquery-ui
+# require jquery-ui
 #= require bootstrap-datepicker
 
 # require jquery.mjs.nestedSortable
