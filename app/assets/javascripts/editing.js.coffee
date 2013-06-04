@@ -2,6 +2,7 @@
 #= require jquery-fileupload/basic
 #= require bootstrap-dropdown
 #= require select2
+#= require jquery
 #= require jquery-ui
 #= require bootstrap-datepicker
 
