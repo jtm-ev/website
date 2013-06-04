@@ -25,7 +25,7 @@ class ProjectFilesController < ApplicationController
   
   def create
     project = Project.find params[:project_id]
-    authorize! :manage, project
+    authorize! :update, project
     
     uploaded_files.each do |file|
       project.project_files.create file: file, kind: params[:kind]
