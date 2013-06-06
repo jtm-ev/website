@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_tree ./site
+ *= require_tree ./site_responsive
  *= require nivo-slider
  *= require prettyPhoto
  *= require_self
