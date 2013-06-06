@@ -1,0 +1,5 @@
+.group
+  - if group.has_image?
+    %img{src: group.image.url(:normal, false)}
+  .group-name
+    = group.name
