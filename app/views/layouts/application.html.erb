@@ -36,13 +36,13 @@
     <% end %>
     
     <% content_for :editor_links do %>
-      <%= navigation_link_to 'User', users_path, true if can?(:manage, User) %>
-      <%= navigation_link_to 'Mitglieder', members_path, true if can?(:manage, Member) %>
+      <%= navigation_link_to 'User', intern_users_path, true if can?(:manage, User) %>
+      <%= navigation_link_to 'Mitglieder', intern_members_path, true if can?(:manage, Member) %>
       <%# navigation_link_to 'Gruppen', groups_path, true if can?(:manage, Group)%>
       <%# navigation_link_to 'Kalender', '#' %>
       <%# navigation_link_to 'E-Mail', '#' %>
-      <%= navigation_link_to 'Seiten', pages_path, true if can?(:manage, Page) %>
-      <%= navigation_link_to 'Termine', events_path, true if can?(:manage, Event) %>
+      <%# navigation_link_to 'Seiten', intern_pages_path, true if can?(:manage, Page) %>
+      <%# navigation_link_to 'Termine', intern_events_path, true if can?(:manage, Event) %>
     <% end %>
   
     <div class='navbar navbar-fixed-top navbar-inverse'>
@@ -84,8 +84,8 @@
         
         </ul>
         <ul class='nav pull-right'>
-          <%= navigation_link_to 'Dashboard', '/dashboard' %>
-          <%= navigation_link_to 'Profil', '/profile' %>
+          <%= navigation_link_to 'Dashboard', intern_dashboard_path %>
+          <%= navigation_link_to 'Profil', intern_profile_path %>
           <li><%= link_to 'Logout', '/logout' %></li>
           <%- if current_user.member.has_image? %>
             <li class='nav-profile-image'>

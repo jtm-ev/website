@@ -1,19 +1,38 @@
 Website::Application.routes.draw do
-  resources :guestbooks, path: 'gaestebuch'
-  post '/gaestebuch/manage' => 'guestbooks#manage'
-
-
+  
+  ############################################################################
+  # Login / Sessions
+  ############################################################################
   devise_for :users
   devise_scope :user do
     get   '/login' => 'devise/sessions#new'
     get   '/logout' => 'devise/sessions#destroy'
   end
   
-  resources :users
-  match '/profile' => 'users#profile'
-  match '/profile/role/:id' => 'users#profile_role', as: :profile_role
-  match '/dashboard' => 'users#dashboard', as: :dashboard
-
+  ############################################################################
+  # Intern
+  ############################################################################
+  namespace :intern, path: 'i' do
+    resources :users
+    match '/profile' => 'users#profile'
+    match '/profile/role/:id' => 'users#profile_role', as: :profile_role
+    match '/dashboard' => 'users#dashboard', as: :dashboard
+    
+    resources :members, path: 'mitglieder' do
+      collection do
+        get 'adressen' => 'members#addresses', as: :address
+      end
+    end
+    get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
+  end
+  
+  
+  ############################################################################
+  # Extern
+  ############################################################################
+  resources :guestbooks, path: 'gaestebuch'
+  post '/gaestebuch/manage' => 'guestbooks#manage'
+  
   resources :locations, path: 'spielorte' do
     collection do
       put '/' => 'locations#manage'
@@ -42,12 +61,7 @@ Website::Application.routes.draw do
   end
   get '/s/*path' => 'pages#show_by_path', as: :human_page
   
-  resources :members, path: 'mitglieder' do
-    collection do
-      get 'adressen' => 'members#addresses', as: :address
-    end
-  end
-  get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
+
   
   resources :projects, path: 'projekte' do
     # collection do

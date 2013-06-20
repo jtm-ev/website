@@ -1,9 +1,9 @@
 <h1>Mitglieder (<%= @members.count %>)</h1>
 
 <ul class='tabs'>
-  <%= navigation_link_to 'Aktive', members_path %>
-  <%= navigation_link_to 'Ehemalige', flagged_members_path('ehemalige') %>
-  <%= navigation_link_to 'Alle', flagged_members_path('alle') %>
+  <%= navigation_link_to 'Aktive', intern_members_path %>
+  <%= navigation_link_to 'Ehemalige', intern_flagged_members_path('ehemalige') %>
+  <%= navigation_link_to 'Alle', intern_flagged_members_path('alle') %>
 </ul>
 
 <table class='system'>
@@ -23,7 +23,7 @@
         <img width=50 src='<%= member.file.url(:square) %>'>
       <% end %>
     </td>
-    <td class='oneline'><%= link_to [member.name, member.first_name].join(' '), edit_member_path(member) %></td>
+    <td class='oneline'><%= link_to [member.name, member.first_name].join(' '), edit_intern_member_path(member) %></td>
     <td>vor <%= time_ago_in_words member.created_at %></td>
     <td><%= member.member_since %></td>
   </tr>

@@ -1,4 +1,4 @@
-class MembersController < ApplicationController
+class Intern::MembersController < ApplicationController
   load_and_authorize_resource except: [:index, :addresses]
   skip_authorization_check only: [:addresses]
   before_filter :authenticate_user!, except: [:show]

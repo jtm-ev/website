@@ -1,5 +1,5 @@
 
-class UsersController < ApplicationController
+class Intern::UsersController < ApplicationController
   load_and_authorize_resource except: [:profile, :dashboard]
   skip_authorization_check only: [:profile, :dashboard]
   
