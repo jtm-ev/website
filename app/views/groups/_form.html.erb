@@ -57,7 +57,7 @@
 <% end  %>
 
   
-
+<%- unless @group.new_record? %>
   
   <ul class='tabs'>
     <li><a href='#mitglieder'>Mitglieder (<%= @group.group_memberships.count %>)</a></li>
@@ -106,6 +106,7 @@
     </div>
 
     
+    
     <div id='mitglieder'>
       <table class='system'>
         <thead>
@@ -124,7 +125,7 @@
           </tbody>
 
         
-          <%- unless @group.new_record? %>
+          
             <tbody>
               <tr>
                 <td></td>
@@ -141,7 +142,7 @@
                 </td>
               </tr>
             </tbody>
-          <% end %>
+          
         <% end %>
 
 
@@ -166,10 +167,8 @@
   
   </div>
   
+<% end %>
 
 
-<table class='system'>
-
-</table>
 
 

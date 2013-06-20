@@ -37,6 +37,10 @@ class Member < ActiveRecord::Base
     now = Time.now.utc.to_date
     now.year - birthday.year - (birthday.to_date.change(:year => now.year) > now ? 1 : 0)
   end
+  
+  def email_with_name
+    email.blank? ? nil : "#{full_name}<#{email}>"
+  end
 
   def actor_team_memberships
     team_memberships.joins(:team).where('teams.name = ?', 'Darsteller').sort

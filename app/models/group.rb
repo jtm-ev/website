@@ -52,4 +52,8 @@ class Group < ActiveRecord::Base
     roles.where(name: 'group_leader').first.try(:members) or []
   end
   
+  def emails
+    self.members.map(&:email_with_name).reject(&:blank?)
+  end
+  
 end
