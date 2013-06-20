@@ -1,4 +1,4 @@
 
 = form.text_area field, class: 'tinymce', rows: 500, cols: 120
 
-= tinymce :default, { content_css: '/assets/copy.css?t=3', body_class: 'copy-content', relative_urls: false, external_link_list_url: "links.js", external_image_list_url: 'images.js', plugins: 'fullscreen,table,contextmenu,emotions,preview,wordcount', theme_advanced_buttons3_add: "tablecontrols,fullscreen", plugin_preview_width: "933", theme_advanced_blockformats: 'span,p,div,h1,h2,h3,h4,h5,h6,pre,code', theme_advanced_styles: 'Untertitel=subtitle;Unsichtbare Tabelle=invisible-table;Lower-Alpha-List=lower-alpha;Gruppen-Gallerie=group-list-gallery' }
+= tinymce :default, { content_css: asset_path('copy.css'), body_class: 'copy-content', relative_urls: false, external_link_list_url: "links.js", external_image_list_url: 'images.js', plugins: 'fullscreen,table,contextmenu,emotions,preview,wordcount', theme_advanced_buttons3_add: "tablecontrols,fullscreen", plugin_preview_width: "933", theme_advanced_blockformats: 'span,p,div,h1,h2,h3,h4,h5,h6,pre,code', theme_advanced_styles: 'Untertitel=subtitle;Unsichtbare Tabelle=invisible-table;Lower-Alpha-List=lower-alpha;Gruppen-Gallerie=group-list-gallery' }
