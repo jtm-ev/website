@@ -13,25 +13,18 @@ module FileUpload
     # https://github.com/thoughtbot/paperclip/wiki/Interpolations
     has_attached_file :file, {
       styles: lambda { |asset|
-        image_format = asset.instance.transparent? ? :png : :jpg
-        lc_style = { geometry: '1024x576#', format: image_format }
-
+        instance = asset.instance
+        image_format = instance.image_format        
         {
-          square:     {geometry: '150x150#',  format: image_format},
-          square_300: {geometry: '300x300#',  format: image_format},
-          normal:     {geometry: '350x',      format: image_format},
-          large:      {geometry: '1024x',     format: image_format},
-          large_cinema: lc_style
+          square:     instance.square_style(150),
+          square_300: instance.square_style(300),
+          normal:     {geometry: '350x', format: image_format},
+          large:      {geometry: '1024x', format: image_format},
+          large_cinema: instance.cinema_style(1024)
         }
+        
       },
-      convert_options: {
-        # all: '-auto-orient '
-        # all: '-orient top-left'
-        # large_cinema: '-gravity North'
-        # square: "-quality 75 -strip",
-        # thumb:  "-quality 75 -strip",
-        # large:  "-quality 100 -strip"  
-      },
+      processors: [:cropper],
       
       # url: "/system/project_files/:hash.:extension",
       hash_secret: "207ff786710bf9b55b4481b393cff8be9a64a96088cface4b4ab7cf648cd01d8222030def29bbc52b284e4327c73b97d4e45468e676"
@@ -41,6 +34,14 @@ module FileUpload
         
     scope :landscape, lambda { where("width > height") }
     scope :portrait, lambda { where("height >= width") }
+  end
+  
+  def meta
+    self.read_attribute(:meta) or {}
+  end
+  
+  def image_format
+    self.transparent? ? :png : :jpg
   end
   
   def has_image?
@@ -78,6 +79,20 @@ module FileUpload
       end
       
       false
+    end
+    
+  
+    def cropping?
+      self.meta and self.meta[:crop] and !self.meta[:crop].empty?
+    end
+
+    def square_style(s)
+      {geometry: "#{s}x#{s}#",  format: image_format}
+    end
+
+    def cinema_style(w)
+      h = w / 16 * 9
+      { geometry: "#{w}x#{h}#", format: image_format }
     end
   
 end

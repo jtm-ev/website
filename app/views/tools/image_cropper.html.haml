@@ -1,0 +1,30 @@
+/ = stylesheet_link_tag    "image_editor", :media => "all"
+/ = javascript_include_tag "image_editor"
+
+%h1 Image Editor
+
+#image-cropper.modal.hide
+  .modal-header
+    %h3 Image Cropper
+  .modal-body
+    / .data{ data: {id: @image.id}}
+
+    / %p
+    #image-cinema.image-editor-grid
+      / = image_tag @image.url, id: 'image-cinema', data: {width: @image.width, height: @image.height}
+      / %img
+    #image-square.image-editor-grid
+      / = image_tag @image.url, id: 'image-square', data: {width: @image.width, height: @image.height}
+      / %img
+      
+  .modal-footer
+    .btn{data: {dismiss: 'modal'}} Abbrechen
+    .btn.btn-primary#save Speichern
+    
+  
+#image-list
+  - ProjectFile.all.each do |pf|
+    .image-group{data: {width: pf.width, height: pf.height, id: pf.id, url: pf.url} }
+      = image_tag pf.url(:square)
+      = image_tag pf.url(:large_cinema), style: 'height:150px;'
+    

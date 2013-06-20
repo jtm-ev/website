@@ -4,7 +4,7 @@ class PageFilesController < ApplicationController
   
   def create
     @page = Page.find params[:page_id]
-    authorize! :manage, @page
+    authorize! :update, @page
     
     uploaded_files.each do |file|
       @page.page_files.create! file: file

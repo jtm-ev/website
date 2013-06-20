@@ -1,0 +1,60 @@
+
+body {
+  padding: 0;
+}
+
+#background {
+  display: none;
+}
+
+#sidebar, .pages-subnav, #breadcrumbs, .navbar, #flashes {
+  display: none;
+}
+
+
+#content {
+  position: static;
+  margin-left: 0;
+  padding: 0;
+  padding-top: 0 !important;
+}
+
+.container {
+  width: 100%;
+  border: 0px solid black;
+  box-shadow: none;
+}
+
+@page {
+  counter-increment: pages;
+  @bottom-center {
+      font-family: Times, Palatino, serif; 
+      font-size: 12pt;
+      font-weight: normal;
+      content: "Page " counter(pages);
+  }
+ }
+
+@page {
+  @top-center {
+    content: "Hello World !!!!!!";
+  }
+}
+
+#pageHeader{
+  position: running(pageHeader);
+}
+
+@page {
+  background: green;
+  margin: 1cm 1cm 1cm 1cm;
+  @top-left-corner {
+    content: "Hello World";
+  }
+}
+
+@page {
+  @top-left {
+    content: "Cascading Style Sheets";
+  }
+}

@@ -23,16 +23,17 @@
           %strong= group.name
           .group-actions
             = link_to 'Adressen', address_group_path(group)
+            = link_to 'E-Mail schreiben', "mailto:#{u(group.emails.join(','))}"
             /= link_to 'Rundmail', '#'
 
   
-  - if current_user.has_role?(:admin)
-    .portlet.span3
-      .portlet-header Was hat sich getan?
-      .portlet-content
-        - @activities.each do |activity|
-          .activity
-            = render_activity activity, layout: 'activity'
+  / - if current_user.has_role?(:admin)
+  /   .portlet.span3
+  /     .portlet-header Was hat sich getan?
+  /     .portlet-content
+  /       - @activities.each do |activity|
+  /         .activity
+  /           = render_activity activity, layout: 'activity'
 
 
 

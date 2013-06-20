@@ -1,9 +1,8 @@
 
 .group-grid
   - @groups.each do |g|
-    = link_to_if_true human_page_path(g.page.try(:path)), g.has_page? do
-      .group
-        - if g.has_image?
-          %img{src: g.image.url(:normal, false)}
-        .group-name
-          = g.name
+    - if g.has_page?
+      = link_to human_page_path(g.page.path) do
+        = render 'groups/grid_item', group: g
+    - else
+      = render 'groups/grid_item', group: g

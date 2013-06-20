@@ -4,6 +4,7 @@
   <title>JTM - Jugendtheater Martinszell e.V.</title>
   <link rel="icon" type="image/png" href="/favicon.png" />
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag    "print", :media => "print" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
@@ -23,7 +24,6 @@
 </head>
 
 <body class='<%= current_user ? "internal" : "" %>'>
-
   <% if current_user %>
     
   
@@ -50,7 +50,7 @@
         <ul class='nav'>
           <% link_to current_user.member.full_name, '/profile', class: 'brand' %>
             
-          <%= navigation_link_to 'E-Mail', '#', true %>
+          <%# navigation_link_to 'E-Mail', '#', true %>
           <%= navigation_link_to 'Adressen', address_members_path, true %>
           <%= navigation_link_to 'Gruppen', groups_path, true %>
           

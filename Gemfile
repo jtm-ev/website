@@ -26,7 +26,10 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails'
   gem 'compass-rails'
+  
   gem 'bootstrap-sass'
+  gem 'anjlab-bootstrap-rails'
+  
   gem "jquery-fileupload-rails"
   gem "select2-rails"
   
@@ -35,9 +38,12 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  
+  gem 'jquery-rails'
+  gem 'jquery-ui-rails'
 end
 
-gem 'jquery-rails'
+
 gem 'tinymce-rails'
 
 # Image Upload / Processing

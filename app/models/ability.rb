@@ -5,6 +5,9 @@ class Ability
     # Define abilities for the passed in user here. For example:
     
     user ||= User.new # guest user (not logged in)
+    user.member ||= Member.new
+    
+    
     if user.has_role?(:admin)
       can :manage, :all
     else
@@ -45,14 +48,30 @@ class Ability
         group = page.group
         group ? (user.member and user.member.has_role?(:group_leader, group)) : false
       end
+      can [:update], Group do |group|
+        user.member.has_role?(:group_leader, group)
+      end
       #############################################################
       
       if user.has_role?(:member_manager)
         can :manage, Member
         can :manage, Group
+        can :manage, GroupMembership
       end
       
-      can :manage, Page if user.has_role?(:site_manager)
+      if user.has_role?(:site_manager)
+        can :manage, Page
+        can :manage, PageFile
+        can :manage, Guestbook
+        can :manage, Location
+      end
+      
+      if user.has_role?(:project_manager)
+        can :manage, Project
+        can :manage, ProjectFile
+        can :manage, Team
+        can :manage, TeamMembership
+      end
     end
     
     # The first argument to `can` is the action you are giving the user 

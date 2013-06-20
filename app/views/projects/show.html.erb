@@ -116,6 +116,6 @@
 </div>
 
 <% content_for :actions do %>
-  <%= navigation_link_to 'Projekt bearbeiten', edit_project_path(@project) %>
+  <%= navigation_link_to 'Projekt bearbeiten', edit_project_path(@project) if can?(:edit, @project) %>
 <% end %>
 

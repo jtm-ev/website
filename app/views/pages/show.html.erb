@@ -9,5 +9,10 @@
 
 
 <% content_for :actions do %>
-  <%= navigation_link_to 'Seite bearbeiten', edit_page_path(@page) if can?(:update, @page) %>
+  <% if @page.group and can?(:update, @page.group) %>
+    <%= navigation_link_to 'Gruppe verwalten', edit_group_path(@page.group) %>
+    <%= navigation_link_to 'Gruppenseite bearbeiten', edit_page_path(@page) %>
+  <% else %>
+    <%= navigation_link_to 'Seite bearbeiten', edit_page_path(@page) if can?(:update, @page) %>
+  <% end %>
 <% end %>

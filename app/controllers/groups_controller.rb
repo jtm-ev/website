@@ -57,7 +57,7 @@ class GroupsController < ApplicationController
       if @group.save
         process_memberships
         
-        format.html { redirect_to action: :edit, notice: 'Group was successfully created.' }
+        format.html { redirect_to edit_group_path(@group) }
         format.json { render json: @group, status: :created, location: @group }
       else
         format.html { render action: "new" }

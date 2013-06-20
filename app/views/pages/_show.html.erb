@@ -1,7 +1,9 @@
 <% page ||= @page %>
 
-<div class='copy-content'>
-  <%= liquidize page.content, 'page' => page, 'group' => page.group %>
-</div>
+<% unless page.nil? %>
+  <div class='copy-content'>
+    <%= liquidize page.content, 'page' => page, 'group' => page.group %>
+  </div>
+<% end %>
 
 <div class='clearfix'></div>

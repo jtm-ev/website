@@ -27,3 +27,9 @@ JTM.komodoproject
 
 Gemfile.lock
 db/schema.rb
+
+config/newrelic.yml
+db/data.yml
+medien/
+public/fonts
+public/images/prettyPhoto
