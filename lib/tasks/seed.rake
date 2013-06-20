@@ -91,7 +91,7 @@ namespace :seed do
     
   end
   
-  desc "Seed existing data"
+  desc "Seed existing Projects"
   task :projects => :environment do
     start_task 'Projekte'
     Project.destroy_all
@@ -246,8 +246,24 @@ namespace :seed do
     end
   end
   
+  desc "Import Group Memberships"
+  task :group_memberships => :environment do
+    GroupMembership.delete_all
+    gm = create_map('jtm_gruppen_mitglieder', 'gruppe_id')
+    Group.all.each do |g|
+      if gm[g.id]
+        gm[g.id].each do |items|
+          mid = items['mitglied_id']
+          g.group_memberships.create member: Member.find(mid)
+        end
+      end
+    end
+  end
+  
+  desc "Import Members"
   task :members => :environment do
-    Member.destroy_all
+    # Member.destroy_all
+    Member.delete_all
     members = read_xml('jtm_mitglieder')
     members.each do |member|
       puts [member['nachname'], member['vorname']].join ' '

@@ -375,11 +375,11 @@ namespace :db do
     local = 'tmp/dump.rb'
     # system "bundle exec rake db:data:dump TABLES=members,pages,page_files"
     # models = ['Page', 'Member', 'Group', 'GroupMembership', 'Location', 'Team', 'TeamMembership', 'Role']
-    models = ['Page', 'Member', 'Group', 'GroupMembership', 'Team', 'TeamMembership', 'Role']
+    models = ['Member', 'GroupMembership', 'Team', 'TeamMembership'] #'Page', 'Member', 'Group', 'GroupMembership', 'Team', 'TeamMembership', 'Role']
     models.each do |m|
       File.open(local, 'w') do |f|
         f.write "# encoding: utf-8\n"
-        f.write "#{m}.destroy_all\n"
+        f.write "#{m}.delete_all\n"
       end
       system "bundle exec rake db:seed:dump MODELS=#{m} FILE=#{local} APPEND=true WITH_ID=1 TIMESTAMPS=1"
       upload local, "#{current_path}/db/seeds.rb", :via => :scp

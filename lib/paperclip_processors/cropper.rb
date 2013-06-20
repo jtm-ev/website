@@ -13,17 +13,22 @@ module Paperclip
         cmd = super
         Rails.logger.info "\n ORG: #{cmd.inspect}\n"
         
+        i = @attachment.instance
+        crop_meta = i.meta[:crop]
+        
+        return cmd if crop_meta.nil? or crop_meta[:square].blank? or crop_meta[:cinema].blank?
+        
         crop_index = cmd.index('-crop')
         unless crop_index.nil?
           new_crop = (cmd[ crop_index + 1].gsub /(\d*)x(\d*)\+(\d*)\+(\d*)/ do |s|
-            i = @attachment.instance
             Rails.logger.info "\n Image: #{i.inspect}"
             square = ($1 == $2)
             oX = oY = 0
+            
             if square
-              d = i.meta[:crop][:square]
+              d = crop_meta[:square]
             else
-              d = i.meta[:crop][:cinema]
+              d = crop_meta[:cinema]
             end
             
             x = d['x'].to_i
