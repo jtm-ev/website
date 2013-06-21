@@ -1,4 +1,4 @@
-- for team_membership in team_memberships
+- for team_membership in team_memberships.sort_by(&:year).reverse
   - team = team_membership.team
   - project = team_membership.project
   .team
