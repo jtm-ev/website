@@ -45,7 +45,9 @@ jQuery ->
   $(".tabs a[href='#{window.location.hash}'], .tabs a:first").tab('show')
   
   
-  $('.alert').delay(3000).fadeOut('fast')
+  $('.alert').delay(5000).fadeOut('fast')
+  $('.alert').click (evt)->
+    $(evt.currentTarget).alert('close')
   
   $('.sticky').each (index, item)->
     i = $(item)

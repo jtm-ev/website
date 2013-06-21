@@ -7,6 +7,7 @@
     %th E-Mail
     %th Roles
     %th Mitglied
+    %th Erstellt
     %th
   - @users.each do |user|
     %tr
@@ -14,5 +15,6 @@
       %td= user.email
       %td= user.roles.join(', ')
       %td= user.member.try :full_name
+      %td= user.created_at
       %td
         = link_to 'Edit', edit_user_path(user)

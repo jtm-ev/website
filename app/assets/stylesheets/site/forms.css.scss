@@ -253,6 +253,10 @@ input[type=submit] {
 
 .alert-notice {
   @extend .alert-success;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
 
