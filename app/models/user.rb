@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   
   before_validation do
     self.member = Member.where(email: "#{self.username}@jtm.de").first
-    self.email = self.member.email_extern if self.member
+    self.email = self.member.email if self.member
   end
   
   def groups
