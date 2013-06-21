@@ -32,28 +32,8 @@
   </div>
   
   <div id='hdk'>
-    <% @member.non_actor_team_memberships.each do |team_membership| %>
-      <% 
-        project = team_membership.project 
-        team = team_membership.team
-      %>
-      
-      <div class='team'>
-        <div class='team-name'><%= team.name %><%= with_clamps_unless_nil(team_membership.role) %></div>
-        <div class='team-project'>
-          <%= link_to project.title, project %>
-        </div>
-        <% if team.has_image? %>
-          <div class='team-image'>
-            <a href='<%= project_path(project) %>'><img src='<%= team.file.url(:normal) %>'></a>
-          </div>
-        <% end %>
-        
-
-
-      </div>
-      
-    <% end %>
+    <%= render 'hdk_with_image', team_memberships: @member.hdk_memberships_with_image %>
+    <%= render 'hdk_without_image', groups: @member.hdk_memberships_without_image %>
   </div>
   
   

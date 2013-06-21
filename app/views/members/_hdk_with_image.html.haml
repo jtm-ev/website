@@ -1,0 +1,13 @@
+- for team_membership in team_memberships
+  - team = team_membership.team
+  - project = team_membership.project
+  .team
+    .team-name
+      = team.name
+      = with_clamps_unless_nil(team_membership.role)
+    .team-project
+      = link_to project.title, project
+      = with_clamps_unless_nil(project.year)
+    .team-image
+      %a{ href: project_path(project) }
+        %img{ src: team.file.url(:normal) }

@@ -41,7 +41,7 @@ class Project < ActiveRecord::Base
   end
   
   def year
-    return 0 unless events.first
+    return nil unless events.first
     events.first.start_time.year
   end
   

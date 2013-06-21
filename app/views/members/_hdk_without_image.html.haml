@@ -1,0 +1,11 @@
+- groups.each do |title, tms|
+  .team
+    .team-name
+      = title
+      - if tms.count > 1
+        = "(#{tms.count}x)"
+    .team-project
+      - tms.each do |tm|
+        %div
+          = link_to tm.project.title, tm.project
+          = with_clamps_unless_nil(tm.project.year)

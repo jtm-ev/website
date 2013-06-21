@@ -55,8 +55,23 @@ class Member < ActiveRecord::Base
   end
   
   def non_actor_team_memberships
-    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller').sort.sort_by do |t|
-      t.team.has_image? ? 0 : 1
+    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller')
+    # .sort.sort_by do |t|
+    #   t.team.has_image? ? 0 : 1
+    # end
+  end
+  
+  def hdk_memberships_with_image
+    non_actor_team_memberships.keep_if(&:has_image?)
+  end
+  
+  def hdk_memberships_without_image
+    non_actor_team_memberships.delete_if(&:has_image?).group_by(&:team_name)
+  end
+  
+  def hdk_memberships
+    non_actor_team_memberships.group_by do |tms|
+      tms.team.name
     end
   end
   
