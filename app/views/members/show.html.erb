@@ -23,6 +23,7 @@
   <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
     <li><a href='#hdk' data-toggle='tab'>Hinter den Kulissen</a></li>
   <% end %>
+  <li><a href='#chronik' data-toggle='tab'>Chronik</a></li>
 </ul>
 
 <div class='tab-content'>
@@ -36,7 +37,9 @@
     <%= render 'hdk_without_image', groups: @member.hdk_memberships_without_image %>
   </div>
   
-  
+  <div id='chronik'>
+    <%= render 'chronik' %>
+  </div>
   
 </div>
 
