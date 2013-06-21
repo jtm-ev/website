@@ -5,6 +5,7 @@
     <th>Name</th>
     <th>Leiter</th>
     <th>Mitglieder</th>
+    <th></th>
   </tr>
 
 <% @groups.each do |group| %>
@@ -12,6 +13,7 @@
     <td><%= link_to group.name, group_path(group) %></td>
     <td><%= group.leader.map {|m| m.full_name }.join(', ') %></td>
     <td><%= group.group_memberships.count %></td>
+    <td><%= link_to 'Adressen', address_group_path(group) %></td>
   </tr>
 <% end %>
 </table>

@@ -5,6 +5,16 @@
 - else
   %h1= "Adressen (#{@members.count})"
 
+%div
+  %select.filter{data: {filter: 'gender'}}
+    %option
+    %option{value: 'w'} Weiblich
+    %option{value: 'm'} Männlich
+  %select.filter{data: {filter: 'age'}}
+    %option
+    %option{value: '18'} über 18
+    %option{value: '16'} über 16
+
 %table.system.address-table
   %thead
     %th Adresse
@@ -12,7 +22,7 @@
     %th Info
   %tbody
     - @members.ordered.each do |member|
-      %tr
+      %tr{data: {gender: member.gender, over18: (member.age > 18).to_s, over16: (member.age > 16).to_s}}
         / %td
         /   - if member.has_image?
         /     = image_tag member.file.url(:square)
