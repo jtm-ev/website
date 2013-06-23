@@ -83,6 +83,10 @@ class Member < ActiveRecord::Base
     self.gender == 'm'
   end
   
+  def female?
+    self.gender == 'w'
+  end
+  
   
 end
 

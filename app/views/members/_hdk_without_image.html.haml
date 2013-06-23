@@ -2,8 +2,6 @@
   .team
     .team-name
       = title
-      - if tms.count > 1
-        = "(#{tms.count}x)"
     .team-project
       - tms.sort_by(&:year).reverse.each do |tm|
         %div

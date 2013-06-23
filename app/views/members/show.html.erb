@@ -19,7 +19,9 @@
 <div class='clearfix'></div>
 
 <ul class='tabs'>
-  <li><a href='#rollen' data-toggle='tab'>Rollen (<%= @member.actor_team_memberships.length %>)</a></li>
+  <% if @member.actor_team_memberships.length > 0 %>
+    <li><a href='#rollen' data-toggle='tab'>Rollen (<%= @member.actor_team_memberships.length %>)</a></li>
+  <% end %>
   <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
     <li><a href='#hdk' data-toggle='tab'>Hinter den Kulissen</a></li>
   <% end %>

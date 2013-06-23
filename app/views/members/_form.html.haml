@@ -26,7 +26,7 @@
         %p
           Bei einem Wiedereintritt zu einem späteren Zeitpunkt kann das existierende Mitglied wieder aktiviert werden!
   
-        = link_to 'Mitglied ist ausgetreten', '', confirm: 'Bist du sicher?', class: 'btn btn-danger'
+        /= link_to 'Mitglied ist ausgetreten', '', confirm: 'Bist du sicher?', class: 'btn btn-danger'
   
         %hr
         %h2 Mitglied löschen
@@ -37,12 +37,23 @@
           %li Benutzer-Konto für www.jtm.de wird gelöscht
           %li Interne E-Mail Adresse wird gelöscht
   
-        = link_to 'Mitglied löschen', member_path(@member), method: :delete, confirm: 'Bist du sicher?', class: 'btn btn-danger'
+        /= link_to 'Mitglied löschen', member_path(@member), method: :delete, confirm: 'Bist du sicher?', class: 'btn btn-danger'
   
-        - if current_user.has_role?(:admin)
+        - if current_user.has_role?(:admin) and !@member.active
           %hr
           %h2 Mitglied verbinden
-        
+          %ul
+            %li Alle Stücke werden auf gewähltes Mitglied kopiert
+            %li Falls weiblich, wird der alte Nachname als 'Geburtsname' eingetragen
+            %li Dieses Mitglied wird gelöscht
+            
+          %form
+            %select{name: 'target'}
+              - Member.all.each do |m|
+                %option{value: m.id}
+                  = m.full_name
+            %input.btn.btn-danger{type: 'submit', value: 'Mitglied verbinden', name: 'connect_member'}
+              
           
       
       

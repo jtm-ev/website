@@ -18,7 +18,7 @@
     <% unless @project.description.blank? %>
       <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
     <% end %>
-    <% unless @project.actor_team.nil? %>
+    <% unless @project.actor_team.nil? or @project.actor_team.team_memberships.length == 0 %>
       <li><a href='#darsteller' data-toggle='tab'>Darsteller</a></li>
     <% end %>
     <% unless @project.non_actor_teams.empty? %>
@@ -39,12 +39,14 @@
     </div>
 
     <div id='events'>
-      <div class='locations right-sidebar-layout'>
-        <div class='tab-section-h' style='margin-left: -10px;'>Veranstaltungsort</div>
-        <% @project.locations.each do |location| %>
-          <%= render 'locations/item', location: location %>
-        <% end %>
-      </div>
+      <% if @project.locations.length > 0 %>
+        <div class='locations right-sidebar-layout'>
+          <div class='tab-section-h' style='margin-left: -10px;'>Veranstaltungsort</div>
+          <% @project.locations.each do |location| %>
+            <%= render 'locations/item', location: location %>
+          <% end %>
+        </div>
+      <% end %>
       
       <% @project.events.group_by(&:year).each do |year, yevents| %>
         <div class='tab-section-h'><%= year %></div>

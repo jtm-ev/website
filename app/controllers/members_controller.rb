@@ -54,9 +54,26 @@ class MembersController < ApplicationController
   def update
     # @member = Member.find(params[:id])
 
+    if params[:connect_member]
+      target_member = Member.find(params[:target])
+      @member.team_memberships.each do |tms|
+        tms.member = target_member
+        tms.save
+      end
+      
+      if @member.name != target_member.name
+        target_member.birth_name = @member.name
+        target_member.save
+      end
+      
+      @member.destroy
+      
+      redirect_to action: :index
+      return
+    end
+
     if params[:files]
       @member.file = params[:files]
-      # @member.save
     end
 
     respond_to do |format|
