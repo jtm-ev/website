@@ -66,7 +66,7 @@ class MembersController < ApplicationController
         target_member.save
       end
       
-      @member.destroy
+      @member.delete
       
       redirect_to action: :index
       return
