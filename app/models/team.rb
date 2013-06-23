@@ -16,5 +16,9 @@ class Team < ActiveRecord::Base
   def ordered_team_memberships
     self.team_memberships.joins(:member).order('members.name, members.first_name')
   end
+  
+  def size
+    team_memberships.length
+  end
 
 end

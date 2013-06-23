@@ -62,11 +62,15 @@ class Member < ActiveRecord::Base
   end
   
   def hdk_memberships_with_image
-    non_actor_team_memberships.keep_if(&:has_image?)
+    non_actor_team_memberships.keep_if do |tms|
+      tms.team.has_image?
+    end
   end
   
   def hdk_memberships_without_image
-    non_actor_team_memberships.delete_if(&:has_image?).group_by(&:team_name)
+    non_actor_team_memberships.delete_if { |tms|
+      tms.team.has_image?
+    }.group_by(&:team_name)
   end
   
   def hdk_memberships

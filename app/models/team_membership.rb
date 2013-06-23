@@ -8,7 +8,7 @@ class TeamMembership < ActiveRecord::Base
   belongs_to :team
   belongs_to :member
   
-  delegate :has_image?, :year, to: :team
+  delegate :year, to: :team
   
   def <=>(o)
     return o.team.project.year <=> self.team.project.year
