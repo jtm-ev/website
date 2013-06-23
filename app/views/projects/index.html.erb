@@ -4,7 +4,7 @@
 
 <ul class='tabs'>
   <%= navigation_link_to 'Alle', tagged_projects_path() %>
-  <% Project.tag_counts.order('count DESC').limit(6).each do |tag| %>
+  <% Project.tag_counts.order('count DESC').limit(5).each do |tag| %>
     <%= navigation_link_to "#{tag.name.humanize} (#{tag.count})", tagged_projects_path(tag.name.downcase) %>
   <% end %>
 </ul>
