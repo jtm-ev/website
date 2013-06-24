@@ -1,0 +1,19 @@
+= render_breadcrumbs
+
+= render partial: 'edit_header'
+
+= form_for([@team.project, @team]) do |f|
+  = render partial: 'attributes', locals: {form: f}
+  = render partial: 'members'
+
+  %hr
+  = f.submit 'Team aktualisieren'
+  = link_to 'Team löschen', project_team_path(@team.project, @team), method: :delete, confirm: 'Team wirklich löschen?', class: 'btn btn-danger'
+  
+  %hr
+  = f.submit 'Auswahl vershieben in', name: 'move'
+  = f.collection_select :id, @team.project.teams, :id, :full_name, include_blank: true
+
+%hr
+= render partial: 'new_member' 
+

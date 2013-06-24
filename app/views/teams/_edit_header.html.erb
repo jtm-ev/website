@@ -1,0 +1,17 @@
+<div id='navigatable-nav'>
+  <%= render_navigatable_nav(@prev, '&laquo;', lambda {|i| edit_project_team_path(i.project, i) }, :name) %>
+  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| edit_project_team_path(i.project, i) }, :name) %>  
+</div>
+
+<div class='team-image'>
+  <% if @team.has_image? %>
+    <img src='<%= @team.file.url(:large) %>'>
+  <% else %>
+    Drop Image here
+  <% end %>
+  
+  <form>
+    <input class='fileupload' type='file' name='files' data-reload=true data-dropzone='.team-image' data-method='PUT' data-url='<%= project_team_path(@team.project, @team) %>'>
+  </form>
+  
+</div>

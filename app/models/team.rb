@@ -4,7 +4,7 @@ class Team < ActiveRecord::Base
   include ActivityTrackable
   tracked
   
-  attr_accessible :name, :public, :position
+  attr_accessible :name, :segment, :public, :position
   
   belongs_to :project
   has_many :team_memberships, dependent: :destroy
@@ -19,6 +19,10 @@ class Team < ActiveRecord::Base
   
   def size
     team_memberships.length
+  end
+  
+  def full_name
+    [self.name, self.segment].delete_if(&:blank?).join(' - ')
   end
 
 end

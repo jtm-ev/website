@@ -1,0 +1,7 @@
+%h1 Team anlegen
+
+= form_for([@team.project, @team]) do |f|
+  = render partial: 'attributes', locals: {form: f}
+  
+  .actions
+    = f.submit 'Team anlegen'

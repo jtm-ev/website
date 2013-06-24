@@ -23,7 +23,7 @@ class MembersController < ApplicationController
   def show
     if params[:project_id]  # Actors of Project
       @project = Project.find(params[:project_id])
-      collection = @project.actor_team.members
+      collection = @project.actor_teams.members
       
       # @act = collection.find()
       

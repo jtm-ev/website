@@ -11,34 +11,10 @@
     </div>
   <% end %>
 
-  <table class='form'>
-    <tr>
-      <th><%= f.label :title %></th>
-      <td><%= f.text_field :title %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :subtitle %></th>
-      <td><%= f.text_field :subtitle %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :videos %></th>
-      <td><%= f.text_area :videos %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :tags %></th>
-      <td><%= f.text_field :tag_list, class: 'tags' %></td>
-    </tr>
-    <tr>
-      <th><%# f.label :public %></th>
-      <td><%# f.check_box :public %></td>
-    </tr>
-  </table>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
   
   <ul class='tabs'>
+    <li><a href='#allgemein'>Allgemein</a></li>
     <li><a href='#inhalt'>Inhalt</a></li>
     <li><a href='#teams'>Teams</a></li>
     <li><a href='#bilder'>Bilder (<%= @project.images.count %>)</a></li>
@@ -46,6 +22,32 @@
   </ul>
   
   <div class='tab-content'>
+    <div id='allgemein'>
+      <table class='form'>
+        <tr>
+          <th><%= f.label :title %></th>
+          <td><%= f.text_field :title %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :subtitle %></th>
+          <td><%= f.text_field :subtitle %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :videos %></th>
+          <td><%= f.text_area :videos %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :tags %></th>
+          <td><%= f.text_field :tag_list, class: 'tags' %></td>
+        </tr>
+
+      </table>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    </div>
+    
     <div id='inhalt'>
       <%= render 'wysiwyg', {form: f, field: :description} %>
     </div>
@@ -67,9 +69,10 @@
     <div id='teams'>
       <ul>
         <% @project.teams.each do |team| %>
-          <li><%= link_to team.name, edit_project_team_path(@project, team) %></li>
+          <li><%= link_to team.full_name, edit_project_team_path(@project, team) %></li>
         <% end %>
       </ul>
+      <%= link_to 'Team hinzufügen', new_project_team_path(@project), class: 'btn btn-success' %>
     </div>
   </div>
 

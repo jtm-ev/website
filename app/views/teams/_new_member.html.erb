@@ -1,0 +1,18 @@
+
+<%= form_for(@team_membership, remote: true) do |f| %>
+  <input type='hidden' name='team_membership[team_id]' value='<%= @team.id %>'>
+  
+  <table class='system'>
+    <tr>
+      <th>Mitglied</th>
+      <th colspan=2>Rolle</th>
+    </tr>
+    <tr>
+      <td><%= f.collection_select :member_id, Member.all, :id, :full_name, include_blank: true %></td>
+      <td><%= f.text_field :role %></td>
+      <td><%= f.submit %></td>
+    </tr>
+
+  </table>
+<% end %>
+

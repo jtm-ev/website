@@ -18,7 +18,7 @@
     <% unless @project.description.blank? %>
       <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
     <% end %>
-    <% unless @project.actor_team.nil? or @project.actor_team.team_memberships.length == 0 %>
+    <% unless @project.actor_teams.empty? %>
       <li><a href='#darsteller' data-toggle='tab'>Darsteller</a></li>
     <% end %>
     <% unless @project.non_actor_teams.empty? %>
@@ -87,9 +87,14 @@
       <% end %>
     </div> 
 
-    <% unless @project.actor_team.nil? %>
+    <% unless @project.actor_teams.empty? %>
       <div id='darsteller'>
-        <%= render 'roles', memberships: @project.actor_team.team_memberships %>
+        <%- @project.actor_teams.each do |actor_team| %>
+          <%- unless actor_team.segment.blank? or actor_team.team_memberships.empty? %>
+            <h3><%= actor_team.segment %></h3>
+          <% end %>
+          <%= render 'roles', memberships: actor_team.team_memberships %>
+        <% end %>
       </div>
     <% end %>
 
