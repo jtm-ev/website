@@ -6,7 +6,7 @@ if Rails.env.development?
     end
     
     def intern
-      # InternMailer.email
+      InternMailer.email(User.where(username: 'f.guenther').first, '', 'Test Subject', 'Test Content')
     end
   end
 end

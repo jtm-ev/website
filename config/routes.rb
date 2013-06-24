@@ -1,6 +1,7 @@
 Website::Application.routes.draw do
   # resources :emails
-  get '/email' => 'emails#new', as: :new_email
+  get '/email' => 'emails#new', as: :email
+  post '/email' => 'emails#create'
 
 
   resources :guestbooks, path: 'gaestebuch'

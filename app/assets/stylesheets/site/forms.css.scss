@@ -215,6 +215,7 @@ input[type=submit] {
 }
 
 .select2-container-multi {
+  width: 100% !important;
   .select2-choices {
     @extend %text-input;
     @include border-radius(4px);

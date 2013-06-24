@@ -50,7 +50,7 @@
         <ul class='nav'>
           <% link_to current_user.member.full_name, '/profile', class: 'brand' %>
             
-          <%= navigation_link_to 'E-Mail', new_email_path, true %>
+          <%= navigation_link_to 'E-Mail', email_path, true %>
           <%= navigation_link_to 'Adressen', address_members_path, true %>
           <%= navigation_link_to 'Gruppen', groups_path, true %>
           

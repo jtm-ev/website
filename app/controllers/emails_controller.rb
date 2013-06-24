@@ -1,6 +1,24 @@
 class EmailsController < ApplicationController
   before_filter :authenticate_user! 
   skip_authorization_check
+  skip_before_filter :verify_authenticity_token
+  
+  # GET /emails/new
+  # GET /emails/new.json
+  def new
+    # @email = Email.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      # format.json { render json: @email }
+    end
+  end
+  
+  def create
+    to = params[:email].join(',').split(',').uniq.join(',')
+    mail = InternMailer.email(current_user, to, params[:email_subject], params[:email_content])
+    mail.deliver
+  end
   
   # # GET /emails
   # # GET /emails.json
@@ -24,16 +42,7 @@ class EmailsController < ApplicationController
   #   end
   # end
 
-  # GET /emails/new
-  # GET /emails/new.json
-  def new
-    # @email = Email.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      # format.json { render json: @email }
-    end
-  end
 
   # # GET /emails/1/edit
   # def edit
