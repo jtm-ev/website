@@ -1,3 +1,12 @@
+# Constraint to catch old website links with ?nav= in it to redirect permanently
+module OldWebsiteConstraint
+  extend self
+  
+  def matches?(request)
+    request.query_parameters.has_key?('nav')
+  end
+end
+
 Website::Application.routes.draw do
   # resources :emails
   get '/email' => 'emails#new', as: :email
@@ -127,14 +136,14 @@ Website::Application.routes.draw do
   if Rails.env.development?
     mount MailPreview => 'mail_view'
   end
+  
+  #########################################################################
+  # Handling old Website Links
+  #########################################################################
+  match "/" => 'old_website#redirect', constraints: OldWebsiteConstraint
+  match "/phpThumb/*path" => 'old_website#redirect_image'
+  
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
   root :to => 'home#index'
 
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end
