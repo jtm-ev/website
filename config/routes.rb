@@ -143,7 +143,7 @@ Website::Application.routes.draw do
   match "/" => 'old_website#redirect', constraints: OldWebsiteConstraint
   match "/phpThumb/*path" => 'old_website#redirect_image'
   
-
+  get "/sitemap.:format" => 'home#sitemap'
   root :to => 'home#index'
 
 end

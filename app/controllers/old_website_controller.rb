@@ -19,7 +19,7 @@ class OldWebsiteController < ApplicationController
       when /projekte/
         redirect_permanent "/projekte/#{params[:stueck_id]}"
       when /jtm\-hilft/
-        redirect_permanent "/s/jtm-hilft"
+        redirect_permanent "/s/der-verein/jtm-hilft"
       else
         if Rails.env.production?
           redirect_to :root

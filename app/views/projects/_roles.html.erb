@@ -7,7 +7,7 @@
         </div>
       <% end %>
 
-    <span class='member'><%= link_to membership.member.full_name, project_member_path(@project, membership.member) %></span>
+    <span class='member'><%= link_to membership.member.full_name, member_path(membership.member) %></span>
     <span class='role'><%= membership.role %></span>
   
   </div>

@@ -71,4 +71,8 @@ class Project < ActiveRecord::Base
     end
   end
   
+  def cover
+    @cover ||= self.images.first
+  end
+  
 end

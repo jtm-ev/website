@@ -1,4 +1,18 @@
-<% set_background @project.images.first %>
+<%- title(@project.title) %>
+<%- 
+  meta(
+    keywords: @project.tags.join(','),
+    og: {
+      title: @project.title,
+      # url:
+      site_name: 'Jugendtheater Martinszell e.V.',
+      # type: 'website',
+      image: @project.cover.nil? ? '' : @project.cover.url(:square_300)
+    }
+  )
+%>
+
+<%- set_background @project.images.first %>
 <%= render_breadcrumbs %>
 
 

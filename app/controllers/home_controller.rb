@@ -1,9 +1,10 @@
 class HomeController < ApplicationController
+  skip_authorization_check
   add_breadcrumb 'Home', :root_path
   
   def index
     @blog = Page.category('Blog')
-    authorize! :read, @blog
+    # authorize! :read, @blog
     
     # add_breadcrumb 'Blog'
     collection = @blog.children.order('created_at DESC')
