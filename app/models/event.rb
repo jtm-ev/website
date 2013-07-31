@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   
   scope :upcoming, lambda { where('start_time > ? OR end_time > ?', Time.now, Time.now).order(:start_time)  }
 
-  attr_accessible :description, :end_time, :location_name, :project_id, :public, :start_time, :title
+  attr_accessible :description, :end_time, :location_name, :project, :project_id, :public, :start_time, :title
   delegate :year, to: :start_time
   
   belongs_to :project

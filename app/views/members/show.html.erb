@@ -11,10 +11,7 @@
   <img class="profile-image" src="<%= @member.file.url(:square_300) %>">
 <% end %>
 
-<h1 class="profile-name"><%= @member.full_name %><%= with_clamps_unless_nil @member.age %></h1>
-<% if @member.active and @member.member_since %>
-  <h3 class="profile-info">Mitglied seit: <%= l @member.member_since %></h3>
-<% end %>
+<h1 class="profile-name"><%= @member.full_name %></h1>
 
 <div class='clearfix'></div>
 

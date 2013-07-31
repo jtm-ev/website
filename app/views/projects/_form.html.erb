@@ -15,10 +15,13 @@
   
   <ul class='tabs'>
     <li><a href='#allgemein'>Allgemein</a></li>
-    <li><a href='#inhalt'>Inhalt</a></li>
-    <li><a href='#teams'>Teams</a></li>
-    <li><a href='#bilder'>Bilder (<%= @project.images.count %>)</a></li>
-    <li><a href='#presse'>Presse (<%= @project.press.count %>)</a></li>
+    <% unless @project.new_record? %>
+      <li><a href='#inhalt'>Inhalt</a></li>
+      <li><a href='#teams'>Teams</a></li>
+      <li><a href='#bilder'>Bilder (<%= @project.images.count %>)</a></li>
+      <li><a href='#presse'>Presse (<%= @project.press.count %>)</a></li>
+      
+    <% end %>
   </ul>
   
   <div class='tab-content'>
@@ -60,20 +63,24 @@
       <div id='presse'>
         <%= render 'image_form', {collection: @project.press, container_id: 'presse', upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
       </div>
+
+      <div id='teams'>
+        <ul>
+          <% @project.teams.each do |team| %>
+            <li><%= link_to team.full_name, edit_project_team_path(@project, team) %></li>
+          <% end %>
+        </ul>
+        <%= link_to 'Team hinzufügen', new_project_team_path(@project), class: 'btn btn-success' %>
+      </div>
+      
+      <div id='termine'>
+        <%= render 'events_form' %>
+      </div>
+    
+    
     <% end %>
     
-    <div id='darsteller'>
-      
-    </div>
     
-    <div id='teams'>
-      <ul>
-        <% @project.teams.each do |team| %>
-          <li><%= link_to team.full_name, edit_project_team_path(@project, team) %></li>
-        <% end %>
-      </ul>
-      <%= link_to 'Team hinzufügen', new_project_team_path(@project), class: 'btn btn-success' %>
-    </div>
   </div>
 
 
