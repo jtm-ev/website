@@ -69,9 +69,14 @@ jQuery ->
   }
   
   # Selects
-  $('select').select2 {
+  $('select:not(.filter)').select2 {
     
   }
+  
+  # Filter
+  $('.filter').change (evt)->
+    $target = $(evt.currentTarget)
+    $(document.body).attr( "data-#{$target.data('filter')}-filter", $target.val())
   
   # Input Focus
   $('input[type=text]').first().focus()

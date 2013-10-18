@@ -1,0 +1,48 @@
+<%= render_breadcrumbs %>
+
+<% if @previous or @next %>
+  <div id='navigatable-nav'>
+    <%= render_navigatable_nav(@previous, '&laquo;',  lambda {|i| project_member_path(@project, i) }, :full_name) %>
+    <%= render_navigatable_nav(@next, '&raquo;',      lambda {|i| project_member_path(@project, i) }, :full_name) %>  
+  </div>
+<% end %>
+
+<% if @member.has_image? %>
+  <img class="profile-image" src="<%= @member.file.url(:square_300) %>">
+<% end %>
+
+<h1 class="profile-name"><%= @member.full_name %></h1>
+
+<div class='clearfix'></div>
+
+<ul class='tabs'>
+  <% if @member.actor_team_memberships.length > 0 %>
+    <li><a href='#rollen' data-toggle='tab'>Rollen (<%= @member.actor_team_memberships.length %>)</a></li>
+  <% end %>
+  <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
+    <li><a href='#hdk' data-toggle='tab'>Hinter den Kulissen</a></li>
+  <% end %>
+  <li><a href='#chronik' data-toggle='tab'>Chronik</a></li>
+</ul>
+
+<div class='tab-content'>
+
+  <div id='rollen'>
+    <%= render 'actor_team_memberships', member: @member %>
+  </div>
+  
+  <div id='hdk'>
+    <%= render 'hdk_with_image', team_memberships: @member.hdk_memberships_with_image %>
+    <%= render 'hdk_without_image', groups: @member.hdk_memberships_without_image %>
+  </div>
+  
+  <div id='chronik'>
+    <%= render 'chronik' %>
+  </div>
+  
+</div>
+
+
+<% content_for :actions do %>
+  <%= navigation_link_to 'Mitglied bearbeiten', edit_member_path(@member) %>
+<% end %>

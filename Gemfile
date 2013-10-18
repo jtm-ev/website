@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 gem 'newrelic_rpm'
 
 # Bundle edge Rails instead:
@@ -20,28 +20,25 @@ gem 'public_activity'
 gem 'haml'
 
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails'
-  gem 'compass-rails'
-  
-  gem 'bootstrap-sass'
-  gem 'anjlab-bootstrap-rails'
-  
-  gem "jquery-fileupload-rails"
-  gem "select2-rails"
-  
+gem 'sass-rails',   '~> 3.2.3'
+gem 'coffee-rails'
+gem 'compass-rails'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+gem 'bootstrap-sass'
+gem 'anjlab-bootstrap-rails'
 
-  gem 'uglifier', '>= 1.0.3'
-  
-  gem 'jquery-rails'
-  gem 'jquery-ui-rails'
-end
+gem "jquery-fileupload-rails"
+gem "select2-rails"
+
+
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', :platforms => :ruby
+
+gem 'uglifier', '>= 1.0.3'
+
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+
 
 
 gem 'tinymce-rails'
@@ -66,15 +63,15 @@ gem "sanitize"
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
 
-platforms :ruby do
+# platforms :ruby do
   gem 'unicorn' # Use unicorn as the app server
   gem 'mysql2'
   gem 'activerecord-mysql-adapter'
-end
+# end
 
-platforms :mswin, :mingw do
-  gem 'thin'
-end
+# platforms :mswin, :mingw do
+#   gem 'thin'
+# end
 
 # Deploy with Capistrano
 gem 'capistrano'

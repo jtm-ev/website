@@ -1,5 +1,17 @@
-Website::Application.routes.draw do
+# Constraint to catch old website links with ?nav= in it to redirect permanently
+module OldWebsiteConstraint
+  extend self
   
+  def matches?(request)
+    request.query_parameters.has_key?('nav')
+  end
+end
+
+Website::Application.routes.draw do
+
+
+
+
   ############################################################################
   # Login / Sessions
   ############################################################################
@@ -12,18 +24,47 @@ Website::Application.routes.draw do
   ############################################################################
   # Intern
   ############################################################################
-  namespace :intern, path: 'i' do
+  get '/email' => 'emails#new', as: :email
+  post '/email' => 'emails#create'
+  
+  namespace :intern, path: 'i' do    
+    ### User
     resources :users
+    
+    ### Profile/Dashboard
     match '/profile' => 'users#profile'
     match '/profile/role/:id' => 'users#profile_role', as: :profile_role
     match '/dashboard' => 'users#dashboard', as: :dashboard
     
+    
+    ### Mitglieder
     resources :members, path: 'mitglieder' do
       collection do
         get 'adressen' => 'members#addresses', as: :address
       end
     end
     get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
+    
+    
+    ### Gruppen
+    resources :groups, path: 'gruppen' do
+      member do
+        get 'adressen' => 'members#addresses', as: :address
+      end
+    end
+    resources :group_memberships
+    
+    ### Projekte
+    resources :projects, path: 'projekte' do
+      resources :project_files do
+        collection do
+          post ':kind' => 'project_files#create', as: 'specific'
+        end
+      end
+
+      resources :teams
+    end
+    
   end
   
   
@@ -33,25 +74,18 @@ Website::Application.routes.draw do
   resources :guestbooks, path: 'gaestebuch'
   post '/gaestebuch/manage' => 'guestbooks#manage'
   
+  resources :members, path: 'mitglieder', only: [:show]   # public member profiles
+  
+  resources :projects, path: 'projekte', only: [:index, :show]
+  get '/projekte(::tags)' => 'projects#index', as: :tagged_projects
+  get '/projekte(::tags)/:id' => 'projects#show', as: :show_tagged_project
+  
   resources :locations, path: 'spielorte' do
     collection do
       put '/' => 'locations#manage'
     end
   end
-
-
-  # resources :teams
-  resources :team_memberships
-
-  resources :events
-
-  resources :groups, path: 'gruppen' do
-    member do
-      get 'adressen' => 'members#addresses', as: :address
-    end
-  end
-  resources :group_memberships
-
+  
   resources :pages, path: 's', constraints: { id: /[0-9]*/ } do
     resources :page_files
     member do
@@ -60,31 +94,24 @@ Website::Application.routes.draw do
     end
   end
   get '/s/*path' => 'pages#show_by_path', as: :human_page
+
+
+
+  ############################################################################
+  # UNKNOWN
+  ############################################################################
+
+
+
+  # resources :teams
+  resources :team_memberships
+
+  resources :events
   
 
-  
-  resources :projects, path: 'projekte' do
-    # collection do
-    #   get '(::tags)' => 'projects#index', as: :tagged_projects
-    #   get '(::tags)/:id' => 'projects#show', as: :show_tagged_project
-    # end
-    resources :project_files do
-      collection do
-        post ':kind' => 'project_files#create', as: 'specific'
-      end
-    end
-    
-    resources :members, path: 'darsteller', only: :show
-    resources :teams
-  end
-  
+  ### Image Cropper
   get '/tools/:action' => 'tools'
-  
   post '/project_files/:id/crop' => 'project_files#crop'
-  
-  get '/projekte(::tags)' => 'projects#index', as: :tagged_projects
-  get '/projekte(::tags)/:id' => 'projects#show', as: :show_tagged_project
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -136,14 +163,14 @@ Website::Application.routes.draw do
   if Rails.env.development?
     mount MailPreview => 'mail_view'
   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
+  
+  #########################################################################
+  # Handling old Website Links
+  #########################################################################
+  match "/" => 'old_website#redirect', constraints: OldWebsiteConstraint
+  match "/phpThumb/*path" => 'old_website#redirect_image'
+  
+  get "/sitemap.:format" => 'home#sitemap'
   root :to => 'home#index'
 
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end

@@ -18,33 +18,6 @@ class Intern::MembersController < ApplicationController
     
   end
   
-  # GET /members/1
-  # GET /members/1.json
-  def show
-    if params[:project_id]  # Actors of Project
-      @project = Project.find(params[:project_id])
-      collection = @project.actor_team.members
-      
-      # @act = collection.find()
-      
-      
-      add_breadcrumb 'Projekte', :projects_path
-      add_breadcrumb @project.title, "#{project_path(@project)}#darsteller"
-      
-      
-      
-      @previous = @member.previous_in(collection)
-      @next = @member.next_in(collection)
-    end
-    
-    add_breadcrumb @member.full_name
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @member }
-    end
-  end
-  
   #############################################################################################
   # Mitgliederverwaltung und Owner
   #############################################################################################
@@ -54,9 +27,26 @@ class Intern::MembersController < ApplicationController
   def update
     # @member = Member.find(params[:id])
 
+    if params[:connect_member]
+      target_member = Member.find(params[:target])
+      @member.team_memberships.each do |tms|
+        tms.member = target_member
+        tms.save
+      end
+      
+      if @member.name != target_member.name
+        target_member.birth_name = @member.name
+        target_member.save
+      end
+      
+      @member.delete
+      
+      redirect_to action: :index
+      return
+    end
+
     if params[:files]
       @member.file = params[:files]
-      # @member.save
     end
 
     respond_to do |format|

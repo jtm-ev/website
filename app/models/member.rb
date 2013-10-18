@@ -11,6 +11,7 @@ class Member < ActiveRecord::Base
   scope :active, lambda { where(active: true) }
   scope :inactive, lambda { where(active: false) }
   scope :with_birthday_in, lambda { |month| where(birth_month: month).order(:birth_month, :birth_day) }
+  scope :ordered, lambda { order(:name, :first_name) }
 
   has_many :team_memberships, dependent: :destroy
   has_many :teams, through: :team_memberships
@@ -31,6 +32,10 @@ class Member < ActiveRecord::Base
   def full_name
     [self.first_name, self.name].join ' '
   end
+  
+  def ordered_full_name
+    [self.name, self.first_name].join ' '
+  end
 
   def age
     return nil if birthday.nil?
@@ -50,8 +55,27 @@ class Member < ActiveRecord::Base
   end
   
   def non_actor_team_memberships
-    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller').sort.sort_by do |t|
-      t.team.has_image? ? 0 : 1
+    team_memberships.joins(:team).where('teams.name != ?', 'Darsteller')
+    # .sort.sort_by do |t|
+    #   t.team.has_image? ? 0 : 1
+    # end
+  end
+  
+  def hdk_memberships_with_image
+    non_actor_team_memberships.keep_if do |tms|
+      tms.team.has_image?
+    end
+  end
+  
+  def hdk_memberships_without_image
+    non_actor_team_memberships.delete_if { |tms|
+      tms.team.has_image?
+    }.group_by(&:team_name)
+  end
+  
+  def hdk_memberships
+    non_actor_team_memberships.group_by do |tms|
+      tms.team.name
     end
   end
   
@@ -61,6 +85,10 @@ class Member < ActiveRecord::Base
   
   def male?
     self.gender == 'm'
+  end
+  
+  def female?
+    self.gender == 'w'
   end
   
   

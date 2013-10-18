@@ -47,12 +47,16 @@
   }
   
   .team {
-    width: 300px;
+    width: 337px;
   }
   
   .profile-image {
     width: 200px;
     height: 200px;
+  }
+  
+  .youtube-preview img {
+    width: 337px;
   }
   
   /* Intern */

@@ -1,4 +1,4 @@
-<% member.actor_team_memberships.each do |team_membership| %>
+<% member.actor_team_memberships.sort_by(&:year).reverse.each do |team_membership| %>
   <% project = team_membership.project %>
   <div class='actor'>
     
@@ -9,7 +9,10 @@
       </div>
 
     <span class='member'><%= team_membership.role %></span>
-    <span class='role'><%= link_to project.title, project %></span>
+    <span class='role'>
+      <%= link_to project.title, project %>
+      <%= with_clamps_unless_nil(project.year) %>
+    </span>
 
   </div>
 <% end %>

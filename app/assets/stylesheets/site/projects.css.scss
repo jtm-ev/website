@@ -151,6 +151,14 @@ iframe.youtube {
     font-size: 0.8em;
     margin-bottom: 10px;
     margin-top: -5px;
+    
+    &.inline {
+      display: inline-block;
+      
+      &:not(:last-child):after {
+        content: ' | '
+      }
+    }
   }
 }
 
@@ -209,6 +217,7 @@ iframe.youtube {
   position: absolute;
   top: -12px;
   right: 10px;
+  color: white;
   color: rgba(255, 255, 255, 0.8);
   font-size: 30px;
   a {

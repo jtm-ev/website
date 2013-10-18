@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   
   private
     def after_sign_in_path_for(user)
-      "/dashboard"
+      stored_location_for(user) || "/dashboard"
     end
 
     def default_sort_column

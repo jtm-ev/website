@@ -1,0 +1,23 @@
+<table class='system'>
+  <thead>
+    <th></th>
+    <th></th>
+    <th>Mitglied</th>
+    <th>Rolle</th>
+    <th>Actions</th>
+  </thead>
+  <tbody id='team_memberships_container'>
+
+  
+
+  
+      <% @team.team_memberships.each do |team_membership| %>
+        <input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#team-membership-<%= team_membership.id %>' data-method='PUT' data-url='<%= team_membership_path(team_membership) %>'>
+    
+        <%= render 'team_memberships/item', team_membership: team_membership %>
+      <% end %>
+    
+
+  
+  </tbody>
+</table>

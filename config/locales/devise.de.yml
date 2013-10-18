@@ -27,6 +27,8 @@ de:
       signed_up: 'Sie haben sich erfolgreich registriert. Es kann sein, dass Sie eine Aktivierungs-E-Mail erhalten.'
       updated: 'Die Angaben wurden erfolgreich geändert.'
       destroyed: 'Ihr Account wurde erfolgreich gelöscht.'
+      user:
+        signed_up_but_unconfirmed: 'Hallo! Wir haben dir gerade eine E-Mail mit einem Bestätigungs-Link geschickt. Bitte auf den Link klicken um fortzufahren :-)'
     unlocks:
       send_instructions: 'Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung, wie Sie Ihren Account entsperren können.'
       unlocked: 'Ihr Account wurde entsperrt. Sie sind angemeldet.'

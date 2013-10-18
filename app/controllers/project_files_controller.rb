@@ -35,7 +35,7 @@ class ProjectFilesController < ApplicationController
   def destroy
     @project_file.destroy
     
-    redirect_to edit_project_path(@project_file.project, anchor: 'bilder')
+    redirect_to edit_intern_project_path(@project_file.project, anchor: 'bilder')
   end
   
   private

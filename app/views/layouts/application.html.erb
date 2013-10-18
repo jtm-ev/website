@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html class='no-js'>
 <head>
-  <title>JTM - Jugendtheater Martinszell e.V.</title>
+  <%= render 'layouts/meta' %>
+  <title><%= yield(:title).blank? ? "JTM - Jugendtheater Martinszell e.V." : yield(:title) %></title>
   <link rel="icon" type="image/png" href="/favicon.png" />
+  
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "print", :media => "print" %>
+  
+  <%= javascript_include_tag "http://www.modernizr.com/downloads/modernizr-latest.js" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
@@ -31,13 +35,14 @@
       <%= navigation_link_to 'Termin', new_event_path if can?(:create, Event) %>
       <%= navigation_link_to 'Projekt', new_project_path if can?(:create, Project) %>
       <%= navigation_link_to 'Seite', new_page_path if can?(:create, Page) %>
-      <%= navigation_link_to 'Mitglied', new_member_path if can?(:create, Member) %>
-      <%= navigation_link_to 'Gruppe', new_group_path if can?(:create, Group) %>
+      <%= navigation_link_to 'Mitglied', new_intern_member_path if can?(:create, Member) %>
+      <%= navigation_link_to 'Gruppe', new_intern_group_path if can?(:create, Group) %>
     <% end %>
     
     <% content_for :editor_links do %>
       <%= navigation_link_to 'User', intern_users_path, true if can?(:manage, User) %>
       <%= navigation_link_to 'Mitglieder', intern_members_path, true if can?(:manage, Member) %>
+      <%= navigation_link_to 'Projekte', intern_projects_path, true if can?(:manage, Project) %>
       <%# navigation_link_to 'Gruppen', groups_path, true if can?(:manage, Group)%>
       <%# navigation_link_to 'Kalender', '#' %>
       <%# navigation_link_to 'E-Mail', '#' %>
@@ -50,9 +55,9 @@
         <ul class='nav'>
           <% link_to current_user.member.full_name, '/profile', class: 'brand' %>
             
-          <%# navigation_link_to 'E-Mail', '#', true %>
-          <%= navigation_link_to 'Adressen', address_members_path, true %>
-          <%= navigation_link_to 'Gruppen', groups_path, true %>
+          <%= navigation_link_to 'E-Mail', email_path, true %>
+          <%= navigation_link_to 'Adressen', address_intern_members_path, true %>
+          <%= navigation_link_to 'Gruppen', intern_groups_path, true %>
           
           <%# Links für Editoren %>
           <% unless yield(:editor_links).blank? %>
@@ -99,8 +104,7 @@
 
 
 
-  <section id='sidebar'>
-
+  <div id='sidebar'>
     <% unless current_user %>
       <a id='login-link' href='/login'>Intern</a>
     <% end %>
@@ -120,15 +124,14 @@
         <%= navigation_link_to 'Gästebuch', guestbooks_path %>
       </ul>
     </nav>
-  </section>
+  </div>
   
-  <section id='content'>
+  <div id='content'>
     <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
     <div class='container'>
       <div id='flashes'>
       <%- flash.each do |key, value| %>
         <div class='alert alert-<%= key %>'>
-          <!--button type="button" class="close" data-dismiss="alert">&times;</button-->
           <%= value %>
         </div>
       <% end %>
@@ -136,7 +139,7 @@
       
       <%= yield %>
     </div>
-  </section>
+  </div>
 
 </body>
 </html>

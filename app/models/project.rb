@@ -17,7 +17,7 @@ class Project < ActiveRecord::Base
   
   attr_accessible :description, :title, :subtitle, :tag_list, :videos
 
-  has_many :teams, dependent: :destroy
+  has_many :teams, dependent: :destroy, order: 'name'
   has_many :team_memberships, through: :teams
 
   has_many :project_files, dependent: :destroy, order: 'position ASC'
@@ -41,7 +41,7 @@ class Project < ActiveRecord::Base
   end
   
   def year
-    return 0 unless events.first
+    return nil unless events.first
     events.first.start_time.year
   end
   
@@ -61,14 +61,18 @@ class Project < ActiveRecord::Base
     self.project_files.where(kind: 'press')
   end
   
-  def actor_team
-    self.teams.find_or_create_by_name('Darsteller')
+  def actor_teams
+    self.teams.where(name: 'Darsteller')
   end
   
   def non_actor_teams
     self.teams.where("name != 'Darsteller'").sort_by do |a|
       a.has_image? ? 0 : 1
     end
+  end
+  
+  def cover
+    @cover ||= self.images.first
   end
   
 end

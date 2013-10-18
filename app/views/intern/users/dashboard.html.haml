@@ -22,7 +22,7 @@
         .group
           %strong= group.name
           .group-actions
-            = link_to 'Adressen', address_group_path(group)
+            = link_to 'Adressen', address_intern_group_path(group)
             = link_to 'E-Mail schreiben', "mailto:#{u(group.emails.join(','))}"
             /= link_to 'Rundmail', '#'
 

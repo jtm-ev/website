@@ -10,7 +10,7 @@
   </div>
 <% end %>
 
-<%= form_for(@group) do |f| %>
+<%= form_for([:intern, @group]) do |f| %>
   <table class='form'>
 
     <tr>
@@ -49,7 +49,7 @@
 
   <div class="actions">
     <%= f.submit %>
-    <%= link_to 'Gruppe löschen', group_path(@group), confirm: 'Wirklich löschen?', method: :delete, class: 'btn btn-danger' unless @group.new_record? %>
+    <%= link_to 'Gruppe löschen', intern_group_path(@group), confirm: 'Wirklich löschen?', method: :delete, class: 'btn btn-danger' unless @group.new_record? %>
   </div>
   
   <hr />
@@ -66,7 +66,7 @@
   
   <div class='tab-content'>
     <div id='verantwortung'>
-      <%= form_for(@group) do |f| %>
+      <%= form_for([:intern, @group]) do |f| %>
         <table class='system'>
           <thead>
             <th></th>
@@ -116,7 +116,7 @@
           <th width=20>Sortierung</th>
         </thead>
         
-        <%= form_for(@group) do |f| %>
+        <%= form_for([:intern, @group]) do |f| %>
                
           <tbody id='group_memberships_container'>
             <% @group.group_memberships.each do |gms| %>
@@ -149,7 +149,7 @@
           <tbody>
             <tr>
               <td></td>
-              <%= form_for GroupMembership.new(group_id: @group.id), remote: true do |f2| %>
+              <%= form_for [:intern, GroupMembership.new(group_id: @group.id)], remote: true do |f2| %>
                 <%= f2.hidden_field :group_id %>
                 <td><%= f2.collection_select :member_id, Member.active, :id, :full_name, include_blank: true %></td>
                 <td><%= f2.text_field :role %></td>

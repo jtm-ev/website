@@ -2,6 +2,8 @@
 class TeamMembershipsController < ApplicationController
   load_and_authorize_resource
   
+  respond_to :html, :js
+  
   before_filter :find_team_membership, only: [:edit, :destroy, :update]
   
   def edit
@@ -13,7 +15,7 @@ class TeamMembershipsController < ApplicationController
   def destroy
     @team_membership.destroy
     
-    redirect_to :back
+    respond_with()
   end
   
   def update
@@ -30,8 +32,8 @@ class TeamMembershipsController < ApplicationController
   end
   
   def create
-    TeamMembership.create params[:team_membership]
-    redirect_to :back
+    @team_membership = TeamMembership.create(params[:team_membership])
+    respond_with()
   end
   
   private

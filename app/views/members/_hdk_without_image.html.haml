@@ -1,0 +1,9 @@
+- groups.each do |title, tms|
+  .team
+    .team-name
+      = title
+    .team-project
+      - tms.sort_by(&:year).reverse.each do |tm|
+        %div
+          = link_to tm.project.title, tm.project
+          = with_clamps_unless_nil(tm.project.year)

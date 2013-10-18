@@ -21,7 +21,7 @@
         <%= text_field_tag "file_descriptions[#{pf.id}]", pf.description %>
         
         <div class='file-actions'>
-          <%= link_to 'Löschen', project_project_file_path(@project, pf), class: 'btn btn-danger', method: :delete, confirm: 'Datei wirklich löschen?' %>
+          <%= link_to 'Löschen', intern_project_project_file_path(@project, pf), class: 'btn btn-danger', method: :delete, confirm: 'Datei wirklich löschen?' %>
         </div>
       </div>
       

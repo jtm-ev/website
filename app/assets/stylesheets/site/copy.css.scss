@@ -110,7 +110,6 @@ code {
 }
 
 a {
-/*  color: #000;*/
   color: #B8004A;
   text-decoration: none;
   cursor: pointer;
@@ -122,6 +121,11 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+a img {
+  /* IE 8 Compatibility */
+  border: 0px solid black;
 }
 
 /******************** Lists ***********/

@@ -1,4 +1,18 @@
-<% set_background @project.images.first %>
+<%- title(@project.title) %>
+<%- 
+  meta(
+    keywords: @project.tags.join(','),
+    og: {
+      title: @project.title,
+      # url:
+      site_name: 'Jugendtheater Martinszell e.V.',
+      # type: 'website',
+      image: @project.cover.nil? ? '' : @project.cover.url(:square_300)
+    }
+  )
+%>
+
+<%- set_background @project.images.first %>
 <%= render_breadcrumbs %>
 
 
@@ -18,7 +32,7 @@
     <% unless @project.description.blank? %>
       <li><a href='#description' data-toggle='tab'>Inhalt</a></li>
     <% end %>
-    <% unless @project.actor_team.nil? %>
+    <% unless @project.actor_teams.empty? %>
       <li><a href='#darsteller' data-toggle='tab'>Darsteller</a></li>
     <% end %>
     <% unless @project.non_actor_teams.empty? %>
@@ -39,12 +53,14 @@
     </div>
 
     <div id='events'>
-      <div class='locations right-sidebar-layout'>
-        <div class='tab-section-h' style='margin-left: -10px;'>Veranstaltungsort</div>
-        <% @project.locations.each do |location| %>
-          <%= render 'locations/item', location: location %>
-        <% end %>
-      </div>
+      <% if @project.locations.length > 0 %>
+        <div class='locations right-sidebar-layout'>
+          <div class='tab-section-h' style='margin-left: -10px;'>Veranstaltungsort</div>
+          <% @project.locations.each do |location| %>
+            <%= render 'locations/item', location: location %>
+          <% end %>
+        </div>
+      <% end %>
       
       <% @project.events.group_by(&:year).each do |year, yevents| %>
         <div class='tab-section-h'><%= year %></div>
@@ -85,9 +101,14 @@
       <% end %>
     </div> 
 
-    <% unless @project.actor_team.nil? %>
+    <% unless @project.actor_teams.empty? %>
       <div id='darsteller'>
-        <%= render 'roles', memberships: @project.actor_team.team_memberships %>
+        <%- @project.actor_teams.each do |actor_team| %>
+          <%- unless actor_team.segment.blank? or actor_team.team_memberships.empty? %>
+            <h3><%= actor_team.segment %></h3>
+          <% end %>
+          <%= render 'roles', memberships: actor_team.team_memberships %>
+        <% end %>
       </div>
     <% end %>
 

@@ -215,6 +215,7 @@ input[type=submit] {
 }
 
 .select2-container-multi {
+  width: 100% !important;
   .select2-choices {
     @extend %text-input;
     @include border-radius(4px);
@@ -253,6 +254,10 @@ input[type=submit] {
 
 .alert-notice {
   @extend .alert-success;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
 

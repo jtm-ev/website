@@ -8,3 +8,8 @@ jQuery ->
     gutterWidth: 0
     itemSelector: '.portlet'
   }
+  
+  $( ".accordion" ).accordion {
+    header: '.accordion-header'
+    heightStyle: "fill"
+  }

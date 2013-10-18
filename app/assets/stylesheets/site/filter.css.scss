@@ -1,0 +1,13 @@
+
+body[data-gender-filter='w'] *[data-gender='m'], body[data-gender-filter='m'] *[data-gender='w'] {
+  display: none !important;
+/*  opacity: 0.3;*/
+}
+
+body[data-age-filter='18'] *[data-over18='false'] {
+  display: none !important;
+}
+
+body[data-age-filter='16'] *[data-over16='false'] {
+  display: none !important;
+}

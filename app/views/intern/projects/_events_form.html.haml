@@ -1,0 +1,19 @@
+
+%table.system
+  %tr
+    %th= 'Datum'
+    %th= 'Spielort'
+  - @project.events.each do |event|
+    %tr
+      %td= l event.start_time
+      %td= event.location
+      
+.actions
+  = form_for(Event.new(project: @project)) do |f|
+    = f.hidden_field :project_id
+    %table.form
+      %tr
+        %td= f.label :start_time
+        %td= f.text_field :start_time
+
+    = f.submit

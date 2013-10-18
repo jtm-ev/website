@@ -1,0 +1,10 @@
+
+%h1 Alle Projekte
+
+%table.system
+  %tr
+    %th Titel
+    
+  - @projects.reverse.each do |project|
+    %tr
+      %td= link_to project.title, edit_intern_project_path(project)

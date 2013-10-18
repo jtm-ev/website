@@ -1,4 +1,4 @@
-class GroupsController < ApplicationController
+class Intern::GroupsController < ApplicationController
   load_and_authorize_resource except: [:index]
   before_filter :authenticate_user!, except: [:show]
   skip_authorization_check only: [:index]
