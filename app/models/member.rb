@@ -44,7 +44,7 @@ class Member < ActiveRecord::Base
   end
   
   def email_with_name
-    email.blank? ? nil : "#{full_name}<#{email}>"
+    email.blank? ? nil : "#{email}" #"#{full_name}<#{email}>"
   end
 
   def actor_team_memberships
