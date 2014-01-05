@@ -14,7 +14,7 @@ class Location < ActiveRecord::Base
   has_many :events
   has_many :projects, through: :events, uniq: true
   
-  delegate :image, to: :page
+  delegate :image, to: :page, allow_nil: true
   
   def joined_address
     return '' if address.nil?
@@ -24,5 +24,6 @@ class Location < ActiveRecord::Base
   def ensure_page
     self.page = Page.category('Locations').children.find_or_create_by_title(name) if self.page.nil?
   end
+  
   
 end

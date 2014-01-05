@@ -1,5 +1,6 @@
 class GuestbooksController < ApplicationController
   skip_authorization_check
+  before_filter :setup_negative_captcha, :only => [:new, :create]
     
   # GET /guestbooks
   # GET /guestbooks.json
@@ -42,10 +43,11 @@ class GuestbooksController < ApplicationController
   # POST /guestbooks
   # POST /guestbooks.json
   def create
-    @guestbook = Guestbook.new(params[:guestbook])
+    # @guestbook = Guestbook.new(params[:guestbook])
+    @guestbook = Guestbook.new(@captcha.values)
 
     respond_to do |format|
-      if @guestbook.save
+      if @captcha.valid? && @guestbook.save
         format.html { redirect_to action: :index }
         format.json { render json: @guestbook, status: :created, location: @guestbook }
       else
@@ -98,4 +100,16 @@ class GuestbooksController < ApplicationController
     
     redirect_to action: :index
   end
+  
+  private
+    def setup_negative_captcha
+      @captcha = NegativeCaptcha.new(
+        # A secret key entered in environment.rb. 'rake secret' will give you a good one.
+        secret: NEGATIVE_CAPTCHA_SECRET,
+        spinner: request.remote_ip, 
+        # Whatever fields are in your form
+        fields: [:name, :content, :project_id],  
+        params: params
+      )
+    end
 end

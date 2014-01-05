@@ -56,6 +56,8 @@ gem "liquid"
 gem "geocoder"
 gem "sanitize"
 
+gem 'negative_captcha'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
