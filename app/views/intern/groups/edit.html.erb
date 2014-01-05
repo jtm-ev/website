@@ -2,7 +2,7 @@
 
 <div id='navigatable-nav'>
   <%= render_navigatable_nav(@prev, '&laquo;', lambda {|i| edit_group_path(i) }, :name) %>
-  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| edit_group_path(i) }, :name) %>  
+  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| edit_group_path(i) }, :name) %>
 </div>
 
 <h1>Gruppe (<%= @group.name %>)</h1>

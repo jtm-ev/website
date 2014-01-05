@@ -1,8 +1,8 @@
 <%= render_breadcrumbs %>
 
 <div id='navigatable-nav'>
-  <%= render_navigatable_nav(@previous, '&laquo;', lambda {|i| group_path(i) }, :name) %>
-  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| group_path(i) }, :name) %>  
+  <%= render_navigatable_nav(@previous, '&laquo;', lambda {|i| intern_group_path(i) }, :name) %>
+  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| intern_group_path(i) }, :name) %>
 </div>
 
 
