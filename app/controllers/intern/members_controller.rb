@@ -6,12 +6,12 @@ class Intern::MembersController < ApplicationController
   add_breadcrumb 'Home', :root_path
 
   def addresses
-    add_breadcrumb 'Adressen', address_members_path
+    add_breadcrumb 'Adressen', address_intern_members_path
 
     if params[:id]
       @group = Group.find(params[:id])
       @members = @group.members
-      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb @group.name, intern_group_path(@group)
     else
       @members = scope
     end
