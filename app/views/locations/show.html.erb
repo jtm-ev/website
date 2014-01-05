@@ -13,7 +13,7 @@
 <div class='clearfix'></div>
 
 <ul class='tabs'>
-  <% if @location.page.content and !@location.page.content.blank? %>
+  <% if @location.page and !@location.page.content.blank? %>
     <li><a href='#beschreibung'>Beschreibung</a></li>
   <% end %>
   <li><a href='#projekte'>Projekte (<%= @location.projects.count %>)</a></li>
