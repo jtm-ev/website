@@ -7,7 +7,7 @@ Website::Application.configure do
   config.cache_classes = false
 
   # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+  config.whiny_nils = false
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -34,12 +34,12 @@ Website::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
+
   config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
-  
+
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  
+
   # config.action_mailer.delivery_method = :letter_opener
 end
