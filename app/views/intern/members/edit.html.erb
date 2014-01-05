@@ -1,4 +1,4 @@
-<h1>Mitglied (<%= @member.full_name %>)</h1>
+<h1>Mitglied (<%= @member.full_name %>) <%= @member.active? ? "" : "--INACTIVE--" %></h1>
 
 <%= render 'form' %>
 

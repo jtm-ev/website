@@ -8,26 +8,30 @@
     %a{href: '#spezial'}= "Spezial Aktionen"
 
 
-= form_for([:intern, @member]) do |f|  
+= form_for([:intern, @member]) do |f|
   .tab-content
     - unless @member.new_record?
       #spezial
-        %h2 Mitglied ist ausgetreten
-        Wenn ein Mitglied austritt passiert folgendes:
-        %ul
-          %li Status wird auf 'inaktiv' gesetzt
-          %li Alle Gruppen-Mitgliedschaften werden gelöscht
-          %li Benutzer-Konto für www.jtm.de wird gelöscht
-          %li Interne E-Mail Adresse wird gelöscht
-  
-        %p
-          Die Mitglieder-Daten bestehen weiterhin in der Datenbank, hauptsächlich wegen der Auflistungen für Projekt-Darsteller und Projekt-Teams
-  
-        %p
-          Bei einem Wiedereintritt zu einem späteren Zeitpunkt kann das existierende Mitglied wieder aktiviert werden!
-  
-        /= link_to 'Mitglied ist ausgetreten', '', confirm: 'Bist du sicher?', class: 'btn btn-danger'
-  
+        - if @member.active?
+          %h2 Mitglied ist ausgetreten
+          Wenn ein Mitglied austritt passiert folgendes:
+          %ul
+            %li Status wird auf 'inaktiv' gesetzt
+            %li Alle Gruppen-Mitgliedschaften werden gelöscht
+            %li Benutzer-Konto für www.jtm.de wird gelöscht
+            %li Interne E-Mail Adresse wird gelöscht
+
+          %p
+            Die Mitglieder-Daten bestehen weiterhin in der Datenbank, hauptsächlich wegen der Auflistungen für Projekt-Darsteller und Projekt-Teams
+
+          %p
+            Bei einem Wiedereintritt zu einem späteren Zeitpunkt kann das existierende Mitglied wieder aktiviert werden!
+
+          = link_to 'Mitglied ist ausgetreten', deactivate_intern_member_path(@member), confirm: 'Bist du sicher?', class: 'btn btn-danger'
+        - else
+          %h2 Mitglied reactivieren (ist wieder eingetreten)
+          = link_to 'Mitglied reactivieren', activate_intern_member_path(@member), confirm: 'Bist du sicher?', class: 'btn btn-danger'
+
         %hr
         %h2 Mitglied löschen
         ACHTUNG! Diese Aktion ist unwiederruflich!
@@ -36,9 +40,9 @@
           %li Alle Verknüpfungen zu Projekten werden entfernt!
           %li Benutzer-Konto für www.jtm.de wird gelöscht
           %li Interne E-Mail Adresse wird gelöscht
-  
+
         /= link_to 'Mitglied löschen', member_path(@member), method: :delete, confirm: 'Bist du sicher?', class: 'btn btn-danger'
-  
+
         - if current_user.has_role?(:admin) and !@member.active
           %hr
           %h2 Mitglied verbinden
@@ -46,17 +50,17 @@
             %li Alle Stücke werden auf gewähltes Mitglied kopiert
             %li Falls weiblich, wird der alte Nachname als 'Geburtsname' eingetragen
             %li Dieses Mitglied wird gelöscht
-            
+
           %form
             %select{name: 'target'}
               - Member.all.each do |m|
                 %option{value: m.id}
                   = m.full_name
             %input.btn.btn-danger{type: 'submit', value: 'Mitglied verbinden', name: 'connect_member'}
-              
-          
-      
-      
+
+
+
+
     #gruppen
       %table.system
         %thead
@@ -77,15 +81,15 @@
                 - Group.all.each do |g|
                   %option{value: g.id}= g.name
             %td= text_field_tag 'new_group_membership[role]'
-            
+
       .actions
         = f.submit
-            
+
     #data
       %table.form
         %tr
           %th= f.label :name
-          %td= f.text_field :name 
+          %td= f.text_field :name
         %tr
           %th= f.label :first_name
           %td= f.text_field :first_name
@@ -95,7 +99,7 @@
         %tr
           %th= f.label :gender
           %td= f.collection_select :gender, [OpenStruct.new(key: 'm', value: t('gender.m')), OpenStruct.new(key: 'w', value: t('gender.w'))], :key, :value, include_blank: true
-        
+
         %tr
           %th= f.label :birthday
           %td= f.text_field :birthday, class: 'datepicker', 'data-date-format' => 'yyyy-mm-dd'
@@ -105,7 +109,7 @@
         %tr
           %th= f.label :school
           %td= f.text_field :school
-          
+
       %table.form
         %tr
           %th= f.label :street
@@ -125,7 +129,7 @@
         %tr
           %th= f.label :mobile
           %td= f.text_field :mobile
-          
+
       %table.form
         %tr
           %th= f.label :email_extern
