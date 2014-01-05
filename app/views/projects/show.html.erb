@@ -1,5 +1,5 @@
 <%- title(@project.title) %>
-<%- 
+<%-
   meta(
     keywords: @project.tags.join(','),
     og: {
@@ -18,7 +18,7 @@
 
 <div id='navigatable-nav'>
   <%= render_navigatable_nav(@previous, '&laquo;', lambda {|i| show_tagged_project_path(params[:tags], i) }, :title) %>
-  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| show_tagged_project_path(params[:tags], i) }, :title) %>  
+  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| show_tagged_project_path(params[:tags], i) }, :title) %>
 </div>
 
 <div data-ongoing='<%= @project.ongoing? %>'>
@@ -61,7 +61,7 @@
           <% end %>
         </div>
       <% end %>
-      
+
       <% @project.events.group_by(&:year).each do |year, yevents| %>
         <div class='tab-section-h'><%= year %></div>
         <% yevents.group_by(&:week).each do |week, events| %>
@@ -76,9 +76,9 @@
           </div>
         <% end %>
       <% end %>
-      
+
       <div class='clearfix'></div>
-      
+
     </div>
 
     <div id='press' class='large-square-layout'>
@@ -99,7 +99,7 @@
           <a rel='prettyPhoto' class='youtube-preview' href='<%= video_url %>&width=800&height=500' target='_blank'><img src='<%= youtube_image(video_url) %>'></a>
         <% end %>
       <% end %>
-    </div> 
+    </div>
 
     <% unless @project.actor_teams.empty? %>
       <div id='darsteller'>
@@ -116,13 +116,13 @@
       <% @project.non_actor_teams.each do |team| %>
         <div class='team'>
           <div class='team-name'><%= team.name %></div>
-        
+
           <% if team.has_image? %>
             <div class='team-image'>
               <img src='<%= team.file.url(:normal) %>'>
             </div>
           <% end %>
-        
+
           <div class='team-members'>
             <% team.ordered_team_memberships.each do |tmember| %>
                 <span><%= link_to tmember.member.full_name, tmember.member %><%= with_clamps_unless_nil tmember.role %></span>
@@ -137,6 +137,6 @@
 </div>
 
 <% content_for :actions do %>
-  <%= navigation_link_to 'Projekt bearbeiten', edit_project_path(@project) if can?(:edit, @project) %>
+  <%= navigation_link_to 'Projekt bearbeiten', edit_intern_project_path(@project) if can?(:edit, @project) %>
 <% end %>
 

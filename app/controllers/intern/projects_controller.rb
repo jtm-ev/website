@@ -1,12 +1,12 @@
 class Intern::ProjectsController < ApplicationController
   load_and_authorize_resource
-  
+
   add_breadcrumb 'Projekte', :intern_projects_path
-    
+
   def index
-    
+
   end
-  
+
   # GET /projects/new
   # GET /projects/new.json
   def new
@@ -29,7 +29,7 @@ class Intern::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to edit_project_path(@project) }
+        format.html { redirect_to edit_intern_project_path(@project) }
         format.json { render json: @project, status: :created, location: @project }
       else
         format.html { render action: "new" }
@@ -41,7 +41,7 @@ class Intern::ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    
+
     # Update Image Sorting
     if params[:sorting]
       params[:sorting].each do |sort|
@@ -51,7 +51,7 @@ class Intern::ProjectsController < ApplicationController
         end
       end
     end
-    
+
     if params[:file_descriptions]
       params[:file_descriptions].each do |id, value|
         ProjectFile.find(id).update_attributes description: value

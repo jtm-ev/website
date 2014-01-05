@@ -2,7 +2,7 @@
 
 <div id='navigatable-nav'>
   <%= render_navigatable_nav(@previous, '&laquo;', lambda {|i| location_path(i) }, :name) %>
-  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| location_path(i) }, :name) %>  
+  <%= render_navigatable_nav(@next, '&raquo;', lambda {|i| location_path(i) }, :name) %>
 </div>
 
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=400x250&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}", class: 'location-image' %>
@@ -13,7 +13,7 @@
 <div class='clearfix'></div>
 
 <ul class='tabs'>
-  <% unless @location.page.content.blank? %>
+  <% if @location.page.content and !@location.page.content.blank? %>
     <li><a href='#beschreibung'>Beschreibung</a></li>
   <% end %>
   <li><a href='#projekte'>Projekte (<%= @location.projects.count %>)</a></li>
@@ -24,19 +24,19 @@
   <div id='beschreibung' class='no-slideshow-thumbs'>
     <%= render 'pages/show', page: @location.page %>
   </div>
-  
+
   <div id='projekte'>
     <div class='large-square-layout'>
       <% @location.projects.latest_first.each do |project| %>
         <a href='<%= project_path(project) %>' class='square'>
 
-              <% if project.image %> 
+              <% if project.image %>
                 <img src= '<%= project.image.file.url(:square_300)%>' >
               <% else %>
                 <div class='empty'>
                 </div>
               <% end %>
-              
+
               <div class ='title' >
                 <%= project.title %>
               </div>
@@ -45,9 +45,9 @@
       <% end %>
     </div>
   </div>
-  
+
   <div id='anfahrt'>
-    
+
   </div>
 </div>
 
