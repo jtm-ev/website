@@ -1,7 +1,7 @@
 # Constraint to catch old website links with ?nav= in it to redirect permanently
 module OldWebsiteConstraint
   extend self
-  
+
   def matches?(request)
     request.query_parameters.has_key?('nav')
   end
@@ -22,7 +22,7 @@ Website::Application.routes.draw do
     get   '/login' => 'devise/sessions#new'
     get   '/logout' => 'devise/sessions#destroy'
   end
-  
+
   resources :users
   match '/profile' => 'users#profile'
   match '/profile/role/:id' => 'users#profile_role', as: :profile_role
@@ -55,14 +55,20 @@ Website::Application.routes.draw do
     end
   end
   get '/s/*path' => 'pages#show_by_path', as: :human_page
-  
+
   resources :members, path: 'mitglieder' do
     collection do
       get 'adressen' => 'members#addresses', as: :address
     end
+
+    member do
+      get 'deactivate' => 'members#deactivate'
+      get 'activate' => 'members#activate'
+    end
+
   end
   get '/mitglieder(::flags)' => 'members#index', as: :flagged_members
-  
+
   resources :projects, path: 'projekte' do
     # collection do
     #   get '(::tags)' => 'projects#index', as: :tagged_projects
@@ -73,15 +79,15 @@ Website::Application.routes.draw do
         post ':kind' => 'project_files#create', as: 'specific'
       end
     end
-    
+
     resources :members, path: 'darsteller', only: :show
     resources :teams
   end
-  
+
   get '/tools/:action' => 'tools'
-  
+
   post '/project_files/:id/crop' => 'project_files#crop'
-  
+
   get '/projekte(::tags)' => 'projects#index', as: :tagged_projects
   get '/projekte(::tags)/:id' => 'projects#show', as: :show_tagged_project
 
@@ -132,17 +138,17 @@ Website::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  
+
   if Rails.env.development?
     mount MailPreview => 'mail_view'
   end
-  
+
   #########################################################################
   # Handling old Website Links
   #########################################################################
   match "/" => 'old_website#redirect', constraints: OldWebsiteConstraint
   match "/phpThumb/*path" => 'old_website#redirect_image'
-  
+
   get "/sitemap.:format" => 'home#sitemap'
   root :to => 'home#index'
 
