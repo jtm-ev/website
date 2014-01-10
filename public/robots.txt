@@ -4,4 +4,10 @@
 # User-Agent: *
 # Disallow: /
 
+# The sitemap
 Sitemap: http://jtm.de/sitemap.xml
+
+# Do not parse Member Photos
+User-Agent: *
+Disallow: /system/members/
+Disallow: /system/team_memberships/

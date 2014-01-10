@@ -1,9 +1,14 @@
+<%-
+  meta(
+    robots: 'noindex',
+  )
+%>
 <%= render_breadcrumbs %>
 
 <% if @previous or @next %>
   <div id='navigatable-nav'>
     <%= render_navigatable_nav(@previous, '&laquo;',  lambda {|i| project_member_path(@project, i) }, :full_name) %>
-    <%= render_navigatable_nav(@next, '&raquo;',      lambda {|i| project_member_path(@project, i) }, :full_name) %>  
+    <%= render_navigatable_nav(@next, '&raquo;',      lambda {|i| project_member_path(@project, i) }, :full_name) %>
   </div>
 <% end %>
 
@@ -30,16 +35,16 @@
   <div id='rollen'>
     <%= render 'actor_team_memberships', member: @member %>
   </div>
-  
+
   <div id='hdk'>
     <%= render 'hdk_with_image', team_memberships: @member.hdk_memberships_with_image %>
     <%= render 'hdk_without_image', groups: @member.hdk_memberships_without_image %>
   </div>
-  
+
   <div id='chronik'>
     <%= render 'chronik' %>
   </div>
-  
+
 </div>
 
 
