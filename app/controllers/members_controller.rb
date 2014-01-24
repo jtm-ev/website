@@ -108,6 +108,8 @@ class MembersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @members }
+      format.csv { render text: @members.to_csv }
+      format.xls
     end
   end
 

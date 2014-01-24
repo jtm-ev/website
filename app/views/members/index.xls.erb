@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">Nachname</Data></Cell>
+        <Cell><Data ss:Type="String">Vorname</Data></Cell>
+        <Cell><Data ss:Type="String">Straße</Data></Cell>
+        <Cell><Data ss:Type="String">Wohnort</Data></Cell>
+        <Cell><Data ss:Type="String">Telefon</Data></Cell>
+        <Cell><Data ss:Type="String">Fax</Data></Cell>
+        <Cell><Data ss:Type="String">Handy</Data></Cell>
+        <Cell><Data ss:Type="String">EMail</Data></Cell>
+        <Cell><Data ss:Type="String">EMail extern</Data></Cell>
+        <Cell><Data ss:Type="String">Geburtsdatum</Data></Cell>
+        <Cell><Data ss:Type="String">Mitglied seit</Data></Cell>
+        <Cell><Data ss:Type="String">Alter</Data></Cell>
+        <Cell><Data ss:Type="String">Gruppe</Data></Cell>
+      </Row>
+    <% @members.each do |member| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= member.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.first_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.street %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.city %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.phone %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.fax %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.mobile %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.email %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.email_extern %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.birthday %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.member_since %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.age %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.groups.map{|g| g.shortcut}.reject(&:blank?).join(', ') %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
