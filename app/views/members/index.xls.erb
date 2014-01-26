@@ -20,6 +20,7 @@
         <Cell><Data ss:Type="String">Geburtsdatum</Data></Cell>
         <Cell><Data ss:Type="String">Mitglied seit</Data></Cell>
         <Cell><Data ss:Type="String">Alter</Data></Cell>
+        <Cell><Data ss:Type="String">Geschlecht</Data></Cell>
         <Cell><Data ss:Type="String">Gruppe</Data></Cell>
       </Row>
     <% @members.each do |member| %>
@@ -37,6 +38,7 @@
         <Cell><Data ss:Type="String"><%= member.birthday %></Data></Cell>
         <Cell><Data ss:Type="String"><%= member.member_since %></Data></Cell>
         <Cell><Data ss:Type="String"><%= member.age %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= member.gender %></Data></Cell>
         <Cell><Data ss:Type="String"><%= member.groups.map{|g| g.shortcut}.reject(&:blank?).join(', ') %></Data></Cell>
       </Row>
     <% end %>
