@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.17'
 gem 'newrelic_rpm'
 
 # Bundle edge Rails instead:
@@ -86,7 +86,7 @@ group :development do
   gem 'guard-livereload'  # livereload your browser on asset-changes (views, css)
   gem 'rack-livereload'
   gem 'rb-fsevent'
-  
+
   gem 'term-ansicolor'    # Pretty printed test output
   gem 'quiet_assets'      # depress asset-pipeline-logs during development
   gem 'letter_opener'     # show sent emails in browser
