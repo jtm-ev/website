@@ -1,14 +1,14 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource except: [:index]
-  
+
   add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Projekte', :projects_path
-  
+
   # GET /projects
   # GET /projects.json
   def index
     authorize! :read, Project
-    
+
     @projects = filtered_collection
     # @projects = @projects.order(id: :desc)
 
@@ -66,7 +66,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    
+
     # Update Image Sorting
     if params[:sorting]
       params[:sorting].each do |sort|
@@ -76,10 +76,16 @@ class ProjectsController < ApplicationController
         end
       end
     end
-    
+
     if params[:file_descriptions]
       params[:file_descriptions].each do |id, value|
         ProjectFile.find(id).update_attributes description: value
+      end
+    end
+
+    if params[:events]
+      params[:events].each do |id, params|
+        @project.events.find(id).update_attributes params
       end
     end
 
@@ -104,11 +110,11 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
     def filtered_collection
       col = Project.latest_first
-      
+
       unless params[:tags].blank?
         tags = params[:tags].split(':')
         col = col.tagged_with(tags)

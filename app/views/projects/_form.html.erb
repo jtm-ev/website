@@ -12,7 +12,7 @@
   <% end %>
 
 
-  
+
   <ul class='tabs'>
     <li><a href='#allgemein'>Allgemein</a></li>
     <% unless @project.new_record? %>
@@ -20,10 +20,11 @@
       <li><a href='#teams'>Teams</a></li>
       <li><a href='#bilder'>Bilder (<%= @project.images.count %>)</a></li>
       <li><a href='#presse'>Presse (<%= @project.press.count %>)</a></li>
-      
+      <li><a href='#termine'>Termine (<%= @project.events.count %>)</a></li>
+
     <% end %>
   </ul>
-  
+
   <div class='tab-content'>
     <div id='allgemein'>
       <table class='form'>
@@ -50,16 +51,16 @@
         <%= f.submit %>
       </div>
     </div>
-    
+
     <div id='inhalt'>
       <%= render 'wysiwyg', {form: f, field: :description} %>
     </div>
-    
+
     <% unless @project.new_record? %>
       <div id='bilder'>
         <%= render 'image_form', {collection: @project.images, container_id: 'bilder', upload_url: specific_project_project_files_url(@project, {kind: 'image'})} %>
       </div>
-      
+
       <div id='presse'>
         <%= render 'image_form', {collection: @project.press, container_id: 'presse', upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
       </div>
@@ -72,15 +73,15 @@
         </ul>
         <%= link_to 'Team hinzufügen', new_project_team_path(@project), class: 'btn btn-success' %>
       </div>
-      
+
       <div id='termine'>
-        <%= render 'events_form' %>
+        <%= render 'events_form', f: f %>
       </div>
-    
-    
+
+
     <% end %>
-    
-    
+
+
   </div>
 
 
