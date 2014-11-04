@@ -7,7 +7,7 @@
   - @project.events.each do |event|
     %tr
       %td
-        = text_field_tag "events[#{event.id}][start_time]", l(event.start_time)
+        = text_field_tag "events[#{event.id}][start_time]", event.start_time
       %td
         = event.location.try(:name)
 
