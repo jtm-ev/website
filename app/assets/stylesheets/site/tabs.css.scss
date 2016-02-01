@@ -1,35 +1,35 @@
-@import 'bootstrap/variables';
-@import 'bootstrap/mixins';
+// @import 'bootstrap/variables';
+// @import 'bootstrap/mixins';
 
-@import 'bootstrap/navs';
-@import 'copy';
+// @import 'bootstrap/navs';
+// @import 'copy';
 
-.tabs {
-  @extend .nav;
-  @extend .nav-tabs;
-  margin-left: -25px;
-  margin-right: -25px;
-  a {
-    color: black;
-  }
-}
+// .tabs {
+//   @extend .nav;
+//   @extend .nav-tabs;
+//   margin-left: -25px;
+//   margin-right: -25px;
+//   a {
+//     color: black;
+//   }
+// }
 
-.tab-content {
-  overflow: visible;
-  
-  & > * {
-   @extend .tab-pane
-  }
-  
-  & > *:not(.active) iframe {
-   display: none;
-  }
-  
-}
+// .tab-content {
+//   overflow: visible;
 
-.tab-section-h {
-  @extend %font-header;
-  font-weight: bold;
-  font-size: 28px;
-  margin-bottom: 5px; 
-}
+//   & > * {
+//    @extend .tab-pane
+//   }
+
+//   & > *:not(.active) iframe {
+//    display: none;
+//   }
+
+// }
+
+// .tab-section-h {
+//   @extend %font-header;
+//   font-weight: bold;
+//   font-size: 28px;
+//   margin-bottom: 5px;
+// }

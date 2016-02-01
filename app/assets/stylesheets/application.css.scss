@@ -15,18 +15,15 @@
  *= require_self
  */
 
+
 div.pp_default .pp_social {
   margin-top: 4px;
-/*  border: 1px solid green;*/
   vertical-align: top;
 }
 
 .pp_social .facebook {
   width: 600px;
-/*  overflow: visible;*/
-/*  border: 1px solid red;*/
   iframe {
-/*    border: 1px solid red !important;*/
-    height: 30px !important; 
+    height: 30px !important;
   }
 }

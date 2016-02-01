@@ -1,263 +1,262 @@
 /**
- *= require select2
  *= require datepicker
  * require bootstrap-colorpicker
  */
 
 
-@import 'bootstrap/variables';
-@import 'bootstrap/mixins';
+// @import 'bootstrap/variables';
+// @import 'bootstrap/mixins';
 
 $baseFontSize: 16px;
 $baseLineHeight: 25px;
 $inputHeight: 30px;
 
-@import 'bootstrap/sprites';
-@import 'bootstrap/buttons';
-@import 'bootstrap/button-groups';
-@import 'bootstrap/progress-bars';
-@import 'bootstrap/alerts';
-@import 'bootstrap/wells';
+// @import 'bootstrap/sprites';
+// @import 'bootstrap/buttons';
+// @import 'bootstrap/button-groups';
+// @import 'bootstrap/progress-bars';
+// @import 'bootstrap/alerts';
+// @import 'bootstrap/wells';
 
-@import 'bootstrap/forms';
+// @import 'bootstrap/forms';
 
-@import 'copy';
+// @import 'copy';
 
-label {
-  display: inline !important;
-}
+// label {
+//   display: inline !important;
+// }
 
-.input-append {
-  margin-bottom: 0 !important;
-}
+// .input-append {
+//   margin-bottom: 0 !important;
+// }
 
-.input-append .add-on, .input-prepend .add-on {
-  padding: 5px 10px 0 5px !important;
-  height: $inputHeight;
-}
+// .input-append .add-on, .input-prepend .add-on {
+//   padding: 5px 10px 0 5px !important;
+//   height: $inputHeight;
+// }
 
-form.list > div {
-  margin-bottom: 20px;
-}
+// form.list > div {
+//   margin-bottom: 20px;
+// }
 
-input#user_username {
-  text-align: right;
-}
+// input#user_username {
+//   text-align: right;
+// }
 
-th label {
-  font-weight: bold;
-}
+// th label {
+//   font-weight: bold;
+// }
 
-/************************************* Error Handling */
-.field_with_errors {
-  display: inline;
-  input {
-    border: 1px solid red !important;
-  }
-}
+// /************************************* Error Handling */
+// .field_with_errors {
+//   display: inline;
+//   input {
+//     border: 1px solid red !important;
+//   }
+// }
 
-/************************************* Text Inputs */
+// /************************************* Text Inputs */
 
-%text-input {
-  border: 1px solid #aaa;
-  padding: 5px 10px;
-  background: white;
-}
+// %text-input {
+//   border: 1px solid #aaa;
+//   padding: 5px 10px;
+//   background: white;
+// }
 
-%small-text-input {
-  @extend %text-input;
-  padding: 3px 4px;
-  @include border-radius(3px);
+// %small-text-input {
+//   @extend %text-input;
+//   padding: 3px 4px;
+//   @include border-radius(3px);
 
-}
+// }
 
-input[type=text], input[type=email], input[type=password] {
-  @extend %text-input;
-  @extend %font-copy;
-  height: $inputHeight;
-  min-width: 300px;
-}
+// input[type=text], input[type=email], input[type=password] {
+//   @extend %text-input;
+//   @extend %font-copy;
+//   height: $inputHeight;
+//   min-width: 300px;
+// }
 
-textarea {
-  @extend %text-input;
-  @extend %font-copy;
-  width: 100%;
-  overflow-x: scroll;
-  white-space: nowrap;
-  height: 100px;
-  resize: vertical;
-  
-  &.size-middle {
-    height: 200px;
-  }
-}
+// textarea {
+//   @extend %text-input;
+//   @extend %font-copy;
+//   width: 100%;
+//   overflow-x: scroll;
+//   white-space: nowrap;
+//   height: 100px;
+//   resize: vertical;
 
-
-/************************************* Buttons */
-
-input[type=submit] {
-  @extend .btn;
-  @extend .btn-success;
-  
-  &.btn-danger {
-    @extend .btn-danger;
-  }
-}
-
-.actions {
-  border-top: 1px solid #ccc;
-  margin-top: 50px;
-  margin-left: -25px;
-  margin-right: -25px;
-  padding: 10px 25px;
-  padding-top: 20px;
-  text-align: left;
-  > * {
-    vertical-align: bottom;
-  }
-  
-  > a:not(.btn) {
-    font-style: italic;
-    color: #333;
-  }
-}
-
-.actions > input {
-  @extend .btn;
-  margin-top: 0px;
-  margin-right: 20px;
-}
-
-/*************************************** File Upload */
-.multifile-upload {
-  .file {
-    border: 1px solid black;
-    display: inline-block;
-    vertical-align: top;
-    margin: 5px;
-    margin-bottom: 25px;
-    padding: 10px;
-    width: 420px;
-    height: 200px;
-    line-height: 1em;
-    overflow: hidden;
-    background: white;
-    
-    img {
-      width: 150px;
-      display: inline-block;
-      line-height: 1em;
-      border: 1px solid #ccc;
-      background: white;
-    }
-    
-    .file-details {
-      line-height: 1.5;
-      vertical-align: top;
-      display: inline-block;
-      padding: 5px;
-      width: 240px;
-      
-      a {
-        font-size: 0.8em;
-        text-decoration: underline;
-        margin-right: 5px;
-      }
-    }
-    
-    .file-name {
-      font-weight: bold;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-    
-    .file-actions {
-      margin-top: 25px;
-      &> a {
-        @extend .btn;
-        @extend .btn-mini;
-        text-decoration: none;
-        &.btn-danger {
-          @extend .btn-danger;
-        }
-      }
-    }
-  }
-  
-  .drop-target {
-    font-weight: bold;
-    line-height: 2;
-    text-align: center;
-    cursor: pointer;
-  }
-}
+//   &.size-middle {
+//     height: 200px;
+//   }
+// }
 
 
-/*************************************** Progress Bar */
-.progress {
-  @extend .progress-striped;
-  @extend .active;
-  margin-top: 25px;
-}
+// /************************************* Buttons */
+
+// input[type=submit] {
+//   @extend .btn;
+//   @extend .btn-success;
+
+//   &.btn-danger {
+//     @extend .btn-danger;
+//   }
+// }
+
+// .actions {
+//   border-top: 1px solid #ccc;
+//   margin-top: 50px;
+//   margin-left: -25px;
+//   margin-right: -25px;
+//   padding: 10px 25px;
+//   padding-top: 20px;
+//   text-align: left;
+//   > * {
+//     vertical-align: bottom;
+//   }
+
+//   > a:not(.btn) {
+//     font-style: italic;
+//     color: #333;
+//   }
+// }
+
+// .actions > input {
+//   @extend .btn;
+//   margin-top: 0px;
+//   margin-right: 20px;
+// }
+
+// /*************************************** File Upload */
+// .multifile-upload {
+//   .file {
+//     border: 1px solid black;
+//     display: inline-block;
+//     vertical-align: top;
+//     margin: 5px;
+//     margin-bottom: 25px;
+//     padding: 10px;
+//     width: 420px;
+//     height: 200px;
+//     line-height: 1em;
+//     overflow: hidden;
+//     background: white;
+
+//     img {
+//       width: 150px;
+//       display: inline-block;
+//       line-height: 1em;
+//       border: 1px solid #ccc;
+//       background: white;
+//     }
+
+//     .file-details {
+//       line-height: 1.5;
+//       vertical-align: top;
+//       display: inline-block;
+//       padding: 5px;
+//       width: 240px;
+
+//       a {
+//         font-size: 0.8em;
+//         text-decoration: underline;
+//         margin-right: 5px;
+//       }
+//     }
+
+//     .file-name {
+//       font-weight: bold;
+//       font-size: 14px;
+//       margin-bottom: 10px;
+//     }
+
+//     .file-actions {
+//       margin-top: 25px;
+//       &> a {
+//         @extend .btn;
+//         @extend .btn-mini;
+//         text-decoration: none;
+//         &.btn-danger {
+//           @extend .btn-danger;
+//         }
+//       }
+//     }
+//   }
+
+//   .drop-target {
+//     font-weight: bold;
+//     line-height: 2;
+//     text-align: center;
+//     cursor: pointer;
+//   }
+// }
 
 
-/*************************************** Tagging, Select */
-.select2-container {
-  min-width: 250px;
-  &:not(.inline){
-    width: 100%;
-  }
-  
-  .select2-choice {
-    height: 35px;
-  }
-  
-}
-
-.select2-container-multi {
-  width: 100% !important;
-  .select2-choices {
-    @extend %text-input;
-    @include border-radius(4px);
-    
-    .select2-search-field {
-      margin-left: 10px;
-      input {
-        @extend %font-copy;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
-    }
-  }
-}
-
-.select2-match, .select2-result-label {
-  white-space: nowrap;
-}
+// /*************************************** Progress Bar */
+// .progress {
+//   @extend .progress-striped;
+//   @extend .active;
+//   margin-top: 25px;
+// }
 
 
-/************************************** hint */
-.hint {
-  @extend .alert;
-  @extend .alert-info;
-  text-align: center;
-  font-weight: bold;
-}
+// /*************************************** Tagging, Select */
+// .select2-container {
+//   min-width: 250px;
+//   &:not(.inline){
+//     width: 100%;
+//   }
 
-#flashes {
-  position: absolute;
-  left: 25px;
-  right: 25px;
-  top: -20px;
-}
+//   .select2-choice {
+//     height: 35px;
+//   }
 
-.alert-notice {
-  @extend .alert-success;
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-}
+// }
+
+// .select2-container-multi {
+//   width: 100% !important;
+//   .select2-choices {
+//     @extend %text-input;
+//     @include border-radius(4px);
+
+//     .select2-search-field {
+//       margin-left: 10px;
+//       input {
+//         @extend %font-copy;
+//         margin: 0;
+//         padding: 0;
+//         height: 100%;
+//       }
+//     }
+//   }
+// }
+
+// .select2-match, .select2-result-label {
+//   white-space: nowrap;
+// }
+
+
+// /************************************** hint */
+// .hint {
+//   @extend .alert;
+//   @extend .alert-info;
+//   text-align: center;
+//   font-weight: bold;
+// }
+
+// #flashes {
+//   position: absolute;
+//   left: 25px;
+//   right: 25px;
+//   top: -20px;
+// }
+
+// .alert-notice {
+//   @extend .alert-success;
+//   text-align: center;
+//   font-weight: bold;
+//   cursor: pointer;
+//   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+// }
 
 

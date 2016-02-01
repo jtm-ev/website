@@ -1,76 +1,76 @@
 
-@import 'bootstrap/variables';
-@import 'bootstrap/mixins';
+// @import 'bootstrap/variables';
+// @import 'bootstrap/mixins';
 
-@import 'bootstrap/tables';
+// @import 'bootstrap/tables';
 
-table {
-  vertical-align: top;
-  td {
-    vertical-align: top;
-  }
-}
+// table {
+//   vertical-align: top;
+//   td {
+//     vertical-align: top;
+//   }
+// }
 
-table.form {
-  @extend .table;
-  @extend .table-bordered;
-  background: white;
-  
-  th {
-/*    vertical-align: top;*/
-/*    padding-top: 18px;*/
-  }
+// table.form {
+//   @extend .table;
+//   @extend .table-bordered;
+//   background: white;
 
-  th:after {
-    content: ':';
-  }
-}
+//   th {
+// /*    vertical-align: top;*/
+// /*    padding-top: 18px;*/
+//   }
 
-table.devise-form {
-  th { width: 200px; }
-}
+//   th:after {
+//     content: ':';
+//   }
+// }
 
-table.system {
-  @extend .table;
-  @extend .table-bordered;
-  @extend .table-striped;
-  background: white;
-}
+// table.devise-form {
+//   th { width: 200px; }
+// }
 
-.copy-content {
-  /*table {
-    background: transparent;
-    border: 1px solid red;
-  }*/
+// table.system {
+//   @extend .table;
+//   @extend .table-bordered;
+//   @extend .table-striped;
+//   background: white;
+// }
 
-  table:not(.invisible-table) {
-    @extend .table;
-    @extend .table-bordered;
-    background: white;
-  }
+// .copy-content {
+//   /*table {
+//     background: transparent;
+//     border: 1px solid red;
+//   }*/
 
-  table:not(.invisible-table) {
-    @extend .table-striped;
+//   table:not(.invisible-table) {
+//     @extend .table;
+//     @extend .table-bordered;
+//     background: white;
+//   }
 
-  }
+//   table:not(.invisible-table) {
+//     @extend .table-striped;
 
-  /*table.invisible-table {
-    border: none !important;
-    background: transparent !important;
-    td, tr, th {
-      border: none !important; 
-    }
-  }*/
+//   }
+
+//   /*table.invisible-table {
+//     border: none !important;
+//     background: transparent !important;
+//     td, tr, th {
+//       border: none !important;
+//     }
+//   }*/
 
 
 
-  .oneline {
-    white-space: nowrap;
-  }
+//   .oneline {
+//     white-space: nowrap;
+//   }
 
-  td.image-td {
-    padding: 2px;
-    line-height: 1em;
+//   td.image-td {
+//     padding: 2px;
+//     line-height: 1em;
 
-  }
-}
+//   }
+// }

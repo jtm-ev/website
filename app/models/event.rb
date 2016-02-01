@@ -1,15 +1,13 @@
 class Event < ActiveRecord::Base
-  include ActivityTrackable
-  tracked only: :create
-  
+
   scope :upcoming, lambda { where('start_time > ? OR end_time > ?', Time.now, Time.now).order(:start_time)  }
 
-  attr_accessible :description, :end_time, :location_name, :project, :project_id, :public, :start_time, :title
+  # attr_accessible :description, :end_time, :location_name, :project, :project_id, :public, :start_time, :title
   delegate :year, to: :start_time
-  
+
   belongs_to :project
   belongs_to :location
-  
+
   # def title
   #   if project.nil?
   #     super
@@ -17,7 +15,7 @@ class Event < ActiveRecord::Base
   #     project.title
   #   end
   # end
-  
+
   def outstanding?
     return end_tim > Time.now if end_time
     return start_time > Time.now if start_time
@@ -27,7 +25,7 @@ class Event < ActiveRecord::Base
   def week
     self.start_time.strftime('%W')
   end
-  
+
   # def year
   #   self.start_time.year
   # end

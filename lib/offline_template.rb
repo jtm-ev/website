@@ -3,7 +3,7 @@ class OfflineTemplate < ApplicationController #AbstractController::Base
   # Include all the concerns we need to make this work
   include AbstractController::Logger
   include AbstractController::Rendering
-  include AbstractController::Layouts
+  # include AbstractController::Layouts
   include AbstractController::Helpers
   include AbstractController::Translation
   include AbstractController::AssetPaths
@@ -12,9 +12,7 @@ class OfflineTemplate < ApplicationController #AbstractController::Base
 
   # this is you normal rails application helper
   helper ApplicationHelper
-  # helper MobileHelper
-  # helper :all
-  
+
   # Define additional helpers, this one is for csrf_meta_tag
   helper_method :protect_against_forgery?
 
@@ -53,9 +51,9 @@ class OfflineTemplate < ApplicationController #AbstractController::Base
     # FakeRequest.new
     OpenStruct.new(host: "")
   end
-  
+
   def default_url_options
     {host: "/"}
   end
-  
+
 end

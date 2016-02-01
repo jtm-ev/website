@@ -1,12 +1,12 @@
 class EventsController < ApplicationController
   load_and_authorize_resource except: [:index]
   # skip_authorization_check
-  
+
   # GET /events
   # GET /events.json
   def index
     authorize! :read, Event
-    
+
     @events = Event.upcoming
 
     respond_to do |format|
@@ -14,16 +14,6 @@ class EventsController < ApplicationController
       format.json { render json: @events }
     end
   end
-
-  # # GET /events/1
-  # # GET /events/1.json
-  # def show
-  # 
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.json { render json: @event }
-  #   end
-  # end
 
   # GET /events/new
   # GET /events/new.json

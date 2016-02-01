@@ -36,7 +36,7 @@ end
 
 def find_member(name, first_name)
   full_name = [name, first_name].join ' '
-  
+
   if name.blank? or first_name.blank?
     puts "ERROR: NO PERSON: #{full_name}"
     return nil
@@ -44,7 +44,7 @@ def find_member(name, first_name)
 
   # mm = Member.where(name: name, first_name: first_name).or.where(birth_name: name, first_name: first_name)
   mm = Member.where("first_name = ? AND (name = ? or birth_name = ? )", first_name, name, name)
-  
+
   if mm.count > 1
     puts "ERROR: More : #{full_name}"
     raise "More People"
@@ -59,7 +59,7 @@ def find_member(name, first_name)
     #   alts.each_with_index do |a, i|
     #     puts " #{i + 1}) : #{a.name} #{a.first_name}"
     #   end
-    #   
+    #
     #   inp = STDIN.gets.chomp.to_i
     #   if inp == 0
     #     return Member.create name: name, first_name: first_name, active: false
@@ -76,7 +76,7 @@ def find_member(name, first_name)
   else
     return mm.first
   end
-  
+
   nil
 end
 
@@ -88,9 +88,9 @@ end
 
 namespace :seed do
   task :public => [:projects, :events, :event_locations, :pictures, :press, :guestbook] do # :events, :event_locations] do
-    
+
   end
-  
+
   desc "Seed existing Projects"
   task :projects => :environment do
     start_task 'Projekte'
@@ -101,7 +101,7 @@ namespace :seed do
       puts m.title
     end
   end
-  
+
   task :events => :environment do
     start_task 'Events'
     Event.delete_all
@@ -116,14 +116,14 @@ namespace :seed do
       end
     end
   end
-  
+
   task :event_locations => :environment do
     start_task 'Event Locations'
-    pfarrheim = Location.find_or_create_by_name('Pfarrheim Martinszell')
-    mzh = Location.find_or_create_by_name('Mehrzweckhalle Oberdorf')
-    studio = Location.find_or_create_by_name('Studiotheater')
-    theatrium = Location.find_or_create_by_name('Theatrium')
-    
+    pfarrheim =   Location.find_or_create_by(name: 'Pfarrheim Martinszell')
+    mzh =         Location.find_or_create_by(name: 'Mehrzweckhalle Oberdorf')
+    studio =      Location.find_or_create_by(name: 'Studiotheater')
+    theatrium =   Location.find_or_create_by(name: 'Theatrium')
+
     map = {
       'Pfarrheim in Martinszell' => pfarrheim,
       'Sporthalle Oberdorf' => mzh,
@@ -150,13 +150,13 @@ namespace :seed do
       end
     end
   end
-  
+
   task :pictures => :environment do
     start_task 'Pictures'
     # Probleme:
     # 404 Forbidden: 115, 113, 112, 111, 109, 108
     # Bad Url (4 Stück): Aladin, TH Live 2005
-    
+
     # ProjectFile.delete_all
     # si = create_index('jtm_stuecke')
     ppm = create_map('jtm_stueck_bilder', 'stueck_id')
@@ -169,11 +169,11 @@ namespace :seed do
       items.each do |item|
         dokument = di[item['file_id']]
         puts " - #{dokument['pfad']} : #{dokument['beschreibung']}"
-        
+
         file = dokument['pfad']
         url = "http://jtm.de/uploads/#{file}"
         file_name = File.basename(file)
-        
+
         begin
           open url do |f|
             pf = p.project_files.create file: f, kind: 'image', description: dokument['beschreibung'], file_file_name: file_name
@@ -182,11 +182,11 @@ namespace :seed do
         rescue Exception => e
           puts " - ERROR: #{url}  : #{e}"
         end
-        
+
       end
     end
   end
-  
+
   task :press => :environment do
     start_task 'Press'
     # ProjectFile.delete_all
@@ -208,13 +208,13 @@ namespace :seed do
         datum = DateTime.strptime("#{item['timestamp']}",'%s')
         zeitung = item['zeitung']
         puts " - #{zeitung} : #{datum} : #{dokument['pfad']}"
-        
+
         file = dokument['pfad']
         url = "http://jtm.de/uploads/#{file}"
         file_name = File.basename(file)
-        
+
         begin
-          
+
           open url do |f|
             pf = p.project_files.create! file: f, kind: 'press', description: zeitung, file_file_name: file_name, meta: {published_at: datum}
             # puts pf.inspect
@@ -222,14 +222,14 @@ namespace :seed do
         rescue Exception => e
           puts " - ERROR: #{url}  : #{e}"
         end
-        
+
       end
     end
   end
 
   task :groups => :environment do
     start_task 'Groups'
-    
+
     Group.destroy_all
     groups = read_xml('jtm_gruppen')
     gm = create_map('jtm_gruppen_mitglieder', 'gruppe_id')
@@ -245,7 +245,7 @@ namespace :seed do
       end
     end
   end
-  
+
   desc "Import Group Memberships"
   task :group_memberships => :environment do
     GroupMembership.delete_all
@@ -259,7 +259,7 @@ namespace :seed do
       end
     end
   end
-  
+
   desc "Import Members"
   task :members => :environment do
     # Member.destroy_all
@@ -273,7 +273,7 @@ namespace :seed do
       m.update_attributes birthday: birthday, member_since: member_since
     end
   end
-  
+
   task :guestbook => :environment do
     Guestbook.destroy_all
     guestbooks = read_xml('jtm_gaestebuch')
@@ -283,16 +283,16 @@ namespace :seed do
         datum = DateTime.strptime("#{timestamp}",'%s')
         m = create_model entry, Guestbook, name: 'name', email: 'email', website: 'internet'
         m.created_at = datum
-      
+
         content = (entry['nachricht'] or '').strip #.gsub(/\n/, '<br/>')
         # content[/\n/] = '<br/>'
         m.content = content
-      
+
         m.save
       end
     end
   end
-  
+
   task :teams => :environment do
     Team.destroy_all
     TeamMembership.destroy_all
@@ -301,19 +301,19 @@ namespace :seed do
     akts.each do |akt|
       p = Project.find akt['stueck_id'].to_i
       team_name = team_index[ akt['bereich_id'] ]['name']
-      team = p.teams.find_or_create_by_name(team_name)
-      
+      team = p.teams.find_or_create_by(name: team_name)
+
       m = find_member akt['nachname'], akt['vorname']
       if m
         team.team_memberships.create member: m, role: akt['figur']
       end
       # puts [p.title, team_name, team.id, nachname, vorname].join ' : '
-      
+
     end
-    
+
     puts "\nTeams: #{Team.count} TeamMembers: #{TeamMembership.count}"
   end
-  
+
   # task :test => :environment do
   #   p = Project.last
   #   file = 'projekte/94/oz1.jpg'
@@ -323,5 +323,5 @@ namespace :seed do
   #     puts pf.inspect
   #   end
   # end
-  
+
 end
