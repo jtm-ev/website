@@ -3,9 +3,9 @@
   margin-right: -25px;
 
   -webkit-transform: translate3d(0, 0, 0);
-  -mox-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  
+
   .nivo-controlNav {
 
   }
@@ -21,7 +21,7 @@
     -ms-filter:  grayscale(100%);
 	}
 
-	.nivo-control.active img {	
+	.nivo-control.active img {
 	  -webkit-transition: all .6s ;
 	  -webkit-backface-visibility: hidden;
 	  -webkit-transition: grayscale .5s;
@@ -29,7 +29,7 @@
     -moz-filter: grayscale(0%);
     -o-filter: grayscale(0%);
     -ms-filter: grayscale(0%);
-	  
+
 	}
 
   .nivo-nextNav{
@@ -44,7 +44,7 @@
   	height: 49px;
   	background-image: url(/images/right_arrow.png);
   	background-size: 50px, 50px;
-  }  
+  }
   .nivo-prevNav{
   	transition: opacity .5s;
   	-webkit-transition: opacity .5s;
@@ -78,7 +78,7 @@
 
 .sortable-images {
   font-size: 0;
-  
+
   img {
     display: inline-block;
     margin: 0 8px 8px 0;
@@ -87,7 +87,7 @@
 }
 
 .project-link{
-  
+
 }
 
 iframe.youtube {
@@ -106,7 +106,7 @@ iframe.youtube {
 /*  margin-top: 25px;*/
   text-align: center;
   vertical-align: middle;
-  
+
   img {
     width: 100%;
     display: block;
@@ -121,23 +121,23 @@ iframe.youtube {
   margin-bottom: 30px;
   width: 425px;
   text-align: center;
-  
+
   a {
     color: black;
   }
-  
+
   .team-name {
     font-size: 1.2em;
     margin-bottom: 5px;
     font-weight: bold;
   }
-  
+
   .team-image {
     display: inline-block;
     float: none;
     margin-bottom: 5px;
   }
-  
+
   .team-members > * {
     font-size: 0.8em;
     white-space: nowrap;
@@ -146,15 +146,15 @@ iframe.youtube {
       content: ', '
     }
   }
-  
+
   .team-project {
     font-size: 0.8em;
     margin-bottom: 10px;
     margin-top: -5px;
-    
+
     &.inline {
       display: inline-block;
-      
+
       &:not(:last-child):after {
         content: ' | '
       }
@@ -174,21 +174,21 @@ iframe.youtube {
   margin-bottom: 25px;
   text-align: center;
   vertical-align: top;
-  
+
   a {
     color: black;
   }
-  
+
   .actor-image {
     border: 1px solid #ccc;
     width: 150px;
     height: 150px;
     display: inline-block;
-    
+
     img {
       display: block;
     }
-    
+
     &.uploading:after {
       content: 'uploading';
       position: absolute;
@@ -197,19 +197,19 @@ iframe.youtube {
       right: 27px;
       background: #ccc;
     }
-    
+
   }
-  
+
   .member {
     display: block;
   }
-  
+
   .role {
     display: block;
     font-size: .8em;
     font-style: italic;
   }
-  
+
 }
 
 #navigatable-nav {
@@ -238,5 +238,3 @@ iframe.youtube {
     margin: 5px;
   }
 }
-
-

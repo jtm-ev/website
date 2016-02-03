@@ -101,9 +101,48 @@
     </div>
   <% end %>
 
+<div class="ui grid">
+      <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
+      <div class="computer tablet only row">
+           <div class="ui inverted fixed menu navbar page grid">
+              <a href='/'><img id='logo' src='/images/logo2.png'></a>
+              <a href="/" class="brand item">Jugentheater Martinszell</a>
+              <a href="/projekte" class="item">Projekte</a>
+              <a href="" class="item">Gästebuch</a>
+              <!--a class="ui dropdown item">Dropdown
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <div class="item">Action</div>
+                  <div class="item">Another action</div>
+                  <div class="item">Something else here</div>
+                  <div class="ui divider"></div>
+                  <div class="item">Seperated link</div>
+                  <div class="item">One more seperated link</div>
+                </div>
+              </a-->
+              <div class="right menu">
+                  <% unless current_user %>
+                    <a href='/login' class="item">Intern</a>
+                  <% end %>
+              </div>
+          </div>
+      </div>
+      <div class="mobile only row">
+          <div class="ui fixed inverted navbar menu">
+            <a href='/' class="logo"><img id='logo' src='/images/logo2.png'></a>
+            <a href="/" class="brand item mobile">Jugentheater Martinszell</a>
+          </div>
+          <div class="ui vertical navbar menu">
+            <a href="/projekte" class="item">Projekte</a>
+            <a href="" class="item">Gästebuch</a>
+              <% unless current_user %>
+                <a href='/login' class="item">Intern</a>
+              <% end %>
+          </div>
+      </div>
+  </div>
 
-
-  <div id='sidebar'>
+  <!--div id='sidebar'>
     <% unless current_user %>
       <a id='login-link' href='/login'>Intern</a>
     <% end %>
@@ -123,10 +162,9 @@
         <%= navigation_link_to 'Gästebuch', guestbooks_path %>
       </ul>
     </nav>
-  </div>
+  </div-->
 
   <div id='content'>
-    <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
     <div class='container'>
       <div id='flashes'>
       <%- flash.each do |key, value| %>
@@ -135,10 +173,8 @@
         </div>
       <% end %>
       </div>
-
       <%= yield %>
     </div>
   </div>
-
 </body>
 </html>
