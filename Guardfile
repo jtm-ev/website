@@ -1,14 +1,40 @@
 
-guard 'livereload', :apply_js_live => false do
-  watch(%r{app/.+\.(erb|haml|mustache)})
+
+guard 'livereload' do
+  extensions = {
+    css: :css,
+    scss: :css,
+    sass: :css,
+    js: :js,
+    coffee: :js,
+    html: :html,
+    png: :png,
+    gif: :gif,
+    jpg: :jpg,
+    jpeg: :jpeg,
+    # less: :less, # uncomment if you want LESS stylesheets done in browser
+  }
+
+  rails_view_exts = %w(erb haml slim)
+
+  # file types LiveReload may optimize refresh for
+  compiled_exts = extensions.values.uniq
+  watch(%r{public/.+\.(#{compiled_exts * '|'})})
+
+  extensions.each do |ext, type|
+    watch(%r{
+          (?:app|vendor)
+          (?:/assets/\w+/(?<path>[^.]+) # path+base without extension
+           (?<ext>\.#{ext})) # matching extension (must be first encountered)
+          (?:\.\w+|$) # other extensions
+          }x) do |m|
+      path = m[1]
+      "/assets/#{path}.#{type}"
+    end
+  end
+
+  # file needing a full reload of the page anyway
+  watch(%r{app/views/.+\.(#{rails_view_exts * '|'})$})
   watch(%r{app/helpers/.+\.rb})
-  # watch(%r{(public/|app/assets).+\.(css|js|html)})
-  watch(%r{(app/assets/.+)\.(coffee)}) { |m| "assets/#{m[1]}" }
-  watch(%r{(app/assets/.+\.css)\.(s[ac]ss|styl|less)}) { |m| "assets/#{m[1]}" }
-  watch(%r{(app/assets/.+\.css)}) { |m| "assets/#{m[1]}" }
-  # watch(%r{(app/assets/.+\.js)\.coffee}) { |m| m[1] }
   watch(%r{config/locales/.+\.yml})
-  
-  # watch(%r{(brunch/build/web/css).+\.(css|js|html)})
-  watch(%r{(brunch/build/web/js).+\.(css|js|html|mustache)})
 end

@@ -10,20 +10,31 @@
   <% end %>
 </ul>
 
-<div class='large-square-layout'>
-  <% @projects.each do |project| %>
-    <a href='<%= show_tagged_project_path(params[:tags], project) %>' class='square' data-ongoing='<%= project.ongoing? %>'>
-
-          <% if project.images.length > 0 %> 
+<div class="ui container">
+  <div class="ui relaxed divided items">
+    <% @projects.each do |project| %>
+      <div class="item">
+        <div class="ui small image">
+          <% if project.images.length > 0 %>
             <img src= '<%=project.images.first.file.url(:square_300)%>' >
           <% else %>
-            <div class='empty'></div>
+            <img src= "/images/image.png" >
           <% end %>
-          
-          <div class ='title' >
-            <%= project.title %>
+        </div>
+        <div class="content">
+          <a class="header"><%= project.title %></a>
+          <div class="meta">
+            <a>Datum</a>
+            <a>Kategorie</a>
           </div>
-
-    </a>
-  <% end %>
+          <div class="description">
+            Test Beschreibung 123456789
+          </div>
+          <!--div class="extra">
+            <img src="assets/images/wireframe/square-image.png">
+          </div-->
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

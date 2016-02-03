@@ -16,7 +16,7 @@
 }
 
 %layout {
-  
+
 }
 
 %layout-item {
@@ -28,12 +28,12 @@
   padding: 0;
   line-height: 1em;
   border: 1px solid #ccc;
-  
+
   img {
     width: 100%;
     background: white;
   }
-  
+
   .title {
     @extend %layout-item-overlay;
   }
@@ -41,40 +41,67 @@
 
 
 
-.large-square-layout {
-  .square {
-    @extend %layout-item;
-    
-    height: 280px;
-    width: 280px;
-    
-    .empty {
-      width: 280px;
-      height: 280px;
-      background-color: #888;
-    }
-    
+.ui.container {
+  display: block;
+  max-width: 100% !important;
+}
+
+/* Default Image Width */
+
+.ui.items > .item > .image:not(.ui) {
+  width: 175px;
+}
+
+/* Tablet Only */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ui.items > .item {
+    margin: 1em 0em;
+  }
+
+  .ui.items > .item > .image:not(.ui) {
+    width: 150px;
+  }
+
+  .ui.items > .item > .image + .content {
+    display: block;
+    padding: 0em 0em 0em 1em;
   }
 }
 
-.two-column-layout {
-  .item {
-    @extend %layout-item;
-    width: 428px;
-    max-height: 280px;
-    .empty {
-      height: 280px;
-      background-color: #888;
-    }
+/* Mobily Only */
+
+@media only screen and (max-width: 767px) {
+  .ui.items > .item {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin: 2em 0em;
+  }
+
+  .ui.items > .item > .image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ui.items > .item > .image,
+  .ui.items > .item > .image > img {
+    max-width: 100% !important;
+    width: auto !important;
+    max-height: 250px !important;
+  }
+
+  .ui.items > .item > .image + .content {
+    display: block;
+    padding: 1.5em 0em 0em;
   }
 }
 
-.right-sidebar-layout {
-  float: right;
-  margin-bottom: 25px;
-  .item {
-    @extend %layout-item;
-    width: 350px;
-    
-  }
+.ui.relaxed.divided.items > .item {
+  margin: 0em;
+  padding: 1.5em 0em;
+  //border: 1px solid red;
 }

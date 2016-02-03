@@ -16,6 +16,7 @@
 #= require jquery.prettyPhoto
 #= require editing
 #= require intern
+#= require semantic_ui/semantic_ui
 
 jQuery ->
   # Image-Slider
@@ -66,5 +67,3 @@ jQuery ->
         new_top = pH - iH
 
       i.css 'top', new_top
-
-
