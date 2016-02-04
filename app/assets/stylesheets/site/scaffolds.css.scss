@@ -6,6 +6,9 @@ html, body {
   height: 100%;
 }
 
+@mixin debug-border($side) {
+  border-#{$side}: 1px solid black;
+}
 
 img {
   width: 50px;
@@ -28,8 +31,9 @@ img {
 	}
   .ui.vertical.menu{
   	margin-top: 60px !important;
-    margin-left: 20px;
+    margin-left: 20%;
     width: auto;
+    position: absolute;
   	display: none;
   }
   img {
@@ -37,39 +41,63 @@ img {
   }
 }
 
+@media only screen and (max-width: 992px) {
+  .ui.inverted.navbar{
+    padding-left: 15%;
+  }
+  .ui.vertical.menu{
+    margin-top: 50px !important;
+    margin-left: 20%;
+    width: auto;
+    position: absolute;
+    display: none;
+  }
+  img {
+    width: 30px;
+  }
 
+  .containers {
+    @include debug-border(left);
+    @include debug-border(right);
+    @include debug-border(top);
+    @include debug-border(bottom);
 
+    width: 70%;
 
-@mixin debug-border($side) {
-  border-#{$side}: 1px solid black;
+    padding: 25px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.55);
+    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.55);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.55);
+
+    border-radius: 4px;
+  }
 }
+@media only screen and (min-width: 992px) {
+  .containers {
+    @include debug-border(left);
+    @include debug-border(right);
+    @include debug-border(top);
+    @include debug-border(bottom);
 
-%core-block {
-  position: relative;
-}
+    width: 70%;
 
-%core-container {
-  @include debug-border(left);
-  @include debug-border(right);
-  @include debug-border(top);
-  @include debug-border(bottom);
+    padding: 25px;
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: auto;
 
-  width: 70%;
+    background: rgba(255, 255, 255, 0.8);
 
-  padding: 25px;
-  margin-top: 80px;
-  margin-left: auto;
-  margin-right: auto;
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.55);
+    -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.55);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.55);
 
-  background: rgba(255, 255, 255, 0.8);
-
-  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.55);
-  -moz-box-shadow: 0 1px 10px rgba(0,0,0,0.55);
-  box-shadow: 0 1px 10px rgba(0,0,0,0.55);
-
-  border-radius: 4px;
-}
-
-.container {
-  @extend %core-container;
+    border-radius: 4px;
+  }
 }

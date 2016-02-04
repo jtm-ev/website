@@ -10,7 +10,18 @@
   <% end %>
 </ul>
 
-<div class="ui container">
+<div class="ui search">
+  <div class="ui icon input">
+    <%= form_tag projects_path, :method => 'get'  do %>
+       <%= text_field_tag :search, params[:search]%>
+       <%= submit_tag "Search", :name => nil  %>
+     <% end %>
+    <i class="search icon"></i>
+  </div>
+  <div class="results">asdf</div>
+</div>
+
+<div id="projects-view">
   <div class="ui relaxed divided items">
     <% @projects.each do |project| %>
       <div class="item">
@@ -22,19 +33,21 @@
           <% end %>
         </div>
         <div class="content">
-          <a class="header"><%= project.title %></a>
+          <a href ="/projekte/<%= project.id %>" class="header"><%= project.title %></a>
           <div class="meta">
-            <a>Datum</a>
+            <a><%= project.year %></a>
             <a>Kategorie</a>
           </div>
           <div class="description">
             Test Beschreibung 123456789
           </div>
-          <!--div class="extra">
-            <img src="assets/images/wireframe/square-image.png">
-          </div-->
         </div>
       </div>
     <% end %>
   </div>
+</div>
+
+
+<div id="infinite-scrolling">
+  <%= will_paginate @projects %>
 </div>

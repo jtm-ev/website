@@ -38,11 +38,8 @@
   }
 }
 
-
-
-.ui.container {
-  display: block;
-  width: 100% !important;
+.ui.search {
+  padding-bottom: 10px;
 }
 
 /* Default Image Width */
@@ -54,6 +51,10 @@
 /* Tablet Only */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ui.search {
+    padding-bottom: 10px;
+  }
+
   .ui.items > .item {
     margin: 1em 0em;
   }
@@ -70,8 +71,13 @@
 
 /* Mobily Only */
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1200px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ration: 1.5) {
+  .ui.search {
+    padding-bottom: 10px;
+  }
+
   .ui.items > .item {
+    width: auto;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
@@ -80,27 +86,23 @@
     margin: 2em 0em;
   }
 
-  .ui.items > .item > .image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .ui.items > .item > .image,
   .ui.items > .item > .image > img {
-    max-width: 100% !important;
+    border: 1px solid blue;
     width: auto !important;
-    max-height: 250px !important;
   }
 
   .ui.items > .item > .image + .content {
+    width: auto;
     display: block;
     padding: 1.5em 0em 0em;
+    border: 1px solid green;
   }
 }
 
 .ui.relaxed.divided.items > .item {
-  margin: 0em;
+  width: auto;;
+  margin: 200em;
   padding: 1.5em 0em;
   //border: 1px solid red;
 }

@@ -9,11 +9,11 @@ class ProjectsController < ApplicationController
   def index
     authorize! :read, Project
 
-    @projects = filtered_collection
-    # @projects = @projects.order(id: :desc)
+    @projects = Project.search(params[:page], params[:search])
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
+      format.js
       format.json { render json: @projects }
     end
   end

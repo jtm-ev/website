@@ -8,7 +8,6 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "print", :media => "print" %>
 
-  <%= javascript_include_tag "http://www.modernizr.com/downloads/modernizr-latest.js" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
@@ -103,23 +102,12 @@
 
 <div class="ui grid">
       <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
-      <div class="computer tablet only row">
+      <div class="computer only row">
            <div class="ui inverted fixed menu navbar page grid">
               <a href='/'><img id='logo' src='/images/logo2.png'></a>
               <a href="/" class="brand item">Jugentheater Martinszell</a>
               <a href="/projekte" class="item">Projekte</a>
               <a href="" class="item">Gästebuch</a>
-              <!--a class="ui dropdown item">Dropdown
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                  <div class="item">Action</div>
-                  <div class="item">Another action</div>
-                  <div class="item">Something else here</div>
-                  <div class="ui divider"></div>
-                  <div class="item">Seperated link</div>
-                  <div class="item">One more seperated link</div>
-                </div>
-              </a-->
               <div class="right menu">
                   <% unless current_user %>
                     <a href='/login' class="item">Intern</a>
@@ -127,12 +115,12 @@
               </div>
           </div>
       </div>
-      <div class="mobile only row">
+      <div class="mobile tablet only row">
           <div class="ui fixed inverted navbar menu">
             <a href='/' class="logo"><img id='logo' src='/images/logo2.png'></a>
             <a href="/" class="brand item mobile">Jugentheater Martinszell</a>
           </div>
-          <div class="ui vertical navbar menu">
+          <div class="ui vertical navbar menu transition hidden">
             <a href="/projekte" class="item">Projekte</a>
             <a href="" class="item">Gästebuch</a>
               <% unless current_user %>
@@ -142,30 +130,8 @@
       </div>
   </div>
 
-  <!--div id='sidebar'>
-    <% unless current_user %>
-      <a id='login-link' href='/login'>Intern</a>
-    <% end %>
-
-    <a href='/'><img id='logo' src='/images/logo2.png'></a>
-    <nav>
-      <ul>
-        <%= navigation_link_to 'Projekte', projects_path, true %>
-        <%= navigation_link_to 'Spielorte', locations_path, true %>
-        <%# navigation_link_to 'Termine', events_path, true %>
-        <%# navigation_link_to 'Gruppen', groups_path, true %>
-
-        <% Page.category('Extern').children.in_navigation.each do |page| %>
-          <%= navigation_link_to page.title, human_page_path(page.path), true %>
-        <% end %>
-
-        <%= navigation_link_to 'Gästebuch', guestbooks_path %>
-      </ul>
-    </nav>
-  </div-->
-
   <div id='content'>
-    <div class='container'>
+    <div class='containers'>
       <div id='flashes'>
       <%- flash.each do |key, value| %>
         <div class='alert alert-<%= key %>'>

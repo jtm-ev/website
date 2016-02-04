@@ -18,6 +18,7 @@
 #= require intern
 #= require semantic_ui/semantic_ui
 #= require scaffolds
+#= require index
 
 jQuery ->
   # Image-Slider

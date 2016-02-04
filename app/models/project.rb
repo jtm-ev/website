@@ -16,9 +16,12 @@ class Project < ActiveRecord::Base
 
   acts_as_taggable_on :tags
 
-
   def date
     self.events.first.try(:start_time) or Time.now
+  end
+
+  def self.search(page, search)
+    paginate(page: page, per_page: 10).where("title LIKE (:name)", {:name => "%#{search}%"}).order(id: :desc)
   end
 
   def ongoing?
