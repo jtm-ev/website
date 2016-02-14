@@ -10,10 +10,11 @@ class ProjectsController < ApplicationController
     authorize! :read, Project
 
     @projects = Project.search(params[:page], params[:search])
+    @all_projects = Project.all
 
     respond_to do |format|
-      format.html
-      format.js
+      format.html #index.html.erb
+      format.js #index.js.erb
       format.json { render json: @projects }
     end
   end

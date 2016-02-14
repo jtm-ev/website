@@ -32,9 +32,6 @@ gem 'jquery-ui-rails'
 
 gem 'will_paginate'
 
-
-
-
 # Image Upload / Processing
 gem "paperclip"
 gem "paperclip-meta"

@@ -10,15 +10,34 @@
   <% end %>
 </ul>
 
+<%= javascript_tag "content = #{@all_projects.to_json.html_safe};" %>
+
+<script>
+window.onload = function() {
+  $('.ui.search')
+      .search({
+        source : content,
+        fields : {
+          title : 'title',
+          description: ''
+        },
+        searchFields   : [
+          'title'
+        ],
+        searchFullText: true
+  });
+}
+</script>
+
 <div class="ui search">
   <div class="ui icon input">
     <%= form_tag projects_path, :method => 'get'  do %>
-       <%= text_field_tag :search, params[:search]%>
+       <%= text_field_tag :search, params[:search], class: "prompt"%>
        <%= submit_tag "Search", :name => nil  %>
      <% end %>
     <i class="search icon"></i>
   </div>
-  <div class="results">asdf</div>
+  <div class="results"></div>
 </div>
 
 <div id="projects-view">
