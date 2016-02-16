@@ -1,7 +1,11 @@
-$('#projects-view').append('<div id="projects-view"><div class="ui divider"></div><div class="ui relaxed divided items"><% @projects.each do |project| %><div class="item"><div class="ui small image"><% if project.images.length > 0 %><img src= '<%=project.images.first.file.url(:square_300)%>' ><% else %><img src= "/images/image.png" ><% end %></div><div class="content"><a class="header"><%= project.title %></a><div class="meta"><a>Datum</a><a>Kategorie</a></div><div class="description">Test Beschreibung 123456789</div></div></div><% end %></div></div>');
+
+$('#projects-view').append("<%= escape_javascript render partial: 'index' %>");
 <% if @projects.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate @projects %>');
 <% else %>
   $(window).off('scroll');
   $('.pagination').remove();
 <% end %>
+
+console.log('hallo');
+

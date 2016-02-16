@@ -20,8 +20,8 @@ class Project < ActiveRecord::Base
     self.events.first.try(:start_time) or Time.now
   end
 
-  def self.search(page, search)
-    paginate(page: page, per_page: 10).where("title LIKE (:name)", {:name => "%#{search}%"}).order(id: :desc)
+  def self.search(page, search, per_page = 10)
+    paginate(page: page, per_page: per_page).where("title LIKE (:name)", {:name => "%#{search}%"}).order(id: :desc)
   end
 
   def ongoing?

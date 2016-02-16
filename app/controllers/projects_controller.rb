@@ -9,13 +9,21 @@ class ProjectsController < ApplicationController
   def index
     authorize! :read, Project
 
-    @projects = Project.search(params[:page], params[:search])
+        # col = col.tagged_with(tags)
+
+    @projects = Project.search(params[:page], params[:search], params[:per_page])
+
+    if(params[:tags])
+      tags = params[:tags].split(':')
+      @projects = @projects.tagged_with(tags)
+    end
+    # @projects = filtered_collection #.where("title LIKE (:name)", {:name => "%#{params[:search]}%"}).order(id: :desc).paginate(page: params[:page], per_page: params[:per_page])
     @all_projects = Project.all
 
     respond_to do |format|
       format.html #index.html.erb
       format.js #index.js.erb
-      format.json { render json: @projects }
+      format.json # { render json: @projects }
     end
   end
 
