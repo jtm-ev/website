@@ -1,23 +1,25 @@
-
-
 <div class="ui relaxed divided items">
     <% @projects.each do |project| %>
       <div class="item">
-        <div class="ui small image">
+        <a href ='<%= show_tagged_project_path(params[:tags], project) %>' class="ui small image">
           <% if project.images.length > 0 %>
-            <img src= '<%=project.images.first.file.url(:square_300)%>' >
+            <img src='<%=project.images.first.file.url(:square_300)%>' >
           <% else %>
             <img src= "/images/image.png" >
           <% end %>
-        </div>
+        </a>
         <div class="content">
-          <a href ="/projekte/<%= project.id %>" class="header"><%= project.title %></a>
+          <a href ='<%= show_tagged_project_path(params[:tags], project) %>' class="header"><%= project.title %></a>
           <div class="meta">
             <a><%= project.year %></a>
-            <a>Kategorie</a>
+            <a>
+              <% project.tags.each do |tag| %>
+                <%= link_to tag.name.humanize, "/projekte:#{tag.name.humanize}" %>
+              <% end %>
+            </a>
           </div>
           <div class="description">
-            Test Beschreibung HALLO
+            <%= truncate(Sanitize.fragment(project.description), length: 500) %>
           </div>
         </div>
       </div>

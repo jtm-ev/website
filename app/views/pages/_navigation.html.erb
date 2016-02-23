@@ -1,9 +1,10 @@
+<h1><%= page.title %></h1>
 
-<div class='pages-subnav'>
-  <h1><%= page.title %></h1>
-  <ul>
-    <% page.children.in_navigation.each do |subpage| %>
-      <%= navigation_link_to subpage.title, human_page_path(subpage.path) %>
-    <% end %>
-  </ul>
+<div class='ui pointing menu'>
+  <% page.children.in_navigation.each do |subpage| %>
+    <%= link_to_active subpage.title, human_page_path(subpage.path), true %>
+  <% end %>
+  <div class="right menu">
+    <a href="javascript:history.back()" class = "item">Zurück</a>
+  </div>
 </div>

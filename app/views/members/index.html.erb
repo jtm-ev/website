@@ -1,26 +1,26 @@
 <h1>Mitglieder (<%= @members.count %>)</h1>
 
-<ul class='tabs'>
-  <%= navigation_link_to 'Aktive', members_path %>
-  <%= navigation_link_to 'Ehemalige', flagged_members_path('ehemalige') %>
-  <%= navigation_link_to 'Alle', flagged_members_path('alle') %>
+<ul class='ui menu'>
+  <%= link_to_active 'Aktive', members_path, true %>
+  <%= link_to_active 'Ehemalige', flagged_members_path('ehemalige'), true %>
+  <%= link_to_active 'Alle', flagged_members_path('alle'), true %>
 </ul>
 
-<table class='system'>
-  <tr>
-    <th width=54></th>
+<table class="ui celled striped table">
+  <thead><tr>
+    <th></th>
     <th><%= sortable_column 'name,first_name', 'Name' %></th>
     <th><%= sortable_column 'created_at', 'Erstellt am' %></th>
     <th><%= sortable_column 'member_since', 'Mitglied seit' %></th>
-  </tr>
+  </tr></thead>
 
 <% @members.each do |member| %>
   <!--input class='fileupload' type='file' name='files' data-reload=true data-dropzone='#member-<%= member.id %>' data-method='PUT' data-url='<%= member_path(member) %>'-->
 
   <tr id='member-<%= member.id %>'>
-    <td class='image-td'>
+    <td>
       <% if member.has_image? %>
-        <img width=50 src='<%= member.file.url(:square) %>'>
+        <img width=50 src='<%= member.file.url(:square) %>' class="ui rounded image">
       <% end %>
     </td>
     <td class='oneline'><%= link_to [member.name, member.first_name].join(' '), edit_member_path(member) %></td>

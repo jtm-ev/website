@@ -8,6 +8,7 @@ module OldWebsiteConstraint
 end
 
 Website::Application.routes.draw do
+  resources :calendar_events
   # resources :emails
   get '/email' => 'emails#new', as: :email
   post '/email' => 'emails#create'

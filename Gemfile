@@ -5,9 +5,13 @@ gem 'unicorn' # Use unicorn as the app server
 gem 'sqlite3'
 gem 'mysql2'
 
+gem 'flexslider', :git => 'https://github.com/constantm/Flexslider-2-Rails-Gem.git'
+
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 gem 'devise'
-gem 'cancan'
+gem 'cancancan'
 gem 'rolify'
 
 gem 'haml'
@@ -23,7 +27,6 @@ gem 'sass-rails'
 gem 'jquery-rails'
 gem 'coffee-rails'
 gem 'uglifier'
-
 
 gem "jquery-fileupload-rails"
 
@@ -66,6 +69,6 @@ group :development do
 
   # gem 'term-ansicolor'    # Pretty printed test output
   # gem 'quiet_assets'      # depress asset-pipeline-logs during development
-  # gem 'letter_opener'     # show sent emails in browser
+   gem 'letter_opener'     # show sent emails in browser
   # gem 'mail_view'
 end

@@ -14,35 +14,32 @@
 
   <%- count = 0 %>
   <%- p = -1 %>
-  <div class='guestbook'>
-    <div class='guestbook-section'>
+  <div class='ui stackable vertically divided grid container'>
+    <div class='ui segment'>
     <% @guestbooks.each do |guestbook| %>
 
       <% if guestbook.project != p %>
-      
+
         <% unless count == 0 %>
           </div>
-          <div class='guestbook-section'>
+          <div class='ui segment'>
         <% end %>
-      
-        <% 
+
+        <%
           count += 1
-          p = guestbook.project 
+          p = guestbook.project
         %>
-        
-        <% if p %>
-          <a class='guestbook-project sticky' href='<%= project_path(p) %>'>
+
+        <div id="sticky_pic" class="ui sticky">
+          <% if p %>
             <% if p.has_image? %>
               <img src='<%= p.image.url(:square) %>'>
             <% end %>
-            <div class='title'>
-              <%= guestbook.project.try :title %>
-            </div>
-          </a>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
 
-      <div class='guestbook-entry'>
+      <div id="entry" class='ui segment'>
         <div class='header'>
           <div class='name'>
             <%= guestbook.name %>

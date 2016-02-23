@@ -34,11 +34,11 @@
           = with_br member.phone, 'Telefon: '
           = with_br member.mobile, 'Handy: '
           = with_br member.fax, 'Fax: '
-          
+
           - unless member.email.blank?
             = 'E-Mail'
             = link_to member.email, "mailto:#{member.email}"
-        
+
         %td
           = with_br nl(member.birthday), 'Geburtstag: '
           = with_br nl(member.member_since), 'Mitglied seit: '

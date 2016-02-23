@@ -1,6 +1,6 @@
 <%- title(@page.title) %>
 <%- meta(
-  
+
 ) %>
 <%- set_background @page.background %>
 
@@ -14,9 +14,9 @@
 
 <% content_for :actions do %>
   <% if @page.group and can?(:update, @page.group) %>
-    <%= navigation_link_to 'Gruppe verwalten', edit_group_path(@page.group) %>
-    <%= navigation_link_to 'Gruppenseite bearbeiten', edit_page_path(@page) %>
+    <%= link_to_active 'Gruppe verwalten', edit_group_path(@page.group),true %>
+    <%= link_to_active 'Gruppenseite bearbeiten', edit_page_path(@page), true %>
   <% else %>
-    <%= navigation_link_to 'Seite bearbeiten', edit_page_path(@page) if can?(:update, @page) %>
+    <%= link_to_active 'Seite bearbeiten', edit_page_path(@page) if can?(:update, @page)%>
   <% end %>
 <% end %>

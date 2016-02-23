@@ -4,5 +4,13 @@ $(document).ready(function(){
 		$('.ui.vertical.menu').toggle().transition("fade up");
 	});
 
-	//$('.ui.dropdown').dropdown();
+	$('#action_toggle').on("click",function(e){
+        e.preventDefault();
+		$('#action_dropdown').toggle().transition("fade down");
+	});
+
+	$('#create_toggle').on("click",function(e){
+        e.preventDefault();
+		$('#create_dropdown').toggle().transition("fade down");
+	});
 });

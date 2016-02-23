@@ -1,7 +1,7 @@
-<div class="slider-wrapper">
-    <div id="slider" class="nivoSlider" data-show-thumbs='true'>
-        <% @images.each do |item| %>
-          <img src='<%= item.file.url(:large_cinema) %>' title='<%= item.description %>' data-thumb='<%= item.file.url(:square) %>'>
-        <% end %>
-    </div>
+<div id="slider_partial" class="flexslider">
+  <div class="slides">
+    <% @images.each do |item| %>
+      <li><img src="<%= item.url %>" /></li>
+    <% end %>
+  </div>
 </div>

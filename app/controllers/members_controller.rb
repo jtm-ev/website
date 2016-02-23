@@ -168,11 +168,11 @@ class MembersController < ApplicationController
   private
     def scope
       if params[:flags] == 'ehemalige'
-        return Member.scoped.inactive
+        return Member.where(nil).inactive
       elsif params[:flags] == 'alle'
-        return Member.scoped
+        return Member.where(nil)
       end
-      Member.scoped.active
+      Member.where(nil).active
     end
 
     def default_sort_column

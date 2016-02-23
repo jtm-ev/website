@@ -1,11 +1,7 @@
-
-$('#projects-view').append("<%= escape_javascript render partial: 'index' %>");
+$('#projects-view').append('<div class="ui divider"></div><%= escape_javascript render partial: "index" %>');
 <% if @projects.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate @projects %>');
 <% else %>
   $(window).off('scroll');
   $('.pagination').remove();
 <% end %>
-
-console.log('hallo');
-

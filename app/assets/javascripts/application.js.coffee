@@ -12,22 +12,31 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require jquery.nivo.slider
 #= require jquery.prettyPhoto
+#= require jquery.flexslider
+#= require moment
+#= require fullcalendar
 #= require editing
+#= require calendar
 #= require intern
 #= require semantic_ui/semantic_ui
 #= require scaffolds
 #= require index
+#= require project_page
+#= require guestbooks
+
+$(window).load ->
+  $('#slider_partial').flexslider
+    animation: 'slide'
+    controlNav: true
+    smoothHeight: true
+    animationLoop: true
+    slideshow: true
+    itemWidth: 210
+    itemMargin: 5
+
 
 jQuery ->
-  # Image-Slider
-  # http://dev7studios.com/nivo-slider/#/documentation
-  $('.nivoSlider').nivoSlider {
-    pauseTime: 5000
-    controlNavThumbs: true
-  }
-
   $("a[rel^='prettyPhoto']").prettyPhoto {
     width: 600
     theme: 'pp_default'
@@ -49,23 +58,3 @@ jQuery ->
   $('.alert').delay(5000).fadeOut('fast')
   $('.alert').click (evt)->
     $(evt.currentTarget).alert('close')
-
-  $('.sticky').each (index, item)->
-    i = $(item)
-    p = i.parent()
-
-    $(window).scroll ->
-      iH = i.height()
-      pH = p.height()
-
-      margin = 43
-      offset = p.offset().top - margin - $(window).scrollTop()
-
-      new_top = 0
-      if offset < 0
-        new_top = offset * -1
-
-      if (new_top + iH) > pH
-        new_top = pH - iH
-
-      i.css 'top', new_top

@@ -9,7 +9,6 @@ class ProjectsController < ApplicationController
   def index
     authorize! :read, Project
 
-        # col = col.tagged_with(tags)
 
     @projects = Project.search(params[:page], params[:search], params[:per_page])
 
@@ -17,8 +16,6 @@ class ProjectsController < ApplicationController
       tags = params[:tags].split(':')
       @projects = @projects.tagged_with(tags)
     end
-    # @projects = filtered_collection #.where("title LIKE (:name)", {:name => "%#{params[:search]}%"}).order(id: :desc).paginate(page: params[:page], per_page: params[:per_page])
-    @all_projects = Project.all
 
     respond_to do |format|
       format.html #index.html.erb

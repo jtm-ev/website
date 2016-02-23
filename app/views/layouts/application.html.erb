@@ -31,73 +31,62 @@
 
 
     <% content_for :default_actions do %>
-      <%= navigation_link_to 'Termin', new_event_path if can?(:create, Event) %>
-      <%= navigation_link_to 'Projekt', new_project_path if can?(:create, Project) %>
-      <%= navigation_link_to 'Seite', new_page_path if can?(:create, Page) %>
-      <%= navigation_link_to 'Mitglied', new_member_path if can?(:create, Member) %>
-      <%= navigation_link_to 'Gruppe', new_group_path if can?(:create, Group) %>
+      <%= link_to_active 'Termin', new_event_path if can?(:create, Event) %>
+      <%= link_to_active 'Projekt', new_project_path if can?(:create, Project) %>
+      <%= link_to_active 'Seite', new_page_path if can?(:create, Page) %>
+      <%= link_to_active 'Mitglied', new_member_path if can?(:create, Member) %>
+      <%= link_to_active 'Gruppe', new_group_path if can?(:create, Group) %>
     <% end %>
 
     <% content_for :editor_links do %>
-      <%= navigation_link_to 'User', users_path, true if can?(:manage, User) %>
-      <%= navigation_link_to 'Mitglieder', members_path, true if can?(:manage, Member) %>
-      <%# navigation_link_to 'Gruppen', groups_path, true if can?(:manage, Group)%>
-      <%# navigation_link_to 'Kalender', '#' %>
-      <%# navigation_link_to 'E-Mail', '#' %>
-      <%= navigation_link_to 'Seiten', pages_path, true if can?(:manage, Page) %>
-      <%= navigation_link_to 'Termine', events_path, true if can?(:manage, Event) %>
+      <%= link_to_active 'User', users_path, true if can?(:manage, User) %>
+      <%= link_to_active 'Mitglieder', members_path, true if can?(:manage, Member) %>
+      <%# link_to_active 'Gruppen', groups_path, true if can?(:manage, Group)%>
+      <%# link_to_active 'Kalender', '#' %>
+      <%# link_to_active 'E-Mail', '#' %>
+      <%= link_to_active 'Seiten', pages_path, true if can?(:manage, Page) %>
+      <%= link_to_active 'Termine', events_path, true if can?(:manage, Event) %>
     <% end %>
+      <div id="internal_navbar" class='ui fixed menu navbar page grid'>
+        <% link_to current_user.member.full_name, '/profile', class: 'brand' %>
 
-    <div class='navbar navbar-fixed-top navbar-inverse'>
-      <div class='navbar-inner'>
-        <ul class='nav'>
-          <% link_to current_user.member.full_name, '/profile', class: 'brand' %>
+        <%= link_to_active "E-Mail", email_path, true %>
+        <%= link_to_active 'Adressen', address_members_path, true %>
+        <%= link_to_active 'Gruppen', groups_path, true %>
+        <%= link_to_active 'Kalender', "/calendar_events", true %>
 
-          <%= navigation_link_to 'E-Mail', email_path, true %>
-          <%= navigation_link_to 'Adressen', address_members_path, true %>
-          <%= navigation_link_to 'Gruppen', groups_path, true %>
+        <%# Links für Editoren %>
+        <% unless yield(:editor_links).blank? %>
+          <%= yield(:editor_links) %>
+        <% end %>
 
-          <%# Links für Editoren %>
-          <% unless yield(:editor_links).blank? %>
-            <li class="divider-vertical"></li>
-            <%= yield(:editor_links) %>
-          <% end %>
+        <%# Actions Dropdown %>
+        <% unless yield(:actions).blank? %>
+          <a id="action_toggle" class="item">Aktionen</a>
+          <div id="action_dropdown" class="ui grey vertical navbar menu transition hidden">
+              <%= yield(:actions) %>
+          </div>
+        <% end %>
 
-          <%# Actions Dropdown %>
-          <% unless yield(:actions).blank? %>
-            <li class="divider-vertical"></li>
-            <li class='dropdown'>
-              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Actions</a>
-              <ul class='dropdown-menu'>
-                <%= yield(:actions) %>
-              </ul>
-            </li>
-          <% end %>
+        <%# Anlegen Dropdown %>
+        <% unless yield(:default_actions).blank? %>
+          <a id="create_toggle" class="item">Anlegen</a>
+          <div id="create_dropdown" class="ui grey vertical navbar menu transition hidden">
+              <%= yield(:default_actions) %>
+          </div>
+        <% end %>
 
-          <%# Anlegen Dropdown %>
-          <% unless yield(:default_actions).blank? %>
-            <li class="divider-vertical"></li>
-            <li class='dropdown'>
-              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Anlegen</a>
-              <ul class='dropdown-menu'>
-                <%= yield(:default_actions) %>
-              </ul>
-            </li>
-          <% end %>
-
-        </ul>
-        <ul class='nav pull-right'>
-          <%= navigation_link_to 'Dashboard', '/dashboard' %>
-          <%= navigation_link_to 'Profil', '/profile' %>
-          <li><%= link_to 'Logout', '/logout' %></li>
+        <div class="right menu">
+          <%= link_to_active 'Dashboard', '/dashboard', true %>
+          <%= link_to_active 'Profil', '/profile', true %>
+          <%= link_to_active 'Logout', '/logout', true %>
           <%- if current_user.member.has_image? %>
-            <li class='nav-profile-image'>
+            <div class='logo'>
               <img src='<%= current_user.member.file.url(:square) %>'>
-            </li>
+            </div>
           <% end %>
-        </ul>
+        </div>
       </div>
-    </div>
   <% end %>
 
 <div class="ui grid">
@@ -105,12 +94,15 @@
       <div class="computer only row">
            <div class="ui inverted fixed menu navbar page grid">
               <a href='/'><img id='logo' src='/images/logo2.png'></a>
-              <a href="/" class="brand item">Jugentheater Martinszell</a>
-              <a href="/projekte" class="item">Projekte</a>
-              <a href="" class="item">Gästebuch</a>
+              <%= link_to_active 'Jugendtheater Martinszell', "/", true %>
+              <%= link_to_active 'Projekte', "/projekte", true %>
+              <%= link_to_active 'Spielorte', "/spielorte", true %>
+              <%= link_to_active 'Der Verein', "/s/der-verein", true %>
+              <%= link_to_active 'Kontakt', "/s/kontakt", true %>
+              <%= link_to_active 'Gästebuch', "/gaestebuch", true %>
               <div class="right menu">
                   <% unless current_user %>
-                    <a href='/login' class="item">Intern</a>
+                    <%= link_to_active 'Intern', "/login", true %>
                   <% end %>
               </div>
           </div>
@@ -121,11 +113,14 @@
             <a href="/" class="brand item mobile">Jugentheater Martinszell</a>
           </div>
           <div class="ui vertical navbar menu transition hidden">
-            <a href="/projekte" class="item">Projekte</a>
-            <a href="" class="item">Gästebuch</a>
-              <% unless current_user %>
-                <a href='/login' class="item">Intern</a>
-              <% end %>
+            <%= link_to_active 'Projekte', "/projekte", true %>
+            <%= link_to_active 'Spielorte', "/spielorte", true %>
+            <%= link_to_active 'Der Verein', "/s/der-verein", true %>
+            <%= link_to_active 'Kontakt', "/s/kontakt", true %>
+            <%= link_to_active 'Gästebuch', "/gaestebuch", true %>
+            <% unless current_user %>
+              <%= link_to_active 'Intern', "/login", true %>
+            <% end %>
           </div>
       </div>
   </div>

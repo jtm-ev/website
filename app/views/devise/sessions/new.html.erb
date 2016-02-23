@@ -1,39 +1,43 @@
-<h2>Anmelden</h2>
-
-<div class='well'>
-  Falls du noch keinen Account hast, kannst du dich hier <%= link_to 'registrieren', new_user_registration_path %>
-</div>
-
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-  <table class='form devise-form'>
-    <tr>
-      <th><%= f.label :username %></th>
-      <td>
-        <div class='input-append'>
-          <%= f.text_field :username, :autofocus => true %>
-          <span class='add-on'>@jtm.de</span>
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2>Anmelden</h2>
+        <form class="ui large form">
+          <div id="login_container" class="ui stacked segment">
+            <div class="field">
+              <div id="username" class='ui right labeled left icon input'>
+                <i class="user icon"></i>
+                <%= f.text_field :username, :autofocus => true, class: "text", id: "username_text" %>
+                <span class='ui basic label'>@jtm.de</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div id="password" class='ui left icon input'>
+                <%= f.password_field :password, class: "text" %>
+                <i class="lock icon"></i>
+              </div>
+            </div>
+            <div id="submit_button" class="submit_button"><%= f.submit "Anmelden", class: "ui button primary", id: "submit_button" %></div>
+            <% if devise_mapping.rememberable? -%>
+              <div id="remember">
+                <td><%= f.check_box :remember_me %> <%= f.label :remember_me %></td>
+              </div>
+            <% end -%>
+          </div>
+        </form>
+        <div class="column">
+          <div id="login_message" class="ui message">
+            Noch kein Account? <%= link_to 'Hier registrieren', new_user_registration_path %>
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+              <%= link_to "Passwort vergessen?", new_password_path(resource_name) %><br />
+            <% end -%>
+            <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+              <%= link_to "Bestätigungs E-Mail nicht erhalten?", new_confirmation_path(resource_name) %><br />
+            <% end -%>
+          </div>
         </div>
-      </td>
-    </tr>
-    
-    <tr>
-      <th><%= f.label :password %></th>
-      <td><%= f.password_field :password %></td>
-    </tr>
-    
-    <% if devise_mapping.rememberable? -%>
-      <tr>
-        <td></td>
-        <td><%= f.check_box :remember_me %> <%= f.label :remember_me %></td>
-        
-      </tr>
-    <% end -%>
-  </table>
-  
-  <div class='actions'><%= f.submit "Anmelden" %></div>
-<% end %>
-
-
-
-<%= render "devise/shared/links" %>
+      </div>
+    </div>
+  <% end %>

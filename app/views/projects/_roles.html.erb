@@ -1,14 +1,15 @@
-<% memberships.each do |membership| %>
-  <div class='actor'>
-
+<div class="ui stackable two column grid container">
+  <% memberships.each do |membership| %>
+    <div id='actor' class="column ui segment">
       <% if membership.actor_image %>
         <div class='actor-image'>
           <a href='<%= member_path(membership.member) %>'><img src='<%= membership.actor_image.file.url(:square) %>'></a>
         </div>
       <% end %>
 
-    <span class='member'><%= link_to membership.member.full_name, member_path(membership.member) %></span>
-    <span class='role'><%= membership.role %></span>
-  
-  </div>
-<% end %>
+      <span class='member'><%= link_to membership.member.full_name, member_path(membership.member) %></span>
+      <span class='role'><%= membership.role %></span>
+
+    </div>
+  <% end %>
+</div>

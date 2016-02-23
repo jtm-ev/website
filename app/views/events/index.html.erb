@@ -1,14 +1,14 @@
 <h1>Termine</h1>
 
-<ul class='tabs'>
-  <%= navigation_link_to 'Anstehend', events_path %>
-  <%= navigation_link_to 'Vergangene', "#{events_path}:old" %>
-</ul>
+<div class='ui pointing menu'>
+  <%= link_to_active 'Anstehend', events_path, true %>
+  <%= link_to_active 'Vergangene', "#{events_path}:old", true %>
+</div>
 
 <% @events.each do |event| %>
-  
+
   <div class='event'>
     <h1><%= l event.start_time %> - <%= event.title %></h1>
   </div>
-  
+
 <% end %>

@@ -1,6 +1,7 @@
 #= require jquery.masonry
 
 jQuery ->
+  $('#profil .menu .item').tab()
   # $('.portal').sortable {
   #   handle: '.portlet-header'
   # }
@@ -8,7 +9,7 @@ jQuery ->
     gutterWidth: 0
     itemSelector: '.portlet'
   }
-  
+
   $( ".accordion" ).accordion {
     header: '.accordion-header'
     heightStyle: "fill"

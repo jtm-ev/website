@@ -3,37 +3,18 @@
 
 <h1>Projekte (<%= Project.count %>)</h1>
 
-<ul class='tabs'>
-  <%= navigation_link_to 'Alle', tagged_projects_path() %>
+<div class="ui pointing menu">
+  <%= link_to_active 'Alle', "/projekte", true %>
   <% Project.tag_counts.order('count DESC').limit(5).each do |tag| %>
-    <%= navigation_link_to "#{tag.name.humanize} (#{tag.count})", tagged_projects_path(tag.name.downcase) %>
+    <%= link_to_active "#{tag.name.humanize} (#{tag.count})", "/projekte:#{tag.name.humanize}", true %>
   <% end %>
-</ul>
-
-<%= javascript_tag "content = #{@all_projects.to_json.html_safe};" %>
-
-<script>
-window.onload = function() {
-  $('.ui.search')
-      .search({
-        source : content,
-        fields : {
-          title : 'title',
-          description: ''
-        },
-        searchFields   : [
-          'title'
-        ],
-        searchFullText: true
-  });
-}
-</script>
+</div>
 
 <div class="ui search">
   <div class="ui icon input">
     <%= form_tag projects_path, :method => 'get'  do %>
        <%= text_field_tag :search, params[:search], class: "prompt"%>
-       <%= submit_tag "Search", :name => nil  %>
+       <%= submit_tag "Suchen", :name => nil, class: "ui button"  %>
      <% end %>
     <i class="search icon"></i>
   </div>
