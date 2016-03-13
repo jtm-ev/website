@@ -20,32 +20,44 @@
 
 <div class='clearfix'></div>
 
-<ul class='tabs'>
+<div class='ui top attached tabular menu'>
   <% if @member.actor_team_memberships.length > 0 %>
-    <li><a href='#rollen' data-toggle='tab'>Rollen (<%= @member.actor_team_memberships.length %>)</a></li>
+    <a href='#rollen' class="active item" data-tab="rollen">Rollen (<%= @member.actor_team_memberships.length %>)</a>
+    <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
+      <a href='#hdk' class="item" data-tab="hdk">Hinter den Kulissen</a>
+    <% end %>
+  <% else %>
+    <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
+      <a href='#hdk' class="active item" data-tab="hdk">Hinter den Kulissen</a>
+    <% end %>
   <% end %>
-  <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
-    <li><a href='#hdk' data-toggle='tab'>Hinter den Kulissen</a></li>
-  <% end %>
-  <li><a href='#chronik' data-toggle='tab'>Chronik</a></li>
-</ul>
+  <a href='#chronik' class="item" data-tab="chronik">Chronik</a>
+</div>
 
-<div class='tab-content'>
-
-  <div id='rollen'>
+<% if @member.actor_team_memberships.length > 0 %>
+  <div class='ui bottom active attached tab segment' data-tab="rollen">
     <%= render 'actor_team_memberships', member: @member %>
   </div>
 
-  <div id='hdk'>
+  <div class='ui bottom attached tab segment' data-tab="hdk">
     <%= render 'hdk_with_image', team_memberships: @member.hdk_memberships_with_image %>
     <%= render 'hdk_without_image', groups: @member.hdk_memberships_without_image %>
   </div>
-
-  <div id='chronik'>
-    <%= render 'chronik' %>
+<% else %>
+  <div class='ui bottom attached tab segment' data-tab="rollen">
+    <%= render 'actor_team_memberships', member: @member %>
   </div>
 
+  <div class='ui bottom active attached tab segment' data-tab="hdk">
+    <%= render 'hdk_with_image', team_memberships: @member.hdk_memberships_with_image %>
+    <%= render 'hdk_without_image', groups: @member.hdk_memberships_without_image %>
+  </div>
+<% end %>
+
+<div class='ui bottom attached tab segment' data-tab="chronik">
+  <%= render 'chronik' %>
 </div>
+
 
 
 <% content_for :actions do %>

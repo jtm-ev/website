@@ -7,10 +7,9 @@ class PagesController < ApplicationController
   def index
     authorize! :manage, Page
 
-    @pages = Page.where(nil).order('show_in_navigation DESC, title').roots    
-
+    @pages = Page.where(nil).order('show_in_navigation DESC, title').roots
     respond_to do |format|
-      format.html # index.html.erb
+      format.html #index.html.erb
       format.json { render json: @pages }
     end
   end
@@ -78,7 +77,7 @@ class PagesController < ApplicationController
     end
 
     respond_to do |format|
-      if @page.update_attributes(params[:page])
+      if @page.update_attributes(page_params)
         format.html { redirect_to @page, notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else
@@ -116,5 +115,8 @@ class PagesController < ApplicationController
       p.parents.push(p).each do |page|
         add_breadcrumb page.title, human_page_path(page.path)
       end
+    end
+    def page_params
+      params.require(:page).permit(:content, :position, :parent_id, :public, :show_in_navigation, :title, :background_id, :background, :navigation_style)
     end
 end

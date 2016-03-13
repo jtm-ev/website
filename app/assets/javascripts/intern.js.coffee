@@ -1,7 +1,6 @@
 #= require jquery.masonry
 
 jQuery ->
-  $('#profil .menu .item').tab()
   # $('.portal').sortable {
   #   handle: '.portlet-header'
   # }

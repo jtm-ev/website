@@ -2,7 +2,7 @@
 
 <%= admin_panel_for Location do %>
   <%= form_tag locations_path, method: 'put' do %>
-    <table class='system sortable'>
+    <table class='ui sortable table'>
       <thead>
         <th>Spielorte</th>
       </thead>
@@ -15,21 +15,23 @@
         <% end %>
       </tbody>
     </table>
-    <%= submit_tag 'Sortierung speichern' %>
+    <%= submit_tag 'Sortierung speichern', class: "ui green button" %>
   <% end %>
 <% end %>
 
 <h1>Spielorte</h1>
 
 
-<div class='two-column-layout'>
+<div class='ui grid'>
   <% @locations.each do |location| %>
-    <%= render 'item', location: location %>
+    <div id="location" class="column ui segment">
+      <%= render 'item', location: location %>
+    </div>
   <% end %>
 </div>
 
 
 
 <% content_for :actions do %>
-  <%= link_to_active 'New Location', new_location_path, true %>
+  <%= link_to_active 'Neuer Spielort', new_location_path, true %>
 <% end %>

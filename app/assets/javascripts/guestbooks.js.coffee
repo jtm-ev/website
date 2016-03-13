@@ -1,5 +1,6 @@
 $ ->
   $('.ui.sticky').sticky({
     offset: 120,
-    pushing: true,
+    bottomOffset: 100,
+    pushing: false,
   });

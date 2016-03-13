@@ -7,18 +7,16 @@
 
     %input.fileupload{'type' => 'file', 'name' => 'files', 'data-url' => member_path(@user.member), 'data-method' => 'PUT', 'data-reload' => 'true', 'data-dropzone' => '#upload-profile-image'}
 
-    #upload-profile-image.droptarget.btn
+    #upload-profile-image.droptarget.btn.ui.button.primary
       Profilbild hochladen
       .progress
         .bar
 
 %h1 Mein Profil
 
-%ul
-  %li
-    = link_to 'Öffentliches Profil zeigen', member_path(@user.member) unless @user.member.nil?
-  %li
-    = link_to 'Passwort ändern', edit_user_registration_path
+%buttons
+  = link_to 'Öffentliches Profil zeigen', member_path(@user.member), :class => "ui button" unless @user.member.nil?
+  = link_to 'Passwort ändern', edit_user_registration_path, :class => "ui red button", :style => "margin-top: 10px"
 
 .clearfix
 
@@ -34,57 +32,69 @@
 - unless @user.member.nil?
   .div.ui.bottom.attached.active.tab.segment{:"data-tab" => "Daten"}
     = form_for(@user.member) do |f|
-      %table.form
-        %tr
-          %th Name
-          %td
-            = @user.member.full_name
-            - unless @user.member.birth_name.blank?
-              = " (geb. #{@user.member.birth_name})"
-        %tr
-          %th= f.label :birthday
-          %td= l @user.member.birthday
+      %table.ui.celled.table
+        %thead
+          %tr
+            %th Name
+            %td
+              = @user.member.full_name
+              - unless @user.member.birth_name.blank?
+                = " (geb. #{@user.member.birth_name})"
+          %tr
+            %th= f.label :birthday
+            %td= l @user.member.birthday
 
-        %tr
-          %th= f.label :member_since
-          %td= l @user.member.member_since
+          %tr
+            %th= f.label :member_since
+            %td= l @user.member.member_since
 
-        %tr
-          %th= f.label :email
-          %td= link_to @user.member.email, "mailto:#{@user.member.email}" unless @user.member.email.blank?
+          %tr
+            %th= f.label :email
+            %td= link_to @user.member.email, "mailto:#{@user.member.email}" unless @user.member.email.blank?
 
-        - if @user.member.school and @user.member.school > 0
-          %th= f.label :school
-          %td= @user.member.school
+          - if @user.member.school and @user.member.school > 0
+            %th= f.label :school
+            %td= @user.member.school
 
-      %table.form
-        %tr
-          %th= f.label :street
-          %td= f.text_field :street
+      %table.ui.celled.table
+        %thead
+          %tr
+            %th= f.label :street
+            %td
+              .ui.transparent.input
+                =f.text_field :street
 
-        %tr
-          %th= f.label :city
-          %td= f.text_field :city
+          %tr
+            %th= f.label :city
+            %td
+              .ui.transparent.input
+                = f.text_field :city
 
 
-        %tr
-          %th= f.label :phone
-          %td= f.text_field :phone
-        %tr
-          %th= f.label :fax
-          %td= f.text_field :fax
-        %tr
-          %th= f.label :mobile
-          %td= f.text_field :mobile
-        %tr
-          %th= f.label :email_extern
-          %td
-            = @user.member.email_extern
-            %small
-              (Kann momentan nicht geändert werden)
+          %tr
+            %th= f.label :phone
+            %td
+              .ui.transparent.input
+                =f.text_field :phone
+          %tr
+            %th= f.label :fax
+            %td
+              .ui.transparent.input
+                = f.text_field :fax
+          %tr
+            %th= f.label :mobile
+            %td
+              .ui.transparent.input
+                = f.text_field :mobile
+          %tr
+            %th= f.label :email_extern
+            %td
+              = @user.member.email_extern
+              %small
+                (Kann momentan nicht geändert werden)
 
       .actions
-        = f.submit 'Änderungen speichern'
+        = f.submit 'Änderungen speichern', :class => "ui green button"
 
   .div.ui.bottom.attached.tab.segment{:"data-tab" => "Rollen"}
     - if @user.member.nil?

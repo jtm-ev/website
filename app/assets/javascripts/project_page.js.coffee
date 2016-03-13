@@ -1,6 +1,5 @@
 $(document).ready ->
   $('.ui.selection.dropdown').dropdown()
-  $('.menu .item').tab()
   return
 
 $(window).load ->

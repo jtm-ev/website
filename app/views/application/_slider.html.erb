@@ -2,6 +2,21 @@
   <div class="slides">
     <% @images.each do |item| %>
       <li><img src="<%= item.url %>" /></li>
+      <script>
+        $(window).load(function() {
+          $('.flexslider').flexslider({
+            animation: 'slide',
+            controlNav: true,
+            smoothHeight: true,
+            animationLoop: true,
+            slideshow: true,
+            itemWidth: 210,
+            itemMargin: 5,
+            pauseOnAction: false,
+            pauseOnHover: true
+          });
+        });
+      </script>
     <% end %>
   </div>
 </div>

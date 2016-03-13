@@ -14,6 +14,7 @@
 #= require jquery_ujs
 #= require jquery.prettyPhoto
 #= require jquery.flexslider
+#= require jquery.tablesort
 #= require moment
 #= require fullcalendar
 #= require editing
@@ -26,14 +27,8 @@
 #= require guestbooks
 
 $(window).load ->
-  $('#slider_partial').flexslider
-    animation: 'slide'
-    controlNav: true
-    smoothHeight: true
-    animationLoop: true
-    slideshow: true
-    itemWidth: 210
-    itemMargin: 5
+  $('.menu .item').tab()
+
 
 
 jQuery ->
@@ -54,7 +49,7 @@ jQuery ->
 
   # $(".tabs a[href='#{window.location.hash}'], .tabs a:first").tab('show')
 
-
+  $('#members_table').tablesort();
   $('.alert').delay(5000).fadeOut('fast')
   $('.alert').click (evt)->
     $(evt.currentTarget).alert('close')

@@ -29,7 +29,7 @@
         </form>
         <div class="column">
           <div id="login_message" class="ui message">
-            Noch kein Account? <%= link_to 'Hier registrieren', new_user_registration_path %>
+            Noch kein Account? <%= link_to 'Hier registrieren', new_user_registration_path %><br />
             <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
               <%= link_to "Passwort vergessen?", new_password_path(resource_name) %><br />
             <% end -%>

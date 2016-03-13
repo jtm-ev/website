@@ -31,21 +31,21 @@
 
 
     <% content_for :default_actions do %>
-      <%= link_to_active 'Termin', new_event_path if can?(:create, Event) %>
-      <%= link_to_active 'Projekt', new_project_path if can?(:create, Project) %>
-      <%= link_to_active 'Seite', new_page_path if can?(:create, Page) %>
-      <%= link_to_active 'Mitglied', new_member_path if can?(:create, Member) %>
-      <%= link_to_active 'Gruppe', new_group_path if can?(:create, Group) %>
+      <%= link_to_active 'Termin', new_event_path, can?(:create, Event) %>
+      <%= link_to_active 'Projekt', new_project_path, can?(:create, Project) %>
+      <%= link_to_active 'Seite', new_page_path, can?(:create, Page) %>
+      <%= link_to_active 'Mitglied', new_member_path, can?(:create, Member) %>
+      <%= link_to_active 'Gruppe', new_group_path, can?(:create, Group) %>
     <% end %>
 
     <% content_for :editor_links do %>
-      <%= link_to_active 'User', users_path, true if can?(:manage, User) %>
-      <%= link_to_active 'Mitglieder', members_path, true if can?(:manage, Member) %>
+      <%= link_to_active 'User', users_path, can?(:manage, User) %>
+      <%= link_to_active 'Mitglieder', members_path, can?(:manage, Member) %>
       <%# link_to_active 'Gruppen', groups_path, true if can?(:manage, Group)%>
       <%# link_to_active 'Kalender', '#' %>
       <%# link_to_active 'E-Mail', '#' %>
-      <%= link_to_active 'Seiten', pages_path, true if can?(:manage, Page) %>
-      <%= link_to_active 'Termine', events_path, true if can?(:manage, Event) %>
+      <%= link_to_active 'Seiten', pages_path, can?(:manage, Page) %>
+      <%= link_to_active 'Termine', events_path, can?(:manage, Event) %>
     <% end %>
       <div id="internal_navbar" class='ui fixed menu navbar page grid'>
         <% link_to current_user.member.full_name, '/profile', class: 'brand' %>

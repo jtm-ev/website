@@ -1,7 +1,6 @@
-<h2>Registrieren</h2>
-
-<div class='well'>
-  <h3>Hallo liebes JTM-Mitglied</h3>
+<div class='ui piled segment', style = "z-index: 4; margin: 0px;">
+  <h2 class = "ui header">Registrieren</h2>
+  <h3 class = "ui header">Hallo liebes JTM-Mitglied</h3>
   <p>
     Da du dich hier registrieren willst, gehe ich davon aus, dass du ein Mitglied im Jugendtheater Martinszell bist. Denn nur Mitglieder können sich hier registrieren!
   </p>
@@ -25,49 +24,53 @@
 </div>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  
-  
+
+
   <% unless resource.errors.empty? %>
-    <h2>Es sind Fehler aufgetreten!</h2>
-    <ul>
-      <% if resource.errors[:member].present? %>
-        <li>Wir konnten kein Mitglied mit dieser E-Mail Adresse in unserer Datenbank finden</li>
-      <% end %>
-      
-      <% if resource.errors[:password].present? %>
-        <%= resource.errors[:password].map{|m| "<li>Passwort #{m}</li>"}.join.html_safe %>
-      <% end %>
-      
-    </ul>
-      
+    <div class = "ui warning message">
+      <h2>Es sind Fehler aufgetreten!</h2>
+      <ul>
+        <% if resource.errors[:member].present? %>
+          <li>Wir konnten kein Mitglied mit dieser E-Mail Adresse in unserer Datenbank finden</li>
+        <% end %>
+
+        <% if resource.errors[:password].present? %>
+          <%= resource.errors[:password].map{|m| "<li>Passwort #{m}</li>"}.join.html_safe %>
+        <% end %>
+
+      </ul>
+    </div>
   <% end %>
-  
+
 
 
   <table class='form devise-form'>
-
-    <tr>
-      <th><%= f.label :username %></th>
-      <td>
-        <div class='input-append'>
-          <%= f.text_field :username, :autofocus => true %>
-          <span class='add-on'>@jtm.de</span>
+    <form class="ui large form">
+      <div id="create_container" class="ui stacked segment">
+        <div class="field">
+          <div id="username_create" class='ui right labeled left icon input'>
+            <i class="user icon"></i>
+            <%= f.text_field :username, :autofocus => true, :placeholder => "Benutzername" %>
+            <span class='ui basic label'>@jtm.de</span>
+          </div>
         </div>
-      </td>
-    </tr>
-  
-    <tr>
-      <th><%= f.label :password %></th>
-      <td><%= f.password_field :password, placeholder: 'mindestens 4 Zeichen lang' %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :password_confirmation %></th>
-      <td><%= f.password_field :password_confirmation %></td>
-    </tr>
 
+        <div class="field">
+          <div id="password_create" class='ui left icon input'>
+            <%= f.password_field :password, placeholder: 'Passwort: mindestens 4 Zeichen lang' %>
+            <i class="lock icon"></i>
+          </div>
+        </div>
+        <div class="field">
+          <div id="password_confirm" class='ui left icon input'>
+            <%= f.password_field :password_confirmation, placeholder: 'Passwort Bestätigung' %>
+            <i class="lock icon"></i>
+          </div>
+        </div>
+        <div id="submit_button_create" class="submit_button"><%= f.submit "Registrieren", class: 'ui green button' %></div>
+      </div>
+    </form>
   </table>
-
-  <div class='actions'><%= f.submit "Registrieren" %></div>
 <% end %>
 
 <div class=''>

@@ -3,19 +3,19 @@
 <%= form_tag '/gaestebuch/manage' do %>
 
   <%= admin_panel_for Guestbook do %>
-    <%= submit_tag 'Auswahl löschen', name: 'delete', class: 'btn btn-danger', confirm: 'Wirklich löschen?' %>
-      <%= submit_tag 'Auswahl Projekt zuweisen:', name: 'assign_project', class: 'btn' %>
+    <%= submit_tag 'Auswahl löschen', id: 'delete', name: 'delete', class: 'ui red button', confirm: 'Wirklich löschen?' %>
+      <%= submit_tag 'Auswahl Projekt zuweisen:', name: 'assign_project', class: 'ui green button' %>
       <%= collection_select 'guestbook', 'project_id', Project.latest_first, :id, :title %>
   <% end %>
 
   <p>
-    <%= link_to 'Eintrag erstellen', new_guestbook_path, class: 'btn', style: 'width: 150px;' %>
+    <%= link_to 'Eintrag erstellen', new_guestbook_path, class: 'ui button primary', style: 'width: 150px; margin-bottom: 10px;' %>
   </p>
 
   <%- count = 0 %>
   <%- p = -1 %>
   <div class='ui stackable vertically divided grid container'>
-    <div class='ui segment'>
+    <div id="project_guestbook" class='ui fluid segment'>
     <% @guestbooks.each do |guestbook| %>
 
       <% if guestbook.project != p %>
@@ -29,17 +29,18 @@
           count += 1
           p = guestbook.project
         %>
-
-        <div id="sticky_pic" class="ui sticky">
-          <% if p %>
-            <% if p.has_image? %>
-              <img src='<%= p.image.url(:square) %>'>
-            <% end %>
+        <% if p %>
+          <% if p.has_image? %>
+            <div class="ui rail">
+              <div id="sticky_pic" class="ui sticky">
+                <img src='<%= p.image.url(:square) %>'>
+              </div>
+            </div>
           <% end %>
-        </div>
+        <% end %>
       <% end %>
 
-      <div id="entry" class='ui segment'>
+      <div id="entry" class='ui segment' style="margin-left: 160px;">
         <div class='header'>
           <div class='name'>
             <%= guestbook.name %>

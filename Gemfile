@@ -31,6 +31,7 @@ gem 'uglifier'
 gem "jquery-fileupload-rails"
 
 gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
 gem 'jquery-ui-rails'
 
 gem 'will_paginate'

@@ -13,12 +13,10 @@
 
 <%= render_breadcrumbs %>
 
-<div class='articles no-slideshow-thumbs'>
-  <% for page in @pages do %>
-    <article data-created-at='<%= l page.created_at, format: :no_time %>'>
-    
-      <%= render 'pages/show', page: page %>
+<div id="blog-view">
+  <%= render partial: 'index' %>
+</div>
 
-    </article>
-  <% end %>
+<div id="infinite-scrolling">
+  <%= will_paginate @pages %>
 </div>

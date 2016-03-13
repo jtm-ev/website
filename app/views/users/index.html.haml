@@ -1,8 +1,8 @@
 
 %h1 User Verwaltung
 
-%table.system
-  %tr
+%table.ui.celled.table
+  %thead
     %th Username
     %th E-Mail
     %th Roles
@@ -16,5 +16,4 @@
       %td= user.roles.join(', ')
       %td= user.member.try :full_name
       %td= user.created_at
-      %td
-        = link_to 'Edit', edit_user_path(user)
+      %td= link_to 'Edit', edit_user_path(user), :class => "ui button"

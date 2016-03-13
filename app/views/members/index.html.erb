@@ -6,7 +6,7 @@
   <%= link_to_active 'Alle', flagged_members_path('alle'), true %>
 </ul>
 
-<table class="ui celled striped table">
+<table id="members_table" class="ui celled sortable striped table">
   <thead><tr>
     <th></th>
     <th><%= sortable_column 'name,first_name', 'Name' %></th>

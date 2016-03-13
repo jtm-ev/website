@@ -2,47 +2,51 @@
 
 
 %form{action: email_path, method: :post}
-  %table.form
+  %table.ui.celled.table
 
-    %tbody
+    %thead
       %tr
         %th{style:'width:100px;'} An
         %td
-          .field
-            %select{id:'email_to', name:'email[]', multiple: true}
-              
-              %option{value:'mitglieder@jtm.de'} Alle (aktiv)
-              %optgroup{label:'Mitglieder'}
-                - Member.active.ordered.each do |m|
-                  %option{value:m.email_with_name}
-                    = m.ordered_full_name
+          .ui.form
+            .field
+              %select{id:'email_to', name:'email[]', multiple: true}
 
-              
-              %optgroup{label:'Gruppen'}
-                - Group.ordered.each do |g| 
-                  %option{value: g.emails.join(',')}
-                    = g.name
+                %option{value:'mitglieder@jtm.de'} Alle (aktiv)
+                %optgroup{label:'Mitglieder'}
+                  - Member.active.ordered.each do |m|
+                    %option{value:m.email_with_name}
+                      = m.ordered_full_name
 
-            .hint
-              Einfach tippen um nach Mitgliedern und Gruppen zu suchen!
+
+                %optgroup{label:'Gruppen'}
+                  - Group.ordered.each do |g|
+                    %option{value: g.emails.join(',')}
+                      = g.name
+
+              .ui.message
+                Einfach tippen um nach Mitgliedern und Gruppen zu suchen!
 
       %tr
         %th Betreff
         %td
-          = text_field_tag :email_subject, '', style: 'width: 100%;'
+          %div.ui.fluid.input
+            = text_field_tag :email_subject, '', style: 'width: 100%;'
 
       %tr
         %th Inhalt
         %td
-          = text_area_tag :email_content, '', style: 'height: 300px;'
+          %div.ui.form
+            %div.field
+              = text_area_tag :email_content, '', style: 'height: 300px;'
 
 
   .actions
     %h3 Möglichkeit 1: Über eigenes E-Mail Programm verschicken
-    = link_to 'Weiter (E-Mail Programm öffnen)', 'mailto:', id: 'email_next', class: 'btn btn-success'
+    = link_to 'Weiter (E-Mail Programm öffnen)', 'mailto:', id: 'email_next', class: 'ui green button'
   .actions
     %h3 Möglichkeit 2: Über Website verschicken (Momentan KEIN Anhang möglich!)
-    = submit_tag 'Weiter (über Website)'
+    = submit_tag 'Weiter (über Website)', :class => "ui button primary"
 
 
 
@@ -50,10 +54,7 @@
   $('#email_to, #email_subject, #email_content').on 'change', ()->
     emails = $('#email_to').val().join(',').split(',')
     emails = $.unique(emails).join(',')
-    
+
     link = "mailto:" + encodeURI(emails) + "?subject=" + encodeURI( $('#email_subject').val() ) + "&body=" + encodeURI( $('#email_content').val() )
-    
+
     $('#email_next').attr('href', link)
-
-
-

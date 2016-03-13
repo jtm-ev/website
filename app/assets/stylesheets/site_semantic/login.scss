@@ -1,8 +1,7 @@
 #new_user {
-  width: 305px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10px;
+  width: 350px;
 }
 
 #login_container {
@@ -26,6 +25,43 @@
   }
   #remember {
     text-align: center;
+  }
+}
+
+#create_container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  #username_create {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  #password_create {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  #password_confirm {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  #submit_button {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}
+
+#forgot_container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  #mail_forgot {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  #submit_button_forgot {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
   }
 }
 
