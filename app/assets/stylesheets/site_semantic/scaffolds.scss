@@ -9,12 +9,12 @@
 
   .ui.inverted.navbar{
 	}
-  .ui.vertical.menu{
+  #nav_menu_dropdown{
   	margin-top: 60px !important;
     margin-left: 20%;
     width: auto;
     position:fixed;
-    z-index: 3;
+    z-index: 10;
   }
   #logo {
     width: 30px;
@@ -29,12 +29,12 @@
   .ui.inverted.navbar{
     padding-left: 15%;
   }
-  .ui.vertical.menu{
+  #nav_menu_dropdown{
     margin-top: 50px !important;
     margin-left: 20%;
     width: auto;
     position:fixed;
-    z-index: 3;
+    z-index: 10;
   }
   #logo {
     width: 30px;

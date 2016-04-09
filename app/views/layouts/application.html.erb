@@ -53,7 +53,7 @@
         <%= link_to_active "E-Mail", email_path, true %>
         <%= link_to_active 'Adressen', address_members_path, true %>
         <%= link_to_active 'Gruppen', groups_path, true %>
-        <%= link_to_active 'Kalender', "/calendar_events", true %>
+        <%= link_to_active 'Kalender', "/kalender", true %>
 
         <%# Links für Editoren %>
         <% unless yield(:editor_links).blank? %>
@@ -112,7 +112,7 @@
             <a href='/' class="logo"><img id='logo' src='/images/logo2.png'></a>
             <a href="/" class="brand item mobile">Jugentheater Martinszell</a>
           </div>
-          <div class="ui vertical navbar menu transition hidden">
+          <div id="nav_menu_dropdown" class="ui vertical navbar menu transition hidden">
             <%= link_to_active 'Projekte', "/projekte", true %>
             <%= link_to_active 'Spielorte', "/spielorte", true %>
             <%= link_to_active 'Der Verein', "/s/der-verein", true %>

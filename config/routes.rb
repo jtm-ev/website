@@ -10,6 +10,7 @@ end
 Website::Application.routes.draw do
   resources :calendar_events
   # resources :emails
+  get '/kalender' => 'calendar_events#index'
   get '/email' => 'emails#new', as: :email
   post '/email' => 'emails#create'
 

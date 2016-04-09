@@ -6,5 +6,5 @@
 </div>
 
 <% if can?(:manage, CalendarEvent) %>
-  <%= link_to 'Neuer Kalendereintrag', new_calendar_event_path, class: "ui primary button" %>
+  <%= link_to 'Neuer Kalendereintrag', new_calendar_event_path, class: "ui primary button", id: "new_calendarentry" %>
 <% end %>
