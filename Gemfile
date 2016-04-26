@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.17'
 gem 'newrelic_rpm'
+gem 'mailgun_rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -67,7 +68,7 @@ gem 'jbuilder'
 
 # platforms :ruby do
   gem 'unicorn' # Use unicorn as the app server
-  gem 'mysql2'
+  # gem 'mysql2'
   gem 'activerecord-mysql-adapter'
 # end
 
