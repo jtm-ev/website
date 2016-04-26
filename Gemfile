@@ -68,7 +68,7 @@ gem 'jbuilder'
 
 # platforms :ruby do
   gem 'unicorn' # Use unicorn as the app server
-  # gem 'mysql2'
+  gem 'mysql2'
   gem 'activerecord-mysql-adapter'
 # end
 
@@ -92,5 +92,7 @@ group :development do
   gem 'quiet_assets'      # depress asset-pipeline-logs during development
   gem 'letter_opener'     # show sent emails in browser
   gem 'mail_view'
+
+  gem 'colored'
 end
 

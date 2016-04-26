@@ -56,12 +56,12 @@ namespace :deploy do
   task(:start, :roles => :app) {
     run unicorn_start_cmd
   }
-  
+
   # desc "Show deployed revision on server"
   # task(:show_revision, :roles => :app) {
   #   # run "cat #{File.join(current_path,'REVISION')}"
   # }
-  
+
   # ATTENTION!!!!
   # task :reset, :roles => :app do
   #   run "cd #{current_path} && bundle exec rake db:reset RAILS_ENV=#{rails_env}"
@@ -143,43 +143,43 @@ end
 
 namespace :unicorn do
   # Signals: http://unicorn.bogomips.org/SIGNALS.html
-  
+
   task :configure, :roles => :app do #, :except => {:no_release => true } do
     local_config = "./config/deploy/templates/unicorn.rb.erb"
     generate_config local_config, unicorn_config
   end
-  
+
   # increment ammount of worker
   task :increment, :roles => :app, :except => {:no_release => true} do
     run "kill -TTIN `cat #{unicorn_pid}`"
   end
-  
+
   # decrement ammount of worker
   task :decrement, :roles => :app, :except => {:no_release => true} do
     run "kill -TTOU `cat #{unicorn_pid}`"
   end
-  
+
   task :start, :roles => :app, :except => {:no_release => true} do
     run unicorn_start_cmd
   end
-  
+
   task :stop, :roles => :app, :except => {:no_release => true} do
     run unicorn_stop_cmd
   end
-  
+
   task :restart, :roles => :app, :except => {:no_release => true} do
     run unicorn_restart_cmd
   end
-  
+
   # Handling 'Old' unicorn (replaced by 'restart')
   task :stop_old_worker, :roles => :app, :except => {:no_release => true} do
     run "kill -WINCH `cat #{unicorn_pid}.oldbin`"
   end
-  
+
   task :stop_old, :roles => :app, :except => {:no_release => true} do
     run "kill -QUIT `cat #{unicorn_pid}.oldbin`"
   end
-  
+
   task :reload_old, :roles => :app, :except => {:no_release => true} do
     run "kill -HUP `cat #{unicorn_pid}.oldbin`"
   end
@@ -201,13 +201,13 @@ namespace :nginx do
     remote_config    = "#{shared_path}/nginx.conf"
     generate_config local_config, remote_config
   end
-  
+
   task :configure_test, :roles => :web do
     set :user, 'root'
     test = capture("#{nginx_cmd} -t -c /etc/nginx/nginx.conf")
     puts test.green
   end
-  
+
   task :restart, :roles => :web do
     set :user, 'root'
     run "service nginx restart"
@@ -224,14 +224,14 @@ namespace :monit do
     # run 'service monit restart'
     run 'monit reload'
   end
-  
+
   task :configure_system do
     set :user, 'root'
     generate_config './config/deploy/templates/system.monit.conf.erb', "/etc/monit/conf.d/system.monitrc"
     # run 'service monit restart'
     run 'monit reload'
   end
-  
+
   task :tunnel do
     monit_port = 2812
     # exec "ssh -g -R 2812:localhost:2812 root@#{domain} -p #{port}"
@@ -257,26 +257,26 @@ end
 ###################################################################################
 
 # before "deploy:restart", "db:create_indexes"
-# 
+#
 # namespace :db do
 #   task :create_indexes do
 #     run "cd #{release_path}; bundle exec rake db:create_indexes"
 #   end
-#   
+#
 #   task :dump_production do
 #     return if stage == 'production'
 #     return if rails_env == 'production'
 #     run "cd #{current_path}; rm -rf tmp/db-dump; mongodump -o #{current_path}/tmp/db-dump -h localhost -d #{application}"
 #     run "cd #{current_path}; mv tmp/db-dump/#{application} tmp/db-dump/#{application}_#{rails_env}"
 #   end
-# 
+#
 #   task :import_production do
 #     return if stage == 'production'
 #     return if rails_env == 'production'
 #     run "mongo #{application}_#{rails_env} --eval 'db.dropDatabase()'"
 #     run "mongorestore #{current_path}/tmp/db-dump"
 #   end
-#   
+#
 # end
 
 ###################################################################################
@@ -287,11 +287,11 @@ namespace :stats do
   task :disk do
     puts capture("df -h").green
   end
-  
+
   # task :images do
   #   puts capture("du -sh #{shared_path}/log").green
   # end
-  
+
   task :logs do
     puts capture("du -ah #{shared_path}/log").green
   end
@@ -306,24 +306,24 @@ namespace :screen do
     src   = "/home/salon/production/shared/system/files/"
     dest  = "#{shared_path}/system/files"
     cmd   = "rsync -rv #{src} #{dest}"
-    
+
     ## rsync parameters
     # -p, --perms                 preserve permissions
     #     --executability         preserve executability
     #     --chmod=CHMOD           affect file and/or directory permissions
-    # 
+    #
     # -o, --owner                 preserve owner (super-user only)
     # -g, --group                 preserve group
     #     --devices               preserve device files (super-user only)
     #     --specials              preserve special files
-    
+
     cmd = "rsync -r --perms --executability #{src} #{dest}"
     run cmd
     # run "screen -t 'sync_images' bash -c '#{cmd}'"
-    
+
     "rsync -r --perms --executability /home/salon/production/shared/system/files/ /home/salon/staging/shared/system/files"
   end
-  
+
 end
 
 
@@ -338,7 +338,7 @@ end
 # log_action "deploy:create_symlink", "Create Symlinks"
 # log_action "deploy:restart", "Restarting"
 # log_action "deploy:start", "Start App-Server"
-# 
+#
 # log_action "deploy:cleanup", "Cleaning Up"
 # log_action "deploy:symlink", "Symlinking"
 
@@ -346,12 +346,12 @@ end
 # rake Tasks
 ###################################################################################
 
-namespace :rake do  
-  desc "Run a task on a remote server."  
-  # run like: cap staging rake:invoke task=a_certain_task  
-  task :invoke do  
-    run("cd #{current_path}; bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}")  
-  end  
+namespace :rake do
+  desc "Run a task on a remote server."
+  # run like: cap staging rake:invoke task=a_certain_task
+  task :invoke do
+    run("cd #{current_path}; bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}")
+  end
 end
 
 ###################################################################################
@@ -369,7 +369,7 @@ namespace :db do
   task :configure do
     run "cp -f #{shared_path}/database.yml #{release_path}/config/database.yml"
   end
-  
+
   desc 'Seed remote DB with local Data'
   task :seed do
     local = 'tmp/dump.rb'
@@ -383,8 +383,8 @@ namespace :db do
       end
       system "bundle exec rake db:seed:dump MODELS=#{m} FILE=#{local} APPEND=true WITH_ID=1 TIMESTAMPS=1"
       upload local, "#{current_path}/db/seeds.rb", :via => :scp
-      run("cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}") 
-    end  
+      run("cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}")
+    end
   end
 end
 after "deploy:finalize_update", "db:configure"
@@ -402,7 +402,7 @@ namespace :files do
     dest = "#{current_path}/public/system"
     #  --progress --stats
     cmd = "rsync --verbose --checksum --recursive #{src} #{user}@#{domain}:#{dest}"
-    
+
     puts cmd
     system(cmd)
   end
