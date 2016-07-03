@@ -1,153 +1,175 @@
-
-%ul.tabs
-  %li
-    %a{href: '#data'} Daten
-  %li
-    %a{href: '#gruppen'}= "Gruppen (#{@member.group_memberships.count})"
-  %li
-    %a{href: '#spezial'}= "Spezial Aktionen"
-
+%div.ui.top.attached.tabular.menu{:id => "mitglied"}
+  %a.active.item{:href => '#daten', :"data-tab" => "Daten"} Daten
+  %a.item{:href => '#gruppen', :"data-tab" => "Gruppen"} Gruppen
+  %a.item{:href => '#gruppen', :"data-tab" => "Spezial"} Spezial
 
 = form_for(@member) do |f|
-  .tab-content
-    - unless @member.new_record?
-      #spezial
-        - if @member.active?
-          %h2 Mitglied ist ausgetreten
-          Wenn ein Mitglied austritt passiert folgendes:
-          %ul
-            %li Status wird auf 'inaktiv' gesetzt
-            %li Alle Gruppen-Mitgliedschaften werden gelöscht
-            %li Benutzer-Konto für www.jtm.de wird gelöscht
-            %li Interne E-Mail Adresse wird gelöscht
-
-          %p
-            Die Mitglieder-Daten bestehen weiterhin in der Datenbank, hauptsächlich wegen der Auflistungen für Projekt-Darsteller und Projekt-Teams
-
-          %p
-            Bei einem Wiedereintritt zu einem späteren Zeitpunkt kann das existierende Mitglied wieder aktiviert werden!
-
-          = link_to 'Mitglied ist ausgetreten', deactivate_member_path(@member), confirm: 'Bist du sicher?', class: 'btn btn-danger'
-        - else
-          %h2 Mitglied reactivieren (ist wieder eingetreten)
-          = link_to 'Mitglied reactivieren', activate_member_path(@member), confirm: 'Bist du sicher?', class: 'btn btn-danger'
-
-        %hr
-        %h2 Mitglied löschen
-        ACHTUNG! Diese Aktion ist unwiederruflich!
+  - unless @member.new_record?
+    .div.ui.bottom.attached.tab.segment{:"data-tab" => "Spezial"}
+      - if @member.active?
+        %h2 Mitglied ist ausgetreten
+        Wenn ein Mitglied austritt passiert folgendes:
         %ul
-          %li Mitglied wird komplett aus der Datenbank gelöscht
-          %li Alle Verknüpfungen zu Projekten werden entfernt!
+          %li Status wird auf 'inaktiv' gesetzt
+          %li Alle Gruppen-Mitgliedschaften werden gelöscht
           %li Benutzer-Konto für www.jtm.de wird gelöscht
           %li Interne E-Mail Adresse wird gelöscht
 
-        /= link_to 'Mitglied löschen', member_path(@member), method: :delete, confirm: 'Bist du sicher?', class: 'btn btn-danger'
+        %p
+          Die Mitglieder-Daten bestehen weiterhin in der Datenbank, hauptsächlich wegen der Auflistungen für Projekt-Darsteller und Projekt-Teams
 
-        - if current_user.has_role?(:admin) and !@member.active
-          %hr
-          %h2 Mitglied verbinden
-          %ul
-            %li Alle Stücke werden auf gewähltes Mitglied kopiert
-            %li Falls weiblich, wird der alte Nachname als 'Geburtsname' eingetragen
-            %li Dieses Mitglied wird gelöscht
+        %p
+          Bei einem Wiedereintritt zu einem späteren Zeitpunkt kann das existierende Mitglied wieder aktiviert werden!
 
-          %form
-            %select{name: 'target'}
-              - Member.all.each do |m|
-                %option{value: m.id}
-                  = m.full_name
-            %input.btn.btn-danger{type: 'submit', value: 'Mitglied verbinden', name: 'connect_member'}
+        = link_to 'Mitglied ist ausgetreten', deactivate_member_path(@member), confirm: 'Bist du sicher?', class: 'ui red button'
+      - else
+        %h2 Mitglied reactivieren (ist wieder eingetreten)
+        = link_to 'Mitglied reactivieren', activate_member_path(@member), confirm: 'Bist du sicher?', :class => "ui green button"
 
+      %hr
+      %h2 Mitglied löschen
+      ACHTUNG! Diese Aktion ist unwiederruflich!
+      %ul
+        %li Mitglied wird komplett aus der Datenbank gelöscht
+        %li Alle Verknüpfungen zu Projekten werden entfernt!
+        %li Benutzer-Konto für www.jtm.de wird gelöscht
+        %li Interne E-Mail Adresse wird gelöscht
 
+      /= link_to 'Mitglied löschen', member_path(@member), method: :delete, confirm: 'Bist du sicher?', class: 'btn btn-danger'
 
+      - if current_user.has_role?(:admin) and !@member.active
+        %hr
+        %h2 Mitglied verbinden
+        %ul
+          %li Alle Stücke werden auf gewähltes Mitglied kopiert
+          %li Falls weiblich, wird der alte Nachname als 'Geburtsname' eingetragen
+          %li Dieses Mitglied wird gelöscht
 
-    #gruppen
-      %table.system
-        %thead
+        %form
+          %select{name: 'target'}
+            - Member.all.each do |m|
+              %option{value: m.id}
+                = m.full_name
+          %input.btn.btn-danger{type: 'submit', value: 'Mitglied verbinden', name: 'connect_member'}
+
+  .div.ui.bottom.attached.tab.segment{:"data-tab" => "Gruppen"}
+    %table.ui.celled.table
+      %thead
+        %tr
           %th Gruppe
           %th Rolle
           %th Löschen
-        %tbody
-          - @member.group_memberships.each do |group_membership|
-            %tr
-              %td= group_membership.group.try :name
-              %td= group_membership.role
-              %td= check_box_tag "delete_group_membership[#{group_membership.id}]"
-        %tfoot
+      %tbody
+        - @member.group_memberships.each do |group_membership|
           %tr
-            %td
-              %select{name: 'new_group_membership[group_id]'}
-                %option
-                - Group.all.each do |g|
-                  %option{value: g.id}= g.name
-            %td= text_field_tag 'new_group_membership[role]'
+            %td= group_membership.group.try :name
+            %td= group_membership.role
+            %td= check_box_tag "delete_group_membership[#{group_membership.id}]"
+        %tr
+          %td
+            %select{name: 'new_group_membership[group_id]'}
+              %option
+              - Group.all.each do |g|
+                %option{value: g.id}= g.name
+          %td
+            .ui.input
+              = text_field_tag 'new_group_membership[role]'
+          %td
 
-      .actions
-        = f.submit
+    .actions
+      = f.submit "Mitglied aktualisieren", :class => "ui green button"
 
-    #data
-      %table.form
+  .div.ui.bottom.attached.active.tab.segment{:"data-tab" => "Daten"}
+    %table.ui.celled.table
+      %thead
         %tr
           %th= f.label :name
-          %td= f.text_field :name
+          %td
+            .ui.input
+              = f.text_field :name
         %tr
           %th= f.label :first_name
-          %td= f.text_field :first_name
+          %td
+            .ui.input
+              = f.text_field :first_name
         %tr
           %th= f.label :active
           %td= f.check_box :active
         %tr
           %th= f.label :birth_name
-          %td= f.text_field :birth_name
+          %td
+            .ui.input
+              =f.text_field :birth_name
         %tr
           %th= f.label :gender
-          %td= f.collection_select :gender, [OpenStruct.new(key: 'm', value: t('gender.m')), OpenStruct.new(key: 'w', value: t('gender.w'))], :key, :value, include_blank: true
+          %td
+            = f.collection_select :gender, [OpenStruct.new(key: 'm', value: t('gender.m')), OpenStruct.new(key: 'w', value: t('gender.w'))], :key, :value, include_blank: true
 
         %tr
           %th= f.label :birthday
-          %td= f.text_field :birthday, class: 'datepicker', 'data-date-format' => 'yyyy-mm-dd'
+          %td
+            .ui.input
+              = f.text_field :birthday, class: 'datepicker', 'data-date-format' => 'yyyy-mm-dd'
         %tr
           %th= f.label :member_since
-          %td= f.text_field :member_since, class: 'datepicker', 'data-date-format' => 'yyyy-mm-dd'
+          %td
+            .ui.input
+              = f.text_field :member_since, class: 'datepicker', 'data-date-format' => 'yyyy-mm-dd'
         %tr
           %th= f.label :school
-          %td= f.text_field :school
+          %td
+            .ui.input
+              = f.text_field :school
 
-      %table.form
+    %table.ui.celled.table
+      %thead
         %tr
           %th= f.label :street
-          %td= f.text_field :street
+          %td
+            .ui.input
+              = f.text_field :street
 
         %tr
           %th= f.label :city
-          %td= f.text_field :city
+          %td
+            .ui.input
+              = f.text_field :city
 
 
         %tr
           %th= f.label :phone
-          %td= f.text_field :phone
+          %td
+            .ui.input
+              = f.text_field :phone
         %tr
           %th= f.label :fax
-          %td= f.text_field :fax
+          %td
+            .ui.input
+              = f.text_field :fax
         %tr
           %th= f.label :mobile
-          %td= f.text_field :mobile
+          %td
+            .ui.input
+              = f.text_field :mobile
 
-      %table.form
+    %table.ui.celled.table
+      %thead
         %tr
           %th= f.label :email_extern
           %td
-            = f.text_field :email_extern
+            .ui.input
+              = f.text_field :email_extern
             / = @member.email_extern
             / %small
             /   (Kann momentan nicht geändert werden)
         %tr
           %th= f.label :email
           %td
-            = f.text_field :email
+            .ui.input
+              = f.text_field :email
             / = @member.email
             / %small
             /   (Kann momentan nicht geändert werden)
 
-      .actions
-        = f.submit
+    .actions
+      = f.submit 'Mitglied aktualisieren', :class => "ui green button"

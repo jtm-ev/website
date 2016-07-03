@@ -13,59 +13,59 @@
 
 
 
-  <ul class='tabs'>
-    <li><a href='#allgemein'>Allgemein</a></li>
+  <ul class='ui top attached tabular menu'>
+    <a class="active item" data-tab="allgemein">Allgemein</a>
     <% unless @project.new_record? %>
-      <li><a href='#inhalt'>Inhalt</a></li>
-      <li><a href='#teams'>Teams</a></li>
-      <li><a href='#bilder'>Bilder (<%= @project.images.count %>)</a></li>
-      <li><a href='#presse'>Presse (<%= @project.press.count %>)</a></li>
-      <li><a href='#termine'>Termine (<%= @project.events.count %>)</a></li>
-
+      <a class="item" data-tab="inhalt">Inhalt</a>
+      <a class="item" data-tab="teams">Teams</a>
+      <a class="item" data-tab="bilder">Bilder (<%= @project.images.count %>)</a>
+      <a class="item" data-tab="bilder">Presse (<%= @project.press.count %>)</a>
+      <a class="item" data-tab="bilder">Termine (<%= @project.events.count %>)</a>
     <% end %>
   </ul>
 
   <div class='tab-content'>
-    <div id='allgemein'>
-      <table class='form'>
-        <tr>
-          <th><%= f.label :title %></th>
-          <td><%= f.text_field :title %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :subtitle %></th>
-          <td><%= f.text_field :subtitle %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :videos %></th>
-          <td><%= f.text_area :videos %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :tags %></th>
-          <td><%= f.text_field :tag_list, class: 'tags' %></td>
-        </tr>
-
+    <div class="ui bottom attached active tab segment" data-tab="allgemein">
+      <table class='ui celled table'>
+        <thead>
+          <tr>
+            <th><%= f.label :title %></th>
+            <td class ="ui input"><%= f.text_field :title %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :subtitle %></th>
+            <td class ="ui input"><%= f.text_field :subtitle %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :videos %></th>
+            <td class ="ui input"><%= f.text_area :videos %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :tags %></th>
+            <td class ="ui input"><%= f.text_field :tag_list, class: 'tags' %></td>
+          </tr>
+        </thead>
       </table>
 
-      <div class="actions">
-        <%= f.submit %>
+      <div>
+        <%= f.submit "Projekt erstellen", class: "ui green button" %>
       </div>
     </div>
 
-    <div id='inhalt'>
+    <div class="ui bottom attached tab segment" data-tab="inhalt">
       <%= render 'wysiwyg', {form: f, field: :description} %>
     </div>
 
     <% unless @project.new_record? %>
-      <div id='bilder'>
+      <div class="ui bottom attached tab segment" data-tab="bilder">
         <%= render 'image_form', {collection: @project.images, container_id: 'bilder', upload_url: specific_project_project_files_url(@project, {kind: 'image'})} %>
       </div>
 
-      <div id='presse'>
+      <div class="ui bottom attached tab segment" data-tab="presse">
         <%= render 'image_form', {collection: @project.press, container_id: 'presse', upload_url: specific_project_project_files_url(@project, {kind: 'press'})} %>
       </div>
 
-      <div id='teams'>
+      <div class="ui bottom attached tab segment" data-tab="teams">
         <ul>
           <% @project.teams.each do |team| %>
             <li><%= link_to team.full_name, edit_project_team_path(@project, team) %></li>
@@ -74,7 +74,7 @@
         <%= link_to 'Team hinzufügen', new_project_team_path(@project), class: 'btn btn-success' %>
       </div>
 
-      <div id='termine'>
+      <div class="ui bottom attached tab segment" data-tab="termine">
         <%= render 'events_form', f: f %>
       </div>
 
@@ -86,6 +86,3 @@
 
 
 <% end %>
-
-
-

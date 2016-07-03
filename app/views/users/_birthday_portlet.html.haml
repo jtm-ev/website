@@ -1,5 +1,5 @@
-.portlet
-  .portlet-header= "Geburtstage im #{ t('date.month_names')[month] }"
+.column.ui.segment
+  .ui.header "Geburtstage im #{ t('date.month_names')[month] }"
   .portlet-content
     - Member.with_birthday_in(month).each do |member|
       .birthday{class: birthday_style(member)}
@@ -8,10 +8,8 @@
           = link_to member.full_name, "mailto:#{member.email}"
         - else
           = member.full_name
-      
+
         - this_year_age =  Time.now.year - member.birthday.year
-      
+
         - if (this_year_age % 10) == 0 or this_year_age == 18
           = "(#{this_year_age})"
-        
-        

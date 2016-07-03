@@ -1,10 +1,12 @@
 = render_breadcrumbs
 
-.portal
+#calendar
+
+#dashboard_grid.ui.stackable.two.column.grid.container{:style => "margin-top: 0px;"}
 
 
-  .portlet
-    .portlet-header Termine
+  .column.ui.segment{:style => "margin-top: 14px;"}
+    .ui.header Termine
     .portlet-content
       - Event.upcoming.each do |event|
         .event
@@ -15,8 +17,8 @@
   = render 'birthday_portlet', month: Time.now.month
   = render 'birthday_portlet', month: Time.now.month + 1
 
-  .portlet
-    .portlet-header Deine Gruppen
+  .column.ui.segment{:style => "margin-bottom: 14px;"}
+    .ui.header Deine Gruppen
     .portlet-content
       - current_user.groups.each do |group|
         .group
@@ -25,4 +27,3 @@
             = link_to 'Adressen', address_group_path(group)
             = link_to 'E-Mail schreiben', "mailto:#{u(group.emails.join(','))}"
             /= link_to 'Rundmail', '#'
-

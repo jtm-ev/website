@@ -11,59 +11,59 @@
 <% end %>
 
 <%= form_for(@group) do |f| %>
-  <table class='form'>
+  <table class='ui celled table'>
+    <thead>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td class ="ui input"><%= f.text_field :name %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :shortcut %></th>
+        <td class ="ui input"><%= f.text_field :shortcut %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :category %></th>
+        <td><%= f.collection_select :category, [OpenStruct.new(key: 'age', value: 'Alter'), OpenStruct.new(key: 'interest', value: 'Interesse')], :key, :value, include_blank: true %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :description %></th>
+        <td class ="ui input"><%= f.text_field :description %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :public %></th>
+        <td class ="ui input"><%= f.check_box :public %></td>
+      </tr>
 
-    <tr>
-      <th><%= f.label :name %></th>
-      <td><%= f.text_field :name %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :shortcut %></th>
-      <td><%= f.text_field :shortcut %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :category %></th>
-      <td><%= f.collection_select :category, [OpenStruct.new(key: 'age', value: 'Alter'), OpenStruct.new(key: 'interest', value: 'Interesse')], :key, :value, include_blank: true %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :description %></th>
-      <td><%= f.text_field :description %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :public %></th>
-      <td><%= f.check_box :public %></td>
-    </tr>
-    
-    <tr>
-      <th>Webseite</th>
-      <td>
-        <%- if @group.page %>
-          <%= @group.page.try(:title)  %> (<%= link_to 'bearbeiten', edit_page_path(@group.page) %>)
-        <% else %>
-          Wird nach dem erstellen erzeugt
-        <% end %>
-      </td>
-    </tr>
-
+      <tr>
+        <th>Webseite</th>
+        <td>
+          <%- if @group.page %>
+            <%= @group.page.try(:title)  %> (<%= link_to 'bearbeiten', edit_page_path(@group.page) %>)
+          <% else %>
+            Wird nach dem erstellen erzeugt
+          <% end %>
+        </td>
+      </tr>
+    </thead>
   </table>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Gruppe erstellen", class: "ui green button" %>
     <%= link_to 'Gruppe löschen', group_path(@group), confirm: 'Wirklich löschen?', method: :delete, class: 'btn btn-danger' unless @group.new_record? %>
   </div>
-  
+
   <hr />
-  
+
 <% end  %>
 
-  
+
 <%- unless @group.new_record? %>
-  
+
   <ul class='tabs'>
     <li><a href='#mitglieder'>Mitglieder (<%= @group.group_memberships.count %>)</a></li>
     <li><a href='#verantwortung'>Gruppenleiter (<%= @group.leader.count %>)</a></li>
   </ul>
-  
+
   <div class='tab-content'>
     <div id='verantwortung'>
       <%= form_for(@group) do |f| %>
@@ -81,12 +81,12 @@
                 </tr>
               <% end %>
             <% end %>
-          
+
             <tr>
               <td></td>
               <td><%= f.submit 'Auswahl löschen', class: 'btn btn-danger', confirm: 'Sicher?', name: 'remove_group_leader' %></td>
             </tr>
-          
+
             <tr>
               <td>
               <td>
@@ -96,7 +96,7 @@
                     <option value='<%= member.id %>'><%= member.name %> <%= member.first_name %></option>
                   <% end %>
                 </select>
-          
+
                 <%= f.submit 'als Gruppenleiter hinzufügen', class: 'btn btn-success', name: 'add_group_leader' %>
               </td>
             </tr>
@@ -105,8 +105,8 @@
       <% end %>
     </div>
 
-    
-    
+
+
     <div id='mitglieder'>
       <table class='system'>
         <thead>
@@ -115,17 +115,17 @@
           <th>Rolle</th>
           <th width=20>Sortierung</th>
         </thead>
-        
+
         <%= form_for(@group) do |f| %>
-               
+
           <tbody id='group_memberships_container'>
             <% @group.group_memberships.each do |gms| %>
               <%= render 'group_memberships/item', gms: gms %>
             <% end %>
           </tbody>
 
-        
-          
+
+
             <tbody>
               <tr>
                 <td></td>
@@ -142,7 +142,7 @@
                 </td>
               </tr>
             </tbody>
-          
+
         <% end %>
 
 
@@ -162,13 +162,9 @@
 
       </table>
     </div>
-    
 
-  
+
+
   </div>
-  
+
 <% end %>
-
-
-
-

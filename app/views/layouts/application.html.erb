@@ -47,7 +47,7 @@
       <%= link_to_active 'Seiten', pages_path, can?(:manage, Page) %>
       <%= link_to_active 'Termine', events_path, can?(:manage, Event) %>
     <% end %>
-      <div id="internal_navbar" class='ui fixed menu navbar page grid'>
+      <div id="internal_navbar" class='ui fixed menu navbar page padded grid'>
         <% link_to current_user.member.full_name, '/profile', class: 'brand' %>
 
         <%= link_to_active "E-Mail", email_path, true %>
@@ -71,7 +71,7 @@
         <%# Anlegen Dropdown %>
         <% unless yield(:default_actions).blank? %>
           <a id="create_toggle" class="item">Anlegen</a>
-          <div id="create_dropdown" class="ui grey vertical navbar menu transition hidden">
+          <div id="create_dropdown" class="ui grey vertical navbar menu transition hidden" style="padding: 0px;">
               <%= yield(:default_actions) %>
           </div>
         <% end %>
@@ -89,26 +89,24 @@
       </div>
   <% end %>
 
-<div class="ui grid">
+<div class="ui padded grid" id = "menu_grid" style="margin: 0;">
       <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
-      <div class="computer only row">
-           <div class="ui inverted fixed menu navbar page grid">
-              <a href='/'><img id='logo' src='/images/logo2.png'></a>
-              <%= link_to_active 'Jugendtheater Martinszell', "/", true %>
-              <%= link_to_active 'Projekte', "/projekte", true %>
-              <%= link_to_active 'Spielorte', "/spielorte", true %>
-              <%= link_to_active 'Der Verein', "/s/der-verein", true %>
-              <%= link_to_active 'Kontakt', "/s/kontakt", true %>
-              <%= link_to_active 'Gästebuch', "/gaestebuch", true %>
-              <div class="right menu">
-                  <% unless current_user %>
-                    <%= link_to_active 'Intern', "/login", true %>
-                  <% end %>
-              </div>
-          </div>
+      <div class="ui rail computer only row" id="navbar_rail"style="position: fixed;">
+        <div class="ui vertical menu" id="vertical_navbar">
+          <a href='/'><img id='logo' src='/images/logo2.png'></a>
+          <%= link_to_active 'Jugendtheater Martinszell', "/", true %>
+          <%= link_to_active 'Projekte', "/projekte", true %>
+          <%= link_to_active 'Spielorte', "/spielorte", true %>
+          <%= link_to_active 'Der Verein', "/s/der-verein", true %>
+          <%= link_to_active 'Kontakt', "/s/kontakt", true %>
+          <%= link_to_active 'Gästebuch', "/gaestebuch", true %>
+          <% unless current_user %>
+            <%= link_to_active 'Intern', "/login", true %>
+          <% end %>
+        </div>
       </div>
       <div class="mobile tablet only row">
-          <div class="ui fixed inverted navbar menu">
+          <div class="ui fixed navbar menu">
             <a href='/' class="logo"><img id='logo' src='/images/logo2.png'></a>
             <a href="/" class="brand item mobile">Jugentheater Martinszell</a>
           </div>
