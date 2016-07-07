@@ -61,8 +61,8 @@ gem 'jbuilder'
 
 group :development do
   # Deploy with Capistrano
-  gem 'capistrano'
-  gem 'capistrano-ext'
+  gem 'capistrano',  '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
 
   gem 'guard-livereload', '~> 2.5.1', require: false
   gem 'rack-livereload'

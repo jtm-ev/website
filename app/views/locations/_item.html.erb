@@ -1,6 +1,6 @@
 <a href='<%= location_path(location) %>' class='item'>
   <% if location.image %>
-    <img src='<%= location.image.file.url(:normal) %>'>
+    <img src='<%= asset_url location.image.file.url(:normal) %>'>
   <% else %>
     <div class='empty'></div>
   <% end %>

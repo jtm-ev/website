@@ -33,7 +33,7 @@
           <% if p.has_image? %>
             <div class="ui rail">
               <div id="sticky_pic" class="ui sticky">
-                <img src='<%= p.image.url(:square) %>'>
+                <img src='<%= asset_url p.image.url(:square) %>'>
               </div>
             </div>
           <% end %>

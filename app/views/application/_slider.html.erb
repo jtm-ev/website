@@ -1,7 +1,7 @@
 <div id="slider_partial" class="flexslider">
   <div class="slides">
     <% @images.each do |item| %>
-      <li><img src="<%= item.url %>" /></li>
+      <li><img src="<%= asset_url item.url %>" /></li>
       <script>
         $(window).load(function() {
           $('.flexslider').flexslider({

@@ -4,9 +4,7 @@
     keywords: @project.tags.join(','),
     og: {
       title: @project.title,
-      # url:
       site_name: 'Jugendtheater Martinszell e.V.',
-      # type: 'website',
       image: @project.cover.nil? ? '' : @project.cover.url(:square_300)
     }
   )
@@ -14,7 +12,6 @@
 
 <div class="header">
 <%= render_breadcrumbs %>
-
 
   <div id='navigatable-nav'>
     <%= render_navigatable_nav(@previous, '&laquo;', lambda {|i| show_tagged_project_path(params[:tags], i) }, :title) %>
@@ -30,7 +27,7 @@
       <ul class="slides">
         <% @project.images.each do |image| %>
         <li>
-          <img src="<%= image.url %>" />
+          <img src="<%= asset_url image.url(:large) %>" />
         </li>
         <% end %>
       </ul>
@@ -40,7 +37,7 @@
     <ul class="slides">
       <% @project.images.each do |image| %>
       <li>
-        <img src="<%= image.url %>" />
+        <img src="<%= asset_url image.url(:square_300) %>" />
       </li>
       <% end %>
     </ul>
@@ -119,7 +116,7 @@
 
             <% if team.has_image? %>
               <div class='team-image'>
-                <img class ="team-image" src='<%= team.file.url(:normal) %>'>
+                <img class ="team-image" src='<%= asset_url team.file.url(:normal) %>'>
               </div>
             <% end %>
 
@@ -150,7 +147,7 @@
           <div id="press" class="column">
             <div class="ui segment">
               <a href='<%= item.file.url %>' class='square' target='_blank'>
-                <img src='<%= item.file.url(:square_300) %>' title='<%= item.description %>'>
+                <img src='<%= asset_url item.file.url(:square_300) %>' title='<%= item.description %>'>
                 <div class='title'><%= item.description %></div>
               </a>
             </div>

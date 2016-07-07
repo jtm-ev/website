@@ -34,3 +34,15 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
+
+dump:
+  pool: 5
+  timeout: 5000
+  adapter: mysql2
+  encoding: utf8
+  database: jtm_dump
+  username: root
+  password: root
+  host: localhost
+  socket: /Applications/MAMP/tmp/mysql/mysql.sock
+  # port: 3306
