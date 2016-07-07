@@ -19,17 +19,17 @@
     <% @guestbooks.each do |guestbook| %>
 
       <% if guestbook.project != p %>
-      
+
         <% unless count == 0 %>
           </div>
           <div class='guestbook-section'>
         <% end %>
-      
-        <% 
+
+        <%
           count += 1
-          p = guestbook.project 
+          p = guestbook.project
         %>
-        
+
         <% if p %>
           <a class='guestbook-project sticky' href='<%= project_path(p) %>'>
             <% if p.has_image? %>

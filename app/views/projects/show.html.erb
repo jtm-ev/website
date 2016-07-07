@@ -4,9 +4,7 @@
     keywords: @project.tags.join(','),
     og: {
       title: @project.title,
-      # url:
       site_name: 'Jugendtheater Martinszell e.V.',
-      # type: 'website',
       image: @project.cover.nil? ? '' : @project.cover.url(:square_300)
     }
   )
@@ -71,6 +69,7 @@
                 <%= l event.start_time, format: :project %>
                 <span class='time'><%= l event.start_time, format: :time_only %></span>
                 <span class='description'><%= with_clamps_unless_nil(event.title) %></span>
+
               </div>
             <% end %>
           </div>
@@ -101,6 +100,7 @@
       <% end %>
     </div>
 
+
     <!--googleoff: all -->
     <% unless @project.actor_teams.empty? %>
       <div id='darsteller'>
@@ -109,6 +109,7 @@
             <h3><%= actor_team.segment %></h3>
           <% end %>
           <%= render 'roles', memberships: actor_team.team_memberships %>
+
         <% end %>
       </div>
     <% end %>

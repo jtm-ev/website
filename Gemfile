@@ -59,8 +59,8 @@ gem 'jbuilder'
 
 group :development do
   # Deploy with Capistrano
-  gem 'capistrano'
-  gem 'capistrano-ext'
+  gem 'capistrano',  '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
 
   gem 'guard-livereload'  # livereload your browser on asset-changes (views, css)
   gem 'rack-livereload'
