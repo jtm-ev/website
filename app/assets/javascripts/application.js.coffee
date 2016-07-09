@@ -17,6 +17,9 @@
 #= require jquery.tablesort
 #= require moment
 #= require fullcalendar
+#= require unitegallery.min.js
+#= require ug-theme-tiles.js
+#= require ug-theme-carousel.js
 #= require editing
 #= require calendar
 #= require intern

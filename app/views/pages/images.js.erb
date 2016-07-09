@@ -1,6 +1,6 @@
 var tinyMCEImageList = new Array(
   <% @page.page_files.each do |pf| %>
-  ["<%= pf.file_file_name %>", "<%= pf.file.url(:normal, false) %>"],
+  ["<%= asset_url pf.file_file_name %>", "<%= asset_url pf.file.url(:normal, false) %>"],
   <% end %>
   ["Logo", "/images/logo.png"]
 );

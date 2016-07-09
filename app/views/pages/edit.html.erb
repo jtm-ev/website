@@ -121,7 +121,7 @@
       <% @page.page_files.each do |pf| %>
         <div class='file'>
           <div class='file-name'>#<%= pf.id %> : <%= pf.file_file_name %></div>
-          <img src='<%= pf.file.url(:square) %>'>
+          <img src='<%= asset_url pf.file.url(:square) %>'>
           <div class='file-details'>
             <%= pf.width %> x <%= pf.height %><br/>
 

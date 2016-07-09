@@ -2,10 +2,10 @@
 
     <tr id="team_membership_<%= team_membership.id %>">
       <td><%= check_box_tag 'selection[]', team_membership.id %></td>
-      
+
       <td>
         <% if team_membership.has_image? %>
-          <img src="<%= team_membership.file.url(:square) %>" >
+          <img src="<%= asset_url team_membership.file.url(:square) %>" >
         <% end %>
       </td>
       <td id="team-membership-<%= team_membership.id %>"><%= team_membership.member.try :full_name %></td>
@@ -16,5 +16,5 @@
         <%= link_to "Löschen", team_membership, method: :delete, confirm: "Sicher?", remote: true %>
       </td>
     </tr>
-        
+
 <% end %>

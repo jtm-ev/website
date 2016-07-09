@@ -3,7 +3,7 @@
 - unless @user.member.nil?
   .profile-image
     - if @user.member.has_image?
-      %img{src: @user.member.file.url(:square_300)}
+      %img{src: asset_url(@user.member.file.url(:square_300)), :class => "ui rounded image"}
 
     %input.fileupload{'type' => 'file', 'name' => 'files', 'data-url' => member_path(@user.member), 'data-method' => 'PUT', 'data-reload' => 'true', 'data-dropzone' => '#upload-profile-image'}
 

@@ -47,7 +47,7 @@
       <%= link_to_active 'Seiten', pages_path, can?(:manage, Page) %>
       <%= link_to_active 'Termine', events_path, can?(:manage, Event) %>
     <% end %>
-      <div id="internal_navbar" class='ui fixed menu navbar page padded grid'>
+      <div id="internal_navbar" class='ui fixed menu navbar page padded grid' style="z-index:5;">
         <% link_to current_user.member.full_name, '/profile', class: 'brand' %>
 
         <%= link_to_active "E-Mail", email_path, true %>
@@ -81,9 +81,7 @@
           <%= link_to_active 'Profil', '/profile', true %>
           <%= link_to_active 'Logout', '/logout', true %>
           <%- if current_user.member.has_image? %>
-            <div class='logo'>
-              <img src='<%= current_user.member.file.url(:square) %>'>
-            </div>
+              <img class="ui tiny rounded image" id="user_image" src='<%= asset_url current_user.member.file.url(:square_300) %>'>
           <% end %>
         </div>
       </div>
@@ -105,12 +103,13 @@
           <% end %>
         </div>
       </div>
-      <div class="mobile tablet only row">
-          <div class="ui fixed navbar menu">
+      <div class="mobile tablet only row" id="mobile_nav_content">
+          <div class="ui fixed navbar menu" id="mobile_navbar">
             <a href='/' class="logo"><img id='logo' src='/images/logo2.png'></a>
-            <a href="/" class="brand item mobile">Jugentheater Martinszell</a>
+            <a href="/" class="brand item mobile">Jugentheater Martinszell
+            <i class="dropdown icon"></i></a>
           </div>
-          <div id="nav_menu_dropdown" class="ui vertical navbar menu transition hidden">
+          <div id="nav_menu_dropdown" class="ui vertical navbar menu transition hidden" style="padding-left:0px;">
             <%= link_to_active 'Projekte', "/projekte", true %>
             <%= link_to_active 'Spielorte', "/spielorte", true %>
             <%= link_to_active 'Der Verein', "/s/der-verein", true %>

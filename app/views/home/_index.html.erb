@@ -1,7 +1,7 @@
 <div class='ui relaxed divided items'>
   <% for page in @pages do %>
-    <div class="item">
-      <article data-created-at='<%= l page.created_at, format: :no_time %>'>
+    <div class="item" id="blog-entry">
+      <article id="blog-article" data-created-at='<%= l page.created_at, format: :no_time %>'>
 
         <%= render 'pages/show', page: page %>
 

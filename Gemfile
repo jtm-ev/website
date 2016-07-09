@@ -16,7 +16,7 @@ gem 'rolify'
 
 gem 'haml'
 
-gem 'less-rails-semantic_ui'
+gem 'less-rails-semantic_ui', '~> 2.2', '>= 2.2.1.0'
 gem 'autoprefixer-rails'
 
 gem 'less-rails', '~> 2.7', '>= 2.7.1'
