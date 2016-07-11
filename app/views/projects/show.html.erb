@@ -47,12 +47,13 @@
 
 
   <div class="ui bottom attached tab segment active" data-tab="inhalt">
-    <% unless @project.images.empty? %>
-      <img class="ui medium left floated image" src='<%= asset_url @project.images.first.file.url(:normal) %>'>
-    <% end %>
+    <div style="overflow: hidden;">
+      <% unless @project.images.empty? %>
+        <img class="ui medium left floated image" src='<%= asset_url @project.images.first.file.url(:normal) %>'>
+      <% end %>
 
-    <%= @project.description.try :html_safe %>
-
+      <%= @project.description.try :html_safe %>
+    </div>
     <%= render partial: 'gallery' %>
   </div>
 

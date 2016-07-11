@@ -11,27 +11,28 @@
       </ul>
     </div>
   <% end %>
-  
-  <table class='form'>
-    <tr>
-      <th><%= f.negative_label @captcha, :name, 'Name' %></th>
-      <td><%= f.negative_text_field @captcha, :name %></td>
-    </tr>
-    <tr>
-      <th><%= f.negative_label @captcha, :content, 'Nachricht' %></th>
-      <td><%= f.negative_text_area @captcha, :content, class: 'size-middle' %></td>
-    </tr>
-    
+
+  <table class='ui celled table'>
+    <thead>
+      <tr>
+        <th><%= f.negative_label @captcha, :name, 'Name' %></th>
+        <td class="ui input"><%= f.negative_text_field @captcha, :name, class: "ui input" %></td>
+      </tr>
+      <tr>
+        <th><%= f.negative_label @captcha, :content, 'Nachricht' %></th>
+        <td class="field"><%= f.negative_text_area @captcha, :content, class: 'size-middle' %></td>
+      </tr>
+    </thead>
     <!--tr>
       <th><%= f.label :project, 'Projekt' %></th>
       <td><%= f.collection_select :project_id, Project.latest_first.limit(5), :id, :title, include_blank: true %></td>
     </tr-->
-    
+
   </table>
-  
+
   <div class="actions">
-    <%= f.submit %>
-    <%= link_to 'oder zurück zum Gästebuch', guestbooks_path %>
+    <%= f.submit "Gästebucheintrag erstellen", class: "ui primary button" %>
+    <%= link_to 'oder zurück zum Gästebuch', guestbooks_path, class: "ui red button" %>
   </div>
-  
+
 <% end %>

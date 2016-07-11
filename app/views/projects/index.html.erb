@@ -3,11 +3,28 @@
 
 <h1>Projekte (<%= Project.count %>)</h1>
 
-<div class="ui pointing menu">
-  <%= link_to_active 'Alle', "/projekte", true %>
-  <% Project.tag_counts.order('count DESC').limit(5).each do |tag| %>
-    <%= link_to_active "#{tag.name.humanize} (#{tag.count})", "/projekte:#{tag.name.humanize}", true %>
-  <% end %>
+<div id="categories" class ="ui grid">
+  <div class="computer only row">
+    <div class="ui pointing menu" id="categories_computer">
+      <%= link_to_active 'Alle', "/projekte", true %>
+      <% Project.tag_counts.order('count DESC').limit(5).each do |tag| %>
+        <%= link_to_active "#{tag.name.humanize} (#{tag.count})", "/projekte:#{tag.name.humanize}", true %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mobile tablet only row">
+    <div class="ui selection dropdown">
+      <div class="text">Alle</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <%= link_to_active 'Alle', "/projekte", true %>
+        <% Project.tag_counts.order('count DESC').limit(5).each do |tag| %>
+          <%= link_to_active "#{tag.name.humanize} (#{tag.count})", "/projekte:#{tag.name.humanize}", true %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="ui search">

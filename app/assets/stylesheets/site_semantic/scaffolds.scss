@@ -42,7 +42,7 @@
 
   .containers {
     width: 70%;
-
+    //min-width: 755px !important;
     padding: 25px;
     margin-top: 50px;
     margin-left: auto;
@@ -73,11 +73,12 @@
   }
 
   #content {
-    padding-left: 10%;
+    //padding-left: 10%;
   }
 
   .containers {
     width: 70%;
+    min-width: 825px !important;
     padding: 25px;
     margin-left: auto;
     margin-right: auto;
@@ -93,6 +94,10 @@
   }
 }
 
+#categories{
+  padding-bottom: 14px;
+}
+
 #action_dropdown {
   color: #000;
   margin-top: 47px !important;
@@ -106,7 +111,6 @@
 
 #create_dropdown {
   color: #000;
-  margin-top: 47px !important;
   margin-left: -80px;
   position: absolute;
   width: auto;

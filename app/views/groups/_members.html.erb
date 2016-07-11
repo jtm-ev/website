@@ -1,14 +1,32 @@
-<% @group.group_memberships.each do |membership| %>
-  <div class='actor'>
+<div id="gallery" style="display:none;">
+  <% @group.group_memberships.each do |membership| %>
+    <% if membership.member.has_image? %>
+    <img alt='<%= membership.member.full_name%> - <%= membership.role %>'
+    src='<%= asset_url membership.member.file.url(:normal) %>'
+    data-image='<%= asset_url membership.member.file.url() %>'>
+    <% end %>
+  <% end %>
+</div>
 
-    <div class='actor-image'>
-      <% if membership.member.has_image? %>
+<script type="text/javascript">
 
-      <% end %>
-    </div>
+  jQuery(document).ready(function(){
+    jQuery("#gallery").unitegallery({
+      gallery_width:"100%",
+      tile_border_color:"#7a7a7a",
+      tile_outline_color:"#8B8B8B",
+      tile_enable_shadow:true,
+      tile_shadow_color:"#8B8B8B",
+      tile_overlay_opacity:0.3,
+      tile_show_link_icon:true,
+      tile_image_effect_type:"sepia",
+      tile_image_effect_reverse:true,
+      tile_enable_textpanel:true,
+      lightbox_textpanel_title_color:"e5e5e5",
+      tiles_col_width:230,
+      tiles_space_between_cols:20
+    });
 
-    <span class='member'><%= link_to membership.member.full_name, member_path(membership.member) %></span>
-    <span class='role'><%= membership.role %></span>
+  });
 
-  </div>
-<% end %>
+</script>

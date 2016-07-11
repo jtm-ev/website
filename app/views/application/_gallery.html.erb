@@ -1,0 +1,16 @@
+<% a = (0...8).map { (65 + rand(26)).chr }.join %>
+<div id="<%= a %>" style="display:none;">
+  <% @images.each do |item| %>
+  <img alt="Bildergalerie"
+  src='<%= asset_url item.url(:normal) %>'
+  data-image='<%= asset_url item.url() %>'>
+  <% end %>
+
+</div>
+<script type="text/javascript">
+  $(window).load(function() {
+    jQuery("#<%= a %>").unitegallery({
+      gallery_theme: "tiles"
+    });
+  });
+</script>
