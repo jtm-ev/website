@@ -21,7 +21,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.search(page, search, per_page = 10)
-    paginate(page: page, per_page: per_page).where("title LIKE (:name)", {:name => "%#{search}%"}).order(id: :desc)
+    latest_first.where("projects.title LIKE (:name)", {:name => "%#{search}%"}).paginate(page: page, per_page: per_page)
   end
 
   def ongoing?

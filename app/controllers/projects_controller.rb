@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
 
     if(params[:tags])
       tags = params[:tags].split(':')
-      @projects = @projects.tagged_with(tags)
+      @projects = @projects.latest_first.tagged_with(tags)
     end
 
     respond_to do |format|
