@@ -23,182 +23,59 @@
 <div data-ongoing='<%= @project.ongoing? %>'>
   <h1><%= @project.title %></h1>
 
-  <div id="tab_container" class ="ui grid">
-    <div class="computer only row">
-      <div class='ui top attached tabular menu'>
-        <% unless @project.description.blank? %>
-          <a class="item active" data-tab="inhalt">Inhalt</a>
-        <% end %>
-        <% unless @project.images.empty? %>
-          <a class="item" data-tab="images">Bilder (<%= @project.images.length %>)</a>
-        <% end %>
-        <% unless @project.actor_teams.empty? %>
-          <a class="item" data-tab="darsteller">Darsteller</a>
-        <% end %>
-        <% unless @project.non_actor_teams.empty? %>
-          <a class="item" data-tab="hdk">Hinter den Kulissen</a>
-        <% end %>
-        <% unless @project.videos.blank? %>
-          <a class="item" data-tab="videos">Videos (<%= @project.videos.lines.count %>)</a>
-        <% end %>
-        <% unless @project.press.empty? %>
-          <a class="item" data-tab="press">Presse (<%= @project.press.length %>)</a>
-        <% end %>
-        <a class="item" data-tab="events">Termine (<%= @project.events.length %>)</a>
-      </div>
-    </div>
+  <div class='ui top attached stackable tabular menu desktop only container'>
+    <a class="item active" data-tab="inhalt">Inhalt</a>
 
-    <div class="mobile tablet only row">
-      <div class="ui selection dropdown">
-        <div class="text">Inhalt</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <% unless @project.description.blank? %>
-            <div class="item active" data-tab="inhalt" data-text="Inhalt">Inhalt</div>
-          <% end %>
-          <% unless @project.actor_teams.empty? %>
-            <div class="item" data-tab="darsteller" data-text="Darsteller">Darsteller</div>
-          <% end %>
-          <% unless @project.non_actor_teams.empty? %>
-            <div class="item" data-tab="hdk" data-text="Hinter den Kulissen">Hinter den Kulissen</div>
-          <% end %>
-          <% unless @project.videos.blank? %>
-            <div class="item" data-tab="videos" data-text="Videos">Videos (<%= @project.videos.lines.count %>)</div>
-          <% end %>
-          <% unless @project.press.empty? %>
-            <div class="item" data-tab="press" data-text="Presse">Presse (<%= @project.press.length %>)</div>
-          <% end %>
-          <div class="item" data-tab="events" data-text="Termine">Termine (<%= @project.events.length %>)</div>
-        </div>
-      </div>
-    </div>
+    <% unless @project.actor_teams.empty? %>
+      <a class="item" data-tab="darsteller">Darsteller</a>
+    <% end %>
+
+    <% unless @project.non_actor_teams.empty? %>
+      <a class="item" data-tab="hdk">Hinter den Kulissen</a>
+    <% end %>
+
+<!--       <% unless @project.videos.blank? %>
+      <a class="item" data-tab="videos">Videos (<%= @project.videos.lines.count %>)</a>
+    <% end %> -->
+
+    <% unless @project.press.empty? %>
+      <a class="item" data-tab="press">Presse (<%= @project.press.length %>)</a>
+    <% end %>
+
+    <a class="item" data-tab="events">Termine (<%= @project.events.length %>)</a>
   </div>
 
 
+  <div class="ui bottom attached tab segment active" data-tab="inhalt">
+    <% unless @project.images.empty? %>
+      <img class="ui medium left floated image" src='<%= asset_url @project.images.first.file.url(:normal) %>'>
+    <% end %>
 
-  <div class='tab-content'>
-    <div class="ui bottom attached tab segment active" data-tab="inhalt">
-      <% unless @project.images.empty? %>
-        <img class="ui medium left floated image" src='<%= asset_url @project.images.first.file.url(:normal) %>'>
-      <% end %>
-      <%= @project.description.try :html_safe %>
-    </div>
+    <%= @project.description.try :html_safe %>
 
-    <div class="ui bottom attached tab segment" data-tab="darsteller">
-      <%- @project.actor_teams.each do |actor_team| %>
-        <%- unless actor_team.segment.blank? or actor_team.team_memberships.empty? %>
-          <h3><%= actor_team.segment %></h3>
-        <% end %>
-        <%= render 'roles', memberships: actor_team.team_memberships %>
-      <% end %>
-    </div>
-
-    <div class="ui bottom attached tab segment" data-tab="images">
-      <div id="gallery" style="display:none;">
-        <% @project.images.each do |image| %>
-          <img alt="Bildergalerie"
-          src='<%= asset_url image.file.url(:normal) %>'
-          data-image='<%= asset_url image.file.url() %>'>
-        <% end %>
-        <% unless @project.videos.nil? %>
-          <% @project.videos.each_line do |video_url| %>
-            <img alt="Youtube Video"
-            data-type="youtube"
-            data-videoid="<%= video_url[/(?<=[?&]v=)[^&$]+/] %>">
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-
-    <script type="text/javascript">
-
-      jQuery(document).ready(function(){
-        jQuery("#gallery").unitegallery({
-          gallery_theme: "tiles",
-          tiles_type: "nested",
-        });
-      });
-
-    </script>
-
-    <div class="ui bottom attached tab segment" data-tab="hdk">
-      <div class="ui grid">
-        <% @project.non_actor_teams.each do |team| %>
-          <div id="team" class="column ui segment">
-
-            <div class='team-name'><%= team.name %></div>
-
-            <% if team.has_image? %>
-              <div class='team-image'>
-                <img class ="team-image" src='<%= asset_url team.file.url(:normal) %>'>
-              </div>
-            <% end %>
-
-            <div class='team-members'>
-              <% team.ordered_team_memberships.each do |tmember| %>
-                  <span><%= link_to tmember.member.full_name, tmember.member %><%= with_clamps_unless_nil tmember.role %></span>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="ui bottom attached tab segment" data-tab="videos">
-      <% if @project.videos.nil? %>
-        <p>Keine Videos verfügbar</p>
-      <% else %>
-        <% @project.videos.each_line do |video_url| %>
-          <%# youtube_embed(video_url).html_safe %>
-          <a rel='prettyPhoto' class='youtube-preview' href='<%= video_url %>&width=800&height=500' target='_blank'><img src='<%= youtube_image(video_url) %>'></a>
-        <% end %>
-      <% end %>
-    </div>
-
-    <div class="ui bottom attached tab segment" data-tab="press">
-      <div class="ui grid">
-        <% @project.press.each do |item| %>
-          <div id="press" class="column">
-            <div class="ui segment">
-              <a href='<%= item.file.url %>' class='square' target='_blank'>
-                <img src='<%= asset_url item.file.url(:square_300) %>' title='<%= item.description %>'>
-                <div class='title'><%= item.description %></div>
-              </a>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="ui bottom attached tab segment" data-tab="events">
-      <div class='ui stackable two column divided grid container'>
-        <div class='column' id='events'>
-          <% @project.events.group_by(&:year).each do |year, yevents| %>
-            <h1><%= year %></h1>
-            <% yevents.group_by(&:week).each do |week, events| %>
-              <div class='week' data-week='<%= week %>'>
-                <% events.each do |event| %>
-                  <div class='event'>
-                    <%= l event.start_time, format: :project %>
-                    <span class='time'><%= l event.start_time, format: :time_only %></span>
-                    <span class='description'><%= with_clamps_unless_nil(event.title) %></span>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-        <div class='column' id='event_location'>
-          <% if @project.locations.length > 0 %>
-            <h2>Veranstaltungsort</h2>
-            <% @project.locations.each do |location| %>
-              <%= render 'locations/item', location: location %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'gallery' %>
   </div>
+
+  <div class="ui bottom attached tab segment" data-tab="darsteller">
+    <%= render partial: 'darsteller' %>
+  </div>
+
+  <div class="ui bottom attached tab segment" data-tab="hdk">
+    <%= render partial: 'hdk' %>
+  </div>
+
+<!--     <div class="ui bottom attached tab segment" data-tab="videos">
+    <%= render partial: 'videos' %>
+  </div> -->
+
+  <div class="ui bottom attached tab segment" data-tab="press">
+    <%= render partial: 'press' %>
+  </div>
+
+  <div class="ui bottom attached tab segment" data-tab="events">
+    <%= render partial: 'events' %>
+  </div>
+
 </div>
 
 <% content_for :actions do %>

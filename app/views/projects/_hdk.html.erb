@@ -1,0 +1,20 @@
+<div class="ui grid">
+  <% @project.non_actor_teams.each do |team| %>
+    <div id="team" class="column ui segment">
+
+      <div class='team-name'><%= team.name %></div>
+
+      <% if team.has_image? %>
+        <div class='team-image'>
+          <img class ="team-image" src='<%= asset_url team.file.url(:normal) %>'>
+        </div>
+      <% end %>
+
+      <div class='team-members'>
+        <% team.ordered_team_memberships.each do |tmember| %>
+            <span><%= link_to tmember.member.full_name, tmember.member %><%= with_clamps_unless_nil tmember.role %></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<div class="ui grid">
+  <% @project.press.each do |item| %>
+    <div id="press" class="column">
+      <div class="ui segment">
+        <a href='<%= item.file.url %>' class='square' target='_blank'>
+          <img src='<%= asset_url item.file.url(:square_300) %>' title='<%= item.description %>'>
+          <div class='title'><%= item.description %></div>
+        </a>
+      </div>
+    </div>
+  <% end %>
+</div>

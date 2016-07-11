@@ -1,0 +1,8 @@
+<% if @project.videos.nil? %>
+  <p>Keine Videos verfügbar</p>
+<% else %>
+  <% @project.videos.each_line do |video_url| %>
+    <%# youtube_embed(video_url).html_safe %>
+    <a rel='prettyPhoto' class='youtube-preview' href='<%= video_url %>&width=800&height=500' target='_blank'><img src='<%= youtube_image(video_url) %>'></a>
+  <% end %>
+<% end %>

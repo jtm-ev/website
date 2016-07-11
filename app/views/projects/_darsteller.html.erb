@@ -1,0 +1,6 @@
+<%- @project.actor_teams.each do |actor_team| %>
+  <%- unless actor_team.segment.blank? or actor_team.team_memberships.empty? %>
+    <h3><%= actor_team.segment %></h3>
+  <% end %>
+  <%= render 'roles', memberships: actor_team.team_memberships %>
+<% end %>
