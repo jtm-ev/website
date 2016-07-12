@@ -68,6 +68,6 @@
 
 
 <% content_for :actions do %>
-  <%= link_to_active 'Spielort bearbeiten', edit_location_path(@location), true %>
-  <%= link_to_active 'Beschreibung bearbeiten', edit_page_path(@location.page), true %>
+  <%= link_to_active 'Spielort bearbeiten', edit_location_path(@location) if can?(:manage, Location) %>
+  <%= link_to_active 'Beschreibung bearbeiten', edit_page_path(@location.page) if can?(:manage, Location) %>
 <% end %>
