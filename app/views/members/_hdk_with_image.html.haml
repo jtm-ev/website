@@ -1,13 +1,17 @@
-- for team_membership in team_memberships.sort_by(&:year).reverse
-  - team = team_membership.team
-  - project = team_membership.project
-  .team
-    .team-name
-      = team.name
-      = with_clamps_unless_nil(team_membership.role)
-    .team-project
-      = link_to project.title, project
-      = with_clamps_unless_nil(project.year)
-    .team-image
-      %a{ href: project_path(project) }
-        %img{ src: asset_url(team.file.url(:normal))}
+#gallery1{:style => "display:none;"}
+  - for team_membership in team_memberships.sort_by(&:year).reverse
+    - team = team_membership.team
+    - project = team_membership.project
+    %a{:href => project_path(project)}
+      %img{:alt => "#{team.name} - #{project.title} #{with_clamps_unless_nil(team_membership.role)}", "data-image" => asset_url(team.file.url()), :src => asset_url(team.file.url(:normal))}/
+
+:javascript
+  $(window).load(function() {
+    jQuery("#gallery1").unitegallery({
+      gallery_theme: "tiles",
+      tiles_col_width: 400,
+      tile_show_link_icon:true,
+      tile_enable_textpanel: true,
+      tile_textpanel_always_on: true
+    });
+  });

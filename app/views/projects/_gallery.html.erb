@@ -2,7 +2,7 @@
   <% @project.images.each do |image| %>
     <img alt="Bildergalerie"
     src='<%= asset_url image.file.url(:normal) %>'
-    data-image='<%= asset_url image.file.url() %>'>
+    data-image='<%= asset_url image.file.url(:large) %>'>
   <% end %>
   <% unless @project.videos.nil? %>
     <% @project.videos.each_line do |video_url| %>

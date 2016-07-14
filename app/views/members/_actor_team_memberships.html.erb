@@ -1,18 +1,22 @@
+<div id="gallery" style="display:none;">
 <% member.actor_team_memberships.sort_by(&:year).reverse.each do |team_membership| %>
   <% project = team_membership.project %>
-  <div class='actor'>
-
-      <div class='actor-image'>
-        <% if team_membership.role_image %>
-          <a href='<%= project_path(project) %>'><img src='<%= asset_url team_membership.role_image.file.url(:square) %>'></a>
-        <% end %>
-      </div>
-
-    <span class='member'><%= team_membership.role %></span>
-    <span class='role'>
-      <%= link_to project.title, project %>
-      <%= with_clamps_unless_nil(project.year) %>
-    </span>
-
-  </div>
+  <% if team_membership.role_image %>
+    <a href='<%= project_path(project) %>'>
+      <img alt='<%= team_membership.role %> - <%= project.title %> <%= with_clamps_unless_nil(project.year) %>'
+      src='<%= asset_url team_membership.role_image.file.url(:normal) %>'
+      data-image='<%= asset_url team_membership.role_image.file.url %>'>
+    </a>
+  <% end %>
 <% end %>
+</div>
+
+<script type="text/javascript">
+  $(window).load(function() {
+    jQuery("#gallery").unitegallery({
+      gallery_theme: "tiles",
+      tile_show_link_icon:true,
+      tile_enable_textpanel:true
+    });
+  });
+</script>

@@ -3,7 +3,7 @@
   <% @images.each do |item| %>
   <img alt="Bildergalerie"
   src='<%= asset_url item.url(:normal) %>'
-  data-image='<%= asset_url item.url() %>'>
+  data-image='<%= asset_url item.url(:large) %>'>
   <% end %>
 
 </div>

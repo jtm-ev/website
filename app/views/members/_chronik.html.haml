@@ -1,15 +1,15 @@
-%table.system
-  %tr
-    %th Jahr
-    %th Projekt
-    %th
-    %th 
-  - @member.team_memberships.sort_by(&:year).reverse.each do |tms|
+%table.ui.celled.table
+  %thead
     %tr
-      %td= tms.year
-      %td= link_to tms.project.title, tms.project
-      %td= tms.team.name
-      %td= tms.role
-    
-      /= "#{tms.year}: #{tms.project.title} - #{tms.team.name}"
-    
+      %th Jahr
+      %th Projekt
+      %th Rolle
+      %th Rollenname
+    - @member.team_memberships.sort_by(&:year).reverse.each do |tms|
+      %tr
+        %td= tms.year
+        %td= link_to tms.project.title, tms.project
+        %td= tms.team.name
+        %td= tms.role
+
+        /= "#{tms.year}: #{tms.project.title} - #{tms.team.name}"

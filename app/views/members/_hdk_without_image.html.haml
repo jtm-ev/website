@@ -1,9 +1,16 @@
-- groups.each do |title, tms|
-  .team
-    .team-name
-      = title
-    .team-project
-      - tms.sort_by(&:year).reverse.each do |tm|
-        %div
-          = link_to tm.project.title, tm.project
-          = with_clamps_unless_nil(tm.project.year)
+%table.ui.celled.table
+  %thead
+    %tr
+      %th Rolle
+      %th Projekt
+      - groups.each do |title, tms|
+        %tr
+          .team-name
+            %td= title
+          .team
+            .team-project
+              %td
+                - tms.sort_by(&:year).reverse.each do |tm|
+                  %div
+                    = link_to tm.project.title, tm.project
+                    = with_clamps_unless_nil(tm.project.year)
