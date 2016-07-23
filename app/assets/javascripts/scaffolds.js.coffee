@@ -12,25 +12,27 @@ $(document).ready ->
     $('#create_dropdown').toggle().transition 'fade down'
     return
 
+  $("#navbar_rail").css("margin-left", ($(window).width()-977)*0.1);
   if ($("#mobile_nav_content").css('display') == 'flex')
     $("#internal_navbar").css("top", $("#mobile_navbar").height());
     $('#nav_menu_dropdown').css('top', $("#mobile_navbar").height()+2)
-    $("#content").css("padding-left", 0);
+    $("#content").css("margin-left", 0);
   else
     $("#internal_navbar").css("top", 0);
-    $("#content").css("padding-left", $("#navbar_rail").width()+25);
+    $("#content").css("margin-left", $("#navbar_rail").outerWidth( false ));
   $("#navbar_rail").css("top", $("#internal_navbar").height());
   $('#create_dropdown').css('margin-top', $("#internal_navbar").height()+2)
   $("#content").css("padding-top", $("#internal_navbar").height()/2+25);
   return
 
 $(window).resize ->
+  $("#navbar_rail").css("margin-left", ($(window).width()-977)*0.1);
   if ($("#mobile_nav_content").css('display') == 'flex')
     $("#internal_navbar").css("top", $("#mobile_navbar").height());
-    $("#content").css("padding-left", 0);
+    $("#content").css("margin-left", 0);
   else
     $("#internal_navbar").css("top", 0);
-    $("#content").css("padding-left", $("#navbar_rail").width()+25);
+    $("#content").css("margin-left", $("#navbar_rail").outerWidth( false ));
   $("#navbar_rail").css("top", $("#internal_navbar").height());
   $('#create_dropdown').css('margin-top', $("#internal_navbar").height()+2)
   $("#content").css("padding-top", $("#internal_navbar").height()/2+25);

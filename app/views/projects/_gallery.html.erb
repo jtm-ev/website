@@ -1,6 +1,6 @@
 <div id="gallery" style="display:none;">
   <% @project.images.each do |image| %>
-    <img alt="Bildergalerie"
+    <img alt='<%= image.description unless image.description.empty? %>'
     src='<%= asset_url image.file.url(:normal) %>'
     data-image='<%= asset_url image.file.url(:large) %>'>
   <% end %>
@@ -14,11 +14,12 @@
 </div>
 
 <script type="text/javascript">
-
   jQuery(document).ready(function(){
     jQuery("#gallery").unitegallery({
       gallery_theme: "tiles",
       tiles_type: "nested",
+      tile_enable_textpanel:!<%= @project.images.all? {|image| image.description.empty?} %>,
+      tile_textpanel_title_text_align: "center"
     });
   });
 
