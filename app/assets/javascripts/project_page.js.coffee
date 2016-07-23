@@ -1,22 +1,7 @@
 $(document).ready ->
   $('.ui.selection.dropdown').dropdown()
-  return
-
-$(window).load ->
-  $('#carousel').flexslider
-    animation: 'slide'
-    controlNav: false
-    smoothHeight: true
-    animationLoop: false
-    slideshow: false
-    itemWidth: 210
-    itemMargin: 5
-    asNavFor: '#slider'
-  $('#slider').flexslider
-    animation: 'slide'
-    smoothHeight: true
-    controlNav: false
-    animationLoop: true
-    slideshow: true
-    sync: '#carousel'
+  tab = document.getElementById('project_tabs').children[0]
+  $(tab).addClass('active')
+  tab_content = document.getElementById('project_tabcontent').children[0]
+  $(tab_content).addClass('active')
   return

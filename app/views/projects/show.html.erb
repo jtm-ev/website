@@ -23,8 +23,10 @@
 <div data-ongoing='<%= @project.ongoing? %>'>
   <h1><%= @project.title %></h1>
 
-  <div class='ui top attached stackable tabular menu desktop only container'>
-    <a class="item active" data-tab="inhalt">Inhalt</a>
+  <div id="project_tabs" class='ui top attached stackable tabular menu desktop only container'>
+    <% unless @project.description.empty? and @project.images.empty? %>
+      <a class="item" data-tab="inhalt">Inhalt</a>
+    <% end %>
 
     <% unless @project.actor_teams.empty? %>
       <a class="item" data-tab="darsteller">Darsteller</a>
@@ -42,41 +44,54 @@
       <a class="item" data-tab="press">Presse (<%= @project.press.length %>)</a>
     <% end %>
 
-    <a class="item" data-tab="events">Termine (<%= @project.events.length %>)</a>
+    <% unless @project.events.empty? %>
+      <a class="item" data-tab="events">Termine (<%= @project.events.length %>)</a>
+    <% end %>
   </div>
 
 
-  <div class="ui bottom attached tab segment active" data-tab="inhalt">
-    <div style="overflow: hidden;">
-      <% unless @project.images.empty? %>
-        <img class="ui medium left floated image" src='<%= asset_url @project.images.first.file.url(:normal) %>'>
-      <% end %>
+  <div id="project_tabcontent">
+    <% unless @project.description.empty? and @project.images.empty? %>
+      <div class="ui bottom attached tab segment" data-tab="inhalt">
+        <div style="overflow: hidden;">
+          <% unless @project.description.empty? %>
+            <img class="ui medium left floated image" src='<%= asset_url @project.images.first.file.url(:normal) %>'>
+          <% end %>
 
-      <%= @project.description.try :html_safe %>
-    </div>
-    <%= render partial: 'gallery' %>
+          <%= @project.description.try :html_safe %>
+        </div>
+        <%= render partial: 'gallery' %>
+      </div>
+    <% end %>
+
+    <% unless @project.actor_teams.empty? %>
+      <div class="ui bottom attached tab segment" data-tab="darsteller">
+        <%= render partial: 'darsteller' %>
+      </div>
+    <% end %>
+
+    <% unless @project.non_actor_teams.empty? %>
+      <div class="ui bottom attached tab segment" data-tab="hdk">
+        <%= render partial: 'hdk' %>
+      </div>
+    <% end %>
+
+  <!--     <div class="ui bottom attached tab segment" data-tab="videos">
+      <%= render partial: 'videos' %>
+    </div> -->
+
+    <% unless @project.press.empty? %>
+      <div class="ui bottom attached tab segment" data-tab="press">
+        <%= render partial: 'press' %>
+      </div>
+    <% end %>
+
+    <% unless @project.events.empty? %>
+      <div class="ui bottom attached tab segment" data-tab="events">
+        <%= render partial: 'events' %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="ui bottom attached tab segment" data-tab="darsteller">
-    <%= render partial: 'darsteller' %>
-  </div>
-
-  <div class="ui bottom attached tab segment" data-tab="hdk">
-    <%= render partial: 'hdk' %>
-  </div>
-
-<!--     <div class="ui bottom attached tab segment" data-tab="videos">
-    <%= render partial: 'videos' %>
-  </div> -->
-
-  <div class="ui bottom attached tab segment" data-tab="press">
-    <%= render partial: 'press' %>
-  </div>
-
-  <div class="ui bottom attached tab segment" data-tab="events">
-    <%= render partial: 'events' %>
-  </div>
-
 </div>
 
 <% content_for :actions do %>
