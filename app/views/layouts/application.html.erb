@@ -62,17 +62,23 @@
 
         <%# Actions Dropdown %>
         <% unless yield(:actions).blank? %>
-          <a id="action_toggle" class="item">Aktionen</a>
-          <div id="action_dropdown" class="ui grey vertical navbar menu transition hidden">
-              <%= yield(:actions) %>
+          <div class="ui pointing dropdown link item">
+            <span class="text">Aktionen</span>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <%= yield(:_actions) %>
+            </div>
           </div>
         <% end %>
 
         <%# Anlegen Dropdown %>
         <% unless yield(:default_actions).blank? %>
-          <a id="create_toggle" class="item">Anlegen</a>
-          <div id="create_dropdown" class="ui grey vertical navbar menu transition hidden" style="padding: 0px;">
+          <div class="ui pointing dropdown link item">
+            <span class="text">Erstellen</span>
+            <i class="dropdown icon"></i>
+            <div class="menu">
               <%= yield(:default_actions) %>
+            </div>
           </div>
         <% end %>
 

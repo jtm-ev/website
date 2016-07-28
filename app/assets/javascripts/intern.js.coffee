@@ -1,6 +1,7 @@
 #= require jquery.masonry
 
 jQuery ->
+  $('.ui.dropdown').dropdown()
   # $('.portal').sortable {
   #   handle: '.portlet-header'
   # }
