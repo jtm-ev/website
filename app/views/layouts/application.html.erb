@@ -112,18 +112,20 @@
       <div class="mobile tablet only row" id="mobile_nav_content">
           <div class="ui fixed navbar menu" id="mobile_navbar">
             <a href='/' class="logo"><img id='logo' src='/images/logo2.png'></a>
-            <a href="/" class="brand item mobile">Jugentheater Martinszell
-            <i class="dropdown icon"></i></a>
-          </div>
-          <div id="nav_menu_dropdown" class="ui vertical navbar menu transition hidden" style="padding-left:0px;">
-            <%= link_to_active 'Projekte', "/projekte", true %>
-            <%= link_to_active 'Spielorte', "/spielorte", true %>
-            <%= link_to_active 'Der Verein', "/s/der-verein", true %>
-            <%= link_to_active 'Kontakt', "/s/kontakt", true %>
-            <%= link_to_active 'Gästebuch', "/gaestebuch", true %>
-            <% unless current_user %>
-              <%= link_to_active 'Intern', "/login", true %>
-            <% end %>
+            <div class="ui pointing dropdown link item">
+              <span class="text">Jugentheater Martinszell</span>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <%= link_to_active 'Projekte', "/projekte", true %>
+                <%= link_to_active 'Spielorte', "/spielorte", true %>
+                <%= link_to_active 'Der Verein', "/s/der-verein", true %>
+                <%= link_to_active 'Kontakt', "/s/kontakt", true %>
+                <%= link_to_active 'Gästebuch', "/gaestebuch", true %>
+                <% unless current_user %>
+                  <%= link_to_active 'Intern', "/login", true %>
+                <% end %>
+              </div>
+            </div>
           </div>
       </div>
   </div>

@@ -5,7 +5,7 @@ gem 'unicorn' # Use unicorn as the app server
 gem 'sqlite3'
 gem 'mysql2'
 
-gem 'flexslider', :git => 'https://github.com/constantm/Flexslider-2-Rails-Gem.git'
+gem 'flexslider', '~> 2.2'
 
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
