@@ -1,0 +1,13 @@
+<div class='ui inverted top fixed menu'>
+  <% if current_user.member %>
+    <%= link_to current_user.member.full_name, '/profile', class: 'header item' %>
+  <% end %>
+
+  <%= navigation_link_to 'E-Mail', email_path, true %>
+  <%= navigation_link_to 'Adressen', address_members_path, true %>
+  <%= navigation_link_to 'Gruppen', groups_path, true %>
+
+  <%= render partial: 'navigation/intern/editor' %>
+  <% render partial: 'navigation/intern/actions' %>
+  <%= render partial: 'navigation/intern/user' %>
+</div>

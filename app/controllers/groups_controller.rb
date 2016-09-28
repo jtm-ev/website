@@ -2,13 +2,13 @@ class GroupsController < ApplicationController
   load_and_authorize_resource except: [:index]
   before_filter :authenticate_user!, except: [:show]
   skip_authorization_check only: [:index]
-  
+
   add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Gruppen', :groups_path
 
   # GET /groups
   # GET /groups.json
-  def index    
+  def index
     @groups = default_scope
 
     respond_to do |format|
@@ -20,8 +20,8 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    
-    collection = Group.scoped.order('name')
+
+    collection = Group.all.order('name')
     @previous = @group.previous_in(collection)
     @next = @group.next_in(collection)
 
@@ -56,7 +56,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         process_memberships
-        
+
         format.html { redirect_to edit_group_path(@group) }
         format.json { render json: @group, status: :created, location: @group }
       else
@@ -73,7 +73,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.update_attributes(group_params)
         process_memberships
-        
+
         format.html { redirect_to :back }
         format.json { head :no_content }
       else
@@ -93,12 +93,12 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
     def default_scope
-      Group.scoped.order('public desc, name')
+      Group.all.order('public desc, name')
     end
-    
+
     def process_memberships
       Rails.logger.info "\nProcess: #{params.inspect}\n"
       if params[:add]
@@ -120,12 +120,12 @@ class GroupsController < ApplicationController
         Member.where(id: params[:selection]).each do |member|
           member.remove_role :group_leader, @group
         end
-        
+
       elsif params[:group_memberships]
         # Mass-Update GroupMemberships
         @group.group_memberships.update params[:group_memberships].keys, params[:group_memberships].values
       end
     end
-    
-    
+
+
 end

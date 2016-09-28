@@ -7,7 +7,7 @@ module ApplicationHelper
       tag_class = request.path == href ? 'active' : ''
     end
 
-    content_tag :li, class: tag_class do
+    content_tag :div, class: [tag_class, 'item'].join(' ') do
       content_tag :a, href: href do
         text
       end

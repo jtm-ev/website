@@ -20,32 +20,32 @@
 
 <div class='clearfix'></div>
 
-<ul class='tabs'>
+<div class='ui interactive tabular menu'>
   <% if @member.actor_team_memberships.length > 0 %>
-    <li><a href='#rollen' data-toggle='tab'>Rollen (<%= @member.actor_team_memberships.length %>)</a></li>
+    <a class='item' data-tab='rollen'>Rollen (<%= @member.actor_team_memberships.length %>)</a>
   <% end %>
+
   <% if (hdk_length = @member.non_actor_team_memberships.length) > 0 %>
-    <li><a href='#hdk' data-toggle='tab'>Hinter den Kulissen</a></li>
+    <a class='item' data-tab='hdk'>Hinter den Kulissen</a></li>
   <% end %>
-  <li><a href='#chronik' data-toggle='tab'>Chronik</a></li>
-</ul>
 
-<div class='tab-content'>
-
-  <div id='rollen'>
-    <%= render 'actor_team_memberships', member: @member %>
-  </div>
-
-  <div id='hdk'>
-    <%= render 'hdk_with_image', team_memberships: @member.hdk_memberships_with_image %>
-    <%= render 'hdk_without_image', groups: @member.hdk_memberships_without_image %>
-  </div>
-
-  <div id='chronik'>
-    <%= render 'chronik' %>
-  </div>
-
+  <a class='item' data-tab='chronik'>Chronik</a></li>
 </div>
+
+
+<div class='ui tab' data-tab='rollen'>
+  <%= render 'actor_team_memberships', member: @member %>
+</div>
+
+<div class='ui tab' data-tab='hdk'>
+  <%= render 'hdk_with_image', team_memberships: @member.hdk_memberships_with_image %>
+  <%= render 'hdk_without_image', groups: @member.hdk_memberships_without_image %>
+</div>
+
+<div class='ui tab' data-tab='chronik'>
+  <%= render 'chronik' %>
+</div>
+
 
 
 <% content_for :actions do %>

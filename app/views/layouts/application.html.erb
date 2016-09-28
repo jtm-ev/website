@@ -29,7 +29,6 @@
 <body class='<%= current_user ? "internal" : "" %>'>
   <% if current_user %>
 
-
     <% content_for :default_actions do %>
       <%= navigation_link_to 'Termin', new_event_path if can?(:create, Event) %>
       <%= navigation_link_to 'Projekt', new_project_path if can?(:create, Project) %>
@@ -48,56 +47,7 @@
       <%= navigation_link_to 'Termine', events_path, true if can?(:manage, Event) %>
     <% end %>
 
-    <div class='navbar navbar-fixed-top navbar-inverse'>
-      <div class='navbar-inner'>
-        <ul class='nav'>
-          <% link_to current_user.member.full_name, '/profile', class: 'brand' %>
-
-          <%= navigation_link_to 'E-Mail', email_path, true %>
-          <%= navigation_link_to 'Adressen', address_members_path, true %>
-          <%= navigation_link_to 'Gruppen', groups_path, true %>
-
-          <%# Links für Editoren %>
-          <% unless yield(:editor_links).blank? %>
-            <li class="divider-vertical"></li>
-            <%= yield(:editor_links) %>
-          <% end %>
-
-          <%# Actions Dropdown %>
-          <% unless yield(:actions).blank? %>
-            <li class="divider-vertical"></li>
-            <li class='dropdown'>
-              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Actions</a>
-              <ul class='dropdown-menu'>
-                <%= yield(:actions) %>
-              </ul>
-            </li>
-          <% end %>
-
-          <%# Anlegen Dropdown %>
-          <% unless yield(:default_actions).blank? %>
-            <li class="divider-vertical"></li>
-            <li class='dropdown'>
-              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Anlegen</a>
-              <ul class='dropdown-menu'>
-                <%= yield(:default_actions) %>
-              </ul>
-            </li>
-          <% end %>
-
-        </ul>
-        <ul class='nav pull-right'>
-          <%= navigation_link_to 'Dashboard', '/dashboard' %>
-          <%= navigation_link_to 'Profil', '/profile' %>
-          <li><%= link_to 'Logout', '/logout' %></li>
-          <%- if current_user.member.has_image? %>
-            <li class='nav-profile-image'>
-              <img src='<%= current_user.member.file.url(:square) %>'>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
+    <%= render partial: 'layouts/navigation_intern' %>
   <% end %>
 
 
@@ -112,8 +62,6 @@
       <ul>
         <%= navigation_link_to 'Projekte', projects_path, true %>
         <%= navigation_link_to 'Spielorte', locations_path, true %>
-        <%# navigation_link_to 'Termine', events_path, true %>
-        <%# navigation_link_to 'Gruppen', groups_path, true %>
 
         <% Page.category('Extern').children.in_navigation.each do |page| %>
           <%= navigation_link_to page.title, human_page_path(page.path), true %>
@@ -127,13 +75,7 @@
   <div id='content'>
     <!-- <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div> -->
     <div class='container'>
-      <div id='flashes'>
-      <%- flash.each do |key, value| %>
-        <div class='alert alert-<%= key %>'>
-          <%= value %>
-        </div>
-      <% end %>
-      </div>
+      <%= render partial: 'layouts/flash_messages' %>
 
       <%= yield %>
     </div>

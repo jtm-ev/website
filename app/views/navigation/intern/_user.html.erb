@@ -1,0 +1,11 @@
+<div class='right menu'>
+  <%= navigation_link_to 'Dashboard', '/dashboard' %>
+  <%= navigation_link_to 'Profil', '/profile' %>
+  <%= link_to 'Logout', '/logout', class: 'item' %>
+
+  <%- if current_user.member.has_image? %>
+    <div class='item'>
+      <img src='<%= asset_url current_user.member.file.url(:square) %>'>
+    </div>
+  <% end %>
+</div>
