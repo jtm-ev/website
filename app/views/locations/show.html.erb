@@ -12,48 +12,43 @@
 
 <div class='clearfix'></div>
 
-<ul class='tabs'>
+<div class='ui interactive tabular menu'>
+  <a class='item' data-tab='projekte'>Projekte (<%= @location.projects.count %>)</a>
   <% unless @location.page.content.blank? %>
-    <li><a href='#beschreibung'>Beschreibung</a></li>
+    <a class='item' data-tab='beschreibung'>Beschreibung</a></li>
   <% end %>
-  <li><a href='#projekte'>Projekte (<%= @location.projects.count %>)</a></li>
-  <!--li><a href='#anfahrt'>Anfahrt</a></li-->
-</ul>
+</div>
 
-<div class='tab-content'>
-  <div id='beschreibung' class='no-slideshow-thumbs'>
-    <%= render 'pages/show', page: @location.page %>
-  </div>
 
-  <div id='projekte'>
-    <div class='large-square-layout'>
-      <% @location.projects.latest_first.each do |project| %>
-        <a href='<%= asset_url project_path(project) %>' class='square'>
+<div data-tab='beschreibung' class='ui tab no-slideshow-thumbs'>
+  <%= render 'pages/show', page: @location.page %>
+</div>
 
-              <% if project.image %>
-                <img src= '<%= asset_url project.image.file.url(:square_300)%>' >
-              <% else %>
-                <div class='empty'>
-                </div>
-              <% end %>
+<div data-tab='projekte' class='ui tab large-square-layout'>
 
-              <div class ='title' >
-                <%= project.title %>
-              </div>
+    <% @location.projects.latest_first.each do |project| %>
+      <a href='<%= project_path(project) %>' class='square'>
 
-        </a>
+      <% if project.image %>
+        <img src= '<%= asset_url project.image.file.url(:square_300)%>' >
+      <% else %>
+        <div class='empty'>
+        </div>
       <% end %>
-    </div>
-  </div>
 
-  <div id='anfahrt'>
+      <div class ='title' >
+        <%= project.title %>
+      </div>
 
-  </div>
+      </a>
+    <% end %>
+
 </div>
 
 
 
+
 <% content_for :actions do %>
-  <%= link_to_active 'Spielort bearbeiten', edit_location_path(@location), false %>
-  <%= link_to_active 'Beschreibung bearbeiten', edit_page_path(@location.page), false %>
+  <%= active_link_to 'Spielort bearbeiten', edit_location_path(@location) %>
+  <%= active_link_to 'Beschreibung bearbeiten', edit_page_path(@location.page) %>
 <% end %>

@@ -13,8 +13,11 @@
 #= require jquery
 #= require jquery_ujs
 # require jquery.nivo.slider
-# require jquery.prettyPhoto
 
+# Project Videos
+#= require jquery.prettyPhoto
+
+# Project Gallery
 #= require unitegallery.min.js
 #= require ug-theme-tiles.js
 #= require ug-theme-carousel.js
@@ -22,14 +25,23 @@
 #= require editing
 #= require intern
 
+#= require jquery.address
+#= require semantic_ui/semantic_ui
+
 jQuery ->
-  # $("a[rel^='prettyPhoto']").prettyPhoto {
-  #   width: 600
-  #   theme: 'pp_default'
-  #   # social_tools: '<div class="pp_social"><div class="twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div><div class="facebook"><iframe src="http://www.facebook.com/plugins/like.php?locale=en_US&href='+location.href+'&amp;layout=button_count&amp;show_faces=true&amp;width=500&amp;action=like&amp;font&amp;colorscheme=light&amp;height=23" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px; height:23px;" allowTransparency="true"></iframe></div></div>'
-  #   social_tools: '<div class="facebook"><iframe src="http://www.facebook.com/plugins/like.php?href='+location.href+'&amp;layout=button_count&amp;show_faces=true&amp;width=500&amp;action=like&amp;font&amp;colorscheme=light&amp;height=23" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px; height:23px;" allowTransparency="true"></iframe></div>'
-  #   # social_tools: false
-  # }
+  $("a[rel^='prettyPhoto']").prettyPhoto {
+    width: 600
+    theme: 'pp_default'
+    # social_tools: '<div class="pp_social"><div class="twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div><div class="facebook"><iframe src="http://www.facebook.com/plugins/like.php?locale=en_US&href='+location.href+'&amp;layout=button_count&amp;show_faces=true&amp;width=500&amp;action=like&amp;font&amp;colorscheme=light&amp;height=23" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px; height:23px;" allowTransparency="true"></iframe></div></div>'
+    social_tools: '<div class="facebook"><iframe src="http://www.facebook.com/plugins/like.php?href='+location.href+'&amp;layout=button_count&amp;show_faces=true&amp;width=500&amp;action=like&amp;font&amp;colorscheme=light&amp;height=23" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px; height:23px;" allowTransparency="true"></iframe></div>'
+    # social_tools: false
+  }
+
+  $('.ui.interactive.tabular.menu .item').tab({
+    history: true,
+    historyType: 'hash'
+  })
+  #.first().click()
 
 
   $('.alert').delay(5000).fadeOut('fast')

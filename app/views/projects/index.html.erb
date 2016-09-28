@@ -3,12 +3,12 @@
 
 <h1>Projekte (<%= Project.count %>)</h1>
 
-<ul class='tabs'>
-  <%= navigation_link_to 'Alle', tagged_projects_path() %>
+<div class='ui tabular menu'>
+  <%= active_link_to 'Alle', tagged_projects_path(), class: 'item' %>
   <% Project.tag_counts.order('count DESC').limit(5).each do |tag| %>
-    <%= navigation_link_to "#{tag.name.humanize} (#{tag.count})", tagged_projects_path(tag.name.downcase) %>
+    <%= active_link_to "#{tag.name.humanize} (#{tag.count})", tagged_projects_path(tag.name.downcase), class: 'item' %>
   <% end %>
-</ul>
+</div>
 
 <div class='large-square-layout'>
   <% @projects.each do |project| %>

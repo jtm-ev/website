@@ -51,6 +51,10 @@ class Project < ActiveRecord::Base
     self.teams.where(name: 'Darsteller')
   end
 
+  def actors
+    self.actor_teams.map(&:team_memberships).flatten
+  end
+
   def non_actor_teams
     self.teams.where("name != 'Darsteller'").sort_by do |a|
       a.has_image? ? 0 : 1

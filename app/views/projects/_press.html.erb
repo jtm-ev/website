@@ -1,0 +1,6 @@
+<% @project.press.each do |item| %>
+  <a href='<%= item.file.url %>' class='square' target='_blank'>
+    <img src='<%= asset_url item.file.url(:square_300) %>' title='<%= item.description %>'>
+    <div class='title'><%= item.description %></div>
+  </a>
+<% end %>
