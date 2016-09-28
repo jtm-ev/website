@@ -5,7 +5,7 @@
       <img alt="" src='<%= asset_url image.file.url(:normal) %>' data-image='<%= asset_url image.file.url() %>'>
     <% end %>
 
-    <% unless @project.videos.blank? %>
+    <% if false #@project.videos.blank? %>
       <% @project.videos.each_line do |video_url| %>
         <img alt="" data-type="youtube" data-videoid="<%= video_url[/(?<=[?&]v=)[^&$]+/] %>">
       <% end %>
