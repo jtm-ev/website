@@ -58,6 +58,8 @@ header {
 /*  border-right: 1px solid black;*/
   text-align: center;
 
+  border-right: 1px solid #aaa;
+
   #logo {
     margin-top: 20px;
     width: $logo_width;
@@ -129,7 +131,7 @@ $background-blur: 5px;
   height: 100%;
   position: fixed;
 
-  background-image: url(/images/background.png);
+  // background-image: url(/images/background.png);
   background-size: cover;
 
   -webkit-filter: blur($background-blur);
