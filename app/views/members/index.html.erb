@@ -20,7 +20,9 @@
   <tr id='member-<%= member.id %>'>
     <td class='image-td'>
       <% if member.has_image? %>
-        <img width=50 src='<%= member.file.url(:square) %>'>
+
+        <img width=50 src='<%= asset_url member.file.url(:square) %>'>
+
       <% end %>
     </td>
     <td class='oneline'><%= link_to [member.name, member.first_name].join(' '), edit_member_path(member) %></td>

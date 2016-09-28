@@ -1,0 +1,24 @@
+
+  <div id="gallery" style="display:none;">
+
+    <% @project.images.each do |image| %>
+      <img alt="" src='<%= asset_url image.file.url(:normal) %>' data-image='<%= asset_url image.file.url() %>'>
+    <% end %>
+
+    <% unless @project.videos.blank? %>
+      <% @project.videos.each_line do |video_url| %>
+        <img alt="" data-type="youtube" data-videoid="<%= video_url[/(?<=[?&]v=)[^&$]+/] %>">
+      <% end %>
+    <% end %>
+  </div>
+
+<script type="text/javascript">
+
+  jQuery(document).ready(function(){
+    jQuery("#gallery").unitegallery({
+      gallery_theme: "tiles",
+      tiles_type: "nested",
+    });
+  });
+
+</script>

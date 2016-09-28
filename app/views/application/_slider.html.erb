@@ -1,23 +1,16 @@
+<% a = (0...8).map { (65 + rand(26)).chr }.join %>
+<div id="<%= a %>" style="display:none;">
+  <% @images.each do |item| %>
+  <img alt="Bildergalerie"
+  src='<%= asset_url item.url(:normal) %>'
+  data-image='<%= asset_url item.url() %>'>
+  <% end %>
 
-<div id="slider_partial" class="flexslider">
-  <div class="slides">
-    <% @images.each do |item| %>
-      <li><img src="<%= asset_url item.url %>" /></li>
-      <script>
-        $(window).load(function() {
-          $('.flexslider').flexslider({
-            animation: 'slide',
-            controlNav: true,
-            smoothHeight: true,
-            animationLoop: true,
-            slideshow: true,
-            itemWidth: 210,
-            itemMargin: 5,
-            pauseOnAction: false,
-            pauseOnHover: true
-          });
-        });
-      </script>
-    <% end %>
-  </div>
 </div>
+<script type="text/javascript">
+  $(window).load(function() {
+    jQuery("#<%= a %>").unitegallery({
+      gallery_theme: "carousel"
+    });
+  });
+</script>

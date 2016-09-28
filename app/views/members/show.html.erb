@@ -13,7 +13,7 @@
 <% end %>
 
 <% if @member.has_image? %>
-  <img class="profile-image" src="<%= @member.file.url(:square_300) %>">
+  <img class="profile-image" src="<%= asset_url @member.file.url(:square_300) %>">
 <% end %>
 
 <h1 class="profile-name"><%= @member.full_name %></h1>

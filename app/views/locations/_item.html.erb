@@ -1,11 +1,11 @@
 <a href='<%= location_path(location) %>' class='item'>
   <% if location.image %>
-    <img src='<%= asset_url location.image.file.url(:normal) %>'>
+    <img class='ui fluid image' src='<%= asset_url location.image.file.url(:normal) %>'>
   <% else %>
     <div class='empty'></div>
   <% end %>
 
-  <div class ='title' >
+  <div class ='title' style='text-align: center;'>
     <%= location.name %>
   </div>
 </a>

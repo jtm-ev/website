@@ -48,6 +48,8 @@
   <div class='tab-content'>
     <div id='description'>
       <%= @project.description.try :html_safe %>
+
+      <%= render partial: 'gallery' %>
     </div>
 
     <div id='events'>

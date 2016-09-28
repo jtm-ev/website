@@ -28,7 +28,7 @@
   <div id='projekte'>
     <div class='large-square-layout'>
       <% @location.projects.latest_first.each do |project| %>
-        <a href='<%= project_path(project) %>' class='square'>
+        <a href='<%= asset_url project_path(project) %>' class='square'>
 
               <% if project.image %>
                 <img src= '<%= asset_url project.image.file.url(:square_300)%>' >
@@ -54,6 +54,6 @@
 
 
 <% content_for :actions do %>
-  <%= navigation_link_to 'Spielort bearbeiten', edit_location_path(@location) %>
-  <%= navigation_link_to 'Beschreibung bearbeiten', edit_page_path(@location.page) %>
+  <%= link_to_active 'Spielort bearbeiten', edit_location_path(@location), false %>
+  <%= link_to_active 'Beschreibung bearbeiten', edit_page_path(@location.page), false %>
 <% end %>

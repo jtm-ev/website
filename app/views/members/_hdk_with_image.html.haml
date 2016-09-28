@@ -10,4 +10,4 @@
       = with_clamps_unless_nil(project.year)
     .team-image
       %a{ href: project_path(project) }
-        %img{ src: team.file.url(:normal) }
+        %img{ src: asset_url(team.file.url(:normal))}
