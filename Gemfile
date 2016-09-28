@@ -1,9 +1,15 @@
 source 'https://rubygems.org'
 
+
 gem 'rails', '4.2.5.1'
 gem 'unicorn' # Use unicorn as the app server
+
+gem 'newrelic_rpm'
+gem 'mailgun_rails'
+
 gem 'sqlite3'
 gem 'mysql2'
+gem 'activerecord-mysql-adapter'
 
 
 gem 'devise'
@@ -51,7 +57,6 @@ gem 'jbuilder'
 
 
 
-
 group :development do
   # Deploy with Capistrano
   gem 'capistrano'
@@ -61,9 +66,12 @@ group :development do
   gem 'rack-livereload'
   gem 'rb-fsevent'
 
-  # gem 'term-ansicolor'    # Pretty printed test output
-  # gem 'quiet_assets'      # depress asset-pipeline-logs during development
-  # gem 'letter_opener'     # show sent emails in browser
-  # gem 'mail_view'
+
+  gem 'term-ansicolor'    # Pretty printed test output
+  gem 'quiet_assets'      # depress asset-pipeline-logs during development
+  gem 'letter_opener'     # show sent emails in browser
+  gem 'mail_view'
+
+  gem 'colored'
 end
 
