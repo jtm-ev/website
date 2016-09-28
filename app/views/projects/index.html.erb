@@ -14,12 +14,12 @@
   <% @projects.each do |project| %>
     <a href='<%= show_tagged_project_path(params[:tags], project) %>' class='square' data-ongoing='<%= project.ongoing? %>'>
 
-          <% if project.images.length > 0 %> 
-            <img src= '<%=project.images.first.file.url(:square_300)%>' >
+          <% if project.images.length > 0 %>
+            <img src= '<%= asset_url project.images.first.file.url(:square_300)%>' >
           <% else %>
             <div class='empty'></div>
           <% end %>
-          
+
           <div class ='title' >
             <%= project.title %>
           </div>

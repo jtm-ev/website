@@ -33,7 +33,7 @@
         <% if p %>
           <a class='guestbook-project sticky' href='<%= project_path(p) %>'>
             <% if p.has_image? %>
-              <img src='<%= p.image.url(:square) %>'>
+              <img src='<%= asset_url p.image.url(:square) %>'>
             <% end %>
             <div class='title'>
               <%= guestbook.project.try :title %>
