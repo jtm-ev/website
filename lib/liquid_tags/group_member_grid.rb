@@ -3,10 +3,6 @@
 module LiquidTags
   class GroupMemberGrid < Liquid::Tag
 
-    # def initialize(tag_name, args, tokens)
-    #   super()
-    # end
-
      def render(context)
        ac = ActionController::Base.new()
        # Rails.logger.info context.environments
@@ -19,8 +15,6 @@ module LiquidTags
          end
        end
 
-    #   # render_to_string template: 'application/_slider', layout: nil
-    #   ''
      end
 
 

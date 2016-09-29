@@ -127,69 +127,69 @@ $inputHeight: 30px;
 //   margin-right: 20px;
 // }
 
-// /*************************************** File Upload */
-// .multifile-upload {
-//   .file {
-//     border: 1px solid black;
-//     display: inline-block;
-//     vertical-align: top;
-//     margin: 5px;
-//     margin-bottom: 25px;
-//     padding: 10px;
-//     width: 420px;
-//     height: 200px;
-//     line-height: 1em;
-//     overflow: hidden;
-//     background: white;
+/*************************************** File Upload */
+.multifile-upload {
+  .file {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+    margin-bottom: 25px;
+    padding: 10px;
+    width: 420px;
+    height: 200px;
+    line-height: 1em;
+    overflow: hidden;
+    background: white;
 
-//     img {
-//       width: 150px;
-//       display: inline-block;
-//       line-height: 1em;
-//       border: 1px solid #ccc;
-//       background: white;
-//     }
+    img {
+      width: 150px;
+      display: inline-block;
+      line-height: 1em;
+      border: 1px solid #ccc;
+      background: white;
+    }
 
-//     .file-details {
-//       line-height: 1.5;
-//       vertical-align: top;
-//       display: inline-block;
-//       padding: 5px;
-//       width: 240px;
+    .file-details {
+      line-height: 1.5;
+      vertical-align: top;
+      display: inline-block;
+      padding: 5px;
+      width: 240px;
 
-//       a {
-//         font-size: 0.8em;
-//         text-decoration: underline;
-//         margin-right: 5px;
-//       }
-//     }
+      a {
+        font-size: 0.8em;
+        text-decoration: underline;
+        margin-right: 5px;
+      }
+    }
 
-//     .file-name {
-//       font-weight: bold;
-//       font-size: 14px;
-//       margin-bottom: 10px;
-//     }
+    .file-name {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
 
-//     .file-actions {
-//       margin-top: 25px;
-//       &> a {
-//         @extend .btn;
-//         @extend .btn-mini;
-//         text-decoration: none;
-//         &.btn-danger {
-//           @extend .btn-danger;
-//         }
-//       }
-//     }
-//   }
+    .file-actions {
+      margin-top: 25px;
+      &> a {
+        // @extend .btn;
+        // @extend .btn-mini;
+        text-decoration: none;
+        &.btn-danger {
+          // @extend .btn-danger;
+        }
+      }
+    }
+  }
 
-//   .drop-target {
-//     font-weight: bold;
-//     line-height: 2;
-//     text-align: center;
-//     cursor: pointer;
-//   }
-// }
+  .drop-target {
+    font-weight: bold;
+    line-height: 2;
+    text-align: center;
+    cursor: pointer;
+  }
+}
 
 
 // /*************************************** Progress Bar */

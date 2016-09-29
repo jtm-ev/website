@@ -46,7 +46,8 @@ jQuery ->
     history: true,
     historyType: 'hash'
   })
-  #.first().click()
+
+  $('.ui.dropdown').dropdown()
 
 
   $('.alert').delay(5000).fadeOut('fast')

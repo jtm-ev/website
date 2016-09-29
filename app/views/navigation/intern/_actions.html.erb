@@ -1,19 +1,22 @@
 <%# Actions Dropdown %>
 <% unless yield(:actions).blank? %>
-  <li class='dropdown'>
-    <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Actions</a>
-    <ul class='dropdown-menu'>
+  <div class='ui dropdown item'>
+    Actions
+    <i class='dropdown icon'></i>
+
+    <div class='black menu'>
       <%= yield(:actions) %>
-    </ul>
-  </li>
+    </div>
+  </div>
 <% end %>
 
 <%# Anlegen Dropdown %>
 <% unless yield(:default_actions).blank? %>
-  <li class='dropdown'>
-    <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Anlegen</a>
-    <ul class='dropdown-menu'>
+  <div class='ui dropdown item'>
+    Anlegen
+    <i class='dropdown icon'></i>
+    <div class='black menu'>
       <%= yield(:default_actions) %>
-    </ul>
-  </li>
+    </div>
+  </div>
 <% end %>

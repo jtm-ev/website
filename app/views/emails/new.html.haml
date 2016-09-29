@@ -1,7 +1,7 @@
 %h1 E-Mail verfassen
 
 
-%form{action: email_path, method: :post}
+%form.ui.form{action: email_path, method: :post}
   %table.form
 
     %tbody
@@ -10,16 +10,16 @@
         %td
           .field
             %select{id:'email_to', name:'email[]', multiple: true}
-              
+
               %option{value:'mitglieder@jtm.de'} Alle (aktiv)
               %optgroup{label:'Mitglieder'}
                 - Member.active.ordered.each do |m|
                   %option{value:m.email_with_name}
                     = m.ordered_full_name
 
-              
+
               %optgroup{label:'Gruppen'}
-                - Group.ordered.each do |g| 
+                - Group.ordered.each do |g|
                   %option{value: g.emails.join(',')}
                     = g.name
 
@@ -50,9 +50,9 @@
   $('#email_to, #email_subject, #email_content').on 'change', ()->
     emails = $('#email_to').val().join(',').split(',')
     emails = $.unique(emails).join(',')
-    
+
     link = "mailto:" + encodeURI(emails) + "?subject=" + encodeURI( $('#email_subject').val() ) + "&body=" + encodeURI( $('#email_content').val() )
-    
+
     $('#email_next').attr('href', link)
 
 

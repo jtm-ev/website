@@ -8,14 +8,14 @@
  * require semantic_ui/definitions/modules/accordion.less
  * require semantic_ui/definitions/views/ad.less
  * require semantic_ui/definitions/collections/breadcrumb.less
- * require semantic_ui/definitions/elements/button.less
+ *= require semantic_ui/definitions/elements/button.less
  * require semantic_ui/definitions/views/card.less
- * require semantic_ui/definitions/modules/checkbox.less
+ *= require semantic_ui/definitions/modules/checkbox.less
  * require semantic_ui/definitions/views/comment.less
  * require semantic_ui/definitions/elements/container.less
  * require semantic_ui/definitions/modules/dimmer.less
  * require semantic_ui/definitions/elements/divider.less
- * require semantic_ui/definitions/modules/dropdown.less
+ *= require semantic_ui/definitions/modules/dropdown.less
  * require semantic_ui/definitions/modules/embed.less
  * require semantic_ui/definitions/views/feed.less
  * require semantic_ui/definitions/elements/flag.less
@@ -25,7 +25,7 @@
  *= require semantic_ui/definitions/elements/icon.less
  * require semantic_ui/definitions/elements/image.less
  *= require semantic_ui/definitions/elements/input.less
- * require semantic_ui/definitions/views/item.less
+ *= require semantic_ui/definitions/views/item.less
  * require semantic_ui/definitions/elements/label.less
  * require semantic_ui/definitions/elements/list.less
  * require semantic_ui/definitions/elements/loader.less
@@ -49,5 +49,5 @@
  * require semantic_ui/definitions/modules/sticky.less
  *= require semantic_ui/definitions/modules/tab.less
  *= require semantic_ui/definitions/collections/table.less
- * require semantic_ui/definitions/modules/transition.less
+ *= require semantic_ui/definitions/modules/transition.less
  */
