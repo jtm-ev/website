@@ -11,9 +11,11 @@ gem 'sqlite3'
 gem 'mysql2'
 gem 'activerecord-mysql-adapter'
 
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 gem 'devise'
-gem 'cancan'
+gem 'cancancan'
 gem 'rolify'
 
 gem 'haml'
@@ -29,7 +31,6 @@ gem 'sass-rails'
 gem 'jquery-rails'
 gem 'coffee-rails'
 gem 'uglifier'
-
 
 gem "jquery-fileupload-rails"
 
@@ -71,7 +72,6 @@ group :development do
   gem 'guard-livereload'  # livereload your browser on asset-changes (views, css)
   gem 'rack-livereload'
   gem 'rb-fsevent'
-
 
   gem 'term-ansicolor'    # Pretty printed test output
   gem 'quiet_assets'      # depress asset-pipeline-logs during development

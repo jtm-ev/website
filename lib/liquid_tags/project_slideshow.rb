@@ -3,35 +3,22 @@
 module LiquidTags
 
   class ProjectSlideshow < Liquid::Tag
+    def initialize(tag_name, markup, tokens)
 
-    # def initialize(tag_name, markup, tokens)
-    #   super()
-    #   # Rails.logger.info "Slideshow: #{markup}"
-    #   # Rails.logger.info "Token: #{tokens}"
-
-    #   args = markup.split(' ')
+       args = markup.split(' ')
 
 
-    #   @project_id = args.first.to_i
-    #   @show_thumbnails = args.second.nil? ? false : (args.second == 'true')
+       @project_id = args.first.to_i
+       @show_thumbnails = args.second.nil? ? false : (args.second == 'true')
+       @project = Project.find @project_id
+       # Rails.logger.info "Args: #{@project_id} : #{@show_thumbnails}"
 
-    #   # Rails.logger.info "Args: #{@project_id} : #{@show_thumbnails}"
-
-    #   @project = Project.find @project_id
-    # end
-
-    # def render(context)
-    #   # Rails.logger.info context.environments
-    #   @images = @project.images
-    #   render_to_string template: 'application/_slider', layout: nil
-    # end
-
-    def parse(tokens)
-      @body = '[TODO: lib/liquid_tags/project_slideshow]'
-    end
+     end
 
     def render(context)
-      @body
+      ac = ActionController::Base.new()
+      @images = @project.images
+      ac.render_to_string(partial: 'application/slider', :locals => {:@images => @images})
     end
 
   end

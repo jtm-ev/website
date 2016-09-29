@@ -29,6 +29,10 @@
 
 #= require ./infinite_scrolling
 
+#= require moment
+#= require fullcalendar
+#= require calendar
+
 jQuery ->
   $("a[rel^='prettyPhoto']").prettyPhoto {
     width: 600

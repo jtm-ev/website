@@ -18,7 +18,7 @@ class Project < ActiveRecord::Base
 
   has_many :project_files, dependent: :destroy #, order: 'position ASC'
   has_many :events, dependent: :destroy #, order: 'start_time ASC'
-  has_many :locations, through: :events #, uniq: true
+  has_many :locations, -> {uniq}, through: :events
 
   acts_as_taggable_on :tags
 

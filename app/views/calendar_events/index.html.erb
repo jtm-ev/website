@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Kalender</h1>
+
+<div id="calendar">
+</div>
+
+<% if can?(:manage, CalendarEvent) %>
+  <%= link_to 'Neuer Kalendereintrag', new_calendar_event_path, class: "ui primary button" %>
+<% end %>
