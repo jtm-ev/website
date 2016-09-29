@@ -1,14 +1,15 @@
 
 %h1 User Verwaltung
 
-%table.system
-  %tr
-    %th Username
-    %th E-Mail
-    %th Roles
-    %th Mitglied
-    %th Erstellt
-    %th
+%table.ui.table.stripped
+  %thead
+    %tr
+      %th Username
+      %th E-Mail
+      %th Roles
+      %th Mitglied
+      %th Erstellt
+      %th
   - @users.each do |user|
     %tr
       %td= user.username

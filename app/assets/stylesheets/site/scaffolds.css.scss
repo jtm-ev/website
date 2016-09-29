@@ -134,13 +134,15 @@ $background-blur: 5px;
   // background-image: url(/images/background.png);
   background-size: cover;
 
-  -webkit-filter: blur($background-blur);
-  -moz-filter: blur($background-blur);
-  filter: blur($background-blur);
+  // -webkit-filter: blur($background-blur);
+  // -moz-filter: blur($background-blur);
+  // filter: blur($background-blur);
 
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  opacity: 0.5;
+
+  // -webkit-transform: translate3d(0, 0, 0);
+  // -moz-transform: translate3d(0, 0, 0);
+  // transform: translate3d(0, 0, 0);
 
 }
 
