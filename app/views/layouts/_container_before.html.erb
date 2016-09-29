@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class='no-js'>
+<head>
+  <%= render 'layouts/meta' %>
+  <title><%= yield(:title).blank? ? "JTM - Jugendtheater Martinszell e.V." : yield(:title) %></title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag    "print", :media => "print" %>
+
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-20299192-1']);
+    _gaq.push(['_setDomainName', 'jtm.de']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</head>
+
+<body class='<%= current_user ? "internal" : "" %>'>
+  <% if current_user %>
+
+    <% content_for :default_actions do %>
+      <%= navigation_link_to 'Termin', new_event_path if can?(:create, Event) %>
+      <%= navigation_link_to 'Projekt', new_project_path if can?(:create, Project) %>
+      <%= navigation_link_to 'Seite', new_page_path if can?(:create, Page) %>
+      <%= navigation_link_to 'Mitglied', new_member_path if can?(:create, Member) %>
+      <%= navigation_link_to 'Gruppe', new_group_path if can?(:create, Group) %>
+    <% end %>
+
+    <% content_for :editor_links do %>
+      <%= navigation_link_to 'User', users_path, true if can?(:manage, User) %>
+      <%= navigation_link_to 'Mitglieder', members_path, true if can?(:manage, Member) %>
+      <%# navigation_link_to 'Gruppen', groups_path, true if can?(:manage, Group)%>
+      <%# navigation_link_to 'Kalender', '#' %>
+      <%# navigation_link_to 'E-Mail', '#' %>
+      <%= navigation_link_to 'Seiten', pages_path, true if can?(:manage, Page) %>
+      <%= navigation_link_to 'Termine', events_path, true if can?(:manage, Event) %>
+    <% end %>
+
+    <%= render partial: 'layouts/navigation_intern' %>
+  <% end %>
+
+
+
+  <div id='sidebar'>
+    <% unless current_user %>
+      <a id='login-link' href='/login'>Intern</a>
+    <% end %>
+
+    <a href='/'><img id='logo' src='/images/logo2.png'></a>
+    <nav>
+      <ul>
+        <%= navigation_link_to 'Projekte', projects_path, true %>
+        <%= navigation_link_to 'Spielorte', locations_path, true %>
+
+        <% Page.category('Extern').children.in_navigation.each do |page| %>
+          <%= navigation_link_to page.title, human_page_path(page.path), true %>
+        <% end %>
+
+        <%= navigation_link_to 'Gästebuch', guestbooks_path %>
+      </ul>
+    </nav>
+  </div>
+
+  <div id='content'>
+    <div id='background' style='<%= yield(:background).blank? ? "" : "background-image: url(#{yield(:background)})" %>'></div>
+

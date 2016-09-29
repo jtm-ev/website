@@ -1,0 +1,7 @@
+<% for page in @pages do %>
+  <article class='container' data-created-at='<%= l page.created_at, format: :no_time %>'>
+
+    <%= render 'pages/show', page: page %>
+
+  </article>
+<% end %>

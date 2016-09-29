@@ -1,15 +1,15 @@
 
-article:not(:last-child) {
-  &:after {
-    content: ' ';
-    display: block;
-    margin-left: -25px;
-    margin-right: -25px;
-    margin-top: 80px;
-    margin-bottom: 25px;
-    border-bottom: 1px solid #ccc;
-  }
-}
+// article:not(:last-child) {
+//   &:after {
+//     content: ' ';
+//     display: block;
+//     margin-left: -25px;
+//     margin-right: -25px;
+//     margin-top: 80px;
+//     margin-bottom: 25px;
+//     border-bottom: 1px solid #ccc;
+//   }
+// }
 
 article:not(:first-child) {
   &:before {
@@ -17,14 +17,17 @@ article:not(:first-child) {
     display: block;
     font-size: 0.8em;
     color: #666;
-/*    border: 1px solid red;*/
     text-align: right;
-/*    font-style: italic;*/
     position: relative;
-    top: -20px;
+    top: -10px;
+
   }
 }
 
 .no-slideshow-thumbs .nivo-controlNav {
   display: none !important;
+}
+
+article.container {
+  margin-bottom: 50px;
 }

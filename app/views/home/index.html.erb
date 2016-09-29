@@ -1,24 +1,11 @@
 
-<!--section id='event-ticker'>
-  <div class='events-wrapper'>
-  <% Event.upcoming.each do |event| %>
-    <div class='event'>
-      <div class='event-title'><%= event.title %></div>
-      <div class='event-date'><%= l event.start_time %></div>
-      <div class='event-description'><%= event.description.truncate(50, separator: ' ', omission: ' ...') %></div>
-    </div>
-  <% end %>
-  </div>
-</section-->
 
-<%= render_breadcrumbs %>
+<% render_breadcrumbs %>
 
-<div class='articles no-slideshow-thumbs'>
-  <% for page in @pages do %>
-    <article data-created-at='<%= l page.created_at, format: :no_time %>'>
-    
-      <%= render 'pages/show', page: page %>
+<div id='blog-view' class='articles no-slideshow-thumbs'>
+  <%= render partial: 'index' %>
+</div>
 
-    </article>
-  <% end %>
+<div id="infinite-scrolling">
+  <%= will_paginate @pages %>
 </div>

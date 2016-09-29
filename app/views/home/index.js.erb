@@ -1,0 +1,23 @@
+function refreshFlexslider(){
+  $('.flexslider').flexslider({
+    animation: 'slide',
+    controlNav: true,
+    smoothHeight: true,
+    animationLoop: true,
+    slideshow: true,
+    itemWidth: 210,
+    itemMargin: 5,
+    pauseOnAction: false,
+    pauseOnHover: true
+  });
+}
+
+$('#blog-view').append('<div class="ui divider"></div><%= escape_javascript render partial: "index" %>');
+<% if @pages.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @pages %>');
+  refreshFlexslider();
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+  refreshFlexslider();
+<% end %>
