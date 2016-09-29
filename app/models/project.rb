@@ -6,6 +6,12 @@ class Project < ActiveRecord::Base
     joins(:events).uniq.order('events.start_time DESC')
   }
 
+  # scope :search, lambda { |page, search, per_page|
+  #   Rails.logger.info("SEARCH: #{page}, #{search}, #{per_page}")
+  #   # where("projects.title LIKE (:name)", {:name => "%#{search}%"}).order(id: :desc).
+  #   paginate(page: page)
+  # }
+
 
   has_many :teams, dependent: :destroy #, order: 'name'
   has_many :team_memberships, through: :teams

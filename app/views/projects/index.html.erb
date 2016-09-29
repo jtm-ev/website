@@ -10,20 +10,10 @@
   <% end %>
 </div>
 
-<div class='large-square-layout'>
-  <% @projects.each do |project| %>
-    <a href='<%= show_tagged_project_path(params[:tags], project) %>' class='square' data-ongoing='<%= project.ongoing? %>'>
+<div id='projects-view' class='large-square-layout'>
+  <%= render 'projects/projects' %>
+</div>
 
-          <% if project.images.length > 0 %>
-            <img src= '<%= asset_url project.images.first.file.url(:square_300)%>' >
-          <% else %>
-            <div class='empty'></div>
-          <% end %>
-
-          <div class ='title' >
-            <%= project.title %>
-          </div>
-
-    </a>
-  <% end %>
+<div id="infinite-scrolling">
+  <%= will_paginate @projects %>
 </div>

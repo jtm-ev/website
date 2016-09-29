@@ -9,12 +9,13 @@ class ProjectsController < ApplicationController
   def index
     authorize! :read, Project
 
-    @projects = filtered_collection
-    # @projects = @projects.order(id: :desc)
+    # @projects = filtered_collection.search(params[:page], params[:search], params[:per_page])
+    @projects = filtered_collection.paginate(page: params[:page])
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @projects }
+      format.html   #index.html.erb
+      format.js     #index.js.erb
+      format.json
     end
   end
 

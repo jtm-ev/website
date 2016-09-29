@@ -12,7 +12,6 @@
 #
 #= require jquery
 #= require jquery_ujs
-# require jquery.nivo.slider
 
 # Project Videos
 #= require jquery.prettyPhoto
@@ -27,6 +26,8 @@
 
 #= require jquery.address
 #= require semantic_ui/semantic_ui
+
+#= require ./infinite_scrolling
 
 jQuery ->
   $("a[rel^='prettyPhoto']").prettyPhoto {

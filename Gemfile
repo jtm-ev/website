@@ -36,6 +36,8 @@ gem "jquery-fileupload-rails"
 gem 'tinymce-rails'
 gem 'jquery-ui-rails'
 
+gem 'will_paginate'
+
 
 
 

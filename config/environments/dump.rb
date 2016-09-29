@@ -41,6 +41,11 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  config.log_level = :debug
+
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
+
   config.action_controller.asset_host = Proc.new { |source, request|
     if source.include?('.css') or source.include?('.js') or source.include?('fonts') # or (request and request.ssl?)
       nil
