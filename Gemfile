@@ -68,9 +68,8 @@ gem 'jbuilder'
 
 # platforms :ruby do
   gem 'unicorn' # Use unicorn as the app server
-  gem 'mysql2'
-  gem 'activerecord-mysql2-adapter'
-  # gem 'activerecord-mysql-adapter'
+  gem 'mysql2', '0.3.11'
+  gem 'activerecord-mysql-adapter'
 # end
 
 # platforms :mswin, :mingw do
