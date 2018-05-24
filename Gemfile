@@ -68,7 +68,7 @@ gem 'jbuilder'
 
 # platforms :ruby do
   gem 'unicorn' # Use unicorn as the app server
-  gem 'mysql2', '0.3.11'
+  gem 'mysql2', '0.3.18'
   gem 'activerecord-mysql-adapter'
 # end
 
@@ -84,8 +84,8 @@ gem 'capistrano-ext'
 # gem 'debugger'
 
 group :development do
-  gem 'guard-livereload'  # livereload your browser on asset-changes (views, css)
-  gem 'rack-livereload'
+  # gem 'guard-livereload'  # livereload your browser on asset-changes (views, css)
+  # gem 'rack-livereload'
   gem 'rb-fsevent'
 
   gem 'term-ansicolor'    # Pretty printed test output
