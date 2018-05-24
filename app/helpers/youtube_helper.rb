@@ -1,13 +1,13 @@
 module YoutubeHelper
   def youtube_embed(url)
     id = youtube_id(url)
-  	%Q{<iframe class='youtube' title="YouTube video player" width="428" height="320" src="http://www.youtube.com/embed/#{ id }" frameborder="0" allowfullscreen></iframe>}
+  	%Q{<iframe class='youtube' title="YouTube video player" width="428" height="320" src="//www.youtube.com/embed/#{ id }" frameborder="0" allowfullscreen></iframe>}
   end
-  
+
   def youtube_image(url)
-    "http://img.youtube.com/vi/#{youtube_id(url)}/0.jpg"
+    "//img.youtube.com/vi/#{youtube_id(url)}/0.jpg"
   end
-  
+
   def youtube_id(youtube_url)
     if youtube_url[/youtu\.be\/([^\?]*)/]
 	    return $1
@@ -17,6 +17,6 @@ module YoutubeHelper
 	    return $5
 	  end
   end
-  
-  
+
+
 end
