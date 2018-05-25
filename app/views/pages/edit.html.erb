@@ -26,22 +26,22 @@
       <th>URL</th>
       <td><%= page.path %></td>
     </tr>
-    
+
     <tr>
       <th><%= f.label :show_in_navigation %></th>
       <td><%= f.check_box :show_in_navigation %></td>
     </tr>
-    
+
     <tr>
       <th><%= f.label :public %></th>
       <td><%= f.check_box :public %></td>
     </tr>
-    
+
     <tr>
       <th><%= f.label :background %></th>
       <td><%= f.text_field :background_id, class: 'number' %></td>
     </tr>
-    
+
     <!--tr>
       <th><%= f.label :color %></th>
       <td>
@@ -51,7 +51,7 @@
         </div>
       </td>
     </tr-->
-    
+
     <tr>
       <th><%= f.label :parent %></th>
       <td>
@@ -62,12 +62,12 @@
         <% end %>
       </td>
     </tr>
-    
+
     <tr>
       <th><%= f.label :navigation_style %></th>
       <td><%= f.collection_select :navigation_style, [OpenStruct.new(style: 'parent', label: 'Navigation der Oberseite'), OpenStruct.new(style: 'none', label: 'Keine')], :style, :label, :include_blank => true %></td>
     </tr>
-    
+
     <tr>
       <th>Unterseiten</th>
       <td>
@@ -79,9 +79,9 @@
         </ul>
       </td>
     </tr>
-    
+
   </table>
-      
+
 
   <ul class='tabs'>
     <li><a href='#inhalt'>Inhalt</a></li>
@@ -89,61 +89,58 @@
     <li><a href='#hilfe'>Hilfe</a></li>
   </ul>
   <div class='tab-content'>
-  
+
     <div id='inhalt'>
       <div class="field">
         <%= render 'wysiwyg', {form: f, field: :content} %>
       </div>
     </div>
-    
+
     <div id='hilfe'>
       Im Text Editor können Liquid-Templates verwendet werden:
-      
+
       <ul>
         <li><a target='_blank' href='https://github.com/Shopify/liquid/wiki/Liquid-for-Designers'>Liquid für Designer</a></li>
       </ul>
     </div>
-  
+
     <div id='dateien' class='multifile-upload'>
         <div class='file drop-target'>
           Neue Dateien per Drag&Drop hereinziehen oder hier klicken:
-          
+
           <div class='progress'>
             <div class='bar' style='width: 0%;'></div>
           </div>
         </div>
-        
-        <input class='fileupload' type='file' name='files' multiple data-reload=true data-dropzone='#dateien .drop-target' data-method='POST' data-url='<%= page_page_files_url(@page) %>'>
-        
+
+        <input class='fileupload' type='file' name='files' multiple data-reload=true data-dropzone='#dateien .drop-target' data-method='POST' data-url='<%= page_page_files_path(@page) %>'>
+
         <% @page.page_files.each do |pf| %>
           <div class='file'>
             <div class='file-name'>#<%= pf.id %> : <%= pf.file_file_name %></div>
             <img src='<%= pf.file.url(:square) %>'>
             <div class='file-details'>
               <%= pf.width %> x <%= pf.height %><br/>
-              
+
               <%= link_to 'orginal', pf.file.url, target: '_blank' %>
               <% pf.file.styles.each do |key, style| %>
                 <%= link_to key, pf.file.url(key), target: '_blank' %>
               <% end %>
-              
+
               <div class='file-actions'>
                 <%= link_to 'Löschen', page_page_file_path(@page, pf), class: 'btn-danger', method: :delete, confirm: 'Datei wirklich löschen?' %>
                 <%= link_to 'Bearbeiten', '#' %>
               </div>
-            
+
             </div>
           </div>
         <% end %>
-        
 
-        
-        <%# render 'image_form', {collection: @page.page_files, upload_url: page_page_files_url(@page)} %>
 
     </div>
-  
+
   </div>
-  
+
 
 
   <div class="actions">
