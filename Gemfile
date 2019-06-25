@@ -79,6 +79,7 @@ gem 'jbuilder'
 # Deploy with Capistrano
 gem 'capistrano'
 gem 'capistrano-ext'
+gem 'capistrano-rbenv'
 
 # To use debugger
 # gem 'debugger'
