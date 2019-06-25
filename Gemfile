@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.17'
 gem 'newrelic_rpm'
@@ -77,8 +77,9 @@ gem 'jbuilder'
 # end
 
 # Deploy with Capistrano
-gem 'capistrano'
-gem 'capistrano-ext'
+gem 'capistrano', '3.4.0'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
 gem 'capistrano-rbenv'
 
 # To use debugger
